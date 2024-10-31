@@ -9,12 +9,12 @@
   
   /* Form styling */
   .login-form {
-    background-color: #7f797f44;
+    background-color: #dedede;
     padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    box-shadow: 4 8px 10 rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 360px;
+    max-width: 340px;
   }
   /* Progress bar */
 mat-progress-bar {
@@ -25,7 +25,7 @@ mat-progress-bar {
   .login-form h1 {
     margin-bottom: 15px;
     font-size: 22px;
-    color: #131313;
+    color: #045262;
     text-align: left;
   }
   mat-label{
@@ -59,12 +59,15 @@ mat-progress-bar {
   }
   
   .login-form button:hover {
-    background-color: #910189;
+    background-color: #126381;
   }
   
+  mat-label{
+    color: #063444;
+  }
   /* Link styling */
   .login-form a {
-    color: #0b0b0c;
+    color: #126381;
     text-decoration: none;
   }
   
@@ -75,8 +78,8 @@ mat-progress-bar {
 
   @media (max-width: 480px) {
     .login-form {
-      padding: 1rem;
-      max-width: 100%;
+      padding: 2rem;
+      max-width: 340px;
     }
   
     .login-form h1 {
@@ -84,7 +87,7 @@ mat-progress-bar {
     }
   
     .login-form button {
-      font-size: 0.85rem;
+      font-size: 1rem;
       padding: 0.5rem;
     }
   }

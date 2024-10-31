@@ -7,18 +7,19 @@
 }
 
 .register-form {
-  background-color: #7f797f44;
+  background-color: #dedede;
   padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  box-shadow: 4 8px 10 rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 360px;
+  max-width: 340px;
 }
+
 
 .register-form h1 {
   margin-bottom: 15px;
   font-size: 22px;
-  color: #131313;
+   color: #045262;
   text-align: left;
 }
 mat-label{
@@ -39,12 +40,15 @@ mat-label{
     font-size: 1rem;
     color: #333;
   }
-  
+  button .btncolor{
+    background-color: #126381;
+
+  }
   /* Submit button */
   .login-form button {
     width: 100%;
     font-size: 1rem;
-    background-color: #1877f2;
+    background-color: #126381;
     color: #ffffff;
     border: none;
     border-radius: 4px;
@@ -59,17 +63,28 @@ mat-label{
 }
 
 .links a {
-  color: #000000;
+  color:#126381;
   text-decoration: none;
 }
 
 .links a:hover {
-  text-decoration: underline;
+  text-decoration
+  : underline;
+}
+.login-form button:hover {
+  background-color: #126381;
+}
+button{
+  color: #063444;
+} 
+
+mat-label{
+  color: #063444;
 }
 @media (max-width: 480px) {
   .register-form  {
-    padding: 1rem;
-    max-width: 100%;
+    padding: 2rem;
+    max-width: 340px
   }
 
   .register-form  h1 {
