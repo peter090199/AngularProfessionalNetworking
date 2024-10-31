@@ -6,7 +6,7 @@
           <mat-icon>close</mat-icon>
         </button>
       </div>
-      <span class="example-spacer"></span>
+
      
       <mat-nav-list class="sidebar">
        
@@ -17,7 +17,7 @@
     </mat-sidenav>
     
     <mat-sidenav-content>
-      <mat-toolbar >
+      <mat-toolbar>
         <nav class="navbar navbar-expand-sm custom-toolbar  fixed-top">
           <div class="container-fluid">
                 <button
@@ -30,8 +30,8 @@
                </button>
                 <!-- Logo Section -->
                 <div class="logo-section">
-                  <img src="https://t3.ftcdn.net/jpg/06/32/71/42/360_F_632714266_rdRiINnIMZC1SSroLc8e5Tb0sm3jN8i8.jpg" alt="Oink'menT" class="logo-img">
-                  <span class="brand-title">{{systemTitle}}</span>
+                  <img src="assets/logo.jpg" alt="Oink'menT" class="logo-img">
+                  <span class="brand-title" [routerLink]="['/menu']">{{systemTitle}}</span>
                 </div>
 
                 <span class="example-spacer"></span>
