@@ -1,0 +1,93 @@
+/* Container for centering the form */
+.login-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full height */
+  }
+  
+  /* Form styling */
+  .login-form {
+    background-color: #fff3f3;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 4 8px 10 rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 340px;
+  }
+  /* Progress bar */
+mat-progress-bar {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+  /* Form title */
+  .login-form h1 {
+    font-size: 15px;
+    color: #1b2527;
+   text-align: center;
+  }
+  mat-label{
+    color: rgb(8, 8, 8);
+  }
+  
+  /* Form fields */
+  .mat-form-field {
+    width: 100%;
+    
+  }
+  .mat-form-field input{
+   font-size: 15px;
+   margin-bottom: 6px;
+  }
+  
+  
+  .mat-form-field .mat-form-field-label {
+    font-size: 1rem;
+    color: #333;
+  }
+  .signin-button {
+    color: white; /* Change to your desired text color */
+    background-color: #007bff; /* Change to your desired background color */
+}
+
+/* Optional: Change color on hover */
+.signin-button:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+}
+
+      button{
+        width: 100%;
+      }
+  .login-form button:hover {
+    background-color: #126381;
+  }
+  
+  mat-label{
+    color: #063444;
+  }
+  /* Link styling */
+  .login-form a {
+    color: #126381;
+    text-decoration: none;
+  }
+  
+  .login-form a:hover {
+    text-decoration: underline;
+  }
+  /* Styles for mat-icon within the button */
+
+  @media (max-width: 480px) {
+    .login-form {
+      padding: 2rem;
+      max-width: 340px;
+    }
+  
+    .login-form h1 {
+      font-size: 18px;
+    }
+  
+    .login-form button {
+      font-size: 1rem;
+      padding: 0.1rem;
+    }
+  }

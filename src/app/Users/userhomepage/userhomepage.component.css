@@ -1,0 +1,97 @@
+/* user-homepage.component.css */
+
+.user-homepage {
+    font-family: tahoma;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1c9db1;
+    color: #fff;
+    padding: 1rem;
+  }
+  
+  .header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  .logo {
+    display: flex; /* Use flexbox for alignment */
+    align-items: center; /* Center items vertically */
+    gap: 10px; /* Space between the image and text */
+}
+
+.logo img {
+    width: 30px; /* Adjust size of the logo image */
+    height: auto; /* Maintain aspect ratio */
+}
+
+.logo span {
+    font-size: 24px; /* Set font size for the text */
+    font-weight: bold; /* Make the text bold */
+    color: #fff6f6; /* Change text color */
+}
+
+.nav {
+    display: flex; /* Align items in a row */
+    justify-content: center; /* Center the nav items */
+}
+.padding-userpage{
+  justify-content: space-between;
+  display: flex;
+  gap: 10px; /* This will create space between buttons */
+}
+.white-button {
+  color: white !important; /* Ensure the text is white */
+}
+
+  .header .nav a {
+    margin: 0 1rem;
+    color: #fff;
+    text-decoration: none;
+  }
+  button{
+    color: #fff6f6;
+  }
+  .header .nav a:hover {
+    text-decoration: underline;
+    color: black;
+  }
+  
+  .welcome-section {
+    padding: 2rem;
+    text-align: left;
+    color: white;
+    font-family: Tahoma, sans-serif; /* Added fallback font */
+    position: relative; /* For positioning the shadow */
+    z-index: 1; /* Ensures the shadow appears behind */
+    height: auto;
+}
+
+  .welcome-section h1 {
+    font-size: 2rem;
+  }
+ /* Responsive styles */
+@media (max-width: 768px) {
+    .welcome-section {
+        text-align: center; /* Center text in welcome section for mobile */
+    }
+}
+
+@keyframes fadeIn {
+  0% {
+      opacity: 0; /* Start fully transparent */
+  }
+  100% {
+      opacity: 1; /* End fully opaque */
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
+}

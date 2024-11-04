@@ -1,0 +1,25 @@
+<!-- user-homepage.component.html -->
+<div class="user-homepage">
+  <header class="header">
+      <div class="logo">
+          <!-- <img src="assets/" alt="Nexsuz Logo" /> -->
+          <p>logo</p>
+      </div>
+      <nav class="nav">
+        <div class="padding-userpage">
+          <button mat-button class="white-button" class="nav-link" [routerLink]="['/signInUI']">Sign In</button>
+          <button mat-button class="white-button"  class="nav-link" [routerLink]="['/signUpUI']">Sign Up</button>
+          
+      </div>
+      
+      </nav>
+  </header>
+  
+  <section [ngClass]="{'fade-in': fadeIn}" style="height: 100%;" class="welcome-section">
+    <h1 style="font-weight: bold;">Welcome to Nexsuz!</h1>
+    <p style="font-size: 18px;">Your Home to your Professional Network!</p>
+</section>
+
+</div>
+
+
