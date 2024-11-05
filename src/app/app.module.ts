@@ -13,13 +13,19 @@ import { FooterComponent } from './footer/footer.component';
 import { SignInUIComponent } from './SignIn/sign-in-ui/sign-in-ui.component';
 import { SignUpUIComponent } from './SignUp/sign-up-ui/sign-up-ui.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SuperMasterAdminUIComponent } from './SuperMasterAdmin/super-master-admin-ui/super-master-admin-ui.component';
+import { UsersPortalComponent } from './UserInterface/users-portal/users-portal.component';
+import { PageNotFoundComponentComponent } from './PageError/page-not-found-component/page-not-found-component.component';
 @NgModule({
   declarations: [
     AppComponent,
     UserhomepageComponent,
     FooterComponent,
     SignInUIComponent,
-    SignUpUIComponent
+    SignUpUIComponent,
+    SuperMasterAdminUIComponent,
+    UsersPortalComponent,
+    PageNotFoundComponentComponent
   ],
   imports: [
     BrowserModule,
