@@ -3,18 +3,18 @@
         <h1>
             <mat-icon style="vertical-align: middle;">person</mat-icon> Sign Up
         </h1>
-        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-            <mat-form-field appearance="standard" class="full-width">
-                <mat-label>Username</mat-label>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" style="margin-top: 0px;">
+            <mat-form-field appearance="standard">
+                <mat-label>Firstname</mat-label>
                 <mat-icon matPrefix>person</mat-icon>
                 <input matInput formControlName="UserName" required>
                
             </mat-form-field>
 
-            <mat-form-field appearance="standard" class="full-width">
+            <mat-form-field appearance="standard" >
                 <mat-label>Contact Number</mat-label>
                 <mat-icon matPrefix>phone</mat-icon>
-                <input type="tel" matInput formControlName="contact" required>
+                <input  type="tel" matInput formControlName="contact" required>
               
             </mat-form-field>
 

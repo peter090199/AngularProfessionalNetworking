@@ -11,7 +11,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #1c9db1;
+    background-color: none;
     color: #fff;
     padding: 1rem;
   }
@@ -52,15 +52,16 @@
 
   .header .nav a {
     margin: 0 1rem;
-    color: #fff;
+    color: #ffffff;
     text-decoration: none;
   }
   button{
-    color: #fff6f6;
+    color: #ffffff;
   }
+  
   .header .nav a:hover {
     text-decoration: underline;
-    color: black;
+    color:rgb(255, 255, 255);
   }
   
   .welcome-section {
@@ -75,12 +76,51 @@
 
   .welcome-section h1 {
     font-size: 2rem;
+    font-weight: bold;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
   }
  /* Responsive styles */
+
+ @media (max-width: 480px) {
+  .welcome-section {
+      padding: 20px 10px;
+  }
+
+  .welcome-section h1 {
+      font-size: 1.75rem;
+
+  }
+
+  .welcome-section p {
+      font-size: 15px;
+    
+      font-family: 'tahoma';
+  }
+}
 @media (max-width: 768px) {
-    .welcome-section {
-        text-align: center; /* Center text in welcome section for mobile */
-    }
+  .welcome-section h1 {
+    font-size: 2rem;
+    font-weight: 'semi-bold';
+}
+
+.welcome-section p {
+    font-size: 18px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+    
+@keyframes fadeIn {
+  0% {
+      opacity: 0; /* Start fully transparent */
+  }
+  100% {
+      opacity: 1; /* End fully opaque */
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
+}
+
 }
 
 @keyframes fadeIn {

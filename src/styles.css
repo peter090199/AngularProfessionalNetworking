@@ -24,7 +24,10 @@ section{
 
 /* Overall Layout */
 body {
-  background-color: var(--bg-color);
+  border-radius: 10px,20px,30px,40px;
+  background-image: linear-gradient(rgba(3, 103, 184, 0.938),#47daff, #1385f0c4);
+  background-clip: padding-box, border-box;
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1); 
   color: var(--text-color);
   font-family: 'Tahoma';
   line-height: 1.2;
