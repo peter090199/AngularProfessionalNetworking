@@ -21,16 +21,29 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   templateUrl: './sign-up-ui.component.html',
   styleUrls: ['./sign-up-ui.component.css']
 })
+
 export class SignUpUIComponent implements OnInit {
   registerForm: FormGroup;
 
+   countryCodes = [
+    { code: '+1', name: 'United States' },
+    { code: '+44', name: 'United Kingdom' },
+    { code: '+61', name: 'Australia' },
+    { code: '+91', name: 'India' },
+    // Add more countries as needed
+  ];
+fadeIn: any;
+
   constructor(private fb: FormBuilder) {
     this.registerForm = this.fb.group({
-      UserName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       contact: ['', Validators.required],
-      Email: ['', [Validators.required, Validators.email]],
-      Password: ['', Validators.required],
-      cpassword: ['', Validators.required]
+      fname: ['', Validators.required],
+      lname: ['', Validators.required],
+      countryCode: ['', Validators.required], 
+      password: ['', Validators.required],
+      cpassword: ['', Validators.required],
+      agreement:['',Validators.required]
     });
   }
 

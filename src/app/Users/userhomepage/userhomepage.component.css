@@ -1,4 +1,89 @@
 /* user-homepage.component.css */
+.user-homepage {
+  display: flex; /* Flexbox for layout */
+  position: relative; /* Relative positioning */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px; /* Padding for header */
+  color: white; /* Text color */
+}
+
+.logo {
+  font-size: 24px; /* Logo font size */
+}
+
+.nav {
+  display: flex; /* Flex display for navigation */
+}
+
+/* Sidebar styles */
+.sidebar {
+  position: fixed; /* Fixed positioning for the sidebar */
+  top: 0;
+  left: -250px; /* Hidden off-screen */
+  height: 100%; /* Full height */
+  width: 250px; /* Width of sidebar */
+  background-color: #0e79c0fb; /* Background color */
+  padding: 20px; /* Padding for sidebar */
+  transition: left 0.3s ease; /* Smooth transition */
+  z-index: 1000; /* Ensure sidebar is on top */
+}
+
+.sidebar.active {
+  left: 0; /* Move into view when active */
+}
+
+/* Sidebar header */
+.sidebar-header {
+  display: flex; /* Flex display for header */
+  justify-content: space-between; /* Space between title and close button */
+  align-items: center; /* Center vertically */
+  color: #ffffff; /* Header text color */
+
+}
+
+.close-btn {
+  background: none; /* Remove default button background */
+  border: none; /* Remove default button border */
+  color: white; /* Close button color */
+  cursor: pointer; /* Pointer cursor */
+}
+.list-unstyled {
+  list-style: none; /* Remove default list styling */
+  padding: 0; /* Remove padding */
+}
+
+/* List Item Styles */
+.list-unstyled li {
+  margin: 15px 0; /* Space between items */
+}
+.btn-link {
+  color: #ffffff; /* Button text color */
+  text-decoration: none; /* Remove underline */
+  font-size: 18px; /* Increase font size */
+  transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Hover effect for buttons */
+.btn-link:hover {
+  color: #e3effc; /* Change color on hover */
+  text-decoration: underline; /* Underline on hover */
+}
+
+
+/* Responsive styles */
+@media (min-width: 769px) {
+  .sidebar {
+    display: none; /* Hide sidebar on desktop */
+  }
+}
+
+
+/* user-homepage.component.css */
 
 .user-homepage {
     font-family: tahoma;
@@ -46,6 +131,27 @@
   display: flex;
   gap: 10px; /* This will create space between buttons */
 }
+/* Default styles for nav buttons */
+.nav .white-button {
+  color: #ffffff; /* Change to your preferred text color */
+  background-color: #ffffff; /* Change to your preferred background color */
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition effect */
+}
+
+/* Hover effect for nav buttons */
+.nav .white-button:hover {
+  background-color: #f8f8f8; /* Change to your desired hover background color */
+  color: #0a0909; /* Change to your desired hover text color */
+}
+
+/* Optional: Add active button styles */
+.nav .white-button.active {
+  background-color: #0056b3; /* Active background color */
+  color: #ffffff; /* Active text color */
+}
+
+
+
 .white-button {
   color: white !important; /* Ensure the text is white */
 }
@@ -100,9 +206,18 @@
 @media (max-width: 768px) {
   .welcome-section h1 {
     font-size: 2rem;
-    font-weight: 'semi-bold';
-}
+    font-weight: 'bold';
 
+}
+.nav {
+  display: flex; /* Show nav links on desktop */
+}
+.navbar-toggler {
+  background: none; /* Remove default button background */
+  border: none; /* Remove default button border */
+  color: white; /* Toggle button color */
+  cursor: pointer; /* Pointer cursor */
+}
 .welcome-section p {
     font-size: 18px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;

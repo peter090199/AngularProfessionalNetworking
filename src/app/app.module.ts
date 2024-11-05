@@ -12,6 +12,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FooterComponent } from './footer/footer.component';
 import { SignInUIComponent } from './SignIn/sign-in-ui/sign-in-ui.component';
 import { SignUpUIComponent } from './SignUp/sign-up-ui/sign-up-ui.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,6 +28,7 @@ import { SignUpUIComponent } from './SignUp/sign-up-ui/sign-up-ui.component';
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
+    MatSidenavModule,
     FormsModule,
     ToastrModule.forRoot() // Correctly placed ToastrModule
   ],

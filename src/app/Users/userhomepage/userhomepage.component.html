@@ -1,33 +1,41 @@
 <!-- user-homepage.component.html -->
 <div class="user-homepage">
   <header class="header">
-      <div class="logo">
-          <!-- <img src="assets/" alt="Nexsuz Logo" /> -->
-          <p>logo</p>
+    <div class="logo">
+      <p>logo</p>
+    </div>
+    <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
+      <div class="padding-userpage">
+        <button style="color:white;" mat-button class="nav-link" [routerLink]="['/signInUI']">Sign In</button>
+        <button style="color:white;" mat-button class="white-button" class="nav-link" [routerLink]="['/signUpUI']">Sign Up</button>
       </div>
-      <nav class="nav">
-        <div class="padding-userpage">
-          <button mat-button class="white-button" class="nav-link" [routerLink]="['/signInUI']">Sign In</button>
-          <button mat-button class="white-button"  class="nav-link" [routerLink]="['/signUpUI']">Sign Up</button>
-          
-      </div>
-      
-      </nav>
+    </nav>
+    <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
+      <mat-icon>menu</mat-icon>
+    </button>
   </header>
+
+  <!-- Sidebar for mobile -->
+  <div class="sidebar" [ngClass]="{'active': isSidebarOpen}">
+    <div class="sidebar-header">
+      <h3>Nexsuz</h3>
+      <button class="close-btn" (click)="toggleSidebar()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <ul class="list-unstyled">
+      <li>
+        <button class="btn btn-link" [routerLink]="['/signInUI']">Sign In</button>
+      </li>
+      <li>
+        <button class="btn btn-link" [routerLink]="['/signUpUI']">Sign Up</button>
+      </li>
+    </ul>
+  </div>
+
+  <section class="welcome-section">
+    <h1  [@slideUp] *ngIf="fadeIn">Welcome to Nexsuz!</h1>
+    <p  [@slideFade] *ngIf="fadeIn">Your Home to your Professional Network!</p>
+  </section>
   
-  <section [ngClass]="{'fade-in': fadeIn}" class="welcome-section">
-    <h1>Welcome to Nexsuz!</h1>
-    <p>Your Home to your Professional Network!</p>
-
-
-
-
-
-
-
-
-</section>
-
 </div>
-
-

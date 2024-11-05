@@ -9,12 +9,13 @@ import { NotificationsService } from 'src/app/services/Global/notifications.serv
 })
 
 export class SignInUIComponent implements OnInit{
+  isLoading = false;
+  checked = false;
 
   ngOnInit(): void {
     this.initializeForm();
   }
-  isLoading = false;
-  
+
   private initializeForm(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],

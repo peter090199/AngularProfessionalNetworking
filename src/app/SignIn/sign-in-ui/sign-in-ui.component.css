@@ -1,93 +1,64 @@
-/* Container for centering the form */
+/* Container to center the login card */
 .login-container {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    height: 100vh; /* Full height */
-  }
-  
-  /* Form styling */
-  .login-form {
-    background-color: #fff3f3;
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 4 8px 10 rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 340px;
-  }
-  /* Progress bar */
-mat-progress-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+.login-card mat-card-header {
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  text-align: center;
+
+}
+.login-card mat-card-header h2 {
+  display: flex;
+  align-items: center; /* Vertically centers the icon with the text */
+  gap: 8px; /* Adds space between the icon and text */
+  font-size: 18px;
+}
+.login-card  mat-icon {
+  color: #185291; /* Replace #007bff with any color you prefer */
+}
+/* Card styling with scrolling enabled */
+.login-card {
   width: 100%;
-  margin-bottom: 1rem;
+  max-width: 400px; /* Limits the card width on larger screens */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 80vh; /* Maximum height to prevent overflow beyond viewport */
+  overflow: auto; /* Enables vertical scrolling */
+  border-radius: 10px;
 }
-  /* Form title */
-  .login-form h1 {
-    font-size: 15px;
-    color: #1b2527;
-   text-align: center;
+
+/* Full width for form fields and button */
+.full-width {
+  width: 100%;
+}
+
+.links {
+  text-align: left;
+  margin-left: 10px;
+}
+
+.signin-button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+/* Mobile responsive adjustments */
+@media (max-width: 600px) {
+  .login-container {
+    padding: 10px;
   }
-  mat-label{
-    color: rgb(8, 8, 8);
+
+  .login-card {
+    padding: 15px;
+    max-height: 90vh; /* Allow a bit more height on mobile */
   }
-  
-  /* Form fields */
-  .mat-form-field {
-    width: 100%;
-    
-  }
-  .mat-form-field input{
-   font-size: 15px;
-   margin-bottom: 6px;
-  }
-  
-  
-  .mat-form-field .mat-form-field-label {
-    font-size: 1rem;
-    color: #333;
-  }
+
   .signin-button {
-    color: white; /* Change to your desired text color */
-    background-color: #007bff; /* Change to your desired background color */
+    margin-top: 15px;
+  }
 }
-
-/* Optional: Change color on hover */
-.signin-button:hover {
-    background-color: #0056b3; /* Darker shade for hover effect */
-}
-
-      button{
-        width: 100%;
-      }
-  .login-form button:hover {
-    background-color: #126381;
-  }
-  
-  mat-label{
-    color: #063444;
-  }
-  /* Link styling */
-  .login-form a {
-    color: #126381;
-    text-decoration: none;
-  }
-  
-  .login-form a:hover {
-    text-decoration: underline;
-  }
-  /* Styles for mat-icon within the button */
-
-  @media (max-width: 480px) {
-    .login-form {
-      padding: 2rem;
-      max-width: 340px;
-    }
-  
-    .login-form h1 {
-      font-size: 18px;
-    }
-  
-    .login-form button {
-      font-size: 1rem;
-      padding: 0.1rem;
-    }
-  }

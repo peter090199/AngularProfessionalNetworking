@@ -1,121 +1,125 @@
-.register-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 40vh;
-  }
-  
-  .register-form {
-    background-color: #fff3f3;
-    padding-top: 200px;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 4 8px 10 rgba(0, 0, 2, 0.1);
-    width: 600px;
-    max-width: 340px;
-    margin-top: 30px;
-  }
-  .full-width{
-    width: 50%;
-  }
-  .register-form h1 {
-    font-size: 15px;
-    color: #02649c;
-    text-align: center;
-  }
-  mat-label{
-    color: rgb(8, 8, 8);
-  }
-  
-    /* Form fields */
-    .mat-form-field {
-      width: 100%;
-      margin: 0px 0;
-    }
-    .mat-form-field input{
-     font-size: 14px;
-     margin-bottom: 0px;
-    }
-    
-  
-    .mat-form-field .mat-form-field-label {
-      font-size: 1rem;
-      color: #000000;
-    }
-    .signup-button {
-        color: white; /* Change to your desired text color */
-        background-color: #007bff; /* Change to your desired background color */
-    }
-    
-    /* Optional: Change color on hover */
-    .signup-button:hover {
-        background-color: #0056b3; /* Darker shade for hover effect */
-    }
-    
-    /* Submit button */
-    .login-form button {
-      width: 100%;
-      font-size: 15px;
-    
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+.register-card mat-card-header {
+  display: flex;
+  justify-content: center; /* Centers the content horizontally */
+  text-align: center;
+}
+.register-card mat-icon {
+  color: #185291; /* Replace #007bff with any color you prefer */
+}
 
-    button{
-      width: 100%;
-      background-color: #1eb7ee;
-      color: #ffffff;
-    }
-  .links {
-    margin-top: 1rem;
-    text-align: left;
+/* Additional styling for the h2 inside the header */
+.register-card mat-card-header h2 {
+  display: flex;
+  align-items: center; /* Vertically centers the icon with the text */
+  gap: 8px; /* Adds space between the icon and text */
+  font-size: 18px;
+  margin: 10px; /* Removes any default margin */
+}
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* Card styling with scrolling enabled */
+.register-card {
+  width: 100%;
+  max-width: 500px; /* Limits card width on larger screens */
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 80vh; /* Limits card height for scrollability */
+  overflow: auto; /* Enables vertical scrolling */
+  border-radius: 10px; 
+}
+
+/* Custom scrollbar styling */
+.register-card::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+.register-card::-webkit-scrollbar-track {
+  background: #e0e0e0; /* Background color of the scrollbar track */
+  border-radius: 10px; /* Rounded track */
+}
+
+.register-card::-webkit-scrollbar-thumb {
+  background-color: #007bff; /* Thumb (scroll handle) color */
+  border-radius: 10px; /* Rounding for smooth look */
+  border: 2px solid #e0e0e0; /* Border to create space around thumb */
+}
+
+/* Firefox custom scrollbar styling */
+.register-card {
+  scrollbar-width: thin;
+  scrollbar-color: #007bff #e0e0e0; /* Thumb color and track color */
+}
+
+
+/* Form rows for two-column layout */
+.form-row {
+  display: flex;
+  justify-content: space-between; /* Space between columns */
+  margin-bottom: 2px; /* Space between rows */
+  gap:12px;
+}
+
+/* Form field width for two columns */
+mat-form-field {
+  width: 100%; /* Adjust the width for two columns */
+}
+
+
+
+/* Button styling */
+.signup-button {
+  width: 100%; /* Full width for button */
+}
+
+/* Links section */
+.links {
+  margin: 19px;
+  text-align: left;
+}
+
+.links a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}.agreement-section {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #555;
+  margin: 10px;
+}
+.agreement-section a {
+  color: #3f51b5; /* Use Angular Material theme color */
+  text-decoration: none;
+}
+.agreement-section a:hover {
+  text-decoration: underline;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-row {
+      flex-direction: column; /* Stack fields vertically on small screens */
   }
   
-  .links a {
-    color:#126381;
-    text-decoration: none;
-    margin: 5px;
-    
+  mat-form-field {
+      width: 100%; 
   }
   
-  .links a:hover {
-    text-decoration
-    : underline;
-  }
-  .login-form button:hover {
-    background-color: #126381;
-  }
-  button{
-    color: #063444;
-  } 
-  .w-col{
-    width: 120px;
-  }
-  
-  mat-label{
-    color: #063444;
-  }
-  @media (max-width: 480px) {
-    .register-form  {
-      padding: 2rem;
-      max-width: 340px
-    }
-    .register-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 40vh;
-      margin-top: 10px;
-    }
-  
-    .register-form  h1 {
-      font-size: 18px;
-    }
-  
-    .register-form  button {
-        font-size: 1rem;
-        padding: 0.1rem;
-    }
-   
-  }
+/* Card styling */
+.register-card {
+  width: 100%;
+  border-radius: 12px;
+  overflow-y: auto; /* Rounded corners */
+}
+
+}
