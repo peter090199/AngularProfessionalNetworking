@@ -14,7 +14,7 @@ export class TopNavigationComponent implements OnInit {
   isSidebarOpen = false; // Sidebar state
   isDesktop: true;
   isMobile: boolean = false; // Mobile detection state
-  userData: any; // Store user data fetched from API
+  nav_module: any; // Store user data fetched from API
 
   constructor(
     private authService: AuthGuard,
@@ -51,8 +51,8 @@ export class TopNavigationComponent implements OnInit {
     this.navigationService.getData() // Use a relevant endpoint
       .subscribe(
         (data: any) => {
-          this.userData = data;
-          console.log('User Data:', this.userData); // Handle the response here
+          this.nav_module = data;
+          console.log('User Data:', this.nav_module); // Handle the response here
         },
         (error: any) => {
           console.error('Error fetching user data:', error);

@@ -19,6 +19,7 @@
                     <!-- Country Code Dropdown -->
                     <mat-form-field appearance="standard" class="half-width">
                         <mat-label>Country Code</mat-label>
+                        <mat-icon matPrefix>flag</mat-icon>
                         <mat-select formControlName="countryCode" required>
                             <mat-option *ngFor="let code of countryCodes" [value]="code.code">
                                 {{ code.code }} ({{ code.country }})
@@ -63,23 +64,24 @@
                   
                 </div>
                 <div class="agreement-section">
-                    <mat-checkbox formControlName="agreement" required>
-                      <a href="/terms" target="_blank">Terms of Use</a> 
-                    </mat-checkbox>
+                    <mat-checkbox formControlName="agreementTerms" required>
+                        <a (click)="openModal('Terms of Use', '')" style="cursor: pointer;">Terms of Use</a>
+                      </mat-checkbox>
                 </div>
                 <div class="agreement-section">
-                    <mat-checkbox formControlName="agreement" required>
-                     <a href="/terms" target="_blank">Data Privacy Policy</a> 
-                    </mat-checkbox>
+                    <mat-checkbox formControlName="agreementPrivacy" required>
+                        <a (click)="openModal('Data Privacy Policy', '')" style="cursor: pointer;">Data Privacy Policy</a>
+                      </mat-checkbox>
                 </div>
 
-                <button mat-raised-button color="primary" class="signup-button" type="submit" >Sign-up</button>
+                <button mat-raised-button color="primary" class="signup-button" type="submit" [disabled]="registerForm.invalid" >
+                    Sign-up</button>
             </form>
         </mat-card-content>
         <mat-card-footer>
             <div class="links">
                 <a routerLink="/signInUI">Already have an account? Sign in</a><br>
-                <a routerLink="/userhomepage">Back</a>
+                <mat-icon routerLink="/userhomepage" class="back-icon">arrow_back</mat-icon>
             </div>
         </mat-card-footer>
     </mat-card>

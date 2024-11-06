@@ -16,6 +16,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { UsersPortalComponent } from './UserInterface/users-portal/users-portal.component';
 import { PageNotFoundComponentComponent } from './PageError/page-not-found-component/page-not-found-component.component';
 import { TopNavigationComponent } from './Navigation/top-navigation/top-navigation.component';
+import { TermsModalComponent } from './TermsModal/terms-modal/terms-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +26,8 @@ import { TopNavigationComponent } from './Navigation/top-navigation/top-navigati
     SignUpUIComponent,
     UsersPortalComponent,
     PageNotFoundComponentComponent,
-    TopNavigationComponent
+    TopNavigationComponent,
+    TermsModalComponent
   ],
   imports: [
     BrowserModule,

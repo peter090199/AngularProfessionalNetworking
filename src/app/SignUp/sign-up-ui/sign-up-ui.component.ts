@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SignUpService } from 'src/app/services/SignUp/sign-up.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TermsModalComponent } from 'src/app/TermsModal/terms-modal/terms-modal.component';
 
 @Component({
   selector: 'app-sign-up-ui',
@@ -111,27 +113,48 @@ fadeIn: any;
 
   constructor(private fb: FormBuilder,
      private signupService:SignUpService,
-     private notifyService:NotificationsService
-    
+     private notifyService:NotificationsService,
+     private dialog: MatDialog
     ) {
 
-    this.registerForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      contactno: ['', Validators.required],
-      fname: ['', Validators.required],
-      lname: ['', Validators.required],
-      countryCode: ['', Validators.required], 
-      password: ['', Validators.required],
-      password_confirmation: ['', Validators.required],
-      agreement:['',Validators.required]
-    });
+    // this.registerForm = this.fb.group({
+    //   email: ['', [Validators.required, Validators.email]],
+    //   contactno: ['', Validators.required],
+    //   fname: ['', Validators.required],
+    //   lname: ['', Validators.required],
+    //   countryCode: ['', Validators.required], 
+    //   password: ['', Validators.required],
+    //   password_confirmation: ['', Validators.required],
+    //   agreementTerms:[false,Validators.required],
+    //   agreementPrivacy:[false,Validators.required]
+    // });
 
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.registerForm = this.fb.group({
+      email: new FormControl('', [Validators.required, Validators.email]),
+      countryCode: new FormControl('', Validators.required),
+      contactno: new FormControl('', Validators.required),
+      fname: new FormControl('', Validators.required),
+      lname: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      password_confirmation: new FormControl('', Validators.required),
+      agreementTerms: new FormControl(false, Validators.requiredTrue),
+      agreementPrivacy: new FormControl(false, Validators.requiredTrue)
+    });
+  }
 
+  openModal(title: string, content: string) {
+    this.dialog.open(TermsModalComponent, {
+      data: { title, content }
+    });
+  }
+  get isAgreementChecked(): boolean {
+    return this.registerForm.get('agreementTerms')?.value && this.registerForm.get('agreementPrivacy')?.value;
+  }
   onSubmit():void {
-    // if (this.registerForm.valid) {
+   if (this.registerForm.valid) {
     console.log(this.registerForm.value)
       this.signupService.signup(this.registerForm.getRawValue()).subscribe({
         next: (res) => {
@@ -142,6 +165,6 @@ fadeIn: any;
           this.notifyService.toastrError(err.message);
         },
       });
-   // }
+    }
   }
 }

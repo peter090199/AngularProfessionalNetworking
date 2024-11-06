@@ -6,8 +6,9 @@
       </div>
       <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
         <div class="padding-userpage">
-          <button style="color:white;" mat-button class="nav-link" [routerLink]="['/signInUI']">Home</button>
-          <button style="color:white;" mat-button class="white-button" class="nav-link" [routerLink]="['/signUpUI']">-</button>
+          <!-- <button style="color:white;" mat-button class="nav-link" [routerLink]="['/*']">Home</button> -->
+           <button style="color:white;" mat-button class="nav-link">Home</button>
+          <button style="color:white;" mat-button class="white-button" class="nav-link" >-</button>
           <mat-icon  (click)="onLogout()">logout</mat-icon>
         </div>
       </nav>
@@ -26,17 +27,25 @@
       </div>
       <ul class="list-unstyled">
         <li>
-          <button class="btn btn-link" [routerLink]="['/signInUI']">Sign In</button>
+          <button class="btn btn-link" [routerLink]="['/']">-</button>
         </li>
         <li>
-          <button class="btn btn-link" [routerLink]="['/signUpUI']">Sign Up</button>
+          <button class="btn btn-link" [routerLink]="['/']">-</button>
         </li>
       </ul>
     </div>
   
     <section class="welcome-section">
-        
+        <mat-card-content>
+          
+
+
+
+        </mat-card-content>
+        <mat-card-footer>
+          <app-footer></app-footer>
+       </mat-card-footer>
     </section>
     
   </div>
-  
+ 
