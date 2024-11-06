@@ -3,12 +3,25 @@
     display: flex; /* Flexbox for layout */
     position: relative; /* Relative positioning */
   }
+  .navbar-nav {
+    display: flex;
+    align-items: right;
+    list-style-type: none;
+    margin: 0;
+    padding: 0px;
   
+  }
+  
+  .example-spacer{
+    padding-left: 450px;
+    gap: 20px;
+
+  }
   .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px; /* Padding for header */
+    padding: 10px; /* Padding for header */
     color: white; /* Text color */
   }
   
@@ -45,7 +58,9 @@
     color: #ffffff; /* Header text color */
   
   }
-  
+  .ul{
+    color: #e3effc;
+  }
   .close-btn {
     background: none; /* Remove default button background */
     border: none; /* Remove default button border */

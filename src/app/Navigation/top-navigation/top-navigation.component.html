@@ -1,51 +1,72 @@
-<!-- user-homepage.component.html -->
 <div class="user-homepage">
-    <header class="header">
-      <div class="logo">
-        <p>logo</p>
-      </div>
-      <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
-        <div class="padding-userpage">
-          <!-- <button style="color:white;" mat-button class="nav-link" [routerLink]="['/*']">Home</button> -->
-           <button style="color:white;" mat-button class="nav-link">Home</button>
-          <button style="color:white;" mat-button class="white-button" class="nav-link" >-</button>
-          <mat-icon  (click)="onLogout()">logout</mat-icon>
-        </div>
-      </nav>
-      <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </header>
-  
-    <!-- Sidebar for mobile -->
-    <div class="sidebar" [ngClass]="{'active': isSidebarOpen}">
-      <div class="sidebar-header">
-        <h3>Nexsuz</h3>
-        <button class="close-btn" (click)="toggleSidebar()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
-      <ul class="list-unstyled">
-        <li>
-          <button class="btn btn-link" [routerLink]="['/']">-</button>
-        </li>
-        <li>
-          <button class="btn btn-link" [routerLink]="['/']">-</button>
-        </li>
-      </ul>
+  <header class="header">
+    <div class="logo">
+      <p>logo</p>
     </div>
-  
-    <section class="welcome-section">
-        <mat-card-content>
-          
+    <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
+      <div class="padding-userpage" *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
+            <!-- If submenu exists, render as dropdown for desktop -->
+            <div *ngIf="link.submenus && link.submenus.length > 0; else regularLink">
+              <button mat-button [matMenuTriggerFor]="menu" class="nav-link">{{ link.description }}</button>
+               <!-- Submenu for dropdown items -->
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item *ngFor="let submenu of link.submenus" [routerLink]="[submenu.route]" style="color: black;">
+                        {{submenu.description}}
+                    </button>
+                  </mat-menu>
+            </div>
+            <ng-template #regularLink>
+              <button mat-button class="nav-link" [routerLink]="[link.route]">
+                <i class="{{ link.icon }}"></i> {{ link.description }}
+              </button>
+            </ng-template>
+           
 
+      </div>
+      
+      <button mat-icon-button (click)="onLogout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+      
+    </nav>
+    <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </header>
 
+  <!-- Sidebar for mobile -->
+  <div class="sidebar" [ngClass]="{'active': isSidebarOpen}">
+    <div class="sidebar-header">
+      <h3>Nexsuz</h3>
+      <button class="close-btn" (click)="toggleSidebar()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <ul class="list-unstyled" *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
+        <!-- If submenu exists, render as dropdown for desktop -->
+        <div *ngIf="link.submenus && link.submenus.length > 0; else regularLink">
+          <button mat-button [matMenuTriggerFor]="menu" class="nav-link">{{ link.description }}</button>
+           <!-- Submenu for dropdown items -->
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngFor="let submenu of link.submenus" [routerLink]="[submenu.route]" style="color: black;">
+                    {{submenu.description}}
+                </button>
+              </mat-menu>
+        </div>
+        <ng-template #regularLink>
+          <button mat-button class="nav-link" [routerLink]="[link.route]">
+            <i class="{{ link.icon }}"></i> {{ link.description }}
+          </button>
+        </ng-template>
 
-        </mat-card-content>
-        <mat-card-footer>
-          <app-footer></app-footer>
-       </mat-card-footer>
-    </section>
-    
+       
+    </ul>
+
   </div>
- 
+
+  <section class="welcome-section">
+    <h1  [@slideUp] *ngIf="fadeIn">Welcome to Nexsuz!</h1>
+  </section>
+  
+</div>
+

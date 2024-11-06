@@ -2,6 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { TNavigationService } from 'src/app/services/TNavigation/tnavigation.service';
 import { slideUp, slideFade } from 'src/app/animations';
 import { AuthGuard } from 'src/app/AuthGuard/auth.guard';
+import { MatMenuPanel } from '@angular/material/menu';
 
 @Component({
   selector: 'app-top-navigation',
@@ -14,7 +15,8 @@ export class TopNavigationComponent implements OnInit {
   isSidebarOpen = false; // Sidebar state
   isDesktop: true;
   isMobile: boolean = false; // Mobile detection state
-  nav_module: any; // Store user data fetched from API
+  nav_module: any=[]; // Store user data fetched from API
+  submenuMenu: MatMenuPanel<any>;
 
   constructor(
     private authService: AuthGuard,

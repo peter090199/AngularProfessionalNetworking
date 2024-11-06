@@ -9,7 +9,7 @@ import { TopNavigationComponent } from './Navigation/top-navigation/top-navigati
 const routes: Routes = [
   
   { path: 'userhomepage', component: UserhomepageComponent }, // Define the route
-  { path: '', redirectTo: 'userhomepage', pathMatch: 'full' },
+  { path: '/*', redirectTo: 'topnavigation', pathMatch: 'full' },
   { path: 'signUpUI', component: SignUpUIComponent},
   { path: 'signInUI', component: SignInUIComponent},
 

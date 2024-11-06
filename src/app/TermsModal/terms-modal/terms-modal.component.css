@@ -1,37 +1,77 @@
-/* Dialog Title */
-h1[mat-dialog-title] {
-    font-size: 16px;
-    color: #3f51b5; /* Customize to match your theme */
-    margin: 0;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #e0e0e0; /* Optional underline */
-    text-align: center;
+/* Main dialog container styling */
+.dialog-container {
+  max-width: 80vw;
+  max-height: 80vh;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  color: #333333;
+  border-radius: 8px;
+}
+
+/* Center-align the header */
+.dialog-container h1 {
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 16px;
+}
+
+/* Paragraph and content styling */
+.dialog-container p {
+  font-size: 1em;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+/* Styling for sections and keywords */
+.dialog-container p span {
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  margin: 8px 0;
+}
+
+/* Make content scrollable on smaller screens */
+@media (max-width: 768px) {
+  .dialog-container {
+      max-width: 90vw;
+      max-height: 90vh;
+      padding: 15px;
   }
-  
-  /* Dialog Content */
-  div[mat-dialog-content] {
-    font-size: 16px;
-    color: #333; /* Customize as needed */
-    margin: 20px 0;
-    line-height: 1.5;
+
+  /* Adjust font sizes for readability */
+  .dialog-container h1 {
+      font-size: 1.5em;
   }
-  
-  /* Dialog Actions */
-  div[mat-dialog-actions] {
-    display: flex;
-    justify-content: flex-end; /* Align actions to the right */
-    padding-top: 10px;
-    border-top: 1px solid #e0e0e0; /* Optional top border */
+
+  .dialog-container p {
+      font-size: 0.95em;
   }
-  
-  /* Close Button */
-  button[mat-button] {
-    color: #3f51b5; /* Button text color */
-    font-weight: 500;
-    margin: 5px; /* Spacing around button */
+}
+
+/* Adjust font and padding for very small screens */
+@media (max-width: 480px) {
+  .dialog-container h1 {
+      font-size: 1.3em;
   }
-  
-  button[mat-button]:hover {
-    background-color: rgba(63, 81, 181, 0.1); /* Light background on hover */
+
+  .dialog-container p {
+      font-size: 0.9em;
   }
-  
+
+  .dialog-container {
+      padding: 10px;
+  }
+}
+
+/* Button alignment */
+.dialog-container .mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.dialog-container button {
+  font-size: 0.9em;
+  padding: 8px 16px;
+}

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { _url } from 'src/global-variables';
 
@@ -24,10 +24,16 @@ export class TNavigationService {
     });
   }
 
+  // Method to create HTTP params with the desc_code
+  private createParams(): HttpParams {
+    return new HttpParams().set('desc_code', 'top_navigation');
+  }
+
   // Example of a GET request
   getData(): Observable<any> {
     const headers = this.createHeaders();
-    return this.http.get(`${_url}${"accessmenu"}`, { headers });
+    const params = this.createParams();
+    return this.http.get(`${_url}accessmenu`, { headers, params });
   }
 
   // Example of a POST request
