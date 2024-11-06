@@ -4,6 +4,7 @@ import { SignUpService } from 'src/app/services/SignUp/sign-up.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TermsModalComponent } from 'src/app/TermsModal/terms-modal/terms-modal.component';
+import { PrivacyComponent } from 'src/app/TermsModal/privacy/privacy.component';
 
 @Component({
   selector: 'app-sign-up-ui',
@@ -115,21 +116,7 @@ fadeIn: any;
      private signupService:SignUpService,
      private notifyService:NotificationsService,
      private dialog: MatDialog
-    ) {
-
-    // this.registerForm = this.fb.group({
-    //   email: ['', [Validators.required, Validators.email]],
-    //   contactno: ['', Validators.required],
-    //   fname: ['', Validators.required],
-    //   lname: ['', Validators.required],
-    //   countryCode: ['', Validators.required], 
-    //   password: ['', Validators.required],
-    //   password_confirmation: ['', Validators.required],
-    //   agreementTerms:[false,Validators.required],
-    //   agreementPrivacy:[false,Validators.required]
-    // });
-
-  }
+    ) {}
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -142,19 +129,36 @@ fadeIn: any;
       password_confirmation: new FormControl('', Validators.required),
       agreementTerms: new FormControl(false, Validators.requiredTrue),
       agreementPrivacy: new FormControl(false, Validators.requiredTrue)
+    }, 
+    { validator: this.passwordMatchValidator });
+  }
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('password_confirmation')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+  openModalTerms(title: string, content: string) {
+    this.dialog.open(TermsModalComponent, {
+      data: { title, content },
+      width: '80%',  // You can adjust the modal size
+      maxWidth: '600px',
+    });
+  }
+  
+  openModalPrivacy(title: string, content: string) {
+    this.dialog.open(PrivacyComponent, {
+      data: { title, content },
+      width: '80%',  // You can adjust the modal size
+      maxWidth: '600px',
     });
   }
 
-  openModal(title: string, content: string) {
-    this.dialog.open(TermsModalComponent, {
-      data: { title, content }
-    });
-  }
   get isAgreementChecked(): boolean {
     return this.registerForm.get('agreementTerms')?.value && this.registerForm.get('agreementPrivacy')?.value;
   }
   onSubmit():void {
    if (this.registerForm.valid) {
+
     console.log(this.registerForm.value)
       this.signupService.signup(this.registerForm.getRawValue()).subscribe({
         next: (res) => {

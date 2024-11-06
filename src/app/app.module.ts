@@ -17,6 +17,7 @@ import { UsersPortalComponent } from './UserInterface/users-portal/users-portal.
 import { PageNotFoundComponentComponent } from './PageError/page-not-found-component/page-not-found-component.component';
 import { TopNavigationComponent } from './Navigation/top-navigation/top-navigation.component';
 import { TermsModalComponent } from './TermsModal/terms-modal/terms-modal.component';
+import { PrivacyComponent } from './TermsModal/privacy/privacy.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,8 @@ import { TermsModalComponent } from './TermsModal/terms-modal/terms-modal.compon
     UsersPortalComponent,
     PageNotFoundComponentComponent,
     TopNavigationComponent,
-    TermsModalComponent
+    TermsModalComponent,
+    PrivacyComponent
   ],
   imports: [
     BrowserModule,

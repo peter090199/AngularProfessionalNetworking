@@ -11,6 +11,37 @@
     padding: 0px;
   
   }
+  section {
+    display: table;
+  }
+  
+  .example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+  }
+  
+  .example-button-row {
+    display: table-cell;
+    width: 490px;
+  }
+  
+  .example-button-row .mat-button-base {
+    margin: 8px 8px 8px 0;
+  }
+  
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
   
   .example-spacer{
     padding-left: 450px;
@@ -39,8 +70,8 @@
     top: 0;
     left: -250px; /* Hidden off-screen */
     height: 100%; /* Full height */
-    width: 250px; /* Width of sidebar */
-    background-color: #0e79c0fb; /* Background color */
+    width: 200px; /* Width of sidebar */
+    background-color: #3c95d0fb; /* Background color */
     padding: 20px; /* Padding for sidebar */
     transition: left 0.3s ease; /* Smooth transition */
     z-index: 1000; /* Ensure sidebar is on top */

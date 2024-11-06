@@ -65,17 +65,18 @@
                 </div>
                 <div class="agreement-section">
                     <mat-checkbox formControlName="agreementTerms" required>
-                        <a (click)="openModal('Terms of Use', '')" style="cursor: pointer;">Terms of Use</a>
+                        <a (click)="openModalTerms('Terms of Use', '')" style="cursor: pointer;">Terms of Use</a>
                       </mat-checkbox>
                 </div>
                 <div class="agreement-section">
                     <mat-checkbox formControlName="agreementPrivacy" required>
-                        <a (click)="openModal('Data Privacy Policy', '')" style="cursor: pointer;">Data Privacy Policy</a>
+                        <a (click)="openModalPrivacy('Data Privacy Policy', '')" style="cursor: pointer;">Data Privacy Policy</a>
                       </mat-checkbox>
                 </div>
 
                 <button mat-raised-button color="primary" class="signup-button" type="submit" [disabled]="registerForm.invalid" >
                     Sign-up</button>
+                    
             </form>
         </mat-card-content>
         <mat-card-footer>

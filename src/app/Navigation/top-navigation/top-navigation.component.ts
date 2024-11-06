@@ -54,7 +54,6 @@ export class TopNavigationComponent implements OnInit {
       .subscribe(
         (data: any) => {
           this.nav_module = data;
-          console.log('User Data:', this.nav_module); // Handle the response here
         },
         (error: any) => {
           console.error('Error fetching user data:', error);

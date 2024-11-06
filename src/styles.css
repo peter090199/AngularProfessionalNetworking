@@ -24,9 +24,9 @@ section{
 
 /* Overall Layout */
 body {
-  background: linear-gradient(to right, rgba(4, 234, 241, 0.925), rgba(44, 40, 235, 0.774));
+  background: linear-gradient(to right, rgba(12, 231, 198, 0.929), rgba(43, 40, 235, 0.655));
   background-clip: padding-box, border-box;
-  box-shadow: 2px 4px 10px rgba(32, 116, 226, 0.877); /* Updated shadow color */
+  box-shadow: 2px 4px 10px rgba(9, 137, 162, 0.877); /* Updated shadow color */
   font-family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif';
   line-height: 1.2;
   margin: 0;
