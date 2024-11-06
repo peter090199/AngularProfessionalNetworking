@@ -24,12 +24,10 @@ section{
 
 /* Overall Layout */
 body {
-  border-radius: 10px,20px,30px,40px;
-  background-image: linear-gradient(rgba(3, 103, 184, 0.938),#47daff, #1385f0c4);
+  background: linear-gradient(to right, rgba(4, 234, 241, 0.925), rgba(44, 40, 235, 0.774));
   background-clip: padding-box, border-box;
-  box-shadow: 1px 2px 4px rgba(4, 71, 172, 0.1); 
-  color: var(--text-color);
-  font-family: 'Tahoma';
+  box-shadow: 2px 4px 10px rgba(32, 116, 226, 0.877); /* Updated shadow color */
+  font-family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif';
   line-height: 1.2;
   margin: 0;
   padding: 0;

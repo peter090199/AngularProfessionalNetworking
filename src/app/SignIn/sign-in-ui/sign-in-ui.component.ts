@@ -55,7 +55,8 @@ export class SignInUIComponent implements OnInit{
 
             console.log(res.role_code);
             this.loginForm.reset();
-             this.router.navigate(['/master']);
+            this.notificationService.toastrSuccess("Successfuly sign in");
+             this.router.navigate(['/topnavigation']);
             // Optionally navigate or perform additional actions here
           }
         },

@@ -1,0 +1,266 @@
+/* user-homepage.component.css */
+.user-homepage {
+    display: flex; /* Flexbox for layout */
+    position: relative; /* Relative positioning */
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Padding for header */
+    color: white; /* Text color */
+  }
+  
+  .logo {
+    font-size: 24px; /* Logo font size */
+  }
+  
+  .nav {
+    display: flex; /* Flex display for navigation */
+  }
+  
+  /* Sidebar styles */
+  .sidebar {
+    position: fixed; /* Fixed positioning for the sidebar */
+    top: 0;
+    left: -250px; /* Hidden off-screen */
+    height: 100%; /* Full height */
+    width: 250px; /* Width of sidebar */
+    background-color: #0e79c0fb; /* Background color */
+    padding: 20px; /* Padding for sidebar */
+    transition: left 0.3s ease; /* Smooth transition */
+    z-index: 1000; /* Ensure sidebar is on top */
+  }
+  
+  .sidebar.active {
+    left: 0; /* Move into view when active */
+  }
+  
+  /* Sidebar header */
+  .sidebar-header {
+    display: flex; /* Flex display for header */
+    justify-content: space-between; /* Space between title and close button */
+    align-items: center; /* Center vertically */
+    color: #ffffff; /* Header text color */
+  
+  }
+  
+  .close-btn {
+    background: none; /* Remove default button background */
+    border: none; /* Remove default button border */
+    color: white; /* Close button color */
+    cursor: pointer; /* Pointer cursor */
+  }
+  .list-unstyled {
+    list-style: none; /* Remove default list styling */
+    padding: 0; /* Remove padding */
+  }
+  
+  /* List Item Styles */
+  .list-unstyled li {
+    margin: 15px 0; /* Space between items */
+  }
+  .btn-link {
+    color: #ffffff; /* Button text color */
+    text-decoration: none; /* Remove underline */
+    font-size: 18px; /* Increase font size */
+    transition: color 0.3s ease; /* Smooth color transition */
+  }
+  
+  /* Hover effect for buttons */
+  .btn-link:hover {
+    color: #e3effc; /* Change color on hover */
+    text-decoration: underline; /* Underline on hover */
+  }
+  
+  
+  /* Responsive styles */
+  @media (min-width: 769px) {
+    .sidebar {
+      display: none; /* Hide sidebar on desktop */
+    }
+  }
+  
+  
+  /* user-homepage.component.css */
+  
+  .user-homepage {
+      font-family: tahoma;
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+    }
+  
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: none;
+      color: #fff;
+      padding: 1rem;
+    }
+    
+    .header .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .logo {
+      display: flex; /* Use flexbox for alignment */
+      align-items: center; /* Center items vertically */
+      gap: 10px; /* Space between the image and text */
+  }
+  
+  .logo img {
+      width: 30px; /* Adjust size of the logo image */
+      height: auto; /* Maintain aspect ratio */
+  }
+  
+  .logo span {
+      font-size: 24px; /* Set font size for the text */
+      font-weight: bold; /* Make the text bold */
+      color: #fff6f6; /* Change text color */
+  }
+  
+  .nav {
+      display: flex; /* Align items in a row */
+      justify-content: center; /* Center the nav items */
+  }
+  .padding-userpage{
+    justify-content: space-between;
+    display: flex;
+    gap: 10px; /* This will create space between buttons */
+  }
+  /* Default styles for nav buttons */
+  .nav .white-button {
+    color: #ffffff; /* Change to your preferred text color */
+    background-color: #ffffff; /* Change to your preferred background color */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition effect */
+  }
+  
+  /* Hover effect for nav buttons */
+  .nav .white-button:hover {
+    background-color: #f8f8f8; /* Change to your desired hover background color */
+    color: #0a0909; /* Change to your desired hover text color */
+  }
+  
+  /* Optional: Add active button styles */
+  .nav .white-button.active {
+    background-color: #0056b3; /* Active background color */
+    color: #ffffff; /* Active text color */
+  }
+  
+  /* Style for the clickable logout icon */
+mat-icon.logout-icon {
+    color: #d32f2f; /* A red color to indicate logout */
+    font-size: 24px; /* Adjust icon size */
+    cursor: pointer;
+    padding: 8px; /* Add padding to make it clickable */
+    border-radius: 50%; /* Optional: make it circular */
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+  }
+  
+  mat-icon.logout-icon:hover {
+    background-color: rgba(211, 47, 47, 0.1); /* Light red background on hover */
+  }
+  
+  
+  .white-button {
+    color: white !important; /* Ensure the text is white */
+  }
+  
+    .header .nav a {
+      margin: 0 1rem;
+      color: #ffffff;
+      text-decoration: none;
+    }
+    button{
+      color: #ffffff;
+    }
+    
+    .header .nav a:hover {
+      text-decoration: underline;
+      color:rgb(255, 255, 255);
+    }
+    
+    .welcome-section {
+      padding: 2rem;
+      text-align: left;
+      color: white;
+      font-family: Tahoma, sans-serif; /* Added fallback font */
+      position: relative; /* For positioning the shadow */
+      z-index: 1; /* Ensures the shadow appears behind */
+      height: auto;
+  }
+  
+    .welcome-section h1 {
+      font-size: 2rem;
+      font-weight: bold;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+   /* Responsive styles */
+  
+   @media (max-width: 480px) {
+    .welcome-section {
+        padding: 20px 10px;
+    }
+  
+    .welcome-section h1 {
+        font-size: 1.75rem;
+  
+    }
+  
+    .welcome-section p {
+        font-size: 15px;
+      
+        font-family: 'tahoma';
+    }
+  }
+  @media (max-width: 768px) {
+    .welcome-section h1 {
+      font-size: 2rem;
+      font-weight: 'bold';
+  
+  }
+  .nav {
+    display: flex; /* Show nav links on desktop */
+  }
+  .navbar-toggler {
+    background: none; /* Remove default button background */
+    border: none; /* Remove default button border */
+    color: white; /* Toggle button color */
+    cursor: pointer; /* Pointer cursor */
+  }
+  .welcome-section p {
+      font-size: 18px;
+      font-family:Verdana, Geneva, Tahoma, sans-serif;
+  }
+      
+  @keyframes fadeIn {
+    0% {
+        opacity: 0; /* Start fully transparent */
+    }
+    100% {
+        opacity: 1; /* End fully opaque */
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
+  }
+  
+  }
+  
+  @keyframes fadeIn {
+    0% {
+        opacity: 0; /* Start fully transparent */
+    }
+    100% {
+        opacity: 1; /* End fully opaque */
+    }
+  }
+  
+  .fade-in {
+    animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
+  }
+  
