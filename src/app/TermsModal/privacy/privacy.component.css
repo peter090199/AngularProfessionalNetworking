@@ -1,78 +1,77 @@
 /* Main dialog container styling */
 .dialog-container {
-    max-width: 80vw;
-    max-height: 80vh;
-    padding: 20px;
-    overflow-y: auto;
-    background-color: #ffffff;
-    color: #333333;
-    border-radius: 8px;
+  max-width: 80vw;
+  max-height: 80vh;
+  padding: 20px;
+  overflow-y: auto;
+  background-color: #ffffff;
+  color: #333333;
+  border-radius: 8px;
+}
+
+/* Center-align the header */
+.dialog-container h1 {
+  text-align: center;
+  font-size: 1.8em;
+  margin-bottom: 16px;
+}
+
+/* Paragraph and content styling */
+.dialog-container p {
+  font-size: 1em;
+  line-height: 1.5;
+  margin-bottom: 1em;
+}
+
+/* Styling for sections and keywords */
+.dialog-container p span {
+  font-weight: bold;
+  display: block;
+  text-align: center;
+  margin: 8px 0;
+}
+
+/* Make content scrollable on smaller screens */
+@media (max-width: 768px) {
+  .dialog-container {
+      max-width: 90vw;
+      max-height: 90vh;
+      padding: 15px;
   }
-  
-  /* Center-align the header */
+
+  /* Adjust font sizes for readability */
   .dialog-container h1 {
-    text-align: center;
-    font-size: 1.8em;
-    margin-bottom: 16px;
+      font-size: 1.5em;
   }
-  
-  /* Paragraph and content styling */
+
   .dialog-container p {
-    font-size: 1em;
-    line-height: 1.5;
-    margin-bottom: 1em;
+      font-size: 0.95em;
   }
-  
-  /* Styling for sections and keywords */
-  .dialog-container p span {
-    font-weight: bold;
-    display: block;
-    text-align: center;
-    margin: 8px 0;
+}
+
+/* Adjust font and padding for very small screens */
+@media (max-width: 480px) {
+  .dialog-container h1 {
+      font-size: 1.3em;
   }
-  
-  /* Make content scrollable on smaller screens */
-  @media (max-width: 768px) {
-    .dialog-container {
-        max-width: 90vw;
-        max-height: 90vh;
-        padding: 15px;
-    }
-  
-    /* Adjust font sizes for readability */
-    .dialog-container h1 {
-        font-size: 1.5em;
-    }
-  
-    .dialog-container p {
-        font-size: 0.95em;
-    }
+
+  .dialog-container p {
+      font-size: 0.9em;
   }
-  
-  /* Adjust font and padding for very small screens */
-  @media (max-width: 480px) {
-    .dialog-container h1 {
-        font-size: 1.3em;
-    }
-  
-    .dialog-container p {
-        font-size: 0.9em;
-    }
-  
-    .dialog-container {
-        padding: 10px;
-    }
+
+  .dialog-container {
+      padding: 10px;
   }
-  
-  /* Button alignment */
-  .dialog-container .mat-dialog-actions {
-    display: flex;
-    justify-content: center;
-    padding-top: 15px;
-  }
-  
-  .dialog-container button {
-    font-size: 0.9em;
-    padding: 8px 16px;
-  }
-  
+}
+
+/* Button alignment */
+.dialog-container .mat-dialog-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 15px;
+}
+
+.dialog-container button {
+  font-size: 0.9em;
+  padding: 8px 16px;
+}
