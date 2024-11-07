@@ -32,7 +32,11 @@
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
       <mat-icon>menu</mat-icon>
     </button>
+
+    
   </header>
+
+  
 
   <!-- Sidebar for mobile -->
   <div class="sidebar" [ngClass]="{'active': isSidebarOpen}">
@@ -48,7 +52,7 @@
           <button mat-button [matMenuTriggerFor]="menu" class="nav-link">{{ link.description }}</button>
            <!-- Submenu for dropdown items -->
               <mat-menu #menu="matMenu">
-                <button mat-menu-item *ngFor="let submenu of link.submenus" [routerLink]="[submenu.route]" style="color: black;">
+                <button mat-menu-item *ngFor="let submenu of link.submenus" [routerLinkActive]="[submenu.route]" style="color: black;">
                     {{submenu.description}}
                 </button>
               </mat-menu>
@@ -64,9 +68,12 @@
 
   </div>
 
-  <section class="welcome-section">
-    <h1  [@slideUp] *ngIf="fadeIn">Welcome to Nexsuz!</h1>
-  </section>
-  
+  <div class="content-area">
+      
+         <router-outlet></router-outlet>
+         
+       
+     </div>
 </div>
+
 

@@ -1,8 +1,8 @@
-/* user-homepage.component.css */
 .user-homepage {
-    display: flex; /* Flexbox for layout */
-    position: relative; /* Relative positioning */
-  }
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
   .navbar-nav {
     display: flex;
     align-items: right;
@@ -10,6 +10,10 @@
     margin: 0;
     padding: 0px;
   
+  }
+  
+  .content-area{
+    margin-top: 0px;
   }
   section {
     display: table;
@@ -245,7 +249,12 @@ mat-icon.logout-icon {
       font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
     }
    /* Responsive styles */
-  
+   .content-area {
+    margin-top: 48px; /* Push down content to avoid it being hidden under the toolbar */
+    padding: 5px;    /* Optional padding for aesthetics */
+    overflow: auto; /* Enable scrolling for the content area */
+ 
+  }
    @media (max-width: 480px) {
     .welcome-section {
         padding: 20px 10px;

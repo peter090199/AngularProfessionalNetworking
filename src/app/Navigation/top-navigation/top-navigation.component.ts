@@ -29,7 +29,14 @@ export class TopNavigationComponent implements OnInit {
     this.fadeIn = true;
     this.getUserData(); // Fetch user data when component loads
   }
+  isChatOpen = false;
+  toggleChat() {
+    this.isChatOpen = !this.isChatOpen;
+  }
 
+  onCloseChat() {
+    this.isChatOpen = false;
+  }
   // Update the mobile state based on window width
   @HostListener('window:resize', ['$event'])
   onResize(event: Event) {

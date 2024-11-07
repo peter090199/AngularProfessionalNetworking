@@ -1,4 +1,9 @@
 
 <div class="mat-elevation-z2 footer">
-    <a type="button" >Nexsuz</a>    
+     <div class="chat-body">
+          <button mat-raised-button color="primary" (click)="toggleChat()">
+            <mat-icon>message</mat-icon> Chat Now
+          </button>
+          <app-chat-ui *ngIf="isChatOpen" (close)="onCloseChat()"></app-chat-ui>
+        </div>
 </div>

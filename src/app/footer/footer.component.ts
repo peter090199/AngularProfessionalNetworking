@@ -11,5 +11,14 @@ export class FooterComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  isChatOpen = false;
+
+  toggleChat() {
+    this.isChatOpen = this.isChatOpen;
+  }
+
+  onCloseChat() {
+    this.isChatOpen = false;
+  }
 
 }

@@ -73,7 +73,37 @@
   color: #e3effc; /* Change color on hover */
   text-decoration: underline; /* Underline on hover */
 }
+/* Set up the background GIF */
+content {
+  margin: 0;
+  padding: 0;
+  background-image: url('/assets/images/gif.gif');
+  background-size: cover;        /* Ensures the GIF covers the entire background */
+  background-repeat: no-repeat;  /* Prevents the GIF from repeating */
+  background-position: center;   /* Centers the GIF */
+  background-attachment: fixed;  /* Keeps the background fixed on scroll */
+  height: 100vh;
+  overflow: hidden;
+}
 
+/* Style for the content to ensure readability over the background */
+.content {
+  position: relative;
+  z-index: 1;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.content h1 {
+  font-size: 2.5em;
+  margin: 0.5em 0;
+}
+
+.content p {
+  font-size: 1.2em;
+  max-width: 600px
+}
 
 /* Responsive styles */
 @media (min-width: 769px) {
@@ -219,7 +249,7 @@
   cursor: pointer; /* Pointer cursor */
 }
 .welcome-section p {
-    font-size: 18px;
+    font-size: 15px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
     
@@ -249,4 +279,74 @@
 
 .fade-in {
   animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
+}
+
+/* Default layout for larger screens (desktops, tablets) */
+.gif-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('/assets/images/gif.gif'); /* Path to your GIF */
+  background-position: center;
+  background-size: cover; /* Ensures the GIF fits within the specified size */
+  background-repeat: no-repeat;
+  color: white;
+  text-align: center;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  /* Default size for larger screens */
+  height: 400px; /* Fixed height */
+  width: 800px; /* Fixed width */
+  margin-top: 40px;
+  /* Apply the slide-up + fade-in animation */
+  animation: slideUpFade 1.5s ease-out;
+}
+
+/* Define the keyframes for slide-up + fade-in animation */
+@keyframes slideUpFade {
+  0% {
+    transform: translateY(100%); /* Start from below the screen */
+    opacity: 0; /* Fully transparent at the start */
+  }
+  100% {
+    transform: translateY(0); /* Ends at the original position */
+    opacity: 1; /* Fully visible at the end */
+  }
+}
+
+/* Responsive design for Tablets (between 768px and 1024px) */
+@media (max-width: 1024px) {
+  .gif-section {
+    height: 300px; /* Adjust height for tablet */
+    width: 600px;  /* Adjust width for tablet */
+  }
+}
+
+/* Responsive design for Mobile devices (between 480px and 768px) */
+@media (max-width: 768px) {
+  .gif-section {
+    height: 250px; /* Adjust height for mobile */
+    width: 400px;
+   
+}
+ 
+  
+.welcome-section p {
+  font-size: 15px;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;  /* Adjust width for mobile */
+  }
+
+/* Responsive design for Very small Mobile devices (below 480px) */
+@media (max-width: 480px) {
+  .gif-section {
+    height: 200px; /* Adjust height for small screens */
+    width: 90%   /* Take full width of the screen */
+    
+  }
+}
+  
 }

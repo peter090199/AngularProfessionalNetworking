@@ -8,7 +8,7 @@ body {
   height: 100%;
 }
 section{
-    margin: 40px;
+    margin-top: 0px;
 }
 /* styles.css */
 :root {
@@ -34,11 +34,6 @@ body {
 }
 
 /* Add the rest of your CSS here... */
-
-
-.hide {
-  display: none;
-}
 
 .close-button {
   float: right;
