@@ -11,51 +11,33 @@ import { UsersComponent } from './ComponentUI/system/users/users.component';
 import { MenuComponent } from './ComponentUI/system/menu/menu.component';
 import { ProtectedComponent } from './TermsModal/protected/protected.component';
 
-
 const routes: Routes = [
- 
-  { path: 'home', loadChildren: () => import('./Users/userhomepage/userhomepage.component').then(m => m.UserhomepageComponent) },
-  { path: 'about', loadChildren: () => import('./SignUp/sign-up-ui/sign-up-ui.component').then(m => m.SignUpUIComponent) },
+  { path: '', component: UserhomepageComponent },  // Root route
 
-  { path: 'userhomepage', component: UserhomepageComponent }, // Define the route
-  { path: '/*', redirectTo: 'topnavigation', pathMatch: 'full' },
-  { path: 'signUpUI', component: SignUpUIComponent},
-  { path: 'signInUI', component: SignInUIComponent},
+  { path: 'signUpUI', component: SignUpUIComponent },
+  { path: 'signInUI', component: SignInUIComponent },
+
+  // Protected route with AuthGuard
   { 
     path: 'protected', 
     component: ProtectedComponent, 
-    canActivate: [AuthGuard], 
-
+    canActivate: [AuthGuard] 
   },
 
-  //test route
-
-   
-  //   {path: 'security.index', component: SecurityRolesComponent},
-  //   {path: 'user.index', component: UsersComponent},
-  //   {path: 'menu.index', component: MenuComponent},
-
-  {path:'topnavigation',
-    component:TopNavigationComponent,
+  // Top navigation with sub-routes
+  { 
+    path: 'topnavigation', 
+    component: TopNavigationComponent, 
     canActivate: [AuthGuard],
-    children:[
-      {
-          path: 'security.index', component: SecurityRolesComponent,
-          canActivate: [AuthGuard],
-      },
-      {
-          path: 'user.index', component: UsersComponent,
-          canActivate: [AuthGuard],
-      },
-      {
-          path: 'menu.index', component: MenuComponent,
-          canActivate: [AuthGuard],
-      }
-    
+    children: [
+      { path: 'security.index', component: SecurityRolesComponent },
+      { path: 'user.index', component: UsersComponent },
+      { path: 'menu.index', component: MenuComponent }
     ]
   },
-  { path: '**', component: PageNotFoundComponentComponent }
 
+  // Wildcard route for 404 handling
+  { path: '**', component: PageNotFoundComponentComponent }
 ];
 
 @NgModule({
