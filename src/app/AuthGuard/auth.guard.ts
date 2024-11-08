@@ -19,14 +19,14 @@ export class AuthGuard implements CanActivate {
     if (token) {
       return true; // Allow access if the user is authenticated
     } else {
-      this.router.navigate(['/']); // Redirect to sign-in page if not authenticated
+      this.router.navigate(['/homepage']); // Redirect to sign-in page if not authenticated
       return false;
     }
   }
 
   logout(): void {
     localStorage.removeItem('token');
-    this.router.navigate(['/']);
+    this.router.navigate(['/homepage']);
   }
   
   isAuthenticated(): boolean {

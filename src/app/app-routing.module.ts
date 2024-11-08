@@ -12,30 +12,33 @@ import { MenuComponent } from './ComponentUI/system/menu/menu.component';
 import { ProtectedComponent } from './TermsModal/protected/protected.component';
 
 const routes: Routes = [
-  { path: '', component: UserhomepageComponent },  // Root route
-
+  { path: 'homepage', component: UserhomepageComponent },  // Root route
   { path: 'signUpUI', component: SignUpUIComponent },
   { path: 'signInUI', component: SignInUIComponent },
+  { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // Default root redirect
+  { path: '**', redirectTo: '/homepage' },
 
-  // Protected route with AuthGuard
-  { 
-    path: 'protected', 
-    component: ProtectedComponent, 
-    canActivate: [AuthGuard] 
-  },
+  // // Protected route with AuthGuard
+  // { 
+  //   path: 'protected', 
+  //   component: ProtectedComponent, 
+  //   canActivate: [AuthGuard] 
+  // },
 
   // Top navigation with sub-routes
   { 
-    path: 'topnavigation', 
+    path: '', 
     component: TopNavigationComponent, 
     canActivate: [AuthGuard],
     children: [
-      { path: 'security.index', component: SecurityRolesComponent },
-      { path: 'user.index', component: UsersComponent },
-      { path: 'menu.index', component: MenuComponent }
+      { path: 'security', component: SecurityRolesComponent },
+      { path: 'user', component: UsersComponent },
+      { path: 'menu', component: MenuComponent }
     ]
   },
 
+
+  
   // Wildcard route for 404 handling
   { path: '**', component: PageNotFoundComponentComponent }
 ];
