@@ -110,6 +110,9 @@ content {
   .sidebar {
     display: none; /* Hide sidebar on desktop */
   }
+  .welcome-section h1{
+    text-align: center;
+  }
 }
 
 
@@ -138,7 +141,7 @@ content {
   .logo {
     display: flex; /* Use flexbox for alignment */
     align-items: center; /* Center items vertically */
-    gap: 10px; /* Space between the image and text */
+    gap: 1px; /* Space between the image and text */
 }
 
 .logo img {
@@ -201,7 +204,6 @@ content {
   }
   
   .welcome-section {
-    padding: 2rem;
     text-align: left;
     color: white;
     font-family: Tahoma, sans-serif; /* Added fallback font */
@@ -211,33 +213,38 @@ content {
 }
 
   .welcome-section h1 {
-    font-size: 2rem;
+    font-size: 2.1rem;
     font-weight: bold;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: left;
+    margin-top: 25px;
+    margin-left: 38px;
   }
+
+  .welcome-section p {
+    font-size: 14px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 30px;
+    margin-bottom: 40px;
+}
  /* Responsive styles */
 
  @media (max-width: 480px) {
   .welcome-section {
-      padding: 20px 10px;
-  }
-
-  .welcome-section h1 {
-      font-size: 1.75rem;
-
+      padding: 20px;
   }
 
   .welcome-section p {
       font-size: 15px;
-    
       font-family: 'tahoma';
+      text-align: center;
   }
 }
 @media (max-width: 768px) {
   .welcome-section h1 {
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 'bold';
-
+    text-align: center;
 }
 .nav {
   display: flex; /* Show nav links on desktop */
@@ -248,10 +255,7 @@ content {
   color: white; /* Toggle button color */
   cursor: pointer; /* Pointer cursor */
 }
-.welcome-section p {
-    font-size: 15px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-}
+
     
 @keyframes fadeIn {
   0% {
@@ -281,37 +285,43 @@ content {
   animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
 }
 
-/* Default layout for larger screens (desktops, tablets) */
 .gif-section {
   position: relative;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url('/assets/images/gif.gif'); /* Path to your GIF */
+  align-items: left;
+  background-image: url('/assets/images/gif2.gif'); /* Path to your GIF */
   background-position: center;
   background-size: cover; /* Ensures the GIF fits within the specified size */
   background-repeat: no-repeat;
-  color: white;
   text-align: center;
   overflow: hidden;
   margin-left: auto;
-  margin-right: auto;
-  /* Default size for larger screens */
-  height: 500px; /* Fixed height */
-  width: 500px; /* Fixed width */
-  /* Apply the slide-up + fade-in animation */
-  animation: slideUpFade 1.5s ease-out;
+  margin-right: 130px;
+  height: 400px; /* Fixed height */
+  width: 400px; /* Fixed width */
+  opacity: 0; /* Start as invisible */
+  animation: fadeIn 2s ease-out forwards, slideUpFade 1.5s ease-out; /* Fade in + slide-up animation */
 }
 
-/* Define the keyframes for slide-up + fade-in animation */
-@keyframes slideUpFade {
+/* Keyframe for fade-in effect */
+@keyframes fadeIn {
   0% {
-    transform: translateY(100%); /* Start from below the screen */
-    opacity: 0; /* Fully transparent at the start */
+    opacity: 0;
   }
   100% {
-    transform: translateY(0); /* Ends at the original position */
-    opacity: 1; /* Fully visible at the end */
+    opacity: 1;
+  }
+}
+
+/* Keyframe for slide-up + fade-in effect */
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

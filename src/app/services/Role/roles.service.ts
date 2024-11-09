@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { _url } from 'src/global-variables';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SecurityRolesService {
+export class RolesService {
+  RequiredRefresh: any;
 
   // Inject HttpClient into the constructor
   constructor(private http: HttpClient) { }
@@ -31,38 +32,45 @@ export class SecurityRolesService {
   }
 
   // Example of a GET request
-  getSecurityRoles(): Observable<any> {
+  getRoles(): Observable<any> {
     const headers = this.createHeaders();
     //const params = this.createParams();
-    return this.http.get(`${_url}security`, { headers });
-  }
-  getData(): Observable<any> {
-    const headers = this.createHeaders();
-    const params = this.createParams();
-    return this.http.get(`${_url}accessmenu`, { headers, params });
+    return this.http.get(`${_url}role`, { headers });
   }
 
-  getSecurityRolesByDesc_Code(rolecode:any): Observable<any> {
-    const headers = this.createHeaders();
-    return this.http.get(`${_url}security/${rolecode}`,{ headers });
-  }
+  // // Example of a POST request
+  // postData(role: any): Observable<any> {
+  //   const headers = this.createHeaders();
+  //   return this.http.post(`${_url}${role}`, role, { headers });
+  // }
 
-  // Example of a POST request
-  postData(endpoint: string, body: any): Observable<any> {
+  postData(role: any): Observable<any> {
     const headers = this.createHeaders();
-    return this.http.post(`${_url}${endpoint}`, body, { headers });
+    return this.http.post<any>(`${_url}role`, role, { headers });
   }
 
   // Example of a PUT request
-  putData(endpoint: string, body: any): Observable<any> {
+  putData(id: string, body: any): Observable<any> {
     const headers = this.createHeaders();
-    return this.http.put(`${_url}${endpoint}`, body, { headers });
+    return this.http.put(`${_url}role/${id}`, body, { headers });
   }
 
   // Example of a DELETE request
-  deleteData(endpoint: string): Observable<any> {
+  deleteData(id: string): Observable<any> {
     const headers = this.createHeaders();
-    return this.http.delete(`${_url}${endpoint}`, { headers });
+    return this.http.delete(`${_url}role/${id}`, { headers });
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      console.error(error); // Log the error for debugging
+      
+      // Optionally, you can use toastr to show the error message here:
+      // this.toastrService.error(error.message || 'An error occurred');
+
+      // Let the app keep running by returning a safe result.
+      return of(result as T);
+    };
   }
 
 }

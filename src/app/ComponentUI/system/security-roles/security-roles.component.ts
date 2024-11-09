@@ -41,7 +41,7 @@ export class SecurityRolesComponent implements OnInit {
           this.isLoading = true;
           this.success = true;
           this.csecurityroles = response.message; // Assign the fetched data
-          console.log(this.csecurityroles)
+        //  console.log(this.csecurityroles)
           this.dataSource.data = this.csecurityroles;
         } 
         else
@@ -68,55 +68,26 @@ export class SecurityRolesComponent implements OnInit {
     this.applyFilter();
   }
 
-
-  // Handle 'New' button click (create new role functionality)
-  onClickNew(): void {
-    const dialogConfig = new MatDialogConfig();
-    dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = '400px';
-    const dialogRef = this.dialog.open(SecurityRolesUIComponent, dialogConfig);
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.fetchSecurityRoles(); // Refresh the table after dialog closure
-      }
-    });
-  }
-
-   delete(products:any){
-  //   if(!products){
-  //     this.notificationsService.toastrWarning('No record selected!');
-      
-  //   }
-  //   else{
-  //     this.notificationsService.popupWarning(products.productName," "+"Are you sure to delete this product?").then((result) => {
-  //       if (result.value) {
-  //         this.employeeService.deleteEmployee(products.productId).subscribe({
-  //             next:()=>{
-  //               this.notificationsService.popupSwalMixin("Successfuly deleted "+ products.productName);
-  //               this.loadProducts();
-  //             },
-  //             error:()=>{
-  //               this.notificationsService.toastrError("no product id");
-  //               this.loadProducts();
-  //             },
-  //         });
-  //       }
-  //     });
-  //   }
-  }
+ 
+  View(): void {
+   this.fetchSecurityRoles(); 
+   }
 
   edit(element: any): void {
     const dialogRef = this.dialog.open(SecurityRolesUIComponent, {
-      width: '400px',
-      data: element || null
+      width: '95%', // Adjusts the width for responsive screens
+      maxWidth: '400px', // Maximum width on larger screens
+      maxHeight: '90vh', // Makes the dialog scrollable if content exceeds height
+      data: element || null,
+      panelClass: 'scrollable-dialog'
     });
-
+  
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.fetchSecurityRoles();
       }
     });
   }
+  
  
 }

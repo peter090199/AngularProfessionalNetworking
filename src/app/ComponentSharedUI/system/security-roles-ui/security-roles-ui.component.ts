@@ -1,22 +1,22 @@
-// import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { firstValueFrom } from 'rxjs';
+import { SecurityRolesService } from 'src/app/services/Security/security-roles.service';
 
-// @Component({
-//   selector: 'app-security-roles-ui',
-//   templateUrl: './security-roles-ui.component.html',
-//   styleUrls: ['./security-roles-ui.component.css']
-// })
-// export class SecurityRolesUIComponent implements OnInit {
+interface MenuNode {
+  description: string;
+  access: boolean;
+  submenu?: MenuNode[];
+}
 
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NotificationsService } from 'src/app/services/Global/notifications.service';
+interface FlatMenuNode {
+  expandable: boolean;
+  description: string;
+  level: number;
+  access: boolean;
+}
 
 @Component({
   selector: 'app-security-roles-ui',
@@ -24,105 +24,80 @@ import { NotificationsService } from 'src/app/services/Global/notifications.serv
   styleUrls: ['./security-roles-ui.component.css']
 })
 export class SecurityRolesUIComponent implements OnInit {
-
-  btnSave     : string = "Save";
-  loading     : boolean = false;
-
-  EmployeeForm = new FormGroup({
-              id      : new FormControl(0),
-              empID    : new FormControl(''),
-              empName  : new FormControl(''),
-              address      : new FormControl(''),
-              contactNo     : new FormControl(''),
-  });
+  isLoading = false;
+  role_code: string;
+  treeData: MenuNode[] = [];
+  desc_code: any=[];
   
   constructor(
-    private dialog            : MatDialog,
-    private dialogRef         : MatDialogRef<SecurityRolesUIComponent>,
-    private notificationService   : NotificationsService,
-    @Inject(MAT_DIALOG_DATA) public data: any, // passing data here from update
-  ) { }
+    private securityService: SecurityRolesService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    this.role_code = data.rolecode;
+   
+
+  }
 
   ngOnInit(): void {
-    if (this.data) {
-      if(this.data.id){
-        this.btnSave = "Update";
-        this.EmployeeForm.controls['empID'].disable();
-        this.GetItemFormData();
+    this.fetchSecurityRoles();
+  }
+
+  async fetchSecurityRoles(): Promise<void> {
+    try {
+      this.isLoading = true;
+      const res = await firstValueFrom(this.securityService.getSecurityRolesByDesc_Code(this.role_code));
+      if (res && res.length > 0) {
+        this.treeData = res[0].datas;
+        this.desc_code = res[0].desc_code;
+      //  console.log(this.treeData)
+        this.dataSource.data = this.treeData;
       }
-  
-    }else{
-      this.onCheck(true);
+    } catch (error) {
+      console.error('Error fetching roles:', error);
+    } finally {
+      this.isLoading = false;
     }
-   
   }
 
-  
-  GetItemFormData(){
-    this.EmployeeForm.controls['id'].setValue(this.data.id);
-    this.EmployeeForm.controls['empID'].setValue(this.data.empID);
-    this.EmployeeForm.controls['empName'].setValue(this.data.empName);
-    this.EmployeeForm.controls['address'].setValue(this.data.address);
-    this.EmployeeForm.controls['contactNo'].setValue(this.data.contactNo);
-  }
+  // saveChanges() {
+  //   console.log('Saving changes...', this.dataSource.data);
 
-  onClose() {
-    // Logic to close the dialog or any other close action
-    this.dialogRef.close(); // If using Angular Material Dialog
-  }
-  
-  // onSubmit() {
-  //   this.loading = true;
-  //  const employeeData = this.EmployeeForm.getRawValue();
-  
-  //   if (this.btnSave == "Save")
-  //      {
-  //       this.empService.postProducts(employeeData).subscribe({
-  //         next: (res) => {
-  //           this.notificationService.popupSwalMixin("Successfully Saved.");
-  //           this.ResetForm();
-  //           this.loading = false;
-  //         },
-  //         error: (err) => {
-  //           this.notificationService.toastrError(err.error);
-  //           this.loading = false;
-  //         },
-  //       });
-  //   } 
-  //   else if (this.btnSave == 'Update') 
-  //     {
-  //     this.empService.updateProduct(employeeData,this.data.id).subscribe({
-  //       next: () => {
-  //         this.notificationService.popupSwalMixin("Successfully Updated.");
-  //         this.dialogRef.close(true); 
-  //         this.loading = false;
-  //       },
-  //       error: (err) => {
-  //         this.notificationService.toastrError(err.error);
-  //         this.loading = false;
-  //       },
-  //     });
-  //   }
+  //   this.securityService.updateRoles(this.dataSource.data).subscribe({
+  //     next: () => {
+  //       console.log('Changes saved successfully');
+  //       this.dialogRef.close(true);
+  //     },
+  //     error: (err) => {
+  //       console.error('Error saving changes', err);
+  //     }
+  //   });
   // }
+
+  toggleAccess(node: FlatMenuNode): void {
+    node.access = !node.access;
+    this.treeControl.getDescendants(node).forEach(child => (child.access = node.access));
+  }
   
+  private transformer = (node: MenuNode, level: number): FlatMenuNode => ({
+    expandable: !!node.submenu && node.submenu.length > 0,
+    description: node.description,
+    level,
+    access: node.access
+  });
 
-  onCheck(data: any) {
-    if (data) {
-      this.EmployeeForm.controls['empID'].disable();
-      this.EmployeeForm.controls['empID'].setValue('generated');
-    }
-    else {
-      this.EmployeeForm.controls['empID'].enable();
-      this.EmployeeForm.controls['empID'].setValue('');
-    }
-  }
+  treeControl = new FlatTreeControl<FlatMenuNode>(
+    node => node.level,
+    node => node.expandable
+  );
 
-  ResetForm(){
-    this.EmployeeForm.controls['empID'].setValue('');
-    this.EmployeeForm.controls['empName'].setValue('');
-    this.EmployeeForm.controls['address'].setValue('');
-    this.EmployeeForm.controls['contactNo'].setValue('');
-  }
+  treeFlattener = new MatTreeFlattener(
+    this.transformer,
+    node => node.level,
+    node => node.expandable,
+    node => node.submenu
+  );
+
+  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  hasChild = (_: number, node: FlatMenuNode) => node.expandable;
 
 }
-

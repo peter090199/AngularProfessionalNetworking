@@ -6,14 +6,13 @@
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>
-    <button type="button" mat-raised-button color="primary" (click)="onClickNew()">
-      <mat-icon>add_circle</mat-icon> New
+    <button type="button" mat-raised-button color="primary" (click)="View()">
+      <mat-icon>refresh</mat-icon> Refresh
     </button>
+    
   </div>
   
-      
       <div class="container-fixed">
-        <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
       <!-- Updated Mat Table with Footer Rows -->
       <mat-table  [dataSource]="dataSource" class="mat-elevation-z4" matSort>
             <ng-container matColumnDef="id">
@@ -53,8 +52,9 @@
             <ng-container matColumnDef="actions">
               <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
               <mat-cell *matCellDef="let element">
-                <button mat-icon-button color="primary" (click)="edit(element)"><mat-icon>edit</mat-icon> </button>
-                <button mat-icon-button color="warn" (click)="delete(element)"><mat-icon>delete</mat-icon> </button>
+                <button mat-icon-button color="primary" (click)="edit(element)"><span class="material-symbols-outlined">
+                  lists
+                  </span> </button>
               </mat-cell>
             </ng-container>
   
@@ -71,6 +71,7 @@
             <!-- Footer Rows -->
             <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': csecurityroles.length > 0}"></mat-footer-row>
           </mat-table>
+          <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
         <!-- Pagination -->
         <mat-paginator class="mat-paginator-sticky" [pageSize]="10" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons> </mat-paginator>
       </div>
