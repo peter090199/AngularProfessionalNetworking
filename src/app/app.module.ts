@@ -23,6 +23,11 @@ import { PrivacyComponent } from './TermsModal/privacy/privacy.component';
 import { SecurityRolesComponent } from './ComponentUI/system/security-roles/security-roles.component';
 import { UsersComponent } from './ComponentUI/system/users/users.component';
 import { ChatUIComponent } from './chat-ui/chat-ui.component';
+import { RoleComponent } from './ComponentUI/system/role/role.component';
+import { HomeUIComponent } from './ComponentUI/home/home-ui/home-ui.component';
+import { SecurityRolesUIComponent } from './ComponentSharedUI/system/security-roles-ui/security-roles-ui.component';
+import { MenuUIComponent } from './ComponentSharedUI/system/menu-ui/menu-ui.component';
+import { RoleUIComponent } from './ComponentSharedUI/system/role-ui/role-ui.component';
 
 
 @NgModule({
@@ -39,7 +44,12 @@ import { ChatUIComponent } from './chat-ui/chat-ui.component';
     PrivacyComponent,
     SecurityRolesComponent,
     UsersComponent,
-    ChatUIComponent
+    ChatUIComponent,
+    RoleComponent,
+    HomeUIComponent,
+    SecurityRolesUIComponent,
+    MenuUIComponent,
+    RoleUIComponent
 
   ],
   imports: [

@@ -9,6 +9,8 @@ import { TopNavigationComponent } from './Navigation/top-navigation/top-navigati
 import { SecurityRolesComponent } from './ComponentUI/system/security-roles/security-roles.component';
 import { UsersComponent } from './ComponentUI/system/users/users.component';
 import { MenuComponent } from './ComponentUI/system/menu/menu.component';
+import { RoleComponent } from './ComponentUI/system/role/role.component';
+import { HomeUIComponent } from './ComponentUI/home/home-ui/home-ui.component';
 import { ProtectedComponent } from './TermsModal/protected/protected.component';
 
 const routes: Routes = [
@@ -20,13 +22,23 @@ const routes: Routes = [
 
   // Top navigation with sub-routes
   { 
-    path: 'home', 
+    path: '', 
+    component: TopNavigationComponent, 
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'home', component: HomeUIComponent },
+   
+    ]
+  },
+  { 
+    path: '', 
     component: TopNavigationComponent, 
     canActivate: [AuthGuard],
     children: [
       { path: 'security', component: SecurityRolesComponent },
       { path: 'user', component: UsersComponent },
-      { path: 'menu', component: MenuComponent }
+      { path: 'menu', component: MenuComponent },
+      { path: 'role', component: RoleComponent },
     ]
   },
 

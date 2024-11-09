@@ -1,7 +1,8 @@
 <div class="user-homepage">
   <header class="header">
     <div class="logo">
-      <p>logo</p>
+      <!-- <img  alt="nexsuz"> -->
+       <p>logo</p>
     </div>
     <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
       <div class="padding-userpage">
@@ -31,16 +32,16 @@
       </li>
     </ul>
   </div>
+</div>
   
 <section class="welcome-section">
   <h1 [@slideUp] *ngIf="fadeIn">Welcome to Nexsuz!</h1>
-  <p [@slideFade] *ngIf="fadeIn" style="padding-left: 30px;">Your Home to your Professional Network!</p>
-</section>
+  <p [@slideFade] *ngIf="fadeIn" style="padding-left: 25px;">Your Home to your Professional Network!</p>
+
 
 
   <!-- New Section with Centered GIF -->
-  <section class="gif-section">
+  <div class="gif-section">
   
-  </section>
-</div>
-
+  </div>
+</section>

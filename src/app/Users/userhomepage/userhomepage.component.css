@@ -296,11 +296,9 @@ content {
   overflow: hidden;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 20px;
   /* Default size for larger screens */
-  height: 400px; /* Fixed height */
-  width: 800px; /* Fixed width */
-  margin-top: 40px;
+  height: 500px; /* Fixed height */
+  width: 500px; /* Fixed width */
   /* Apply the slide-up + fade-in animation */
   animation: slideUpFade 1.5s ease-out;
 }
@@ -320,19 +318,19 @@ content {
 /* Responsive design for Tablets (between 768px and 1024px) */
 @media (max-width: 1024px) {
   .gif-section {
-    height: 300px; /* Adjust height for tablet */
-    width: 600px;  /* Adjust width for tablet */
+    height: 400px;/* Adjust height for small screens */
+    width: 359px;   /* Take full width of the screen */
+   
   }
 }
 
 /* Responsive design for Mobile devices (between 480px and 768px) */
 @media (max-width: 768px) {
   .gif-section {
-    height: 250px; /* Adjust height for mobile */
-    width: 400px;
+    height: 400px;/* Adjust height for small screens */
+    width: 359px;   /* Take full width of the screen */
    
-}
- 
+  }
   
 .welcome-section p {
   font-size: 15px;
@@ -343,9 +341,9 @@ content {
 /* Responsive design for Very small Mobile devices (below 480px) */
 @media (max-width: 480px) {
   .gif-section {
-    height: 200px; /* Adjust height for small screens */
-    width: 90%   /* Take full width of the screen */
-    
+    height: 400px;/* Adjust height for small screens */
+    width: 359px;   /* Take full width of the screen */
+   
   }
 }
   

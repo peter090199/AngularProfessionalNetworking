@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { SecurityRolesService } from 'src/app/services/Security/security-roles.service';// assuming you have a service for API calls
 import { firstValueFrom } from 'rxjs';
-
+import { SecurityRolesUIComponent } from 'src/app/ComponentSharedUI/system/security-roles-ui/security-roles-ui.component';
 @Component({
   selector: 'app-security-roles',
   templateUrl: './security-roles.component.html',
@@ -15,9 +15,9 @@ export class SecurityRolesComponent implements OnInit {
   searchKey: string = '';
   placeHolder: string = 'Search security roles';
   isLoading: boolean = false;
-  displayedColumns: string[] = ['id', 'rolecode', 'description', 'created_by', 'updated_by'];
+  displayedColumns: string[] = ['id', 'rolecode', 'description', 'created_by', 'updated_by','actions'];
   dataSource = new MatTableDataSource<any>([]);
-  csecurityroles: any[];
+  csecurityroles: any[] = [];
 
   pageSizeOptions   : number[] = [5, 10, 25, 100];
   success: boolean = false;
@@ -41,6 +41,7 @@ export class SecurityRolesComponent implements OnInit {
           this.isLoading = true;
           this.success = true;
           this.csecurityroles = response.message; // Assign the fetched data
+          console.log(this.csecurityroles)
           this.dataSource.data = this.csecurityroles;
         } 
         else
@@ -59,31 +60,63 @@ export class SecurityRolesComponent implements OnInit {
   }
   
 
-  // Function to filter data
-  applyFilter() {
-    this.dataSource.filter = this.searchKey.trim().toLowerCase();
+  applyFilter(){
+    this.dataSource.filter = this.searchKey.trim().toLocaleLowerCase();
   }
-
-  // Function to clear search
-  clearSearch() {
-    this.searchKey = '';
+  clearSearch(){
+    this.searchKey = "";
     this.applyFilter();
   }
 
 
   // Handle 'New' button click (create new role functionality)
   onClickNew(): void {
-    // // Show dialog for creating a new role (you can implement a dialog component)
-    // const dialogRef = this.dialog.open(NewRoleDialogComponent, {
-    //   width: '400px'
-    // });
-
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    //     this.fetchSecurityRoles(); // Refresh the data after adding a new role
-    //   }
-    // });
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '400px';
+    const dialogRef = this.dialog.open(SecurityRolesUIComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchSecurityRoles(); // Refresh the table after dialog closure
+      }
+    });
   }
 
+   delete(products:any){
+  //   if(!products){
+  //     this.notificationsService.toastrWarning('No record selected!');
+      
+  //   }
+  //   else{
+  //     this.notificationsService.popupWarning(products.productName," "+"Are you sure to delete this product?").then((result) => {
+  //       if (result.value) {
+  //         this.employeeService.deleteEmployee(products.productId).subscribe({
+  //             next:()=>{
+  //               this.notificationsService.popupSwalMixin("Successfuly deleted "+ products.productName);
+  //               this.loadProducts();
+  //             },
+  //             error:()=>{
+  //               this.notificationsService.toastrError("no product id");
+  //               this.loadProducts();
+  //             },
+  //         });
+  //       }
+  //     });
+  //   }
+  }
+
+  edit(element: any): void {
+    const dialogRef = this.dialog.open(SecurityRolesUIComponent, {
+      width: '400px',
+      data: element || null
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.fetchSecurityRoles();
+      }
+    });
+  }
  
 }
