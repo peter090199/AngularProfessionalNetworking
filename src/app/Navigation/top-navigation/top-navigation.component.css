@@ -250,10 +250,9 @@ mat-icon.logout-icon {
     }
    /* Responsive styles */
    .content-area {
-    margin-top: 48px; /* Push down content to avoid it being hidden under the toolbar */
-    padding: 5px;    /* Optional padding for aesthetics */
-    overflow: auto; /* Enable scrolling for the content area */
- 
+    overflow: auto; 
+    padding: 5px;
+    margin: 12px;
   }
    @media (max-width: 480px) {
     .welcome-section {

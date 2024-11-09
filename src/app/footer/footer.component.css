@@ -12,28 +12,20 @@
     right: 0;
     background-color: #4e60d43f;
     color: #fff;
-    line-height: 40px;
+    line-height: 10px;
     transition: line-height 0.3s;
-  }
-  .chat-body {
-    position: relative;
-    padding: 10px;
   }
   
   .chat-body button {
-    float: right;         /* Moves the button to the right side */
+    float: right;         
     margin-top: 0px;
 
-    
-       /* Optional for some margin from the edge */
   }
   
-  /* Alternatively, use flexbox */
-
   .chat-body {
     display: flex;
-    justify-content: flex-end;  /* Align the button to the right */
-    padding: 30px;
+    justify-content: flex-end;  
+    padding: 10px;
     margin: 0px;
     
   }

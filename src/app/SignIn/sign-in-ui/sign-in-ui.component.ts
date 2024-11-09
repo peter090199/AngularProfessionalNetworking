@@ -9,73 +9,63 @@ import { SigInService } from 'src/app/services/signIn/sig-in.service';
   templateUrl: './sign-in-ui.component.html',
   styleUrls: ['./sign-in-ui.component.css']
 })
-
-export class SignInUIComponent implements OnInit{
+export class SignInUIComponent implements OnInit {
+  loginForm!: FormGroup;
   isLoading = false;
-  checked = false;
+  hide = true; // For password visibility toggle
+  checked = false; // Remember me checkbox
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private sigInService: SigInService,
+    private notificationService: NotificationsService
+  ) {}
 
   ngOnInit(): void {
     this.initializeForm();
   }
 
+  // Initialize the login form
   private initializeForm(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
-  
-  
-  hide = true;
-  loginForm: FormGroup;
-  hidePassword: any;
 
-  constructor(private fb: FormBuilder, private router: Router,private siginservice: SigInService,
-    private notificationService:NotificationsService
-  ) { 
-    this.loginForm = this.fb.group({
-      email: ['', [Validators.required]],
-      password: ['', [Validators.required]]
-    });
-
-  } 
-  user:any;
-  onSubmit() {
-    const { email, password } = this.loginForm.value;
-  
+  // Handle form submission
+  onSubmit(): void {
     // Check if the form is valid
-    if (this.loginForm.valid) {
-      this.isLoading = true; // Start loading
-  
-      // Call the sign-in service
-      this.siginservice.signin(email, password).subscribe({
-        next: (res) => {
-          // Handle successful login
-          if (res.token) {
-
-            console.log(res.role_code);
-            this.loginForm.reset();
-            this.notificationService.toastrSuccess("Successfuly sign in");
-             this.router.navigate(['/topnavigation']);
-            // Optionally navigate or perform additional actions here
-          }
-        },
-        error: (err) => {
-          // Handle errors
-          if (err.status === 401) {
-            this.router.navigate(['/signInUI']); // Redirect for unauthorized access
-          } else {
-            this.notificationService.toastrError(err.error.message); // Show error message
-          }
-        },
-        complete: () => {
-          // Stop loading after the response is received
-          this.isLoading = false; 
-        }
-      });
+    if (this.loginForm.invalid) {
+      this.notificationService.toastrError('Please fill in the form correctly.');
+      return;
     }
+
+    // Extract the form values
+    const { email, password } = this.loginForm.value;
+    this.isLoading = true; // Start loading indicator
+
+    // Call the sign-in service
+    this.sigInService.signin(email, password).subscribe({
+      next: (res) => {
+        if (res.token) {
+          this.notificationService.toastrSuccess('Successfully signed in');
+          this.router.navigate(['/home']);
+          this.loginForm.reset(); // Reset form after successful login
+        }
+      },
+      error: (err) => {
+        if (err.status === 401) {
+          this.notificationService.toastrError('Unauthorized: Invalid credentials');
+        } else {
+          this.notificationService.toastrError(err.error?.message || 'An error occurred');
+        }
+        this.isLoading = false; // Stop loading on error
+      },
+      complete: () => {
+        this.isLoading = false; // Stop loading on completion
+      }
+    });
   }
-  
 }
-
-

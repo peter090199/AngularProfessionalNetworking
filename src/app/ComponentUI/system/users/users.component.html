@@ -1,6 +1,6 @@
 <section class="section">
     <div class="search-div">
-      <mat-form-field class="w-60" floatLabel="never" appearance="standard">
+      <mat-form-field class="w-40" floatLabel="never" appearance="standard">
         <input matInput [(ngModel)]="searchKey" [placeholder]="placeHolder" (keyup)="applyFilter()" autocomplete="false">
         <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
           <mat-icon>close</mat-icon>
@@ -11,7 +11,7 @@
       </button>
     </div>
     
-    <div class="container-fixed" >
+    <div class="container-fluid" >
       <mat-progress-spinner *ngIf="isLoading" mode="indeterminate"></mat-progress-spinner>
       <mat-table matSort class="mat-elevation-z4">
        

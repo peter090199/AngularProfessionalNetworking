@@ -6,12 +6,26 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./chat-ui.component.css']
 })
 export class ChatUIComponent {
+  messages: { text: string, sender: string }[] = [];
+  message = '';
 
-  @Output() close = new EventEmitter<void>();
+  constructor() {}
 
-  closeChat() {
-    this.close.emit();
+  ngOnInit(): void {
+    // Subscribe to incoming messages
+    // this.chatService.receiveMessage().subscribe((msg) => {
+    //   this.messages.push({ text: msg, sender: 'other' });
+    // });
   }
-  constructor() { }
+
+  sendMessage(): void {
+    if (this.message.trim()) {
+      // // Send the message via the service
+      // this.chatService.sendMessage(this.message);
+      // Add it to the chat window
+      this.messages.push({ text: this.message, sender: 'self' });
+      this.message = '';
+    }
+  }
 
 }

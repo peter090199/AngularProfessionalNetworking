@@ -1,1 +1,66 @@
-<p>security-roles works!</p>
+<section class="section"  class="content-scrollable">
+        
+      <div class="search-div">
+        <mat-form-field class="w-40" floatLabel="never" appearance="standard">
+          <input matInput [(ngModel)]="searchKey" [placeholder]="placeHolder"  autocomplete="off">
+          <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        
+        <button type="button" mat-raised-button color="primary" (click)="onClickNew()">
+          <mat-icon>add_circle</mat-icon> New
+        </button>
+      </div>
+      
+      <div class="container-fixed">
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
+      <!-- Updated Mat Table with Footer Rows -->
+      <mat-table  [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+            <!-- ID Column -->
+            <ng-container matColumnDef="id">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.id }}</mat-cell>
+            </ng-container>
+
+            <!-- Rolecode Column -->
+            <ng-container matColumnDef="rolecode">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Rolecode</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.rolecode }}</mat-cell>
+            </ng-container>
+
+            <!-- Description Column -->
+            <ng-container matColumnDef="description">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Description</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.description }}</mat-cell>
+            </ng-container>
+
+            <!-- Created By Column -->
+            <ng-container matColumnDef="created_by">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Created By</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.created_by }}</mat-cell>
+            </ng-container>
+
+            <!-- Updated By Column -->
+            <ng-container matColumnDef="updated_by">
+              <mat-header-cell *matHeaderCellDef mat-sort-header>Updated By</mat-header-cell>
+              <mat-cell *matCellDef="let element">{{ element.updated_by }}</mat-cell>
+            </ng-container>
+
+            <!-- No Data Row -->
+            <ng-container matColumnDef="noData">
+              <mat-footer-cell *matFooterCellDef colspan="6">No data.</mat-footer-cell>
+            </ng-container>
+
+            <!-- Table Rows -->
+            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+            <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+
+            <!-- Footer Rows -->
+            <mat-footer-row *matFooterRowDef="['noData']" [ngClass]="{'hide': csecurityroles.length > 0}"></mat-footer-row>
+          </mat-table>
+        <!-- Pagination -->
+        <mat-paginator class="mat-paginator-sticky" [pageSize]="10" [pageSizeOptions]="pageSizeOptions" showFirstLastButtons> </mat-paginator>
+      </div>
+  
+</section>

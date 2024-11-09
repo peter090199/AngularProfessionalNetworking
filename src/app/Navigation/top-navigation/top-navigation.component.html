@@ -1,11 +1,16 @@
 <div class="user-homepage">
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
   <header class="header">
+  
     <div class="logo">
       <p>logo</p>
     </div>
     <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
+
       <div class="padding-userpage" *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
-            <!-- If submenu exists, render as dropdown for desktop -->
+        
+      
+        <!-- If submenu exists, render as dropdown for desktop -->
             <div *ngIf="link.submenus && link.submenus.length > 0; else regularLink">
               <button mat-button  [matMenuTriggerFor]="menu" class="nav-link">{{ link.description }}</button>
                <!-- Submenu for dropdown items -->
@@ -68,12 +73,11 @@
 
   </div>
 
-  <div class="content-area">
-        <app-top-navigation></app-top-navigation>
+    <div class="content-area">
          <router-outlet></router-outlet>
-         
        
      </div>
+   
 </div>
 
 

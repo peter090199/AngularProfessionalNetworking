@@ -3,6 +3,8 @@ import { TNavigationService } from 'src/app/services/TNavigation/tnavigation.ser
 import { slideUp, slideFade } from 'src/app/animations';
 import { AuthGuard } from 'src/app/AuthGuard/auth.guard';
 import { MatMenuPanel } from '@angular/material/menu';
+import { firstValueFrom } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-top-navigation',
@@ -18,6 +20,9 @@ export class TopNavigationComponent implements OnInit {
   nav_module: any=[]; // Store user data fetched from API
   submenuMenu: MatMenuPanel<any>;
 
+  isLoading:boolean = false;
+  success:boolean = false;
+  
   constructor(
     private authService: AuthGuard,
     private navigationService: TNavigationService // Inject the TNavigationService
@@ -26,8 +31,7 @@ export class TopNavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fadeIn = true;
-    this.getUserData(); // Fetch user data when component loads
+    this.getModule(); // Fetch user data when component loads
   }
   isChatOpen = false;
   toggleChat() {
@@ -55,18 +59,84 @@ export class TopNavigationComponent implements OnInit {
     this.authService.logout();
   }
 
-  // Fetch user data from the API
-  getUserData() {
-    this.navigationService.getData() // Use a relevant endpoint
-      .subscribe(
-        (data: any) => {
-          this.nav_module = data;
-        },
-        (error: any) => {
-          console.error('Error fetching user data:', error);
-        }
-      );
+  // getModule() {
+
+  //   try{
+  //     this.isLoading = true;
+  //     this.navigationService.getData() // Use a relevant endpoint
+  //     .subscribe(
+  //       (data) => {
+  //         this.nav_module = data;
+  //       },
+  //       (error) => {
+  //         this.isLoading = false;
+  //         console.error('Error fetching user data:', error);
+  //       }
+  //     );
+  //   }catch(error){
+  //     console.error('Error fetching data:', error);
+  //   }finally {
+  //         this.isLoading = false;
+  //       }
+   
+  // }
+
+  async getModule(): Promise<void> {
+    this.isLoading = true;
+    try {
+      const response = await firstValueFrom(this.navigationService.getData());
+  
+      if (response) {
+        this.success = true;
+        this.nav_module = response;
+      } else {
+        this.success = false;
+      }
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      this.isLoading = false;
+    }
   }
+
+//   // Fetch user data from the API
+// getUserData(): void {
+//   // Start loading before making the API call
+//   this.isLoading = true;
+  
+//   this.navigationService.getData() // Use a relevant endpoint
+//     .subscribe(
+//       (response) => {
+//         if (response.success) {
+//           this.nav_module = response.data; // Assuming 'data' contains your relevant data
+//         } else {
+//           console.error('Failed to fetch user data:', response.message);
+//         }
+//         // Stop loading after successful response
+//         this.isLoading = false;
+//       },
+//       (error) => {
+//         console.error('Error fetching user data:', error);
+//         // Stop loading after error response
+//         this.isLoading = false;
+//       }
+//     );
+// }
+
+  // Fetch user data from the API
+  // getUserData() {
+  //   this.isLoading = true;
+  //   this.navigationService.getData() // Use a relevant endpoint
+  //     .subscribe(
+  //       (data) => {
+  //         this.nav_module = data;
+  //       },
+  //       (error) => {
+  //         this.isLoading = false;
+  //         console.error('Error fetching user data:', error);
+  //       }
+  //     );
+  // }
 
   // Example of sending data to the API (POST request)
   sendData() {

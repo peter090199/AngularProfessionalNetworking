@@ -1,18 +1,12 @@
-<div class="chat-window">
-    <div class="chat-header">
-      <span>Message</span>
-      <button mat-icon-button (click)="closeChat()">
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
-    <div class="chat-body">
-      <p>Start your conversation here...</p>
-    </div>
-    <div class="chat-footer">
-      <mat-form-field appearance="standard">
-        <input matInput placeholder="Type a message...">
-      </mat-form-field>
-      <button mat-button color="primary">Send</button>
+<div class="chat-container">
+  <div class="chat-messages">
+    <div *ngFor="let msg of messages" [ngClass]="{'message-self': msg.sender === 'self', 'message-other': msg.sender === 'other'}">
+      <span>{{ msg.text }}</span>
     </div>
   </div>
-  
+
+  <div class="chat-input">
+    <input [(ngModel)]="message" placeholder="Type a message..." (keyup.enter)="sendMessage()"/>
+    <button (click)="sendMessage()">Send</button>
+  </div>
+</div>
