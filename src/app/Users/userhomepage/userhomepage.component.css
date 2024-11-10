@@ -217,7 +217,7 @@ content {
     font-weight: bold;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: left;
-    margin-top: 25px;
+    margin-top: 55px;
     margin-left: 38px;
   }
 
@@ -289,14 +289,15 @@ content {
   position: relative;
   display: flex;
   align-items: left;
-  background-image: url('/assets/images/gif2.gif'); /* Path to your GIF */
+  background-image: url('/assets/images/gif.gif'); /* Path to your GIF */
   background-position: center;
   background-size: cover; /* Ensures the GIF fits within the specified size */
   background-repeat: no-repeat;
+  background-color: #b88e8e6c;
   text-align: center;
   overflow: hidden;
   margin-left: auto;
-  margin-right: 130px;
+  margin-right: auto;
   height: 400px; /* Fixed height */
   width: 400px; /* Fixed width */
   opacity: 0; /* Start as invisible */
