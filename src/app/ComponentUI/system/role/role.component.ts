@@ -16,7 +16,7 @@ import { error } from 'console';
 })
 export class RoleComponent implements OnInit {
   searchKey: string = '';
-  placeHolder: string = 'Search roles';
+  placeHolder: string = 'Search';
   isLoading: boolean = false;
   displayedColumns: string[] = ['id', 'rolecode', 'description', 'created_by', 'updated_by','actions'];
   dataSource = new MatTableDataSource<any>([]);

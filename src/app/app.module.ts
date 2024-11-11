@@ -28,7 +28,7 @@ import { HomeUIComponent } from './ComponentUI/home/home-ui/home-ui.component';
 import { SecurityRolesUIComponent } from './ComponentSharedUI/system/security-roles-ui/security-roles-ui.component';
 import { MenuUIComponent } from './ComponentSharedUI/system/menu-ui/menu-ui.component';
 import { RoleUIComponent } from './ComponentSharedUI/system/role-ui/role-ui.component';
-
+import { MenuComponent } from './ComponentUI/system/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +49,8 @@ import { RoleUIComponent } from './ComponentSharedUI/system/role-ui/role-ui.comp
     HomeUIComponent,
     SecurityRolesUIComponent,
     MenuUIComponent,
-    RoleUIComponent
+    RoleUIComponent,
+    MenuComponent
 
   ],
   imports: [

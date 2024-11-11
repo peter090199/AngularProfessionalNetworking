@@ -24,10 +24,12 @@ interface FlatMenuNode {
   styleUrls: ['./security-roles-ui.component.css']
 })
 export class SecurityRolesUIComponent implements OnInit {
+
   isLoading = false;
   role_code: string;
   treeData: MenuNode[] = [];
   desc_code: any=[];
+
   
   constructor(
     private securityService: SecurityRolesService,
@@ -47,9 +49,10 @@ export class SecurityRolesUIComponent implements OnInit {
       this.isLoading = true;
       const res = await firstValueFrom(this.securityService.getSecurityRolesByDesc_Code(this.role_code));
       if (res && res.length > 0) {
-        this.treeData = res[0].datas;
-        this.desc_code = res[0].desc_code;
-      //  console.log(this.treeData)
+        this.treeData = res;
+      //  this.desc_code = res[0].desc_code;
+        console.log(this.treeData)
+       // console.log(res[])
         this.dataSource.data = this.treeData;
       }
     } catch (error) {
@@ -58,7 +61,9 @@ export class SecurityRolesUIComponent implements OnInit {
       this.isLoading = false;
     }
   }
-
+  onSubmit() {
+    console.log("test");
+    }
   // saveChanges() {
   //   console.log('Saving changes...', this.dataSource.data);
 
