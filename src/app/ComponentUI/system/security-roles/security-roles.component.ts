@@ -158,7 +158,7 @@ export class SecurityRolesComponent implements OnInit {
   edit(element: any) {
     const dialogRef = this.dialog.open(SecurityRolesUIComponent, {
       width: '400px',
-      maxHeight: '90vh',
+      height:'590px',
       data: element,
       panelClass: 'scrollable-dialog'
     });

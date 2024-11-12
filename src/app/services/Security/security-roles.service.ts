@@ -42,9 +42,14 @@ export class SecurityRolesService {
     return this.http.get(`${_url}accessmenu`, { headers, params });
   }
 
-  getSecurityRolesByDesc_Code(rolecode:any): Observable<any> {
+  // getSecurityRolesByDesc_Code(rolecode:any): Observable<any> {
+  //   const headers = this.createHeaders();
+  //   return this.http.get(`${_url}security/${rolecode}`,{ headers });
+  // }
+
+  getSecurityRolesByDesc_Code(rolecode: string): Observable<any> {
     const headers = this.createHeaders();
-    return this.http.get(`${_url}security/${rolecode}`,{ headers });
+    return this.http.get(`${_url}security/${rolecode}`, { headers });
   }
 
   // Example of a POST request

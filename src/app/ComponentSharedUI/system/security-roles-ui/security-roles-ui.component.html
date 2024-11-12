@@ -1,30 +1,49 @@
-<mat-card class="tree-container">
-  <!-- Loading Indicator -->
-  <div *ngIf="isLoading" class="loading-text">Loading...</div>
+<div *ngIf="loading" class="d-flex justify-content-center align-items-center my-4">
+  <!-- Spinner -->
+  <mat-spinner class="mat-spinner" diameter="40"></mat-spinner><br>
+  <span class="ml-2">Loading...</span>
+</div>
 
-  <div class="scrollable-tree">
-    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-      <!-- Parent Nodes -->
-      <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.description">
-          <mat-icon>{{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}</mat-icon>
-        </button>
-        <mat-checkbox [(ngModel)]="node.access" (change)="toggleAccess(node)">
-          {{ node.description }}
-        </mat-checkbox>
-      </mat-tree-node>
 
-      <!-- Leaf Nodes -->
-      <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <button mat-icon-button disabled></button>
-        <mat-checkbox [(ngModel)]="node.access" (change)="toggleAccess(node)">
-          {{ node.description }}
-        </mat-checkbox>
-      </mat-tree-node>
-    </mat-tree>
+<div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
+
+<div *ngIf="!loading && !error">
+  <div *ngFor="let section of securityRoles" class="mb-4">
+    <h4 class="text-primary">{{ section.desc_code | titlecase }}</h4>
+
+    <div *ngFor="let item of section.datas" class="mb-3">
+      <!-- Top-level menu item with checkbox -->
+      <mat-expansion-panel (opened)="toggleSubMenu(item)" (closed)="toggleSubMenu(item)">
+        <mat-expansion-panel-header>
+          <mat-checkbox 
+            class="mat-checkbox" 
+            [checked]="item.access" 
+            (change)="onCheckboxChange(item, $event)"
+            (click)="$event.stopPropagation()">
+            {{ item.description }}
+          </mat-checkbox>
+          <mat-icon class="mat-icon" *ngIf="item.submenu?.length > 0" [ngClass]="{'mat-chevron-down': item.expanded, 'mat-chevron-right': !item.expanded}">
+            {{ item.expanded ? 'expand_more' : 'expand_less' }}
+          </mat-icon>
+        </mat-expansion-panel-header>
+
+        <!-- Submenu items -->
+        <div *ngIf="item.expanded">
+          <mat-list>
+            <mat-list-item *ngFor="let submenu of item.submenu">
+              <mat-checkbox 
+                class="mat-checkbox"
+                [checked]="submenu.access"
+                (change)="onCheckboxChange(submenu, $event)">
+                {{ submenu.description }}
+              </mat-checkbox>
+            </mat-list-item>
+          </mat-list>
+        </div>
+      </mat-expansion-panel>
+    </div>
   </div>
 
-  <div mat-dialog-actions align="end">
-    <button type="submit" mat-raised-button color="primary">Update</button>
-  </div>
-</mat-card>
+  <div *ngIf="securityRoles.length === 0" class="alert alert-info text-center">No data available</div>
+  <mat-card-footer></mat-card-footer>
+</div>
