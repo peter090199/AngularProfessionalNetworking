@@ -30,7 +30,16 @@ export class SignInUIComponent implements OnInit {
   private initializeForm(): void {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required]]
+    });
+  }
+
+  simulateLogin(email: string, password: string): Promise<boolean> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // Simulate incorrect password (replace with real validation logic)
+        resolve(password === 'correct-password');
+      }, 1000);
     });
   }
 
@@ -46,6 +55,14 @@ export class SignInUIComponent implements OnInit {
     const { email, password } = this.loginForm.value;
     this.isLoading = true; // Start loading indicator
 
+    this.simulateLogin(email, password).then((isAuthenticated) => {
+      this.isLoading = false;
+      if (!isAuthenticated) {
+        this.loginForm.get('password')?.setErrors({ incorrect: true });
+      }
+    });
+
+    
     // Call the sign-in service
     this.sigInService.signin(email, password).subscribe({
       next: (res) => {

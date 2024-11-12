@@ -122,7 +122,7 @@ fadeIn: any;
     this.registerForm = this.fb.group({
       email: new FormControl('', [Validators.required, Validators.email]),
       countryCode: new FormControl('', Validators.required),
-      contactno: new FormControl('', Validators.required),
+      contactno: ['', [Validators.required,  Validators.pattern('^[0-9]+$')]],
       fname: new FormControl('', Validators.required),
       lname: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required),
@@ -159,7 +159,7 @@ fadeIn: any;
   onSubmit():void {
    if (this.registerForm.valid) {
 
-    console.log(this.registerForm.value)
+  //  console.log(this.registerForm.value)
       this.signupService.signup(this.registerForm.getRawValue()).subscribe({
         next: (res) => {
           this.notifyService.toastrSuccess("Successfully Saved. " + res.message);

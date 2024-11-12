@@ -127,7 +127,8 @@ export class SecurityRolesComponent implements OnInit {
     try {
       const response = await firstValueFrom(this.securityRoleService.getSecurityRoles());
       if (response.success) {
-        this.dataSource.data = response.message;
+        this.csecurityroles = response.message;
+        this.dataSource.data =  this.csecurityroles;
       }
     } catch (error) {
       console.error('Error:', error);
@@ -158,7 +159,7 @@ export class SecurityRolesComponent implements OnInit {
   edit(element: any) {
     const dialogRef = this.dialog.open(SecurityRolesUIComponent, {
       width: '400px',
-      height:'590px',
+      height:'520px',
       data: element,
       panelClass: 'scrollable-dialog'
     });

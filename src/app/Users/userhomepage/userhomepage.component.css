@@ -14,6 +14,7 @@
 
 .logo {
   font-size: 24px; /* Logo font size */
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .nav {
@@ -73,18 +74,7 @@
   color: #e3effc; /* Change color on hover */
   text-decoration: underline; /* Underline on hover */
 }
-/* Set up the background GIF */
-content {
-  margin: 0;
-  padding: 0;
-  background-image: url('/assets/images/gif.gif');
-  background-size: cover;        /* Ensures the GIF covers the entire background */
-  background-repeat: no-repeat;  /* Prevents the GIF from repeating */
-  background-position: center;   /* Centers the GIF */
-  background-attachment: fixed;  /* Keeps the background fixed on scroll */
-  height: 100vh;
-  overflow: hidden;
-}
+
 
 /* Style for the content to ensure readability over the background */
 .content {
@@ -231,7 +221,10 @@ content {
 
  @media (max-width: 480px) {
   .welcome-section {
-      padding: 20px;
+      padding: 0px;
+  }
+  .gif-section{
+    width: 300px;
   }
 
   .welcome-section p {
@@ -245,7 +238,11 @@ content {
     font-size: 1.6rem;
     font-weight: 'bold';
     text-align: center;
+    
 }
+  .gif-section{
+    width: 290px;
+  }
 .nav {
   display: flex; /* Show nav links on desktop */
 }

@@ -12,6 +12,25 @@
   text-align: center;
 
 }
+.links {
+  margin: 19px;
+  text-align: left;
+}
+
+.links a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}.agreement-section {
+  margin-top: 10px;
+  font-size: 0.9em;
+  color: #555;
+  margin: 10px;
+}
+
 .login-card mat-card-header h2 {
   display: flex;
   align-items: center; /* Vertically centers the icon with the text */

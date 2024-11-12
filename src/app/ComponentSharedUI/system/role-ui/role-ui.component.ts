@@ -96,13 +96,13 @@ export class RoleUIComponent implements OnInit {
                 this.loading = true;
               }
               else{
-                this.notificationService.toastrError(res.message);
+                this.notificationService.toastrWarning(res.message);
                 this.loading = false; 
               }
               
           },
           error: (err) => {
-            this.notificationService.toastrError(err.error);
+            this.notificationService.toastrWarning(err.error);
             this.loading = false;  // Set loading to false in case of error
           },
         });

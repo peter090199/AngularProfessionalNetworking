@@ -12,6 +12,7 @@ import { MenuComponent } from './ComponentUI/system/menu/menu.component';
 import { RoleComponent } from './ComponentUI/system/role/role.component';
 import { HomeUIComponent } from './ComponentUI/home/home-ui/home-ui.component';
 import { ProtectedComponent } from './TermsModal/protected/protected.component';
+import { MessagesComponent } from './ComponentUI/messages/messages.component';
 
 const routes: Routes = [
   // Public routes
@@ -27,7 +28,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'home', component: HomeUIComponent },
-   
+      { path: 'message', component: MessagesComponent },
     ]
   },
   { 

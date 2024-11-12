@@ -6,6 +6,12 @@
   font-size: 18px;
   margin-left: 8px;
 }
+.close-button {
+  position: absolute;
+  top: 18px;
+  right: 8px;
+}
+
 
 .mat-list-item {
   padding-left: 40px;

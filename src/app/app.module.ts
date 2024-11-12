@@ -29,6 +29,10 @@ import { SecurityRolesUIComponent } from './ComponentSharedUI/system/security-ro
 import { MenuUIComponent } from './ComponentSharedUI/system/menu-ui/menu-ui.component';
 import { RoleUIComponent } from './ComponentSharedUI/system/role-ui/role-ui.component';
 import { MenuComponent } from './ComponentUI/system/menu/menu.component';
+import { MessagesComponent } from './ComponentUI/messages/messages.component';
+import { MessagesUIComponent } from './ComponentSharedUI/messages-ui/messages-ui.component';
+import { DashboardUIComponent } from './ComponentSharedUI/dashboard-ui/dashboard-ui.component';
+import { DashboardComponent } from './ComponentUI/dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +54,11 @@ import { MenuComponent } from './ComponentUI/system/menu/menu.component';
     SecurityRolesUIComponent,
     MenuUIComponent,
     RoleUIComponent,
-    MenuComponent
+    MenuComponent,
+    MessagesComponent,
+    MessagesUIComponent,
+    DashboardUIComponent,
+    DashboardComponent
 
   ],
   imports: [

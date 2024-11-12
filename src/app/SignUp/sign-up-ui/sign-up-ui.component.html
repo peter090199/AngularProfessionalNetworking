@@ -6,56 +6,50 @@
                 <mat-icon style="vertical-align: middle;">person</mat-icon> Sign Up
             </h2>
         </mat-card-header>
-        <mat-divider></mat-divider><br>
+        <mat-divider></mat-divider>
         <mat-card-content>
             <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <mat-form-field appearance="standard" class="full-width">
+                <mat-form-field appearance="standard">
                     <mat-label>Email</mat-label>
                     <mat-icon matPrefix>email</mat-icon>
                     <input matInput type="email" formControlName="email" required>
                 </mat-form-field>
-                
+                <div class="onerow">
+                  <mat-form-field appearance="standard">
+                    <mat-label>Code</mat-label>
+                    <mat-icon matPrefix>flag</mat-icon>
+                    <mat-select formControlName="countryCode" required class="country-code-select" >
+                      <mat-option *ngFor="let country of countryCodes" [value]="country.code">
+                        {{ country.code }}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="standard" style="width:89%;">
+                    <mat-label>Contact Number</mat-label>
+                    <mat-icon matPrefix>phone</mat-icon>
+                    <input matInput type="number" formControlName="contactNo" required>
+                </mat-form-field>
+             </div>
                 <div class="form-row">
-                    <!-- Country Code Dropdown -->
-                    <mat-form-field appearance="standard" class="half-width">
-                        <mat-label>Country Code</mat-label>
-                        <mat-icon matPrefix>flag</mat-icon>
-                        <mat-select formControlName="countryCode" required>
-                            <mat-option *ngFor="let code of countryCodes" [value]="code.code">
-                                {{ code.code }} ({{ code.country }})
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    
-                    <!-- Contact Number Input -->
-                    <mat-form-field appearance="standard" class="half-width">
-                        <mat-label>Contact Number</mat-label>
-                        <mat-icon matPrefix>phone</mat-icon>
-                        <input matInput formControlName="contactno" required>
-                    </mat-form-field>
-                  </div>
-                  
-                
-                <div class="form-row">
-                    <mat-form-field appearance="standard" class="full-width">
+                    <mat-form-field appearance="standard" >
                         <mat-label>Firstname</mat-label>
                         <mat-icon matPrefix>person</mat-icon>
                         <input matInput formControlName="fname" required>
                     </mat-form-field>
-                    <mat-form-field appearance="standard" class="full-width">
+                    <mat-form-field appearance="standard">
                         <mat-label>Family Name</mat-label>
                         <mat-icon matPrefix>person</mat-icon>
                         <input matInput formControlName="lname" required>
                     </mat-form-field>
                 </div>
                 <div class="form-row">
-                    <mat-form-field appearance="standard" class="full-width">
+                    <mat-form-field appearance="standard" >
                         <mat-label>Password</mat-label>
                         <mat-icon matPrefix>lock</mat-icon>
                         <input matInput type="password" formControlName="password" required>
                     </mat-form-field>
 
-                    <mat-form-field appearance="standard" class="full-width">
+                    <mat-form-field appearance="standard" >
                         <mat-label>Confirm Password</mat-label>
                         <mat-icon matPrefix>lock</mat-icon>
                         <input matInput type="password" formControlName="password_confirmation" required>

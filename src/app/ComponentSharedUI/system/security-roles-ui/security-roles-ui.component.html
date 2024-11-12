@@ -8,6 +8,7 @@
 <div *ngIf="error" class="alert alert-danger text-center">{{ error }}</div>
 
 <div *ngIf="!loading && !error">
+
   <div *ngFor="let section of securityRoles" class="mb-4">
     <h4 class="text-primary">{{ section.desc_code | titlecase }}</h4>
 
@@ -45,5 +46,7 @@
   </div>
 
   <div *ngIf="securityRoles.length === 0" class="alert alert-info text-center">No data available</div>
-  <mat-card-footer></mat-card-footer>
+  <div mat-dialog-actions align="end" style="overflow: auto;">
+    <button type="submit" mat-raised-button color="primary" >Update</button>
+  </div>
 </div>
