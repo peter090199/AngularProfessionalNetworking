@@ -56,11 +56,12 @@ mat-form-field .mat-form-field-suffix {
 /* Card styling with scrolling enabled */
 .register-card {
   width: 100%;
-  max-width: 500px; /* Limits card width on larger screens */
+  max-width: 600px; /* Limits card width on larger screens */
   padding: 20px;
   box-shadow: 3 4px 10px rgba(0, 0, 0, 0.1);
   overflow: auto; /* Enables vertical scrolling */
   border-radius: 10px; 
+  min-height:400ps; 
 }
 
 /* Custom scrollbar styling */

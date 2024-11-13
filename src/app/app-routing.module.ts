@@ -13,6 +13,7 @@ import { RoleComponent } from './ComponentUI/system/role/role.component';
 import { HomeUIComponent } from './ComponentUI/home/home-ui/home-ui.component';
 import { ProtectedComponent } from './TermsModal/protected/protected.component';
 import { MessagesComponent } from './ComponentUI/messages/messages.component';
+import { ForgotPasswordUIComponent } from './ComponentSharedUI/forgot-password-ui/forgot-password-ui.component';
 
 const routes: Routes = [
   // Public routes
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'homepage', component: UserhomepageComponent },
   { path: 'signUpUI', component: SignUpUIComponent },
   { path: 'signInUI', component: SignInUIComponent },
+  { path: 'forgot-password', component: ForgotPasswordUIComponent },
 
   // Top navigation with sub-routes
   { 

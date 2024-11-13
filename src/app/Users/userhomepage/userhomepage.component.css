@@ -260,7 +260,7 @@ p{
   margin-left: auto;
   margin-right: auto;
   height: 400px; /* Fixed height */
-  width: 400px; /* Fixed width */
+  width: 500px; /* Fixed width */
   opacity: 0; /* Start as invisible */
   animation: fadeIn 2s ease-out forwards, slideUpFade 1.5s ease-out; /* Fade in + slide-up animation */
   border-radius: 5px;
@@ -288,64 +288,11 @@ p{
   }
 }
 
-/* Responsive design for Tablets (between 768px and 1024px) */
-@media (max-width: 1024px) {
+
+@media (max-width: 600px) {
   .gif-section {
     height: 400px;/* Adjust height for small screens */
     width: 359px;   /* Take full width of the screen */
-   
+    margin-top: 40px;
   }
-}
-
-@media (max-width: 768px) {
-  .welcome-section h1 {
-    font-size: 1.6rem;
-    
-}
-  .gif-section{
-    width: 290px;
-  }
-.nav {
-  display: flex; /* Show nav links on desktop */
-}
-  .navbar-toggler {
-    background: none; /* Remove default button background */
-    border: none; /* Remove default button border */
-    color: white; /* Toggle button color */
-    cursor: pointer; /* Pointer cursor */
-  }
-}
-
-/* Responsive styles */
-@media (min-width: 769px) {
-  .sidebar {
-    display: none; /* Hide sidebar on desktop */
-  }
-  
-}
-
-/* Responsive design for Mobile devices (between 480px and 768px) */
-@media (min-width: 381px) {
-  .gif-section {
-    height: 400px;/* Adjust height for small screens */
-    width: 400px;   /* Take full width of the screen */
-  }
-  
- .welcome-section p {
-  font-size: 14px;
-  margin-top: 12px;
-  margin-bottom: 20px;
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  }
-
-
-/* Responsive design for Very small Mobile devices (below 480px) */
-@media (max-width: 480px) {
-  .gif-section {
-    height: 400px;/* Adjust height for small screens */
-    width: 359px;   /* Take full width of the screen */
-   
-  }
-}
-  
 }
