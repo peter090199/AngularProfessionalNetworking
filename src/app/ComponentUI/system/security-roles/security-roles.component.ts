@@ -129,6 +129,7 @@ export class SecurityRolesComponent implements OnInit {
       if (response.success) {
         this.csecurityroles = response.message;
         this.dataSource.data =  this.csecurityroles;
+        this.isLoading = false;
       }
     } catch (error) {
       console.error('Error:', error);

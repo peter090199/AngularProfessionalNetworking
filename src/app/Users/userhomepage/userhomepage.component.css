@@ -292,7 +292,18 @@ p{
 @media (max-width: 600px) {
   .gif-section {
     height: 400px;/* Adjust height for small screens */
-    width: 359px;   /* Take full width of the screen */
+    width: 408px;   /* Take full width of the screen */
     margin-top: 40px;
   }
+
+@media (min-width: 349px) {
+  .gif-section {
+    height: 380px;/* Adjust height for small screens */
+    width: 348px;   /* Take full width of the screen */
+    margin-top: 40px;
+  }
+}
+
+
+ 
 }

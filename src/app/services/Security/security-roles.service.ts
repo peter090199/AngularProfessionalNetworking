@@ -70,4 +70,9 @@ export class SecurityRolesService {
     return this.http.delete(`${_url}${endpoint}`, { headers });
   }
 
+  submitData(formData: any): Observable<any> {
+    const headers = this.createHeaders();
+    return this.http.post(`${_url}security`,formData, { headers });
+  }
+
 }

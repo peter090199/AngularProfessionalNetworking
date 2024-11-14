@@ -70,7 +70,7 @@ export class RoleUIComponent implements OnInit {
           {
             this.notificationService.toastrSuccess(res.message);
             this.ResetForm();
-            this.loading = true;
+            this.loading = false;
           }
           else{
             this.notificationService.toastrError(res.message);
