@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, of } from 'rxjs';
 import { _url } from 'src/global-variables';
 
 @Injectable({
@@ -8,15 +8,12 @@ import { _url } from 'src/global-variables';
 })
 export class SecurityRolesService {
 
-  // Inject HttpClient into the constructor
   constructor(private http: HttpClient) { }
 
-  // Method to get the authentication token from localStorage or another method
   private getAuthToken(): string {
     return localStorage.getItem('token') || ''; // Fetch the token from localStorage or other storage
   }
 
-  // Method to create HTTP headers with the Bearer token
   private createHeaders(): HttpHeaders {
     const token = this.getAuthToken();
     return new HttpHeaders({
@@ -25,46 +22,53 @@ export class SecurityRolesService {
     });
   }
 
-  // Method to create HTTP params with the desc_code
   private createParams(): HttpParams {
     return new HttpParams().set('desc_code', 'top_navigation');
   }
 
-  // Example of a GET request
   getSecurityRoles(): Observable<any> {
     const headers = this.createHeaders();
-    //const params = this.createParams();
-    return this.http.get(`${_url}security`, { headers });
+    return this.http.get(`${_url}security`, { headers }).pipe(
+      catchError(error => this.handleAuthError(error))
+    );
   }
+  
+  private handleAuthError(error: any): Observable<any> {
+    if (error.status === 401) {
+      console.error('Unauthorized: Please log in.');
+      alert('Unauthorized access. Please log in again.');
+    } else if (error.status === 403) {
+      console.error('Forbidden: You do not have permission to access this resource.');
+      alert('Forbidden: You do not have the required permissions.');
+    } else {
+      console.error('An error occurred:', error.message);
+      alert('An unexpected error occurred. Please try again.');
+    }
+    return of(null); // Return an observable with a fallback value
+  }
+
   getData(): Observable<any> {
     const headers = this.createHeaders();
     const params = this.createParams();
     return this.http.get(`${_url}accessmenu`, { headers, params });
   }
 
-  // getSecurityRolesByDesc_Code(rolecode:any): Observable<any> {
-  //   const headers = this.createHeaders();
-  //   return this.http.get(`${_url}security/${rolecode}`,{ headers });
-  // }
 
   getSecurityRolesByDesc_Code(rolecode: string): Observable<any> {
     const headers = this.createHeaders();
     return this.http.get(`${_url}security/${rolecode}`, { headers });
   }
 
-  // Example of a POST request
   postData(endpoint: string, body: any): Observable<any> {
     const headers = this.createHeaders();
     return this.http.post(`${_url}${endpoint}`, body, { headers });
   }
 
-  // Example of a PUT request
   putData(endpoint: string, body: any): Observable<any> {
     const headers = this.createHeaders();
     return this.http.put(`${_url}${endpoint}`, body, { headers });
   }
 
-  // Example of a DELETE request
   deleteData(endpoint: string): Observable<any> {
     const headers = this.createHeaders();
     return this.http.delete(`${_url}${endpoint}`, { headers });

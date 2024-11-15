@@ -4,6 +4,8 @@ import { SignUpService } from 'src/app/services/SignUp/sign-up.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ForgetPasswordService } from 'src/app/services/Password/Forget/forget-password.service';
+
 @Component({
   selector: 'app-forgot-password-ui',
   templateUrl: './forgot-password-ui.component.html',
@@ -18,7 +20,8 @@ export class ForgotPasswordUIComponent implements OnInit {
               private signUpService: SignUpService,
               private notificationsService: NotificationsService,
               private dialog: MatDialog,
-              private route:Router
+              private route:Router,
+              private forget:ForgetPasswordService
             ) { }
          
 
@@ -29,26 +32,20 @@ export class ForgotPasswordUIComponent implements OnInit {
   }
 
   // Handle form submission
-  onSubmit(): void {
+  onSubmit() {
     if (this.loginForm.valid) {
-
-    this.notificationsService.popupWarning("try","ongoing");
-
-    this.isLoading = true; // Show loading indicator
-    this.route.navigate(['/*']);
-    }
-  //   const email = this.loginForm.get('email')?.value; // Get the email from the form control
-
-  //   // Call the service to handle password reset
-  //   this.signUpService.forgotPassword(email).subscribe(
-  //     (response) => {
-  //       this.isLoading = false;
-  //       this.notificationsService.showSuccess('Password reset link sent to your email.');
-  //     },
-  //     (error) => {
-  //       this.isLoading = false;
-  //       this.notificationsService.showError('Error: ' + error.message);
-  //     }
-  //   );
-   }
+    const email = this.loginForm.get('email')?.value;
+    this.forget.forgotPassword(email).subscribe({
+      next: (res) => {
+        if(res === true)
+         this.isLoading = true;
+         this.notificationsService.toastrSuccess(res.message);
+         this.loginForm.reset();
+      },
+      error: (error) => {
+        this.isLoading = false;
+      }
+    });
+  }
+}
 }

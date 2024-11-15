@@ -34,6 +34,7 @@ import { MessagesUIComponent } from './ComponentSharedUI/messages-ui/messages-ui
 import { DashboardUIComponent } from './ComponentSharedUI/dashboard-ui/dashboard-ui.component';
 import { DashboardComponent } from './ComponentUI/dashboard/dashboard.component';
 import { ForgotPasswordUIComponent } from './ComponentSharedUI/forgot-password-ui/forgot-password-ui.component';
+import { ResetPasswordUIComponent } from './ComponentSharedUI/reset-password-ui/reset-password-ui.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { ForgotPasswordUIComponent } from './ComponentSharedUI/forgot-password-u
     MessagesUIComponent,
     DashboardUIComponent,
     DashboardComponent,
-    ForgotPasswordUIComponent
+    ForgotPasswordUIComponent,
+    ResetPasswordUIComponent
 
   ],
   imports: [

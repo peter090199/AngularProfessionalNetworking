@@ -24,6 +24,7 @@ export class SecurityRolesUIComponent implements OnInit {
   response: any;
   menus_id: number;
   selectedMenus: number[] = []; 
+  lines:any[]=[];
 
   constructor(
     private securityService: SecurityRolesService,
@@ -67,51 +68,94 @@ export class SecurityRolesUIComponent implements OnInit {
   //     item.selected = event.checked;  // Update the selected state
   //   }
   // }
-  onCheckboxChange(item: any, event: any): void {
-    if (event.checked) {
-      this.selectedMenus.push(item.menus_id);  // Add menus_id when checked
-    } else {
-      const index = this.selectedMenus.indexOf(item.menus_id);
-      if (index > -1) {
-        this.selectedMenus.splice(index, 1);  // Remove menus_id when unchecked
+  // onCheckboxChange(item: any, event: any): void {
+  //   if (event.checked) {
+  //    this.selectedMenus.push(item.submenus_id); 
+  //    this.selectedMenus.push(item.menus_id);  // Add menus_id when checked
+  //   } else {
+  //     const index = this.selectedMenus.indexOf(item.menus_id);
+  //     if (index > -1) {
+  //       this.selectedMenus.splice(index, 1);  // Remove menus_id when unchecked
+  //     }
+  //   }
+  //   console.log('Selected Menus:', this.selectedMenus); // Log the selected menus
+  // }
+
+  onCheckboxChange(item: any, submenu: any | null, event: any): void {
+    if (submenu) {
+      // Submenu checkbox change
+      submenu.access = event.checked;
+      if (submenu.access) {
+        this.selectedMenus.push(submenu.submenus_id); // Add submenu ID when checked
+      } else {
+        const index = this.selectedMenus.indexOf(submenu.submenus_id);
+        if (index > -1) {
+          this.selectedMenus.splice(index, 1); // Remove submenu ID when unchecked
+        }
       }
+      console.log('Submenu ID:', submenu.submenus_id); // Log submenu ID
+     // console.log('Submenu Access:', submenu.access); // Log submenu access state
     }
-    console.log('Selected Menus:', this.selectedMenus); // Log the selected menus
+  
+    // Main menu checkbox change
+    if (item) {
+      item.access = event.checked;
+      if (item.access) {
+        console.log('Menu ID:', item.menus_id); // Log menu ID
+        this.selectedMenus.push(item.menus_id); // Add main menu ID when checked
+      } else {
+        const index = this.selectedMenus.indexOf(item.menus_id);
+        if (index > -1) {
+          this.selectedMenus.splice(index, 1); // Remove menu ID when unchecked
+        }
+      }
+     // console.log('Menu Access:', item.access); // Log menu access state
+    }
   }
+  
+
+   
+  
+
 
   submitData(): void {
-
     const formData = this.securityRoles.map(role => ({
-      rolecode: this.role_code,    // Send rolecode as part of the formData
-      menus_id: this.selectedMenus.length > 0 ? this.selectedMenus[0] : null,  // Use the first selected menu_id, or null if none selected
-      lines: role.submenu || []     // Ensure lines is an array (even if empty)
+      rolecode: this.role_code,  
+      menus_id: this.selectedMenus.length > 0 ? this.selectedMenus[0] : null, 
+      lines: role.submenu || []  
     }));
+    // if (this.selectedMenus.length > 0) {
+    //   // Prepare the data you want to save, in this case, it's the selected menu IDs
+    //   const dataToSave = {
+    //     selectedMenus: this.selectedMenus
+    //   };
     
-  //  console.log('formData',  formData);  // Log to check the structure
+  
+    console.log('Form submitted with data:', formData);
+    
+  //   this.loading = true;
+  //   this.securityService.submitData(formData).subscribe({
+  //     next: (res) => {
+  //        if(res.success)
+  //         {
+  //           this.notificationService.toastrSuccess(res.message);
+  //         //  this.ResetForm();
+  //           this.loading = false;
 
-    this.loading = true;
-    this.securityService.submitData(formData).subscribe({
-      next: (res) => {
-         if(res.success)
-          {
-            this.notificationService.toastrSuccess(res.message);
-          //  this.ResetForm();
-            this.loading = false;
-
-          }
-          else{
-           this.notificationService.toastrError(res.message);
-            this.loading = false; 
-          }
+  //         }
+  //         else{
+  //          this.notificationService.toastrError(res.message);
+  //           this.loading = false; 
+  //         }
      
-      },
-      error: (err) => {
-        this.loading = false;
-        this.error = 'There was an error submitting the form. Please try again.';
-        this.notificationService.toastrError(this.error);
-      }
-    });
-  }
+  //     },
+  //     error: (err) => {
+  //       this.loading = false;
+  //       this.error = 'There was an error submitting the form. Please try again.';
+  //       this.notificationService.toastrError(this.error);
+  //     }
+  //   });
+   }
 }
 
   // private prepareFormData(): any {

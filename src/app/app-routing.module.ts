@@ -14,22 +14,25 @@ import { HomeUIComponent } from './ComponentUI/home/home-ui/home-ui.component';
 import { ProtectedComponent } from './TermsModal/protected/protected.component';
 import { MessagesComponent } from './ComponentUI/messages/messages.component';
 import { ForgotPasswordUIComponent } from './ComponentSharedUI/forgot-password-ui/forgot-password-ui.component';
+import { ResetPasswordUIComponent } from './ComponentSharedUI/reset-password-ui/reset-password-ui.component';
 
 const routes: Routes = [
   // Public routes
+
+
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // Default redirect
   { path: 'homepage', component: UserhomepageComponent },
   { path: 'signUpUI', component: SignUpUIComponent },
   { path: 'signInUI', component: SignInUIComponent },
-  { path: 'forgot-password', component: ForgotPasswordUIComponent },
-
+  { path: 'forgetpassword', component: ForgotPasswordUIComponent },
+  { path: 'reset-password', component: ResetPasswordUIComponent },
   // Top navigation with sub-routes
   { 
     path: '', 
     component: TopNavigationComponent, 
     canActivate: [AuthGuard],
     children: [
-      { path: 'home', component: HomeUIComponent },
+      { path: 'home', component: HomeUIComponent},
       { path: 'message', component: MessagesComponent },
     ]
   },
@@ -38,7 +41,7 @@ const routes: Routes = [
     component: TopNavigationComponent, 
     canActivate: [AuthGuard],
     children: [
-      { path: 'security', component: SecurityRolesComponent },
+      { path: 'security', component: SecurityRolesComponent},
       { path: 'user', component: UsersComponent },
       { path: 'menu', component: MenuComponent },
       { path: 'role', component: RoleComponent },

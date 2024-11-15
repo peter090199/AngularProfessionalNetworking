@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, Observable, tap, of } from 'rxjs';
 import { _url } from 'src/global-variables';
@@ -39,6 +39,29 @@ export class SigInService {
       catchError(this.handleError())
     );
   }
+
+  getUserRole(): string | null {
+    const token = this.getToken();
+    if (token) {
+      try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.role;
+      } catch (error) {
+        console.error('Failed to decode token:', error);
+        return null;
+      }
+    }
+    return null;
+  }
+
+  createHeaders(): HttpHeaders {
+    const token = this.getToken();
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
+  
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error); 

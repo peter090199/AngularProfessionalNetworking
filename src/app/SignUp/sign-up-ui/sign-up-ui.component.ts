@@ -158,8 +158,7 @@ fadeIn: any;
   }
   onSubmit():void {
    if (this.registerForm.valid) {
-
-  //  console.log(this.registerForm.value)
+  // console.log(this.registerForm.value)
       this.signupService.signup(this.registerForm.getRawValue()).subscribe({
         next: (res) => {
           this.notifyService.toastrSuccess("Successfully Saved. " + res.message);
@@ -169,6 +168,6 @@ fadeIn: any;
           this.notifyService.toastrError(err.message);
         },
       });
-    }
+     }
   }
 }
