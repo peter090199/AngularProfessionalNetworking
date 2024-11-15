@@ -25,7 +25,8 @@ const routes: Routes = [
   { path: 'signUpUI', component: SignUpUIComponent },
   { path: 'signInUI', component: SignInUIComponent },
   { path: 'forgetpassword', component: ForgotPasswordUIComponent },
-  { path: 'reset-password', component: ResetPasswordUIComponent },
+  { path: 'reset-password/:token', component: ResetPasswordUIComponent },
+
   // Top navigation with sub-routes
   { 
     path: '', 
