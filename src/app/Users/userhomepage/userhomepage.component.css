@@ -63,6 +63,17 @@
 .list-unstyled li {
   margin: 15px 0; /* Space between items */
 }
+/* List Item Styles */
+.list-unstyled li button {
+   font-family: 'tahoma';
+   font-size: 14px;
+}
+
+button{
+  font-family: 'tahoma';
+  font-size: 14px;
+}
+
 .btn-link {
   color: #ffffff; /* Button text color */
   text-decoration: none; /* Remove underline */
@@ -122,6 +133,12 @@
     font-weight: bold;
     margin-top: 0px;
   }
+  .sidebar-header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0px;
+  }
+  
   .logo {
     display: flex; /* Use flexbox for alignment */
     align-items: center; /* Center items vertically */

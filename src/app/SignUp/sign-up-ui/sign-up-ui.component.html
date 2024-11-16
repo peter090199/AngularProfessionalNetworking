@@ -1,85 +1,94 @@
-
 <div class="register-container">
     <mat-card class="register-card">
-        <mat-card-header>
-            <h2>
-                <mat-icon style="vertical-align: middle;">person</mat-icon> Sign Up
-            </h2>
-        </mat-card-header>
-        <mat-divider></mat-divider>
-        <mat-card-content>
-            <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <mat-form-field appearance="standard">
-                    <mat-label>Email</mat-label>
-                    <mat-icon matPrefix>email</mat-icon>
-                    <input matInput type="email" formControlName="email" required>
-                </mat-form-field>
-
-                <div class="onerow">
-                  <mat-form-field appearance="standard">
-                    <mat-label>Code</mat-label>
-                    <mat-icon matPrefix>flag</mat-icon>
-                    <mat-select formControlName="countryCode" required class="country-code-select" >
-                      <mat-option *ngFor="let country of countryCodes" [value]="country.code">
-                        {{ country.code }}
-                      </mat-option>
-                    </mat-select>
-                </mat-form-field>
-           
-                <mat-form-field appearance="standard" style="width: 80%;">
-                    <mat-label>Contact Number</mat-label>
-                    <mat-icon matPrefix>phone</mat-icon>
-                    <input matInput type="text" formControlName="contactno" required>
-                </mat-form-field>
-              </div>
-                <div class="form-row">
-                    <mat-form-field appearance="standard" >
-                        <mat-label>Firstname</mat-label>
-                        <mat-icon matPrefix>person</mat-icon>
-                        <input matInput formControlName="fname" required>
-                    </mat-form-field>
-                    <mat-form-field appearance="standard">
-                        <mat-label>Family Name</mat-label>
-                        <mat-icon matPrefix>person</mat-icon>
-                        <input matInput formControlName="lname" required>
-                    </mat-form-field>
-                </div>
-                <div class="form-row">
-                    <mat-form-field appearance="standard" >
-                        <mat-label>Password</mat-label>
-                        <mat-icon matPrefix>lock</mat-icon>
-                        <input matInput type="password" formControlName="password" required>
-                    </mat-form-field>
-
-                    <mat-form-field appearance="standard" >
-                        <mat-label>Confirm Password</mat-label>
-                        <mat-icon matPrefix>lock</mat-icon>
-                        <input matInput type="password" formControlName="password_confirmation" required>
-                    </mat-form-field>
-
-                  
-                </div>
-                <div class="agreement-section">
-                    <mat-checkbox formControlName="agreementTerms" required>
-                        <a (click)="openModalTerms('Terms of Use', '')" style="cursor: pointer;">Terms of Use</a>
-                      </mat-checkbox>
-                </div>
-                <div class="agreement-section">
-                    <mat-checkbox formControlName="agreementPrivacy" required>
-                        <a (click)="openModalPrivacy('Data Privacy Policy', '')" style="cursor: pointer;">Data Privacy Policy</a>
-                      </mat-checkbox>
-                </div>
-
-                <button mat-raised-button color="primary" class="signup-button" type="submit" [disabled]="registerForm.invalid" >
-                    Sign-up</button>
-                    
-            </form>
-        </mat-card-content>
-        <mat-card-footer>
-            <div class="links">
-                <a routerLink="/signInUI">Already have an account? Sign in</a><br>
-                <mat-icon routerLink="/" class="back-icon">arrow_back</mat-icon>
-            </div>
-        </mat-card-footer>
+      <mat-card-header>
+        <h2>
+          <mat-icon class="aligned-icon">person</mat-icon> Sign Up
+        </h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <!-- Email Field -->
+          <mat-form-field class="full-width form-field" appearance="standard">
+            <mat-icon matPrefix class="aligned-icon">email</mat-icon>
+            <mat-label>Email</mat-label>
+            <input matInput type="email" formControlName="email" required>
+          </mat-form-field>
+  
+          <!-- Country Code and Contact Number Fields -->
+          <div class="form-row">
+            <mat-form-field class="form-field code-field" appearance="standard">
+              <mat-icon matPrefix class="aligned-icon">flag</mat-icon>
+              <mat-label>Code</mat-label>
+              <mat-select formControlName="countryCode" required>
+                <mat-option *ngFor="let country of countryCodes" [value]="country.code">
+                  {{ country.code }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+            <mat-form-field class="form-field contact-field" appearance="standard">
+              <mat-icon matPrefix class="aligned-icon">phone</mat-icon>
+              <mat-label>Contact Number</mat-label>
+              <input matInput type="text" formControlName="contactno" required>
+            </mat-form-field>
+          </div>
+  
+          <!-- Firstname and Family Name Fields -->
+          <div class="form-row">
+            <mat-form-field class="form-field" appearance="standard">
+              <mat-icon matPrefix class="aligned-icon">person</mat-icon>
+              <mat-label>Firstname</mat-label>
+              <input matInput formControlName="fname" required>
+            </mat-form-field>
+  
+            <mat-form-field class="form-field" appearance="standard">
+              <mat-icon matPrefix class="aligned-icon">person</mat-icon>
+              <mat-label>Family Name</mat-label>
+              <input matInput formControlName="lname" required>
+            </mat-form-field>
+          </div>
+  
+          <!-- Password and Confirm Password Fields -->
+          <div class="form-row">
+            <mat-form-field class="form-field" appearance="standard">
+              <mat-icon matPrefix class="aligned-icon">lock</mat-icon>
+              <mat-label>Password</mat-label>
+              <input matInput type="password" formControlName="password" required>
+            </mat-form-field>
+  
+            <mat-form-field class="form-field" appearance="standard">
+              <mat-icon matPrefix class="aligned-icon">lock</mat-icon>
+              <mat-label>Confirm Password</mat-label>
+              <input matInput type="password" formControlName="password_confirmation" required>
+            </mat-form-field>
+          </div>
+  
+          <!-- Agreement Checkboxes -->
+          <div class="agreement-section">
+            <mat-checkbox formControlName="agreementTerms" required>
+              <a (click)="openModalTerms('Terms of Use', '')" style="cursor: pointer;">Terms of Use</a>
+            </mat-checkbox>
+          </div>
+          <div class="agreement-section">
+            <mat-checkbox formControlName="agreementPrivacy" required>
+              <a (click)="openModalPrivacy('Data Privacy Policy', '')" style="cursor: pointer;">Data Privacy Policy</a>
+            </mat-checkbox>
+          </div>
+  
+          <!-- Signup Button -->
+          <button mat-raised-button color="primary" class="signup-button" type="submit" [disabled]="registerForm.invalid">
+            Sign-up
+          </button>
+        </form>
+      </mat-card-content>
+  
+      <mat-card-footer>
+        <div class="links">
+          <a routerLink="/signInUI">Already have an account? Sign in</a><br>
+          <mat-icon routerLink="/" class="back-icon">arrow_back</mat-icon>
+        </div>
+      </mat-card-footer>
     </mat-card>
-</div>
+  </div>
+  

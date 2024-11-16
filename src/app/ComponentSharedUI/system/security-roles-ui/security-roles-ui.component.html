@@ -69,7 +69,7 @@
         <mat-expansion-panel-header>
           <mat-checkbox 
             [checked]="item.access" 
-            (change)="onCheckboxChange(item, null, $event)"
+            (change)="onCheckboxChange(item, $event)"
             (click)="$event.stopPropagation()">
             {{ item.description }}
           </mat-checkbox>
@@ -84,7 +84,7 @@
             <mat-list-item *ngFor="let submenu of item.submenu">
               <mat-checkbox 
                 [checked]="submenu.access" 
-                (change)="onCheckboxChange(item, submenu, $event)">
+                (change)="onCheckboxChange2(item, submenu, $event)">
                 {{ submenu.description }}
               </mat-checkbox>
             </mat-list-item>

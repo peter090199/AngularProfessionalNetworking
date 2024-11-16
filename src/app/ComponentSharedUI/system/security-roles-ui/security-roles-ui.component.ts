@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SecurityRolesService } from 'src/app/services/Security/security-roles.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
+import { MatCheckboxChange } from '@angular/material/checkbox';
 
 interface DialogData {
   menus_id: number;
@@ -16,6 +17,7 @@ interface DialogData {
   styleUrls: ['./security-roles-ui.component.css']
 })
 export class SecurityRolesUIComponent implements OnInit {
+
   isLoading = false;
   role_code: string;
   securityRoles: any[] = [];
@@ -81,82 +83,155 @@ export class SecurityRolesUIComponent implements OnInit {
   //   console.log('Selected Menus:', this.selectedMenus); // Log the selected menus
   // }
 
-  onCheckboxChange(item: any, submenu: any | null, event: any): void {
-    if (submenu) {
-      // Submenu checkbox change
-      submenu.access = event.checked;
-      if (submenu.access) {
-        this.selectedMenus.push(submenu.submenus_id); // Add submenu ID when checked
-      } else {
-        const index = this.selectedMenus.indexOf(submenu.submenus_id);
-        if (index > -1) {
-          this.selectedMenus.splice(index, 1); // Remove submenu ID when unchecked
-        }
+  onCheckboxChange(item: any, event: any): void {
+    if (event.checked) {
+      if (!this.selectedMenus.includes(item.menus_id)) {
+        this.selectedMenus.push(item.menus_id);
       }
-      console.log('Submenu ID:', submenu.submenus_id); // Log submenu ID
+    } else {
+      this.selectedMenus = this.selectedMenus.filter(
+        (menuId) => menuId !== item.menus_id
+      );
+    }
+   // console.log('Selected Menus:', this.selectedMenus);
+    }
+
+    onCheckboxChange2(item: any, submenu: any, event: any): void {
+      // Handle checkbox checked state
+      if (event.checked) {
+        // Add the menu ID if it's not already present
+        if (!this.selectedMenus.includes(item.menus_id)) {
+          this.selectedMenus.push(item.menus_id);
+        }
+        // Add the submenu ID
+        if (!this.selectedMenus.includes(submenu.submenus_id)) {
+          this.selectedMenus.push(submenu.submenus_id);
+        }
+      } else {
+        // Remove the submenu ID when unchecked
+        this.selectedMenus = this.selectedMenus.filter(
+          (id) => id !== submenu.submenus_id
+        );
+    
+        // // Check if any submenus are still checked for this menu
+        // const submenuStillSelected = this.selectedMenus.some(
+        //   (id) => id !== item.menus_id && id.toString().startsWith(item.menus_id.toString())
+        // );
+        
+    
+        // // If no submenus are checked, remove the parent menu ID
+        // if (!submenuStillSelected) {
+        //   this.selectedMenus = this.selectedMenus.filter(
+        //     (id) => id !== item.menus_id
+        //   );
+        // }
+      }
+    
+      console.log('Selected Menus and Submenus:', this.selectedMenus);
+    }
+    
      // console.log('Submenu Access:', submenu.access); // Log submenu access state
-    }
+    //}
   
-    // Main menu checkbox change
-    if (item) {
-      item.access = event.checked;
-      if (item.access) {
-        console.log('Menu ID:', item.menus_id); // Log menu ID
-        this.selectedMenus.push(item.menus_id); // Add main menu ID when checked
-      } else {
-        const index = this.selectedMenus.indexOf(item.menus_id);
-        if (index > -1) {
-          this.selectedMenus.splice(index, 1); // Remove menu ID when unchecked
+    // // Main menu checkbox change
+    // if (item) {
+    //   item.access = event.checked;
+    //   if (item.access) {
+    //     console.log('Menu ID:', item.menus_id); // Log menu ID
+    //     this.selectedMenus.push(item.menus_id); // Add main menu ID when checked
+    //   } else {
+    //     const index = this.selectedMenus.indexOf(item.menus_id);
+    //     if (index > -1) {
+    //       this.selectedMenus.splice(index, 1); // Remove menu ID when unchecked
+    //     }
+    //   }
+     // console.log('Menu Access:', item.access); // Log menu access state
+   // }
+  
+
+   submitData(): void {
+    // Group the selected menus and submenus
+    const formData = this.selectedMenus.reduce((acc: any[], id: any) => {
+      // Check if the ID belongs to a submenu (e.g., "101-1")
+      const submenuRole = this.securityRoles.find(role => 
+        role.submenu && role.submenu.includes(id)
+      );
+  
+      if (submenuRole) {
+        // If it's a submenu, find its parent menu and push both
+        const existingMenu = acc.find(menu => menu.menus_id === submenuRole.menus_id);
+        if (existingMenu){
+          existingMenu.lines.push(id);
+      
+
+        } else {
+          acc.push({
+            rolecode: this.role_code,
+            menus_id: submenuRole.menus_id,
+            lines: [id]
+          });
         }
       }
-     // console.log('Menu Access:', item.access); // Log menu access state
-    }
+       else {
+        // If it's a main menu ID, add it if not already present
+        const existingMenu = acc.find(menu => menu.menus_id === id);
+        if (!existingMenu) {
+          acc.push({
+            rolecode: this.role_code,
+            menus_id: id,
+            lines: []
+          });
+        }
+      }
+      return acc;
+    }, []);
+
+    console.log('Form submitted with data:', formData);
   }
   
-
-   
   
 
 
-  submitData(): void {
-    const formData = this.securityRoles.map(role => ({
-      rolecode: this.role_code,  
-      menus_id: this.selectedMenus.length > 0 ? this.selectedMenus[0] : null, 
-      lines: role.submenu || []  
-    }));
-    // if (this.selectedMenus.length > 0) {
-    //   // Prepare the data you want to save, in this case, it's the selected menu IDs
-    //   const dataToSave = {
-    //     selectedMenus: this.selectedMenus
-    //   };
-    
-  
-    console.log('Form submitted with data:', formData);
-    
-  //   this.loading = true;
-  //   this.securityService.submitData(formData).subscribe({
-  //     next: (res) => {
-  //        if(res.success)
-  //         {
-  //           this.notificationService.toastrSuccess(res.message);
-  //         //  this.ResetForm();
-  //           this.loading = false;
+//   submitData(): void {
+//     const formData = this.securityRoles.map(role => ({
+//       rolecode: this.role_code,  
+//       menus_id: this.selectedMenus.length > 0 ? this.selectedMenus[0] : null, 
+//       lines: role.submenu || []  
+//     }));
 
-  //         }
-  //         else{
-  //          this.notificationService.toastrError(res.message);
-  //           this.loading = false; 
-  //         }
+//     if (this.selectedMenus.length > 0) {
+//       // Prepare the data you want to save, in this case, it's the selected menu IDs
+//       const dataToSave = {
+//         selectedMenus: this.selectedMenus
+//       };
+//     }
+  
+//     console.log('Form submitted with data:', formData);
+    
+//   //   this.loading = true;
+//   //   this.securityService.submitData(formData).subscribe({
+//   //     next: (res) => {
+//   //        if(res.success)
+//   //         {
+//   //           this.notificationService.toastrSuccess(res.message);
+//   //         //  this.ResetForm();
+//   //           this.loading = false;
+
+//   //         }
+//   //         else{
+//   //          this.notificationService.toastrError(res.message);
+//   //           this.loading = false; 
+//   //         }
      
-  //     },
-  //     error: (err) => {
-  //       this.loading = false;
-  //       this.error = 'There was an error submitting the form. Please try again.';
-  //       this.notificationService.toastrError(this.error);
-  //     }
-  //   });
-   }
-}
+//   //     },
+//   //     error: (err) => {
+//   //       this.loading = false;
+//   //       this.error = 'There was an error submitting the form. Please try again.';
+//   //       this.notificationService.toastrError(this.error);
+//   //     }
+//   //  });
+//   }
+// }
 
   // private prepareFormData(): any {
   //   // Prepare the data to be submitted with rolecode, menus_id, and lines
@@ -171,4 +246,4 @@ export class SecurityRolesUIComponent implements OnInit {
 
   //   return data;
   // }
-
+}
