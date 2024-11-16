@@ -37,18 +37,9 @@ export class ResetPasswordUIComponent implements OnInit {
     this.email = this.route.snapshot.paramMap.get('email') || '';
     this.token = this.route.snapshot.paramMap.get('token') || '';
 
-    // this.router.navigate(['/reset-password'], { queryParams: { email: this.email, token: this.token } });
-    // this.route.queryParams.subscribe(params => {
-    //   this.email = params['email'] || ''; // Handle the case where email is not in the query
-    //   this.token = params['token'] || '';
-    //   console.log('Email:', this.email);   // Log to verify
-    //   console.log('Token:', this.token);  // Handle the case where token is not in the query
-    // });
-    // console.log(this.email)
-    // console.log(this.token)
-    if (this.token) {
-      this.openExpiredLinkDialog();
-    }
+    // if (this.token) {
+    //   this.openExpiredLinkDialog();
+    // }
 
     this.resetForm = this.fb.group({
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -107,9 +98,9 @@ export class ResetPasswordUIComponent implements OnInit {
         this.errorMessage = error.message;
         this.notify.toastrError(this.errorMessage);
         // Check if the error message indicates an expired link
-        if (this.errorMessage.includes('expired')) {
-          this.openExpiredLinkDialog();
-        }
+        // if (this.errorMessage.includes('expired')) {
+        //   this.openExpiredLinkDialog();
+        // }
       }
     );
    }
