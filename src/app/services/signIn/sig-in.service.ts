@@ -33,7 +33,7 @@ export class SigInService {
         if (res && res.token) {
           this.saveToken(res.token);
           this._refreshrequired.next();
-         // this.startTokenExpirationCheck(); // Restart token expiration check on login
+          //this.startTokenExpirationCheck(); // Restart token expiration check on login
         }
       }),
       catchError(this.handleError())

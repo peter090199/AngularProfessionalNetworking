@@ -15,7 +15,8 @@ export class ForgotPasswordUIComponent implements OnInit {
 
   isLoading: boolean= false;
   loginForm!: FormGroup; // Define the form group properly
-  
+  email: string = '';
+
   constructor(private fb: FormBuilder, 
               private signUpService: SignUpService,
               private notificationsService: NotificationsService,
@@ -37,10 +38,17 @@ export class ForgotPasswordUIComponent implements OnInit {
     const email = this.loginForm.get('email')?.value;
     this.forget.forgotPassword(email).subscribe({
       next: (res) => {
-        if(res === true)
-         this.isLoading = true;
-         this.notificationsService.toastrSuccess(res.message);
-         this.loginForm.reset();
+        if(res.success)
+        {
+          this.isLoading=true;
+          this.notificationsService.toastrSuccess(res.message);
+          this.loginForm.reset();
+          this.isLoading = false;
+        }
+        else{
+          this.isLoading = false;
+          this.notificationsService.toastrWarning(res.message);
+        }
       },
       error: (error) => {
         this.isLoading = false;

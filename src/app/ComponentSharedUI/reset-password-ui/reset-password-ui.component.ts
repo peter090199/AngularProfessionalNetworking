@@ -1,153 +1,122 @@
-// import { Component, OnInit } from '@angular/core';
-// import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-// import {  ActivatedRoute} from '@angular/router';
-// import { NotificationsService } from 'src/app/services/Global/notifications.service';
-// import { _url } from 'src/global-variables';
-// import { ResetPasswordService } from 'src/app/services/Password/Reset/reset-password.service';
-// import { catchError } from 'rxjs/operators';
-
-// @Component({
-//   selector: 'app-reset-password-ui',
-//   templateUrl: './reset-password-ui.component.html',
-//   styleUrls: ['./reset-password-ui.component.css']
-// })
-// export class ResetPasswordUIComponent implements OnInit {
-
-//   isLoading: boolean = false;
-//   resetForm!: FormGroup;
-//   passwordVisible: boolean = false; // Flag to toggle password visibility
-//   showPopup: boolean = true;
-//   newPassword: string = '';
-//   confirmPassword: string = '';
-//   resetToken: string = '';  
-
-
-//   token: string;
-//   isTokenValid: boolean = false;
-//   errorMessage: string = '';
-//   constructor(
-//     private fb: FormBuilder,
-//     private notificationsService: NotificationsService,
-//     private route: ActivatedRoute,
-//     private reset:ResetPasswordService
-//   ) {
-//     this.resetForm = this.fb.group({
-//       password: ['', [Validators.required, Validators.minLength(6)]],
-//       confirmPassword: ['', [Validators.required]],
-//     });
-
-
-//    }
-
-//    ngOnInit(): void {
-//     // Extract the token from the URL
-//     this.token = this.route.snapshot.paramMap.get('token') ?? '';
-
-//     // Validate the token with the backend
-//     this.reset.validateToken(this.token).subscribe(
-//       (isValid) => (this.isTokenValid = isValid),
-//       (error) => (this.errorMessage = error.message)
-//     );
-//   }
-
-//   passwordMatchValidator(group: FormGroup): { [key: string]: boolean } | null {
-//     const password = group.get('password')?.value;
-//     const confirmPassword = group.get('password_confirmation')?.value;
-//     return password === confirmPassword ? null : { 'mismatch': true };
-//   }
-
-//   // Toggle password visibility
-//   togglePasswordVisibility(): void {
-//     this.passwordVisible = !this.passwordVisible;
-//   }
-//   onSubmit() {
-//     if (this.resetForm.invalid) return;
-
-//     const { password, confirmPassword } = this.resetForm.value;
-//     if (password !== confirmPassword) {
-//       this.errorMessage = 'Passwords do not match!';
-//       return;
-//     }
-
-//     this.reset.resetPassword(this.token, password).subscribe(
-//       (response) => {
-//         alert('Password reset successful!');
-//         this.router.navigate(['/login']);
-//       },
-//       (error) => (this.errorMessage = error.message)
-//     );
-//   }
-
-//   closePopup() {
-//     this.showPopup = false;
-//   }
-
-// }
-
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ResetPasswordService } from 'src/app/services/Password/Reset/reset-password.service';
-import { catchError } from 'rxjs/operators';
+import { MatDialog } from '@angular/material/dialog';
+import { ExpiredLinkDialogComponent } from '../expired-link-dialog/expired-link-dialog.component';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 
 @Component({
   selector: 'app-reset-password-ui',
   templateUrl: './reset-password-ui.component.html',
-  styleUrls: ['./reset-password-ui.component.css']
+  styleUrls: ['./reset-password-ui.component.css'],
 })
 export class ResetPasswordUIComponent implements OnInit {
   resetForm: FormGroup;
-  token: string;
   isTokenValid: boolean = false;
   errorMessage: string = '';
-  passwordVisible:boolean = false;
-  confirmPasswordVisible:boolean = false;
-  isLoading:boolean = false;
+  passwordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
+  isLoading: boolean = false;
+  successMessage: string = '';
+  email: string;
+  token: string;
+
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private authService: ResetPasswordService
-  ) {
-   
+    private authService: ResetPasswordService,
+    private dialog: MatDialog,
+    private notify:NotificationsService
+  ) {}
+
+  ngOnInit(): void {
+    // Retrieve the token from the URL
+    this.email = this.route.snapshot.paramMap.get('email') || '';
+    this.token = this.route.snapshot.paramMap.get('token') || '';
+
+    // this.router.navigate(['/reset-password'], { queryParams: { email: this.email, token: this.token } });
+    // this.route.queryParams.subscribe(params => {
+    //   this.email = params['email'] || ''; // Handle the case where email is not in the query
+    //   this.token = params['token'] || '';
+    //   console.log('Email:', this.email);   // Log to verify
+    //   console.log('Token:', this.token);  // Handle the case where token is not in the query
+    // });
+    // console.log(this.email)
+    // console.log(this.token)
+    if (this.token) {
+      this.openExpiredLinkDialog();
+    }
+
+    this.resetForm = this.fb.group({
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      password_confirmation: ['', [Validators.required]],
+    }, { validator: this.passwordMatchValidator });
   }
+
+  // Custom validator to check if password and confirm password fields match
+  passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('password_confirmation')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  // Toggle visibility for the password field
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
 
-  // Toggle visibility for confirm password field
+  // Toggle visibility for the confirm password field
   toggleConfirmPasswordVisibility() {
     this.confirmPasswordVisible = !this.confirmPasswordVisible;
   }
 
+  // Handle form submission
+  onSubmit() {
+    if (this.resetForm.valid) {
+    const { password, password_confirmation } = this.resetForm.value;
+    const payload = {
+      email: this.email,
+      token: this.token,
+      password,
+      password_confirmation
+    };
 
-  ngOnInit(): void {
-    this.token = this.route.snapshot.paramMap.get('token') || '';
-    this.resetForm = this.fb.group({
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      password_confirmation: ['', [Validators.required]]
-    });
+    console.log(payload)
+    // Call the reset password service
+    this.authService.resetPassword(payload).subscribe(
+      (res) => {
+        console.log(res.value)
+        if (res.success)
+        {
+          this.isLoading = true;
+          this.notify.toastrSuccess(res.message);
+          this.router.navigate(['/signInUI']);
+        }
+        else
+        {
+          this.notify.toastrWarning(res.message);
+          this.isLoading = false;
+        }
+        
+      },
+      (error) => {
+        this.isLoading = false;
+        this.errorMessage = error.message;
+        this.notify.toastrError(this.errorMessage);
+        // Check if the error message indicates an expired link
+        if (this.errorMessage.includes('expired')) {
+          this.openExpiredLinkDialog();
+        }
+      }
+    );
+   }
   }
 
-  onSubmit() {
-    if (this.resetForm.invalid) return;
-
-    const { password, confirmPassword } = this.resetForm.value;
-    if (password !== confirmPassword) {
-      this.errorMessage = 'Passwords do not match!';
-      return;
-    }
-
-    this.authService.resetPassword(this.token, password).subscribe(
-      (response) => {
-        this.isLoading = true;
-        alert('Password reset successful!');
-        this.router.navigate(['/login']);
-      },
-      (error) => (this.errorMessage = error.message)
-    );
+  // Method to open the expired link dialog
+  openExpiredLinkDialog(): void {
+    this.dialog.open(ExpiredLinkDialogComponent);
   }
 }
-

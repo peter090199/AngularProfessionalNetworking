@@ -5,6 +5,7 @@ import { NotificationsService } from 'src/app/services/Global/notifications.serv
 import { MatDialog } from '@angular/material/dialog';
 import { TermsModalComponent } from 'src/app/TermsModal/terms-modal/terms-modal.component';
 import { PrivacyComponent } from 'src/app/TermsModal/privacy/privacy.component';
+import { Route, Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up-ui',
@@ -14,6 +15,7 @@ import { PrivacyComponent } from 'src/app/TermsModal/privacy/privacy.component';
 
 export class SignUpUIComponent implements OnInit {
   registerForm: FormGroup;
+  isloading:boolean = false;
 
   countryCodes = [
     { code: '+1', country: 'USA/Canada' },
@@ -115,8 +117,12 @@ fadeIn: any;
   constructor(private fb: FormBuilder,
      private signupService:SignUpService,
      private notifyService:NotificationsService,
-     private dialog: MatDialog
-    ) {}
+     private dialog: MatDialog,
+     private router:Router
+    ) {
+      this.countryCodes + this.contactno;
+    }
+ contactno:any;
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({
@@ -158,16 +164,29 @@ fadeIn: any;
   }
   onSubmit():void {
    if (this.registerForm.valid) {
-  // console.log(this.registerForm.value)
-      this.signupService.signup(this.registerForm.getRawValue()).subscribe({
-        next: (res) => {
-          this.notifyService.toastrSuccess("Successfully Saved. " + res.message);
-          this.registerForm.reset();
-        },
-        error: (err) => {
-          this.notifyService.toastrError(err.message);
-        },
-      });
-     }
+    const formData = this.registerForm.getRawValue();
+    formData.contactno = `${formData.countryCode}${formData.contactno}`;
+   // console.log(formData)
+
+        this.signupService.signup(formData).subscribe({
+          next: (res) => {
+            if(res.success === true)
+            {
+              this.isloading = true;
+              this.notifyService.toastrSuccess(res.message);
+              this.registerForm.reset();
+              this.router.navigateByUrl("/signUpUI");
+              this.isloading = false;
+            }
+            else{
+              this.isloading = false;
+              this.notifyService.toastrError(res.message);
+            }
+          },
+          error: (err) => {
+            this.notifyService.toastrError(err.message);
+          },
+        });
+       }
   }
 }

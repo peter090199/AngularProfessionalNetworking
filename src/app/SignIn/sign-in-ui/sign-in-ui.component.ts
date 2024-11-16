@@ -45,31 +45,32 @@ export class SignInUIComponent implements OnInit {
 
   // Handle form submission
   onSubmit(): void {
-    // Check if the form is valid
-    if (this.loginForm.invalid) {
-      this.notificationService.toastrError('Please fill in the form correctly.');
-      return;
-    }
-
+    if (this.loginForm.valid) {
     // Extract the form values
     const { email, password } = this.loginForm.value;
     this.isLoading = true; // Start loading indicator
 
-    this.simulateLogin(email, password).then((isAuthenticated) => {
-      this.isLoading = false;
-      if (!isAuthenticated) {
-        this.loginForm.get('password')?.setErrors({ incorrect: true });
-      }
-    });
+    // this.simulateLogin(email, password).then((isAuthenticated) => {
+    //   this.isLoading = false;
+    //   if (!isAuthenticated) {
+    //     this.loginForm.get('password')?.setErrors({ incorrect: true });
+    //   }
 
-    
+    // });
     // Call the sign-in service
     this.sigInService.signin(email, password).subscribe({
       next: (res) => {
-        if (res.token) {
-          this.notificationService.toastrSuccess('Successfully signed in');
+        if (res.success && res.token) {
+          this.isLoading = true;
+          this.notificationService.toastrSuccess(res.message);
           this.router.navigate(['/home']);
           this.loginForm.reset(); // Reset form after successful login
+          this.isLoading = false;
+        }
+        else
+        {
+          this.isLoading = false;
+          this.notificationService.toastrError(res.message);
         }
       },
       error: (err) => {
@@ -85,4 +86,5 @@ export class SignInUIComponent implements OnInit {
       }
     });
   }
+}
 }
