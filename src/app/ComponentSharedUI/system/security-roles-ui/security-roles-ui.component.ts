@@ -25,8 +25,8 @@ export class SecurityRolesUIComponent implements OnInit {
   error: string | null = null;
   response: any;
   menus_id: number;
-  selectedMenus: number[] = []; 
-  lines:any[]=[];
+  selectedMenus: any[] = []; 
+  lines:any[];
 
   constructor(
     private securityService: SecurityRolesService,
@@ -65,132 +65,74 @@ export class SecurityRolesUIComponent implements OnInit {
     menu.expanded = !menu.expanded;
   }
 
-  // onCheckboxChange(item: any, event: any): void {
-  //   if (item && event) {
-  //     item.selected = event.checked;  // Update the selected state
-  //   }
-  // }
-  // onCheckboxChange(item: any, event: any): void {
-  //   if (event.checked) {
-  //    this.selectedMenus.push(item.submenus_id); 
-  //    this.selectedMenus.push(item.menus_id);  // Add menus_id when checked
-  //   } else {
-  //     const index = this.selectedMenus.indexOf(item.menus_id);
-  //     if (index > -1) {
-  //       this.selectedMenus.splice(index, 1);  // Remove menus_id when unchecked
-  //     }
-  //   }
-  //   console.log('Selected Menus:', this.selectedMenus); // Log the selected menus
-  // }
-
-  onCheckboxChange(item: any, event: any): void {
+  onCheckboxChange2(item: any, submenu: any, event: any): void {
+    // Initialize selectedMenus if not already defined
+    this.selectedMenus ??= [];
+  
+    const submenusId = submenu?.submenus_id;
+    const menuIndex = this.selectedMenus.findIndex(menu => menu.menus_id === item.menus_id);
+  
     if (event.checked) {
-      if (!this.selectedMenus.includes(item.menus_id)) {
-        this.selectedMenus.push(item.menus_id);
+      // Add new menu if it doesn't exist
+      if (menuIndex === -1) {
+        this.selectedMenus.push({
+          rolecode: this.role_code,
+          menus_id: item.menus_id,
+          lines: submenusId ? [{ submenus_id: submenusId }] : []
+        });
+      } else if (submenusId) {
+        // Update existing menu with new submenus_id if not already present
+        const menu = this.selectedMenus[menuIndex];
+        if (!menu.lines.some((line: { submenus_id: any; }) => line.submenus_id === submenusId)) {
+          menu.lines.push({ submenus_id: submenusId });
+        }
       }
     } else {
-      this.selectedMenus = this.selectedMenus.filter(
-        (menuId) => menuId !== item.menus_id
-      );
-    }
-   // console.log('Selected Menus:', this.selectedMenus);
-    }
-
-    onCheckboxChange2(item: any, submenu: any, event: any): void {
-      // Handle checkbox checked state
-      if (event.checked) {
-        // Add the menu ID if it's not already present
-        if (!this.selectedMenus.includes(item.menus_id)) {
-          this.selectedMenus.push(item.menus_id);
-        }
-        // Add the submenu ID
-        if (!this.selectedMenus.includes(submenu.submenus_id)) {
-          this.selectedMenus.push(submenu.submenus_id);
-        }
-      } else {
-        // Remove the submenu ID when unchecked
-        this.selectedMenus = this.selectedMenus.filter(
-          (id) => id !== submenu.submenus_id
-        );
-    
-        // // Check if any submenus are still checked for this menu
-        // const submenuStillSelected = this.selectedMenus.some(
-        //   (id) => id !== item.menus_id && id.toString().startsWith(item.menus_id.toString())
-        // );
-        
-    
-        // // If no submenus are checked, remove the parent menu ID
-        // if (!submenuStillSelected) {
-        //   this.selectedMenus = this.selectedMenus.filter(
-        //     (id) => id !== item.menus_id
-        //   );
-        // }
-      }
-    
-      console.log('Selected Menus and Submenus:', this.selectedMenus);
-    }
-    
-     // console.log('Submenu Access:', submenu.access); // Log submenu access state
-    //}
+      // Remove submenus_id if unchecked
+      if (menuIndex !== -1) {
+        const menu = this.selectedMenus[menuIndex];
+        menu.lines = menu.lines.filter((line: { submenus_id: any; }) => line.submenus_id !== submenusId);
   
-    // // Main menu checkbox change
-    // if (item) {
-    //   item.access = event.checked;
-    //   if (item.access) {
-    //     console.log('Menu ID:', item.menus_id); // Log menu ID
-    //     this.selectedMenus.push(item.menus_id); // Add main menu ID when checked
-    //   } else {
-    //     const index = this.selectedMenus.indexOf(item.menus_id);
-    //     if (index > -1) {
-    //       this.selectedMenus.splice(index, 1); // Remove menu ID when unchecked
-    //     }
-    //   }
-     // console.log('Menu Access:', item.access); // Log menu access state
-   // }
-  
-
-   submitData(): void {
-    // Group the selected menus and submenus
-    const formData = this.selectedMenus.reduce((acc: any[], id: any) => {
-      // Check if the ID belongs to a submenu (e.g., "101-1")
-      const submenuRole = this.securityRoles.find(role => 
-        role.submenu && role.submenu.includes(id)
-      );
-  
-      if (submenuRole) {
-        // If it's a submenu, find its parent menu and push both
-        const existingMenu = acc.find(menu => menu.menus_id === submenuRole.menus_id);
-        if (existingMenu){
-          existingMenu.lines.push(id);
-      
-
-        } else {
-          acc.push({
-            rolecode: this.role_code,
-            menus_id: submenuRole.menus_id,
-            lines: [id]
-          });
+        // Remove menu entry if lines array is empty
+        if (menu.lines.length === 0) {
+          this.selectedMenus.splice(menuIndex, 1);
         }
       }
-       else {
-        // If it's a main menu ID, add it if not already present
-        const existingMenu = acc.find(menu => menu.menus_id === id);
-        if (!existingMenu) {
-          acc.push({
-            rolecode: this.role_code,
-            menus_id: id,
-            lines: []
-          });
-        }
-      }
-      return acc;
-    }, []);
-
-    console.log('Form submitted with data:', formData);
+    }
+  
+    console.log("selectedMenus:", this.selectedMenus);
   }
   
-  
 
+  submitData(): void {
+    console.log("Submitted Data:", this.selectedMenus);
+    const header = {
+      header: this.selectedMenus
+    };
+   //console.log(header)
+    this.securityService.submitData(header).subscribe({
+      next: (res) => {
+         if(res.success)
+          {
+            this.loading = true;
+            this.notificationService.toastrSuccess(res.message);
+            this.loading = false;
+
+          }
+          else{
+           this.notificationService.toastrError(res.message);
+            this.loading = false; 
+          }
+     
+      },
+      error: (err) => {
+        this.loading = false;
+        this.error = 'There was an error submitting the form. Please try again.';
+        this.notificationService.toastrError(this.error);
+      }
+   });
+  }
+  
 
 //   submitData(): void {
 //     const formData = this.securityRoles.map(role => ({
