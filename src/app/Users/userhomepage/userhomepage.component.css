@@ -1,3 +1,48 @@
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide-up with fade effect */
+@keyframes slideUpFade {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Keyframe for fade-in effect */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/* Keyframe for slide-up + fade-in effect */
+@keyframes slideUpFade {
+  0% {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
+}
+
 /* user-homepage.component.css */
 .user-homepage {
   display: flex; /* Flexbox for layout */
@@ -8,13 +53,13 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px; /* Padding for header */
+  padding: 40px; /* Padding for header */
   color: white; /* Text color */
 }
 
 .logo {
   font-size: 24px; /* Logo font size */
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Tahoma';
 }
 
 .nav {
@@ -102,9 +147,6 @@
   max-width: 600px
 }
 
-
-
-
 /* user-homepage.component.css */
 
 .user-homepage {
@@ -121,6 +163,7 @@
     background-color: none;
     color: #fff;
     padding: 1rem;
+
   }
   
   .header .logo {
@@ -140,7 +183,7 @@
     gap: 1px; /* Space between the image and text */
 }
 p{
-  font-size: 14px;
+  font-size:  1.5rem;
   font-family: tahoma;
 }
 .logo img {
@@ -184,155 +227,108 @@ p{
   color: #ffffff; /* Active text color */
 }
 
-
-
-.white-button {
-  color: white !important; /* Ensure the text is white */
-}
-
-  .header .nav a {
-    margin: 0 2rem;
-    color: #ffffff;
-    text-decoration: none;
-  }
-  button{
-    color: #ffffff;
-  }
-  
-  .header .nav a:hover {
-    text-decoration: underline;
-    color:rgb(255, 255, 255);
-  }
-  
-  .welcome-section {
-    text-align: left;
-    color: white;
-    font-family: Tahoma; /* Added fallback font */
-    position: relative; /* For positioning the shadow */
-    z-index: 1; /* Ensures the shadow appears behind */
-}
-
-  .welcome-section h1 {
-    font-size: 1.8rem;
-    font-weight: bold;
-    font-family:'Tahoma';
-    text-align: left;
-    margin-top: 35px;
-    margin-left: 18px;
-  }
-
-  .welcome-section p {
-    font-size: 15px;
-    font-family:'Tahoma';
-    margin-left: 30px;
-    margin-bottom: 40px;
+.slider_section {
+  width: 100%;
+  height: 100vh;
 }
 
 
-    
-@keyframes fadeIn {
-  0% {
-      opacity: 0; /* Start fully transparent */
-  }
-  100% {
-      opacity: 1; /* End fully opaque */
-  }
+
+.col-md-6 h1{
+ font-size: 3rem;
+ color: #f2f2f2;
+ font-family: 'Tahoma';
+ font-weight: bold;
+ margin-top: 190px;
+ text-align: center;
 }
 
+.col-md-6 h2{
+  font-size: 18px;
+  color: #fff7f7;
+  font-family: 'Tahoma';
+  padding-left: 2px;
+  text-align: center;
+ }
+ button{
+  color: white;
+}
+/* General styles for the image container */
+.img-box {
+  padding-left: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 1s ease-out forwards, slideUpFade 1.5s ease-out; /* Fade in + slide-up animation */
+}
 .fade-in {
   animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
 }
 
-
-
-@keyframes fadeIn {
-  0% {
-      opacity: 0; /* Start fully transparent */
-  }
-  100% {
-      opacity: 1; /* End fully opaque */
-  }
-}
-
-.fade-in {
-  animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
-}
-
-.gif-section {
-  position: relative; /* Use relative positioning instead of absolute */
-  background-image: url('/assets/images/gif.gif'); /* Path to your GIF */
-  background-position: center;
-  background-size: cover; /* Ensures the GIF fits within the section */
+/* Ensure the image is responsive */
+.img-box img {
+  width: 520px;
+  height: 520px;
+  border-radius: 10px; /* Optional: adds rounded corners */
+  box-shadow: 0px 4px 10px rgba(8, 90, 206, 0.867);
+  /* Optional: adds a subtle shadow */
   background-repeat: no-repeat;
-  margin-bottom: 50px;
-  height: 530px; /* Fixed height */
-  width: 530px; /* Fixed width */
-  border-radius: none; /* Smooth rounded corners */
-  overflow: hidden; /* Ensures content respects border-radius */
-  opacity: 1; /* Start as invisible */
+  background-position: center;
   animation: fadeIn 2s ease-out forwards, slideUpFade 1.5s ease-out; /* Fade in + slide-up animation */
-  box-shadow: 0 8px 20px rgba(9, 113, 187, 0.993); /* Adds shadow for depth */
- float: right;
- margin-right: 120px;
+  border-radius: 10px;
+  margin-top: 50px;
+
 }
 
-/* Fade-in animation */
-@keyframes fadeIn {
-  to {
-    opacity: 1;
+/* Desktop view */
+@media (min-width: 308px) {
+  .detail-box {
+    max-width: 600px;
+    padding: 0px;
   }
+
+   
 }
 
-/* Slide-up with fade effect */
-@keyframes slideUpFade {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-/* Keyframe for fade-in effect */
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-/* Keyframe for slide-up + fade-in effect */
-@keyframes slideUpFade {
-  0% {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-
-@media (max-width: 600px) {
-  .gif-section {
-    height: 400px;/* Adjust height for small screens */
-    width: 408px;   /* Take full width of the screen */
-    margin-top: 40px;
-  }
-
-@media (min-width: 349px) {
-  .gif-section {
-    height: 380px;/* Adjust height for small screens */
-    width: 348px;   /* Take full width of the screen */
-    margin-top: 40px;
-  }
-}
-
-
+/* Mobile view */
+@media (max-width: 767px) {
  
+.slider_section {
+  width: 100%;
+  padding-left: 0px;
 }
+.col-md-6 h1{
+  margin-top: 45px;
+  text-align: center;
+  font-size: 2rem;
+ }
+ 
+ .col-md-6 h2{
+    margin-bottom: 40px;
+    text-align: center;
+    color: #e3effc;
+    font-size: 16px;
+
+  }
+
+  .col-md-6 .img-box img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 340px;
+    padding-left: 0px;
+  }
+  .img-box img {
+    margin-top: 5px;
+    max-height: 400px;
+  }
+  .img-box {
+    padding-left: 0px;
+    margin: 30px;
+  }
+   
+}
+
+
+
+
