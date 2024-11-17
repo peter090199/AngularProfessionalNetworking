@@ -5,8 +5,10 @@
     </div>
     <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
       <div class="padding-userpage">
-        <button style="color:white;" mat-button class="nav-link" [routerLink]="['/signInUI']">Sign In</button>
-        <button style="color:white;" mat-button class="white-button" class="nav-link" [routerLink]="['/signUpUI']">Sign Up</button>
+        <button mat-button [routerLink]="['/signInUI']">
+          Sign In</button>
+        <button  mat-button  [routerLink]="['/signUpUI']">
+          Sign Up</button>
       </div>
     </nav>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
@@ -26,19 +28,24 @@
     </div>
     <ul class="list-unstyled">
       <li>
-        <button class="btn btn-link" [routerLink]="['/signInUI']">Sign In</button>
+        <button  mat-button [routerLink]="['/signInUI']">Sign In</button>
       </li>
       <li>
-        <button class="btn btn-link" [routerLink]="['/signUpUI']">Sign Up</button>
+        <button  mat-button [routerLink]="['/signUpUI']">Sign Up</button>
       </li>
     </ul>
-  </div>
+    
 </div>
-  
-<section class="welcome-section" >
-  <h1 [@slideUp] *ngIf="fadeIn">Welcome to Nexsuz!</h1>
-  
-  <p [@slideFade] *ngIf="fadeIn" style="padding-left: 25px;">Your Home to your Professional Network. </p>
- <div class="gif-section"></div>
+
+
+<div class="welcome-section">
  
-</section>
+  <h1 [@slideUp] *ngIf="fadeIn">Welcome to Nexsuz!  </h1>
+  <p [@slideFade] *ngIf="fadeIn">Your Home to your Professional Network!
+  </p>
+
+  <div class="gif-section"></div>
+ 
+
+</div>
+

@@ -69,11 +69,6 @@
    font-size: 14px;
 }
 
-button{
-  font-family: 'tahoma';
-  font-size: 14px;
-}
-
 .btn-link {
   color: #ffffff; /* Button text color */
   text-decoration: none; /* Remove underline */
@@ -168,6 +163,7 @@ p{
   justify-content: space-between;
   display: flex;
   gap: 10px; /* This will create space between buttons */
+
 }
 /* Default styles for nav buttons */
 .nav .white-button {
@@ -195,7 +191,7 @@ p{
 }
 
   .header .nav a {
-    margin: 0 1rem;
+    margin: 0 2rem;
     color: #ffffff;
     text-decoration: none;
   }
@@ -211,24 +207,23 @@ p{
   .welcome-section {
     text-align: left;
     color: white;
-    font-family: Tahoma, sans-serif; /* Added fallback font */
+    font-family: Tahoma; /* Added fallback font */
     position: relative; /* For positioning the shadow */
     z-index: 1; /* Ensures the shadow appears behind */
-    height: auto;
 }
 
   .welcome-section h1 {
-    font-size: 2.1rem;
+    font-size: 1.8rem;
     font-weight: bold;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family:'Tahoma';
     text-align: left;
-    margin-top: 55px;
-    margin-left: 38px;
+    margin-top: 35px;
+    margin-left: 18px;
   }
 
   .welcome-section p {
-    font-size: 14px;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 15px;
+    font-family:'Tahoma';
     margin-left: 30px;
     margin-bottom: 40px;
 }
@@ -264,23 +259,40 @@ p{
 }
 
 .gif-section {
-  position: relative;
-  display: flex;
-  align-items: left;
+  position: relative; /* Use relative positioning instead of absolute */
   background-image: url('/assets/images/gif.gif'); /* Path to your GIF */
   background-position: center;
-  background-size: cover; /* Ensures the GIF fits within the specified size */
+  background-size: cover; /* Ensures the GIF fits within the section */
   background-repeat: no-repeat;
-  background-color: #b88e8e6c;
-  text-align: center;
-  overflow: hidden;
-  margin-left: auto;
-  margin-right: auto;
-  height: 400px; /* Fixed height */
-  width: 500px; /* Fixed width */
-  opacity: 0; /* Start as invisible */
+  margin-bottom: 50px;
+  height: 530px; /* Fixed height */
+  width: 530px; /* Fixed width */
+  border-radius: none; /* Smooth rounded corners */
+  overflow: hidden; /* Ensures content respects border-radius */
+  opacity: 1; /* Start as invisible */
   animation: fadeIn 2s ease-out forwards, slideUpFade 1.5s ease-out; /* Fade in + slide-up animation */
-  border-radius: 5px;
+  box-shadow: 0 8px 20px rgba(9, 113, 187, 0.993); /* Adds shadow for depth */
+ float: right;
+ margin-right: 120px;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Slide-up with fade effect */
+@keyframes slideUpFade {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 /* Keyframe for fade-in effect */

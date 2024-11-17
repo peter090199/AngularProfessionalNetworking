@@ -25,12 +25,9 @@ section{
 /* Overall Layout */
 body {
   background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));
-  background-clip: padding-box, border-box;
-  box-shadow: 2px 4px 10px rgba(9, 137, 162, 0.877); /* Updated shadow color */
-  font-family: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif';
+  font-family: 'Tahoma';
   line-height: 1.2;
-  margin: 0;
-  padding: 0;
+  margin: 10px;
 }
 
 /* Add the rest of your CSS here... */
