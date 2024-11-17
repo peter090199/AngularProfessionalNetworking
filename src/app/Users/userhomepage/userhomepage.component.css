@@ -163,7 +163,9 @@
     background-color: none;
     color: #fff;
     padding: 1rem;
-
+    margin-right: 28px;
+    margin-left: 28px;
+    margin-top: 15px;
   }
   
   .header .logo {

@@ -101,6 +101,10 @@ mat-form-field .mat-form-field-suffix {
   
 }
 
+button .material-symbols-outlined {
+  font-size: 25px;   /* Adjust the icon size */
+}
+
 
 .aligned-icon {
   margin-right: 10px;
@@ -110,7 +114,8 @@ mat-form-field .mat-form-field-suffix {
 }
 
 .code-field {
-  width: 100px; /* Fixed width for the country code field */
+  width: 100px;
+  margin-top: 2px; /* Fixed width for the country code field */
 }
 
 .contact-field {

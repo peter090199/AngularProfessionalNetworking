@@ -23,17 +23,35 @@
             Please enter a valid email address.
           </mat-error>
         </mat-form-field>
-       
+        
         <mat-form-field appearance="standard" class="full-width">
           <mat-label>Password</mat-label>
           <mat-icon matPrefix>lock</mat-icon>
-          <input matInput type="password" formControlName="password" required>
-          <!-- Custom error message for incorrect password -->
-          <mat-error *ngIf="loginForm.get('password')?.hasError('incorrect')">
-            The password you entered is incorrect.
+          <input
+            matInput
+            [type]="passwordVisible ? 'text' : 'password'"
+            formControlName="password"
+            required
+            pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+            placeholder="Enter your password"
+          />
+          <mat-icon
+            matSuffix
+            (click)="togglePasswordVisibility()"
+            style="cursor: pointer;"
+          >
+            {{ passwordVisible ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        
+          <!-- Error messages -->
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Password is required.
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('pattern')">
+            Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.
           </mat-error>
         </mat-form-field>
-      
+        
         <button mat-raised-button color="primary" class="signin-button" 
           [disabled]="isLoading || !loginForm.valid" type="submit">
           Sign in
@@ -44,9 +62,13 @@
     <mat-card-footer>
       <div class="links">
           <a routerLink="/signUpUI">Don't have an account? Sign up</a><br>
-          <a routerLink="/forgetpassword">Forgot Password?</a><br>
-          <mat-icon routerLink="/" class="back-icon">arrow_back</mat-icon>
-      </div>
+          <a routerLink="/forgetpassword">Forgot Password?</a>
+
+     </div>
+    <button mat-button color="primary" routerLink="/" class="width2">
+      <span class="material-symbols-outlined" >keyboard_return</span>
+      Back to home
+    </button>
   </mat-card-footer>
 
   </mat-card>

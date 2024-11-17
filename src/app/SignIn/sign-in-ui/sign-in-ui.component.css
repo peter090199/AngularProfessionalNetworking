@@ -6,6 +6,11 @@
   min-height: 100vh;
   padding: 20px;
 }
+
+.width2{
+  margin-bottom: 120px;
+}
+
 .login-card mat-card-header {
   display: flex;
   justify-content: center; /* Centers the content horizontally */
@@ -14,7 +19,8 @@
 }
 .links {
   margin: 19px;
-  text-align: left;
+  margin-left: 0px;
+
 }
 
 .links a {
@@ -63,7 +69,7 @@
 
 .signin-button {
   width: 100%;
-  margin-top: 20px;
+  margin-top: 2px;
 }
 
 /* Mobile responsive adjustments */
@@ -78,6 +84,8 @@
   }
 
   .signin-button {
-    margin-top: 15px;
+    margin-top: 2px;
   }
+
 }
+

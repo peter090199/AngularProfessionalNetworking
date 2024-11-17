@@ -26,14 +26,14 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-  
+          
             <mat-form-field class="form-field contact-field" appearance="standard">
               <mat-icon matPrefix class="aligned-icon">phone</mat-icon>
               <mat-label>Contact Number</mat-label>
               <input matInput type="text" formControlName="contactno" required>
             </mat-form-field>
           </div>
-  
+          
           <!-- Firstname and Family Name Fields -->
           <div class="form-row">
             <mat-form-field class="form-field" appearance="standard">
@@ -51,16 +51,53 @@
   
           <!-- Password and Confirm Password Fields -->
           <div class="form-row">
-            <mat-form-field class="form-field" appearance="standard">
-              <mat-icon matPrefix class="aligned-icon">lock</mat-icon>
+            <mat-form-field appearance="standard" class="form-field">
               <mat-label>Password</mat-label>
-              <input matInput type="password" formControlName="password" required>
+              <mat-icon matPrefix>lock</mat-icon>
+              <input
+                matInput
+                [type]="passwordVisible ? 'text' : 'password'"
+                formControlName="password"
+                required
+                pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                placeholder="Enter your password"
+              />
+              <mat-icon
+                matSuffix
+                (click)="togglePasswordVisibility()"
+                style="cursor: pointer;"
+              >
+                {{ passwordVisible ? 'visibility_off' : 'visibility' }}
+              </mat-icon>
+            
+              <!-- Error messages -->
+              <mat-error *ngIf="registerForm.get('password')?.hasError('required')">
+                Password is required.
+              </mat-error>
+              <mat-error *ngIf="registerForm.get('password')?.hasError('pattern')">
+                Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.
+              </mat-error>
             </mat-form-field>
-  
+        
+            
             <mat-form-field class="form-field" appearance="standard">
               <mat-icon matPrefix class="aligned-icon">lock</mat-icon>
               <mat-label>Confirm Password</mat-label>
-              <input matInput type="password" formControlName="password_confirmation" required>
+              <input matInput [type]="passwordVisible ? 'text' : 'password'"
+              formControlName="password_confirmation"
+              required  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+              
+              <mat-icon matSuffix (click)="togglePasswordVisibility()"  style="cursor: pointer;" >  
+                 {{ passwordVisible ? 'visibility_off' : 'visibility' }}
+             </mat-icon>
+            
+            <mat-error *ngIf="registerForm.get('password_confirmation')?.hasError('required')">
+                Confirm Password is required.
+              </mat-error>
+              <mat-error *ngIf="registerForm.get('password_confirmation')?.hasError('pattern')">
+                Confirm Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.
+              </mat-error>
+
             </mat-form-field>
           </div>
   
@@ -86,8 +123,13 @@
       <mat-card-footer>
         <div class="links">
           <a routerLink="/signInUI">Already have an account? Sign in</a><br>
-          <mat-icon routerLink="/" class="back-icon">arrow_back</mat-icon>
         </div>
+          <button mat-button color="primary" routerLink="/" class="width">
+            <span class="material-symbols-outlined" style="color:  #007bff;">keyboard_return</span>
+            Back to home
+          </button>
+
+     
       </mat-card-footer>
     </mat-card>
   </div>

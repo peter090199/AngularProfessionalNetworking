@@ -16,7 +16,8 @@ import { Route, Router } from '@angular/router';
 export class SignUpUIComponent implements OnInit {
   registerForm: FormGroup;
   isloading:boolean = false;
-
+  passwordVisible:boolean = false;
+  
   countryCodes = [
     { code: '+1', country: 'USA/Canada' },
     { code: '+7', country: 'Russia/Kazakhstan' },
@@ -123,6 +124,10 @@ fadeIn: any;
       this.countryCodes + this.contactno;
     }
  contactno:any;
+ togglePasswordVisibility() {
+  this.passwordVisible = !this.passwordVisible;
+}
+
 
   ngOnInit(): void {
     this.registerForm = this.fb.group({

@@ -14,6 +14,7 @@ export class SignInUIComponent implements OnInit {
   isLoading = false;
   hide = true; // For password visibility toggle
   checked = false; // Remember me checkbox
+  passwordVisible: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -25,6 +26,9 @@ export class SignInUIComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
   }
+
+
+
 
   // Initialize the login form
   private initializeForm(): void {
@@ -43,6 +47,11 @@ export class SignInUIComponent implements OnInit {
     });
   }
 
+  togglePasswordVisibility() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  
   // Handle form submission
   onSubmit(): void {
     if (this.loginForm.valid) {
