@@ -60,10 +60,42 @@
     color: white; /* Text color */
   }
   
-  .logo {
-    font-size: 24px; /* Logo font size */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: none;
+    color: #fff;
+
   }
   
+  .header .logo img {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0px;
+  }
+  .sidebar-header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0px;
+  }
+  
+/* Container for logo and text */
+.logo {
+  display: flex; /* Flexbox to align the image and text horizontally */
+  align-items: center; /* Vertically centers the items */
+  font-family: 'Arial', sans-serif; /* Font for the text */
+  font-size: 24px; /* Font size for the text */
+  color: #ffffff; /* Dark color for text */
+  font-weight: bold; /* Bold for the text */
+}
+
+/* Style the logo image */
+.logo img {
+  width: 40px; /* Adjust the logo size */
+  margin-right: 0px; /* Space between the image and the text */
+}
+
   .nav {
     display: flex; /* Flex display for navigation */
   }
@@ -151,27 +183,18 @@
       padding: 1rem;
     }
     
-    .header .logo {
-      font-size: 1.5rem;
-      font-weight: bold;
-    }
-    .logo {
-      display: flex; /* Use flexbox for alignment */
-      align-items: center; /* Center items vertically */
-      gap: 10px; /* Space between the image and text */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: none;
+    color: #fff;
+    padding: 1rem;
+
   }
   
-  .logo img {
-      width: 30px; /* Adjust size of the logo image */
-      height: auto; /* Maintain aspect ratio */
-  }
-  
-  .logo span {
-      font-size: 24px; /* Set font size for the text */
-      font-weight: bold; /* Make the text bold */
-      color: #fff6f6; /* Change text color */
-  }
-  
+
+
   .nav {
       display: flex; /* Align items in a row */
       justify-content: center; /* Center the nav items */

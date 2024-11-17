@@ -1,10 +1,13 @@
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
 <div class="user-homepage">
-  <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
+
   <header class="header">
   
     <div class="logo">
-      <p>logo</p>
+      <img src="assets/images/logo2.PNG" alt="logo" style="width: 80%;">
     </div>
+    
+
     <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
 
       <div class="padding-userpage" *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
