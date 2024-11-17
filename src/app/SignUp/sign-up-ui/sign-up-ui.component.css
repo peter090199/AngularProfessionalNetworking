@@ -63,6 +63,7 @@ mat-form-field .mat-form-field-suffix {
   overflow: auto; /* Enables vertical scrolling */
   border-radius: 10px; 
   height: 590px;
+  margin-bottom: 0px;
 }
 
 /* Custom scrollbar styling */
@@ -168,7 +169,7 @@ mat-form-field {
 @media (max-width: 768px) {
   .form-row {
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
   }
 
   .code-field {
@@ -180,7 +181,10 @@ mat-form-field {
   }
 
   .signup-button {
-    margin-top: 16px;
+    margin-top: 12px;
+  }
+  .width2{
+
   }
 }
 

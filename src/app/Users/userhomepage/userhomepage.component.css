@@ -328,7 +328,10 @@ p{
     padding-left: 0px;
     margin: 30px;
   }
-   
+   .header{
+    margin: 0px;
+ 
+   }
 }
 
 
