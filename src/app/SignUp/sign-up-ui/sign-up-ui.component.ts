@@ -178,18 +178,18 @@ fadeIn: any;
             if(res.success === true)
             {
               this.isloading = true;
-              this.notifyService.toastrSuccess(res.message);
+              this.notifyService.toastrWarning(res.message);
               this.registerForm.reset();
               this.router.navigateByUrl("/signUpUI");
               this.isloading = false;
             }
             else{
               this.isloading = false;
-              this.notifyService.toastrError(res.message);
+              this.notifyService.toastrInfo(res.message);
             }
           },
           error: (err) => {
-            this.notifyService.toastrError(err.message);
+            this.notifyService.toastrInfo(err.message);
           },
         });
        }

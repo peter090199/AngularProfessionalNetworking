@@ -71,7 +71,7 @@ export class SignInUIComponent implements OnInit {
       next: (res) => {
         if (res.success && res.token) {
           this.isLoading = true;
-          this.notificationService.toastrSuccess(res.message);
+          this.notificationService.toastPopUp(res.message);
           this.router.navigate(['/home']);
           this.loginForm.reset(); // Reset form after successful login
           this.isLoading = false;

@@ -203,6 +203,17 @@ snack-bar-container.notification simple-snack-bar {
   margin-bottom: 30px;
 }
 
+
+mat-form-field {
+  width: 100%;
+}
+.search-box{
+width: 90%;
+padding-right: 700px;
+margin-left: 40px;
+border-radius: 12PX;
+
+}
 button .material-symbols-outlined {
   font-size: 24px; 
 }
@@ -238,7 +249,6 @@ p {
     width: 100%;
   }
 
-  .signup-button {
-    margin-top: 16px;
-  }
+
+
 }

@@ -3,6 +3,18 @@
     <div class="logo">
        <img src="assets/images/logo.png" alt="logo">exsuz
     </div>
+    <mat-form-field appearance="standard" class="search-box">
+    <!-- <mat-icon matPrefix>search</mat-icon> 
+      <input matInput placeholder="Search" [(ngModel)]="searchQuery" (input)="onSearch()" />
+      <mat-icon matSuffix *ngIf="searchQuery" (click)="clearSearch()">clear</mat-icon> 
+    </mat-form-field> -->
+<!-- 
+      <mat-icon matPrefix>search</mat-icon> 
+      <input matInput placeholder="Search" />
+      <mat-icon matSuffix >clear</mat-icon>  -->
+  
+  </mat-form-field>
+
     <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
       <div class="padding-userpage">
         <button mat-button [routerLink]="['/signInUI']">
