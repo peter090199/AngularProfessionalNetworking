@@ -1,26 +1,29 @@
 <div class="user-homepage">
+
   <header class="header">
     <div class="logo">
        <img src="assets/images/logo.png" alt="logo">exsuz
     </div>
-    <mat-form-field class="example-form-field" appearance="fill">
-      <mat-label>Clearable input</mat-label>
+    <!-- <mat-form-field class="example-form-field" appearance="standard">
+      <mat-label>Search </mat-label>
       <input matInput type="text" [(ngModel)]="value">
       <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
         <mat-icon>close</mat-icon>
       </button>
-    </mat-form-field>
+    </mat-form-field> -->
     <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
+    
       <div class="padding-userpage">
         <button mat-button [routerLink]="['/signInUI']">
           Sign In</button>
         <button  mat-button  [routerLink]="['/signUpUI']">
-          Sign </button>
+          Sign Up </button>
       </div>
     </nav>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
-      <mat-icon>menu</mat-icon>
+      <mat-icon>{{ isSidebarOpen ? 'close' : 'menu' }}</mat-icon>
     </button>
+    
   </header>
 
   <!-- Sidebar for mobile -->
@@ -29,9 +32,7 @@
       <div class="logo">
         <img src="assets/images/logo.png" alt="logo">exsuz
        </div>
-      <button class="close-btn" (click)="toggleSidebar()">
-        <mat-icon>close</mat-icon>
-      </button>
+     
     </div>
     <ul class="list-unstyled">
       <li>

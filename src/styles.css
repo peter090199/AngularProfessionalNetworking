@@ -209,13 +209,7 @@ snack-bar-container.notification simple-snack-bar {
 mat-form-field {
   width: 100%;
 }
-.search-box{
-width: 90%;
-padding-right: 700px;
-margin-left: 40px;
-border-radius: 12PX;
 
-}
 button .material-symbols-outlined {
   font-size: 24px; 
 }
@@ -270,7 +264,14 @@ h2{
   justify-content: center;
   padding-right: 5rem;
 }
-
+/* .search-div
+{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 0px;
+} */
 .logo-container {
   display: flex;
   align-items: center;

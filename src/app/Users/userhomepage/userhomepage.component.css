@@ -156,7 +156,9 @@
     font-size: 14px;
   }
   .example-form-field {
-    width: 200px;
+    width: 400px;
+  margin-right: 200px;
+ 
   }
   
   .header {
@@ -286,6 +288,7 @@ p{
 
 }
 
+
 /* Desktop view */
 @media (min-width: 308px) {
   .detail-box {
@@ -299,6 +302,9 @@ p{
 /* Mobile view */
 @media (max-width: 767px) {
  
+  .padding-userpage{
+    margin-left: 10px;
+  }
 .slider_section {
   width: 100%;
   padding-left: 0px;
@@ -308,7 +314,7 @@ p{
   text-align: center;
   font-size: 2rem;
  }
- 
+
  .col-md-6 h2{
     margin-bottom: 40px;
     text-align: center;
@@ -334,7 +340,6 @@ p{
   }
    .header{
     margin: 0px;
- 
    }
 }
 

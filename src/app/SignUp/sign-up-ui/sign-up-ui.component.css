@@ -21,7 +21,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 40px;
+  padding: 10px;
 }
 /* Align mat-icon within mat-form-field */
 mat-form-field .mat-form-field-prefix mat-icon {
@@ -200,8 +200,9 @@ mat-form-field {
 @media (max-width: 480px) {
   .register-card {
     padding: 10px;
+    width: 600px;
     max-height: 600px;
-    width: 500px;
+    width: 600px;
   }
 
   .form-field {
@@ -217,8 +218,5 @@ mat-form-field {
     margin: 12px 0;
   }
 
-  h2 {
-    font-size: 1.5rem;
-    text-align: center;
-  }
+
 }

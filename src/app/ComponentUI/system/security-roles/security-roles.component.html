@@ -1,6 +1,6 @@
 <section class="section"  class="content-scrollable">
     <div class="search-div">
-      <mat-form-field class="w-40" floatLabel="never" appearance="standard">
+      <mat-form-field  floatLabel="never" appearance="standard">
         <input matInput [(ngModel)]="searchKey" [placeholder]="placeHolder" (keyup)="applyFilter()" autocomplete="false">
         <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
           <mat-icon>close</mat-icon>

@@ -22,14 +22,7 @@
   text-align: left; /* Align text to the left */
 }
 
-.search-div
-{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 0px;
-}
+
 .product-image {
 width: 100px; /* Set the desired width */
 height: 40px; /* Set the desired height */
