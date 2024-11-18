@@ -58,18 +58,8 @@ export class SignInUIComponent implements OnInit {
   // Handle form submission
   onSubmit(): void {
     if (this.loginForm.valid) {
-    // Extract the form values
     const { email, password } = this.loginForm.value;
     this.isLoading = true; // Start loading indicator
-
-    // this.simulateLogin(email, password).then((isAuthenticated) => {
-    //   this.isLoading = false;
-    //   if (!isAuthenticated) {
-    //     this.loginForm.get('password')?.setErrors({ incorrect: true });
-    //   }
-
-    // });
-    // Call the sign-in service
     this.sigInService.signin(email, password).subscribe({
       next: (res) => {
         if (res.success && res.token) {
@@ -82,14 +72,14 @@ export class SignInUIComponent implements OnInit {
         else
         {
           this.isLoading = false;
-          this.notificationService.toastrError(res.message);
+          this.notificationService.toastPopUpError(res.message);
         }
       },
       error: (err) => {
         if (err.status === 401) {
           this.notificationService.toastrError('Unauthorized: Invalid credentials');
         } else {
-          this.notificationService.toastrError(err.error?.message || 'An error occurred');
+          this.notificationService.toastPopUpError(err.message);
         }
         this.isLoading = false; // Stop loading on error
       },

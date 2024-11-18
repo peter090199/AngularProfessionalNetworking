@@ -71,5 +71,17 @@ toastPopUp(msg:string){
     icon: "success"
   });
 }
+toastPopUpError(msg:string){
+  return Swal.fire({
+    text: msg,
+    icon: "warning",
+    showCancelButton: false,
+    confirmButtonText: 'OK',
+    confirmButtonColor :'#3f51b5',
+    cancelButtonColor :'#f44336',
+    cancelButtonText: 'No',
+
+  });
+}
 
 }
