@@ -21,7 +21,7 @@
   justify-content: center;
   align-items: center;
   min-height: 100vh;
- padding: 20px;
+  padding: 40px;
 }
 /* Align mat-icon within mat-form-field */
 mat-form-field .mat-form-field-prefix mat-icon {
@@ -52,6 +52,17 @@ mat-form-field .mat-form-field-suffix {
   align-items: center;
 }
 
+h2{
+  margin-top: 1px;
+  font-size: 18px;
+}
+h1{
+  margin-top: 28px;
+  font-size: 18px;
+  color: #007bff;
+  font-weight: 500;
+}
+
 
 
 /* Card styling with scrolling enabled */
@@ -62,7 +73,7 @@ mat-form-field .mat-form-field-suffix {
   box-shadow: 3 4px 10px rgba(0, 0, 0, 0.1);
   overflow: auto; /* Enables vertical scrolling */
   border-radius: 10px; 
-  height: 590px;
+  max-height: 810px;
   margin-bottom: 0px;
 }
 
@@ -183,14 +194,14 @@ mat-form-field {
   .signup-button {
     margin-top: 12px;
   }
-  .width2{
 
-  }
 }
 
 @media (max-width: 480px) {
   .register-card {
-    padding: 16px;
+    padding: 10px;
+    max-height: 600px;
+    width: 500px;
   }
 
   .form-field {

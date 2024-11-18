@@ -53,7 +53,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 40px; /* Padding for header */
+  padding: 20px; /* Padding for header */
   color: white; /* Text color */
 }
 
@@ -155,7 +155,10 @@
     flex-direction: column;
     font-size: 14px;
   }
-
+  .example-form-field {
+    width: 200px;
+  }
+  
   .header {
     display: flex;
     justify-content: space-between;
@@ -165,7 +168,7 @@
     padding: 1rem;
     margin-right: 28px;
     margin-left: 28px;
-    margin-top: 15px;
+    margin-top: 1px;
   }
   
   .header .logo {
@@ -207,7 +210,7 @@ p{
 .padding-userpage{
   justify-content: space-between;
   display: flex;
-  gap: 10px; /* This will create space between buttons */
+  gap: 5px; /* This will create space between buttons */
 
 }
 /* Default styles for nav buttons */
@@ -254,6 +257,7 @@ p{
  }
  button{
   color: white;
+  font-size: 14px;
 }
 /* General styles for the image container */
 .img-box {

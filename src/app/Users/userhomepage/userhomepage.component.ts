@@ -11,7 +11,8 @@ export class UserhomepageComponent implements OnInit {
   fadeIn: boolean = false;
   isSidebarOpen = false; // Sidebar state
   isDesktop: true;
-
+  value = 'Clear me';
+  
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen; // Toggle sidebar visibility
   }
