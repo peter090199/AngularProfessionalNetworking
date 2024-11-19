@@ -1,0 +1,17 @@
+.form-container {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+  
+  .form-step {
+    flex: 0 0 100%;
+    transform: translateX(100%);
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .form-step.active {
+    transform: translateX(0);
+  }
+  

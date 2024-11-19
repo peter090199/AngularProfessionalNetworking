@@ -15,6 +15,8 @@ import { ProtectedComponent } from './TermsModal/protected/protected.component';
 import { MessagesComponent } from './ComponentUI/messages/messages.component';
 import { ForgotPasswordUIComponent } from './ComponentSharedUI/forgot-password-ui/forgot-password-ui.component';
 import { ResetPasswordUIComponent } from './ComponentSharedUI/reset-password-ui/reset-password-ui.component';
+import { ClientUIComponent } from './SignUp/client-ui/client-ui.component';
+
 
 const routes: Routes = [
   // Public routes
@@ -23,10 +25,10 @@ const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // Default redirect
   { path: 'homepage', component: UserhomepageComponent },
   { path: 'signUpUI', component: SignUpUIComponent },
+  { path: 'clientsignup', component: ClientUIComponent },
   { path: 'signInUI', component: SignInUIComponent },
   { path: 'forgetpassword', component: ForgotPasswordUIComponent },
   { path: 'reset-password/:email/:token', component: ResetPasswordUIComponent },
-  //{ path: 'reset-password', component: ForgotPasswordUIComponent },
 
   // Top navigation with sub-routes
   { 

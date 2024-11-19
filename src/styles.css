@@ -244,19 +244,33 @@ p {
 
 }
 
+/* Links section */
+.links {
+  margin: 5px;
+  text-align: left;
+}
+
+
+.links a:hover {
+  text-decoration: underline;
+}
 
 
 .links a {
   color: #007bff;
   text-decoration: none;
+
 }
 .tahoma{
   font-family: 'Tahoma';
 }
-h2{
 
+h2{
+  margin-top: 5px;
+  font-size: 18px;
   color: #007bff;
 }
+
 .left-panel {
   display: flex;
   flex-direction: column;
@@ -274,12 +288,12 @@ h2{
 } */
 .logo-container {
   display: flex;
-  align-items: center;
+  align-items: left;
 }
 
 .logo {
   width: 30px;
-  height: 30px;
+  height: 28px;
 }
 
 

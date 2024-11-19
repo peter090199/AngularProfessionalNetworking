@@ -1,4 +1,5 @@
 import { trigger, transition, style, animate } from '@angular/animations';
+import { query, group } from '@angular/animations';
 
 export const slideUp = trigger('slideUp', [
   transition(':enter', [
@@ -18,4 +19,57 @@ export const slideFade = trigger('slideFade', [
     transition(':leave', [
       animate('0.5s ease-in', style({ transform: 'translateY(50%)', opacity: 0 })) // Slide down and fade out
     ])
+  ]);
+
+  export const slideInAnimation = trigger('routeAnimations', [
+    transition('SignUpPage => ClientPage', [
+      style({ position: 'relative' }),
+      query(':enter, :leave', [
+        style({
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+        }),
+      ]),
+      query(':enter', [
+        style({ transform: 'translateX(100%)', opacity: 0 }),
+      ]),
+      query(':leave', [
+        style({ transform: 'translateX(0)', opacity: 1 }),
+      ]),
+      group([
+        query(':leave', [
+          animate('300ms ease-out', style({ transform: 'translateX(-100%)', opacity: 0 })),
+        ]),
+        query(':enter', [
+          animate('300ms ease-out', style({ transform: 'translateX(0)', opacity: 1 })),
+        ]),
+      ]),
+    ]),
+    transition('ClientPage => SignUpPage', [
+      style({ position: 'relative' }),
+      query(':enter, :leave', [
+        style({
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+        }),
+      ]),
+      query(':enter', [
+        style({ transform: 'translateX(-100%)', opacity: 0 }),
+      ]),
+      query(':leave', [
+        style({ transform: 'translateX(0)', opacity: 1 }),
+      ]),
+      group([
+        query(':leave', [
+          animate('300ms ease-out', style({ transform: 'translateX(100%)', opacity: 0 })),
+        ]),
+        query(':enter', [
+          animate('300ms ease-out', style({ transform: 'translateX(0)', opacity: 1 })),
+        ]),
+      ]),
+    ]),
   ]);

@@ -145,32 +145,20 @@ mat-form-field {
   width: 100%; /* Full width for button */
 }
 
-/* Links section */
-.links {
-  margin: 19px;
-  text-align: left;
-}
-
-.links a {
-  color: #007bff;
-  text-decoration: none;
-}
-
-.links a:hover {
-  text-decoration: underline;
-}
 
 .agreement-section {
-  margin-top: 10px;
   font-size: 0.9em;
   color: #555;
-  text-align: justify; /* Justifies the text */
-  margin: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+  margin-bottom: 12px;
 }
 
 .agreement-section a {
   color: #3f51b5; /* Angular Material theme color */
   text-decoration: none;
+  gap: 12px;
 }
 .agreement-section a:hover {
   text-decoration: underline;
