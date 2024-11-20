@@ -18,6 +18,13 @@ export class SignUpUIComponent implements OnInit {
   isloading:boolean = false;
   passwordVisible:boolean = false;
   
+  selectedOption: string | undefined;
+  options = [
+    { value: 'I am over 18 years old'},
+    { value: 'I am below 18 years old'},
+  
+  ];
+
   countryCodes = [
     { code: '+1', country: 'USA/Canada' },
     { code: '+7', country: 'Russia/Kazakhstan' },

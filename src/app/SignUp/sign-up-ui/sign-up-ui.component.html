@@ -10,29 +10,58 @@
       <mat-divider></mat-divider>
       <mat-card-content>
         <mat-tab-group dynamicHeight>
-          <mat-tab label="User Sign up">
+          <mat-tab label="Individual Sign-up Fields">
             <div class="example-small-box mat-elevation-z4">
               <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                <!-- Email Field -->
-                <mat-form-field class="full-width form-field" appearance="standard">
+
+                <div class="form-row">
+                <mat-form-field appearance="standard" class="form-field">
+                  <mat-label>Your company's name:</mat-label>
+                  <mat-icon matPrefix>email</mat-icon>
+                  <input matInput placeholder="Enter your email" type="email" formControlName="email" required>
+              
+                </mat-form-field>
+
+                <mat-form-field class="form-field" appearance="standard">
                   <mat-icon matPrefix class="aligned-icon">email</mat-icon>
-                  <mat-label>Email</mat-label>
+                  <mat-label>Your designation in the company</mat-label>
                   <input matInput type="email" formControlName="email" required>
                   <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
                     Email is required.
                   </mat-error>
                 </mat-form-field>
-        
+
+          
+              </div>
+
+              <div class="form-row">
+                <mat-form-field class="form-field" appearance="standard">
+                  <mat-icon matPrefix class="aligned-icon">email</mat-icon>
+                  <mat-label>Your Age:</mat-label>
+                  <input matInput type="number" formControlName="email" required>
+                  <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
+                    Email is required.
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="standard">
+                  <mat-label>Choose an option</mat-label>
+                  <mat-select [(value)]="selectedOption">
+                    <mat-option *ngFor="let option of options" [value]="option.value">
+                      {{ option.value }} <!-- Display the label for each option -->
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                
+              </div>
+            
                 <!-- Country Code and Contact Number Fields -->
                 <div class="form-row">
-                  <mat-form-field class="code-field" appearance="standard">
-                    <mat-icon matPrefix class="aligned-icon">flag</mat-icon>
-                    <mat-label>Code</mat-label>
-                    <mat-select formControlName="countryCode" required>
-                      <mat-option *ngFor="let country of countryCodes" [value]="country.code">
-                        {{ country.code }}
-                      </mat-option>
-                    </mat-select>
+                  <mat-form-field class="form-field" appearance="standard">
+                    <mat-icon matPrefix class="aligned-icon">email</mat-icon>
+                    <mat-label>Email:</mat-label>
+                    <input matInput type="email" formControlName="email" required>
+                   
                   </mat-form-field>
                 
                   <mat-form-field class="form-field contact-field" appearance="standard">
@@ -130,7 +159,7 @@
           </mat-tab>
 
        <!-- COMPANY SIGN-UP -->
-          <mat-tab label="Company Sign Up">
+          <mat-tab label="Company Sign-up Fields">
             <div class="example-large-box mat-elevation-z4">
               <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <mat-form-field class="form-field" appearance="standard">
@@ -146,7 +175,22 @@
                     <input matInput type="text" formControlName="contactno" required>
                   </mat-form-field>
                 </div>
-                
+                <div class="form-row">
+                  <mat-form-field class="form-field" appearance="standard">
+                    <mat-icon matPrefix class="aligned-icon">email</mat-icon>
+                    <mat-label>Company Industry:</mat-label>
+                    <input matInput type="email" formControlName="email" required>
+                   
+                  </mat-form-field>
+                  <mat-form-field class="form-field" appearance="standard">
+                    <mat-icon matPrefix class="aligned-icon">email</mat-icon>
+                    <mat-label>Company's Website:</mat-label>
+                    <input matInput type="email" formControlName="email" required>
+                   
+                  </mat-form-field>
+               
+                  
+                </div>
                 <!-- Firstname and Family Name Fields -->
                 <div class="form-row">
                   <mat-form-field class="form-field" appearance="standard">
