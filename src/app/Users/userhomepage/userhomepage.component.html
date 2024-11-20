@@ -4,20 +4,24 @@
     <div class="logo">
        <img src="assets/images/logo.png" alt="logo">exsuz
     </div>
-    <!-- <mat-form-field class="example-form-field" appearance="standard">
-      <mat-label>Search </mat-label>
-      <input matInput type="text" [(ngModel)]="value">
-      <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-form-field> -->
+    <div *ngIf="!isMobile">
+      <mat-form-field class="search-div" appearance="standard">
+        <mat-label>Search </mat-label>
+        <input matInput type="text" [(ngModel)]="value">
+      
+        <button  *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      </div>
     <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
     
-      <div class="padding-userpage">
+      <div class="padding-userpage" *ngIf="!isMobile">
         <button mat-button [routerLink]="['/signInUI']">
           Sign In</button>
         <button  mat-button  [routerLink]="['/signUpUI']">
           Sign Up </button>
+         
       </div>
     </nav>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
@@ -44,9 +48,19 @@
     </ul>
     
 </div>
-
+<div class="header">
+  <!-- <mat-form-field class="example-form-field" appearance="standard">
+    <mat-label>Search </mat-label>
+    <input matInput type="text" [(ngModel)]="value">
+    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field> -->
+</div>
   <section class="slider_section">
       <div class="container">
+         
+
        <div class="row">
           <div class="col-md-6">
               <h1 [@slideUp] *ngIf="fadeIn" >Welcome to Nexsuz!</h1>

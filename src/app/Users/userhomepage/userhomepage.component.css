@@ -288,6 +288,15 @@ p{
 
 }
 
+.hide-on-mobile {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .hide-on-mobile {
+    display: none;
+  }
+}
 
 /* Desktop view */
 @media (min-width: 308px) {
@@ -322,21 +331,21 @@ p{
     font-size: 16px;
 
   }
-
+  
   .col-md-6 .img-box img{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 340px;
+    width: 290px;
     padding-left: 0px;
   }
   .img-box img {
     margin-top: 5px;
-    max-height: 400px;
+    max-height: 300px;
   }
   .img-box {
     padding-left: 0px;
-    margin: 30px;
+    margin: 10px;
   }
    .header{
     margin: 0px;

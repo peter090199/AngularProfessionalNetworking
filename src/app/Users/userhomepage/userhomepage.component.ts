@@ -11,8 +11,9 @@ export class UserhomepageComponent implements OnInit {
   fadeIn: boolean = false;
   isSidebarOpen = false; // Sidebar state
   isDesktop: true;
-  value = 'Clear me';
-  
+  value = '';
+  isMobile: boolean = false; // Mobile detection state
+
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen; // Toggle sidebar visibility
   }
@@ -24,8 +25,6 @@ export class UserhomepageComponent implements OnInit {
     this.fadeIn = true; 
   }
 
-
-  isMobile: boolean = false; // Mobile detection state
 
   // Update the mobile state based on window width
   @HostListener('window:resize', ['$event'])

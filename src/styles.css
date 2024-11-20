@@ -278,14 +278,17 @@ h2{
   justify-content: center;
   padding-right: 5rem;
 }
-/* .search-div
-{
+.search-div {
   display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
+  align-items: flex-start; /* Aligns items to the top */
+  justify-content: flex-start; /* Ensures the content aligns to the left */
+  gap: 130px; /* Adds space between items */
+  flex-wrap: wrap; /* Allows wrapping if items overflow */
   margin-top: 0px;
-} */
+  margin-right: 300px;
+float: left; /* Keeps margin as specified */
+}
+
 .logo-container {
   display: flex;
   align-items: left;

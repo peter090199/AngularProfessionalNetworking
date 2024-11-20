@@ -21,12 +21,12 @@ import { ClientUIComponent } from './SignUp/client-ui/client-ui.component';
 const routes: Routes = [
   // Public routes
 
-
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // Default redirect
   { path: 'homepage', component: UserhomepageComponent },
   { path: 'signUpUI', component: SignUpUIComponent },
   { path: 'clientsignup', component: ClientUIComponent },
   { path: 'signInUI', component: SignInUIComponent },
+  { path: 'signInUI/:email', component: SignInUIComponent },
   { path: 'forgetpassword', component: ForgotPasswordUIComponent },
   { path: 'reset-password/:email/:token', component: ResetPasswordUIComponent },
 
