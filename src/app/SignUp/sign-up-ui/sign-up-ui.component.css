@@ -164,7 +164,6 @@ mat-form-field {
   text-decoration: underline;
 }
 
-
 @media (max-width: 768px) {
   .form-row {
     flex-direction: column;

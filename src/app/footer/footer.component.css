@@ -2,7 +2,7 @@
     flex: 1 1 auto;
 }
 .acct-name{
-    color: #3f51b5;
+    color: #1b3cf8;
 }
 
 .footer {
@@ -10,7 +10,7 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #4e60d43f;
+    background-color: #0545983f;
     color: #fff;
     line-height: 10px;
     transition: line-height 0.3s;

@@ -2,13 +2,11 @@
 <div class="user-homepage">
 
   <header class="header">
-  
     <div class="logo">
-      <img src="assets/images/logo.png" alt="logo">
-    </div>
-    
-
-    <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
+      <img src="assets/images/logo.png" alt="logo" style="height:24px;">
+      exsuz
+   </div>
+    <nav *ngIf="!isMobile" class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
 
       <div class="padding-userpage" *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
         
@@ -38,9 +36,8 @@
       
     </nav>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
-      <mat-icon>menu</mat-icon>
+      <mat-icon>{{ isSidebarOpen ? 'close' : 'menu' }}</mat-icon>
     </button>
-
     
   </header>
 
@@ -49,10 +46,11 @@
   <!-- Sidebar for mobile -->
   <div class="sidebar" [ngClass]="{'active': isSidebarOpen}">
     <div class="sidebar-header">
-      <h3>Nexsuz</h3>
-      <button class="close-btn" (click)="toggleSidebar()">
-        <mat-icon>close</mat-icon>
-      </button>
+      <div class="logo">
+        <img src="assets/images/logo.png" alt="logo" style="height:20px;">
+        exsuz
+     </div>
+    
     </div>
     <ul class="list-unstyled" *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
         <!-- If submenu exists, render as dropdown for desktop -->

@@ -56,7 +56,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px; /* Padding for header */
+    padding: 20px; /* Padding for header */
     color: white; /* Text color */
   }
   
@@ -65,7 +65,7 @@
     justify-content: space-between;
     align-items: center;
     background-color: none;
-    color: #fff;
+    color: #666dfa;
 
   }
   
@@ -84,7 +84,7 @@
 .logo {
   display: flex; /* Flexbox to align the image and text horizontally */
   align-items: center; /* Vertically centers the items */
-  font-family: 'Arial', sans-serif; /* Font for the text */
+  font-family: 'tahoma';
   font-size: 24px; /* Font size for the text */
   color: #ffffff; /* Dark color for text */
   font-weight: bold; /* Bold for the text */
@@ -93,7 +93,8 @@
 /* Style the logo image */
 .logo img {
   width: 40px; /* Adjust the logo size */
-  margin-right: 0px; /* Space between the image and the text */
+  margin-right: 0px;
+  height:40px ; /* Space between the image and the text */
 }
 
   .nav {

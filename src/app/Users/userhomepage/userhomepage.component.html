@@ -4,19 +4,11 @@
     <div class="logo">
        <img src="assets/images/logo.png" alt="logo">exsuz
     </div>
-    <div *ngIf="!isMobile">
-      <mat-form-field class="search-div" appearance="standard">
-        <mat-label>Search </mat-label>
-        <input matInput type="text" [(ngModel)]="value">
-      
-        <button  *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-      </div>
+    
     <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
     
       <div class="padding-userpage" *ngIf="!isMobile">
+        
         <button mat-button [routerLink]="['/signInUI']">
           Sign In</button>
         <button  mat-button  [routerLink]="['/signUpUI']">
