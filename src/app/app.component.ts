@@ -11,11 +11,12 @@ import { slideFade } from './animations';
 //     <router-outlet #outlet="outlet"></router-outlet>
 //   </div>
 // `,
-animations: [slideFade],
+// animations: [slideFade],
 })
 export class AppComponent {
   title = 'frontend-nexsuz';
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
-  }
+  // prepareRoute(outlet: RouterOutlet) {
+  //   return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];
+  // }
+  
 }

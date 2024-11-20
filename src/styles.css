@@ -206,13 +206,11 @@ snack-bar-container.notification simple-snack-bar {
 .spacer-top {
   margin-top: 1rem; /* Adjust the value as needed */
 }
-mat-form-field {
-  width: 100%;
-}
 
-button .material-symbols-outlined {
+
+/* button .material-symbols-outlined {
   font-size: 24px; 
-}
+} */
 
 /* Paragraphs and text for better readability */
 p {
@@ -279,15 +277,12 @@ h2{
   padding-right: 5rem;
 }
 .search-div {
-  display: flex;
-  align-items: flex-start; /* Aligns items to the top */
-  justify-content: flex-start; /* Ensures the content aligns to the left */
-  gap: 130px; /* Adds space between items */
-  flex-wrap: wrap; /* Allows wrapping if items overflow */
-  margin-top: 0px;
-  margin-right: 300px;
-float: left; /* Keeps margin as specified */
+  display: flex;       /* Sets the container to a flexbox layout */
+  flex-wrap: wrap;     /* Allows items to wrap to the next line if necessary */
+  gap: 10px;           /* Adds consistent spacing between items */
+  margin-top: 0;       /* Removes any extra margin; 'px' is optional for zero values */
 }
+
 
 .logo-container {
   display: flex;

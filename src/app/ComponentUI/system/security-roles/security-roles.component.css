@@ -22,6 +22,13 @@
   text-align: left; /* Align text to the left */
 }
 
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24
+}
 
 .product-image {
 width: 100px; /* Set the desired width */
@@ -48,24 +55,14 @@ mat-progress-spinner {
 
 
 @media (max-width: 600px) {
-  /* On smaller screens, reduce the id column width */
-  .mat-column-id {
-    width: 60px;
-  }
+
   .mat-table {
     display: block;
     overflow-x: auto;
     white-space: nowrap;
   }
 
-  /* Adjust the layout for smaller screens */
-  .id-cell-container {
-    display: block; /* Stack content vertically on mobile */
-  }
 
-  .id-text {
-    margin-bottom: 5px; /* Add space between text and the button */
-  }
 }
 
 /* src/app/components/employee-list/employee-list.component.css */
