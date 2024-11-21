@@ -19,7 +19,7 @@ export class TopNavigationComponent implements OnInit {
   isMobile: boolean = false; // Mobile detection state
   nav_module: any=[]; // Store user data fetched from API
   submenuMenu: MatMenuPanel<any>;
-
+  searchValue = '';
   isLoading:boolean = false;
   success:boolean = false;
   
@@ -30,6 +30,10 @@ export class TopNavigationComponent implements OnInit {
     this.updateMobileState(); // Set initial state
   }
 
+
+  clearSearch(): void {
+    this.searchValue = ''; // Clear the input field
+  }
   ngOnInit(): void {
     this.getModule(); // Fetch user data when component loads
   }

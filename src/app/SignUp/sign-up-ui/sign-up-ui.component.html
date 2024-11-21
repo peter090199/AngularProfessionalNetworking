@@ -13,34 +13,27 @@
           <mat-tab label="Individual Sign-up Fields">
             <div class="example-small-box mat-elevation-z4">
               <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-
                 <div class="form-row">
                 <mat-form-field appearance="standard" class="form-field">
-                  <mat-label>Your company's name:</mat-label>
+                  <mat-label>Your Profession:</mat-label>
                   <mat-icon matPrefix>email</mat-icon>
                   <input matInput placeholder="Enter your email" type="email" formControlName="email" required>
-              
                 </mat-form-field>
 
                 <mat-form-field class="form-field" appearance="standard">
                   <mat-icon matPrefix class="aligned-icon">email</mat-icon>
-                  <mat-label>Your designation in the company</mat-label>
+                  <mat-label>Email:</mat-label>
                   <input matInput type="email" formControlName="email" required>
-                  <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
-                    Email is required.
-                  </mat-error>
                 </mat-form-field>
-
-          
               </div>
-
+              
               <div class="form-row">
                 <mat-form-field class="form-field" appearance="standard">
                   <mat-icon matPrefix class="aligned-icon">email</mat-icon>
                   <mat-label>Your Age:</mat-label>
                   <input matInput type="number" formControlName="email" required>
                   <mat-error *ngIf="registerForm.get('email')?.hasError('required')">
-                    Email is required.
+                    Your age is required.
                   </mat-error>
                 </mat-form-field>
 
@@ -55,15 +48,18 @@
                 
               </div>
             
-                <!-- Country Code and Contact Number Fields -->
                 <div class="form-row">
-                  <mat-form-field class="form-field" appearance="standard">
-                    <mat-icon matPrefix class="aligned-icon">email</mat-icon>
-                    <mat-label>Email:</mat-label>
-                    <input matInput type="email" formControlName="email" required>
-                   
+                  <mat-form-field appearance="standard" class="code-field">
+                    <mat-icon matPrefix class="aligned-icon">flag</mat-icon>
+                    <mat-label>Country</mat-label>
+                    <mat-label>Code</mat-label>
+                      <mat-select [(value)]="countryCodes">
+                        <mat-option *ngFor="let country of countryCodes" [value]="country.code">
+                          {{ country.code }} <!-- Display country name and code -->
+                        </mat-option>
+                      </mat-select>
                   </mat-form-field>
-                
+                  
                   <mat-form-field class="form-field contact-field" appearance="standard">
                     <mat-icon matPrefix class="aligned-icon">phone</mat-icon>
                     <mat-label>Contact Number</mat-label>
@@ -169,6 +165,17 @@
                 </mat-form-field>
                 
                 <div class="form-row">
+                  <mat-form-field appearance="standard" class="code-field">
+                    <mat-icon matPrefix class="aligned-icon">flag</mat-icon>
+                    <mat-label>Country</mat-label>
+                    <mat-label>Code</mat-label>
+                      <mat-select [(value)]="countryCodes">
+                        <mat-option *ngFor="let country of countryCodes" [value]="country.code">
+                          {{ country.code }} <!-- Display country name and code -->
+                        </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  
                   <mat-form-field class="form-field contact-field" appearance="standard">
                     <mat-icon matPrefix class="aligned-icon">phone</mat-icon>
                     <mat-label>Contact Number</mat-label>

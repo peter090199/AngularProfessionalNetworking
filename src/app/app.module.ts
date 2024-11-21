@@ -37,6 +37,7 @@ import { ForgotPasswordUIComponent } from './ComponentSharedUI/forgot-password-u
 import { ResetPasswordUIComponent } from './ComponentSharedUI/reset-password-ui/reset-password-ui.component';
 import { ExpiredLinkDialogComponent } from './ComponentSharedUI/expired-link-dialog/expired-link-dialog.component';
 import { ClientUIComponent } from './SignUp/client-ui/client-ui.component';
+import { FeedUIComponent } from './ComponentSharedUI/home/feed-ui/feed-ui.component';
 
 
 
@@ -69,6 +70,7 @@ import { ClientUIComponent } from './SignUp/client-ui/client-ui.component';
     ResetPasswordUIComponent,
     ExpiredLinkDialogComponent,
     ClientUIComponent,
+    FeedUIComponent,
     
 
   ],
