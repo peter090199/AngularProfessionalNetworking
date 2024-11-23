@@ -1,5 +1,12 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { slideUp,slideFade} from 'src/app/animations';
+
+export interface User {
+  name: string;
+}
+
 
 @Component({
   selector: 'app-userhomepage',
@@ -13,6 +20,15 @@ export class UserhomepageComponent implements OnInit {
   isDesktop: true;
   value = '';
   isMobile: boolean = false; // Mobile detection state
+
+  
+  myControl = new FormControl();
+  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  filteredOptions: Observable<User[]>;
+
+  displayFn(user: User): string {
+    return user && user.name ? user.name : '';
+  }
 
   toggleSidebar() {
     this.isSidebarOpen = !this.isSidebarOpen; // Toggle sidebar visibility

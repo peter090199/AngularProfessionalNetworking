@@ -157,8 +157,8 @@
   }
   .example-form-field {
     width: 400px;
-  margin-right: 200px;
- 
+    margin-right: 620px;
+
   }
   
   .header {
@@ -167,10 +167,9 @@
     align-items: center;
     background-color: none;
     color: #fff;
-    padding: 1rem;
+    padding: 12px;
     margin-right: 28px;
     margin-left: 28px;
-    margin-top: 1px;
   }
   
   .header .logo {

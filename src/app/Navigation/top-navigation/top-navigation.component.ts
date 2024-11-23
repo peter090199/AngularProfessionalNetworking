@@ -3,8 +3,14 @@ import { TNavigationService } from 'src/app/services/TNavigation/tnavigation.ser
 import { slideUp, slideFade } from 'src/app/animations';
 import { AuthGuard } from 'src/app/AuthGuard/auth.guard';
 import { MatMenuPanel } from '@angular/material/menu';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, Observable } from 'rxjs';
 import { MatTableDataSource } from '@angular/material/table';
+import {map, startWith} from 'rxjs/operators';
+import { FormControl } from '@angular/forms';
+
+export interface User {
+  name: string;
+}
 
 @Component({
   selector: 'app-top-navigation',
@@ -30,12 +36,29 @@ export class TopNavigationComponent implements OnInit {
     this.updateMobileState(); // Set initial state
   }
 
+  myControl = new FormControl();
+  options: User[] = [{name: 'Mary'}, {name: 'Shelley'}, {name: 'Igor'}];
+  filteredOptions: Observable<User[]>;
 
+  displayFn(user: User): string {
+    return user && user.name ? user.name : '';
+  }
+
+  private _filter(name: string): User[] {
+    const filterValue = name.toLowerCase();
+
+    return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
   clearSearch(): void {
     this.searchValue = ''; // Clear the input field
   }
   ngOnInit(): void {
-    this.getModule(); // Fetch user data when component loads
+    this.getModule(); 
+    this.filteredOptions = this.myControl.valueChanges.pipe(
+      startWith(''),
+      map(value => (typeof value === 'string' ? value : value.name)),
+      map(name => (name ? this._filter(name) : this.options.slice())),
+    );// Fetch user data when component loads
   }
   isChatOpen = false;
   toggleChat() {

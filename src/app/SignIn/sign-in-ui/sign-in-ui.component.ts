@@ -77,7 +77,7 @@ export class SignInUIComponent implements OnInit {
       },
       error: (err) => {
         if (err.status === 401) {
-          this.notificationService.toastrError('Unauthorized: Invalid credentials');
+          this.notificationService.toastrError(err.error);
         } else {
           this.notificationService.toastPopUpError(err.message);
         }

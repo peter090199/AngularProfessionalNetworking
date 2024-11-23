@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TermsModalComponent } from 'src/app/TermsModal/terms-modal/terms-modal.component';
 import { PrivacyComponent } from 'src/app/TermsModal/privacy/privacy.component';
 import { Route, Router } from '@angular/router';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-sign-up-ui',
@@ -14,11 +15,15 @@ import { Route, Router } from '@angular/router';
 })
 
 export class SignUpUIComponent implements OnInit {
-  registerForm: FormGroup;
+  userForm: FormGroup;
+  companyForm: FormGroup;
+
   isloading:boolean = false;
   passwordVisible:boolean = false;
   
   selectedOption: string | undefined;
+  professions: { label: string, value: string }[] = [];
+
   options = [
     { value: 'I am over 18 years old'},
     { value: 'I am below 18 years old'},
@@ -135,9 +140,26 @@ fadeIn: any;
   this.passwordVisible = !this.passwordVisible;
 }
 
+ // Custom domain validator
+ comDomainValidator(control: AbstractControl): ValidationErrors | null {
+  const domainPattern = /^[a-zA-Z0-9-]+\.[a-zA-Z]{2,6}$/;
+  const endsWithCom = /\.com$/;
+
+  if (control.value && (!domainPattern.test(control.value) || !endsWithCom.test(control.value))) {
+    return { invalidDomain: true };
+  }
+  return null;
+}
+
+get companywebsite() {
+  return this.companyForm.get('companywebsite');
+}
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group({
+    this.loadProfessions();
+
+    this.userForm = this.fb.group({
+      profession: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
       countryCode: new FormControl('', Validators.required),
       contactno: ['', [Validators.required,  Validators.pattern('^[0-9]+$')]],
@@ -146,11 +168,35 @@ fadeIn: any;
       password: new FormControl('', Validators.required),
       password_confirmation: new FormControl('', Validators.required),
       agreementTerms: new FormControl(false, Validators.requiredTrue),
-      agreementPrivacy: new FormControl(false, Validators.requiredTrue)
+      agreementPrivacy: new FormControl(false, Validators.requiredTrue),
+      age: new FormControl('', Validators.required),
+      statuscode: 0
     }, 
     { validator: this.passwordMatchValidator });
+
+    this.companyForm = this.fb.group({
+      company: new FormControl('', Validators.required),
+      email: new FormControl('', [Validators.required, Validators.email]),
+      countryCode: new FormControl('', Validators.required),
+      contactno: ['', [Validators.required,  Validators.pattern('^[0-9]+$')]],
+      fname: new FormControl('', Validators.required),
+      lname: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      password_confirmation: new FormControl('', Validators.required),
+      agreementTerms: new FormControl(false, Validators.requiredTrue),
+      agreementPrivacy: new FormControl(false, Validators.requiredTrue),
+      industry: new FormControl('', Validators.required),
+      companywebsite: ['', [Validators.required, this.comDomainValidator]]
+    }, 
+    { validator: this.passwordMatchValidator2 });
   }
   passwordMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('password_confirmation')?.value;
+    return password === confirmPassword ? null : { mismatch: true };
+  }
+
+  passwordMatchValidator2(form: FormGroup) {
     const password = form.get('password')?.value;
     const confirmPassword = form.get('password_confirmation')?.value;
     return password === confirmPassword ? null : { mismatch: true };
@@ -172,33 +218,108 @@ fadeIn: any;
   }
 
   get isAgreementChecked(): boolean {
-    return this.registerForm.get('agreementTerms')?.value && this.registerForm.get('agreementPrivacy')?.value;
+    return this.userForm.get('agreementTerms')?.value && this.userForm.get('agreementPrivacy')?.value;
   }
-  onSubmit():void {
-   if (this.registerForm.valid) {
-    const formData = this.registerForm.getRawValue();
-    formData.contactno = `${formData.countryCode}${formData.contactno}`;
-   // console.log(formData)
+  title:string="";
 
-        this.signupService.signup(formData).subscribe({
-          next: (res) => {
-            if(res.success === true)
-            {
-              this.isloading = true;
-              this.notifyService.toastrWarning(res.message);
-              this.registerForm.reset();
-              this.router.navigateByUrl("/signUpUI");
-              this.isloading = false;
-            }
-            else{
-              this.isloading = false;
-              this.notifyService.toastrInfo(res.message);
-            }
-          },
-          error: (err) => {
-            this.notifyService.toastrInfo(err.message);
-          },
-        });
-       }
+  loadProfessions(): void {
+    // Example: Fetch or update the professions list dynamically
+    setTimeout(() => {
+      this.professions = [
+        { label: 'IT Company', value: 'IT Company' },
+        { label: 'BPO', value: 'BPO' },
+        { label: 'Finance', value: 'Finance' },
+        { label: 'Healthcare', value: 'Healthcare' },
+        { label: 'Education', value: 'Education' },
+      ];
+    }, 1000); // Simulate a delay like fetching from a server
   }
+
+  onSubmit():void {
+    if (this.selectedOption === 'I am over 18 years old') {
+    
+      if (this.userForm.valid) {
+          const formData = this.userForm.getRawValue();
+          formData.contactno = `${formData.countryCode}${formData.contactno}`;
+
+          this.signupService.signup(formData).subscribe({
+                next: (res) => {
+                  if(res.success === true)
+                  {
+                    this.isloading = true;
+                    this.notifyService.toastPopUp(res.message);
+                    this.userForm.reset();
+                    this.router.navigateByUrl("/homepage");
+                    this.isloading = false;
+                  }
+                  else
+                  {
+                    this.isloading = false;
+                    this.notifyService.toastrInfo(res.message);
+                  }
+                },
+                error: (err) => {
+                  this.notifyService.toastrInfo(err.message);
+                },
+              });
+
+             }
+             else
+             {
+              this.notifyService.toastrWarning("Your below 18 years old!");
+              
+             }
+
+      
+    } else if (this.selectedOption === 'I am below 18 years old') {
+      this.notifyService.toastrWarning( 'I am below 18 years old. You are not eligible!');
+    } else {
+      this.notifyService.toastrWarning('Unknown option selected.');
+    }
+
+   }
+   onSubmit2():void {
+    // if (this.selectedOption === 'I am over 18 years old') {
+    
+      if (this.companyForm.valid) {
+          const formData = this.companyForm.getRawValue();
+          formData.contactno = `${formData.countryCode}${formData.contactno}`;
+
+          this.signupService.signup(formData).subscribe({
+                next: (res) => {
+                  if(res.success === true)
+                  {
+                    this.isloading = true;
+                    this.notifyService.toastPopUp(res.message);
+                    this.companyForm.reset();
+                    this.router.navigateByUrl("/homepage");
+                    this.isloading = false;
+                  }
+                  else
+                  {
+                    this.isloading = false;
+                    this.notifyService.toastrInfo(res.message);
+                  }
+                },
+                error: (err) => {
+                  this.notifyService.toastrInfo(err.message);
+                },
+              });
+
+             }
+             else
+             {
+              this.notifyService.toastrWarning("Your below 18 years old!");
+              
+             }
+
+      
+    }
+    //  else if (this.selectedOption === 'I am below 18 years old') {
+    //   this.notifyService.toastrWarning( 'I am below 18 years old. You are not eligible!');
+    // } else {
+    //   this.notifyService.toastrWarning('Unknown option selected.');
+    // }
+
+  // }
 }
