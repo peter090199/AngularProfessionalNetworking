@@ -42,6 +42,7 @@ import { ClientUIComponent } from './SignUp/client-ui/client-ui.component';
 import { FeedUIComponent } from './ComponentSharedUI/home/feed-ui/feed-ui.component';
 import { UserhomepageComponent } from './Users/userhomepage/userhomepage.component';
 import { TranslateComponent } from './translate/translate.component';
+import { CookiesUIComponent } from './cookies/cookies-ui/cookies-ui.component';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -79,6 +80,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ClientUIComponent,
     FeedUIComponent,
     TranslateComponent,
+    CookiesUIComponent,
     
   ],
   imports: [

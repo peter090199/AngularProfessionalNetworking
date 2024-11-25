@@ -1,0 +1,13 @@
+<!-- cookie-consent.component.html -->
+<div *ngIf="showCookieConsent" id="cookieConsent" class="cookie-consent">
+    <div class="cookie-consent-content">
+      <p>
+        This website uses cookies to ensure you get the best experience on our website.
+        <a href="/privacy-policy">Learn more</a>
+      </p>
+      <button id="acceptCookies" class="btn btn-primary" (click)="acceptCookies()">Accept</button>
+      <button id="rejectCookies" class="btn btn-danger" (click)="rejectCookies()">Reject All</button>
+      <button id="manageCookies" class="btn btn-secondary" (click)="manageCookies()">Manage Preferences</button>
+    </div>
+  </div>
+  
