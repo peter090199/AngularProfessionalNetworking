@@ -5,7 +5,7 @@
 
 html,
 body {
-  height: 90%;
+  height: 100%;
 }
 section{
     margin-top: 0px;
@@ -28,34 +28,13 @@ body {
   font-family: 'Tahoma';
   line-height: 1;
   margin: 10px;
+
 }
 .code-field {
   width: 100px;
-  margin-top: 2px; /* Fixed width for the country code field */
-
+  margin-top: 0px; /* Fixed width for the country code field */
 }
-
-.example-form {
-  min-width: 400px;
-  max-width: 500px;
-  width: 100%;
-  margin-right: 400px;
-}
-
-.example-full-width {
-  width: 100%;
-
-}
-/* Align mat-icon within mat-form-field */
-mat-form-field .mat-form-field-prefix mat-icon {
-  vertical-align: middle;
-  color: #296dff; /* Primary color for the icon */
-  font-size: 20px; /* Adjust size if needed */
-}
-input {
-  padding-left: 4px; 
-  margin-bottom: 12px;/* Optional: Align input text neatly with the icon */
-}
+/* Add the rest of your CSS here... */
 
 .close-button {
   float: right;
@@ -256,9 +235,8 @@ p {
   color: #185291; /* Replace #007bff with any color you prefer */
 }
 .mat-card {
-  width: 100%;
-  max-width: 400px; /* Limits the card width on larger screens */
-  padding: 20px;
+  max-width: 550px; /* Limits the card width on larger screens */
+  padding:20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 80vh; /* Maximum height to prevent overflow beyond viewport */
   overflow: auto; /* Enables vertical scrolling */
@@ -339,4 +317,36 @@ h2{
 
 
 
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.popup button {
+  margin-top: 10px;
+}
+
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0px !important; /* Prevent any layout shift caused by the hidden toolbar */
 }

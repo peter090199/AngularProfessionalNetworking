@@ -1,0 +1,14 @@
+mat-icon {
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  #google_translate_element {
+    display: none !important;
+  }
+  .goog-te-banner-frame {
+    display: none !important;
+  }
+
+  
+  

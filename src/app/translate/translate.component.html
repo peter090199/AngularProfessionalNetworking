@@ -1,0 +1,38 @@
+<div>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>language</mat-icon>
+    </button>
+  
+    <mat-menu #menu="matMenu">
+      <!-- Chinese Languages -->
+      <button mat-menu-item (click)="setLanguage('zh-CN')">中文 (简体) - Simplified Chinese</button>
+      <button mat-menu-item (click)="setLanguage('zh-TW')">中文 (繁體) - Traditional Chinese</button>
+      <button mat-menu-item (click)="setLanguage('zh-HK')">中文 (香港) - Cantonese (Hong Kong)</button>
+      
+      <!-- Other Popular Languages -->
+      <button mat-menu-item (click)="setLanguage('en')">English</button>
+      <button mat-menu-item (click)="setLanguage('es')">Español - Spanish</button>
+      <button mat-menu-item (click)="setLanguage('fr')">Français - French</button>
+      <button mat-menu-item (click)="setLanguage('de')">Deutsch - German</button>
+      <button mat-menu-item (click)="setLanguage('ja')">日本語 - Japanese</button>
+      <button mat-menu-item (click)="setLanguage('ko')">한국어 - Korean</button>
+      <button mat-menu-item (click)="setLanguage('ar')">العربية - Arabic</button>
+      <button mat-menu-item (click)="setLanguage('hi')">हिन्दी - Hindi</button>
+      <button mat-menu-item (click)="setLanguage('ru')">Русский - Russian</button>
+      <button mat-menu-item (click)="setLanguage('pt')">Português - Portuguese</button>
+      <button mat-menu-item (click)="setLanguage('it')">Italiano - Italian</button>
+      <button mat-menu-item (click)="setLanguage('nl')">Nederlands - Dutch</button>
+      <button mat-menu-item (click)="setLanguage('sv')">Svenska - Swedish</button>
+      <button mat-menu-item (click)="setLanguage('pl')">Polski - Polish</button>
+      <button mat-menu-item (click)="setLanguage('tr')">Türkçe - Turkish</button>
+      <button mat-menu-item (click)="setLanguage('vi')">Tiếng Việt - Vietnamese</button>
+      <button mat-menu-item (click)="setLanguage('th')">ไทย - Thai</button>
+      
+      <!-- Add more languages as needed -->
+      <button mat-menu-item (click)="setLanguage('auto')">Detect Language</button>
+    </mat-menu>
+  </div>
+  
+
+  <div id="google_translate_element" style="display: none;"></div>
+  

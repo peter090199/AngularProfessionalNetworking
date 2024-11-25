@@ -39,6 +39,7 @@
   }
 }
 
+
 .fade-in {
   animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
 }
@@ -53,8 +54,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 30px; /* Padding for header */
-  color: white; /* Text color */
+  padding: 10px; /* Padding for header */
+  color: white; 
+  margin-top: 28px;/* Text color */
 }
 
 .logo {
@@ -90,7 +92,7 @@
   justify-content: space-between; /* Space between title and close button */
   align-items: center; /* Center vertically */
   color: #ffffff; /* Header text color */
-
+  margin-top: 30px;
 }
 
 .close-btn {
@@ -330,6 +332,7 @@ p{
     font-size: 16px;
 
   }
+ 
   
   .col-md-6 .img-box img{
     display: flex;
@@ -348,6 +351,7 @@ p{
   }
    .header{
     margin: 0px;
+
    }
 }
 

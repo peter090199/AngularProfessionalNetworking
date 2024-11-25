@@ -1,33 +1,39 @@
 <div class="user-homepage">
 
   <header class="header">
-    <div class="logo">
+    <div class="logo"  (click)="refreshHomePage()">
        <img src="assets/images/logo.png" alt="logo">exsuz
     </div>
-    <div class="fb-header-left" *ngIf="!isMobile" >
-      <form class="example-form-field"*ngIf="!isMobile">
-        <mat-form-field class="example-full-width" appearance="standard">
-          <mat-label>Search</mat-label>
-          <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{option.name}}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
-      
-      
+    <div class="container" *ngIf="!isMobile" style="margin-left: 100px;">
+      <div class="input-group custom-search-bar">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-white border-0"><i class="fas fa-search"></i></span>
+        </div>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="Search"
+          [(ngModel)]="searchQuery"
+          (input)="filterData()"
+        >
+    
+        <!-- Dropdown with filtered results -->
+        <div *ngIf="filteredData.length > 0" class="dropdown-menu show" style="max-height: 200px; overflow-y: auto; position: absolute; width: 100%; z-index: 999;">
+          <a *ngFor="let item of filteredData" class="dropdown-item" href="#">{{ item }}</a>
+        </div>
+      </div>
     </div>
+    
+  
     <nav class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
     
       <div class="padding-userpage" *ngIf="!isMobile">
-        
+      
         <button mat-button [routerLink]="['/signInUI']">
-          Sign In</button>
+          {{ 'SIGN_IN' | translate }}</button>
         <button  mat-button  [routerLink]="['/signUpUI']">
-          Sign Up </button>
-         
+          {{ 'SIGN_UP' | translate }}</button>
+         <app-translate></app-translate>
       </div>
     </nav>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
@@ -39,38 +45,53 @@
   <!-- Sidebar for mobile -->
   <div class="sidebar" [ngClass]="{'active': isSidebarOpen}">
     <div class="sidebar-header">
-      <div class="logo">
+      <div class="logo" (click)="refreshHomePage()">
         <img src="assets/images/logo.png" alt="logo">exsuz
        </div>
-     
+       <app-translate></app-translate>
+       
     </div>
     <ul class="list-unstyled">
       <li>
-        <button  mat-button [routerLink]="['/signInUI']">Sign In</button>
+        <button  mat-button [routerLink]="['/signInUI']">{{ 'SIGN_IN' | translate }}</button>
       </li>
       <li>
-        <button  mat-button [routerLink]="['/signUpUI']">Sign Up</button>
+        <button  mat-button [routerLink]="['/signUpUI']">{{ 'SIGN_UP' | translate }}</button>
       </li>
+     
     </ul>
-    
+   
 </div>
-<div class="header">
-  <!-- <mat-form-field class="example-form-field" appearance="standard">
-    <mat-label>Search </mat-label>
-    <input matInput type="text" [(ngModel)]="value">
-    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field> -->
-</div>
+
   <section class="slider_section">
+    <div class="container" *ngIf="isMobile">
+      <div class="input-group custom-search-bar">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-white border-0"><i class="fas fa-search"></i></span>
+        </div>
+        <input 
+          type="text" 
+          class="form-control" 
+          placeholder="{{ 'SEARCH' | translate }}"
+          [(ngModel)]="searchQuery"
+          (input)="filterData()"
+        >
+    
+        <!-- Dropdown with filtered results -->
+        <div *ngIf="filteredData.length > 0" class="dropdown-menu show" style="max-height: 200px; overflow-y: auto; position: absolute; width: 100%; z-index: 999;">
+          <a *ngFor="let item of filteredData" class="dropdown-item" href="#">{{ item }}</a>
+        </div>
+      </div>
+    </div>
+    
+  
       <div class="container">
          
 
        <div class="row">
           <div class="col-md-6">
-              <h1 [@slideUp] *ngIf="fadeIn" >Welcome to Nexsuz!</h1>
-              <h2 [@slideFade] *ngIf="fadeIn">Your Home to your Professional Network</h2>
+              <h1 [@slideUp] *ngIf="fadeIn">{{ 'WELCOME' | translate }}</h1>
+              <h2 [@slideFade] *ngIf="fadeIn">{{ 'HOME' | translate }}</h2>
           </div>
           <div class="col-md-6">
             <div class="img-box">

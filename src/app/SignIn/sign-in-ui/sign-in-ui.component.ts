@@ -53,11 +53,16 @@ export class SignInUIComponent implements OnInit {
   togglePasswordVisibility() {
     this.passwordVisible = !this.passwordVisible;
   }
-
+  status: string = "";
   
   // Handle form submission
   onSubmit(): void {
-    if (this.loginForm.valid) {
+    if(this.status == "I"){
+      
+
+    }
+    
+    if (this.loginForm.valid ) {
     const { email, password } = this.loginForm.value;
     this.isLoading = true; // Start loading indicator
     this.sigInService.signin(email, password).subscribe({

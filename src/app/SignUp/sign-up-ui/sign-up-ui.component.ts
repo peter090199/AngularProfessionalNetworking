@@ -156,8 +156,6 @@ get companywebsite() {
 }
 
   ngOnInit(): void {
-    this.loadProfessions();
-
     this.userForm = this.fb.group({
       profession: new FormControl('', Validators.required),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -169,7 +167,8 @@ get companywebsite() {
       password_confirmation: new FormControl('', Validators.required),
       agreementTerms: new FormControl(false, Validators.requiredTrue),
       agreementPrivacy: new FormControl(false, Validators.requiredTrue),
-      age: new FormControl('', Validators.required),
+      // age: new FormControl('', Validators.required),
+      age: 0,
       statuscode: 0
     }, 
     { validator: this.passwordMatchValidator });
@@ -186,7 +185,8 @@ get companywebsite() {
       agreementTerms: new FormControl(false, Validators.requiredTrue),
       agreementPrivacy: new FormControl(false, Validators.requiredTrue),
       industry: new FormControl('', Validators.required),
-      companywebsite: ['', [Validators.required, this.comDomainValidator]]
+      companywebsite: ['', [Validators.required, this.comDomainValidator]],
+      statuscode: 1
     }, 
     { validator: this.passwordMatchValidator2 });
   }
@@ -221,23 +221,66 @@ get companywebsite() {
     return this.userForm.get('agreementTerms')?.value && this.userForm.get('agreementPrivacy')?.value;
   }
   title:string="";
+  industries: string[] = [
+    'Accounting/Audit/Tax Services',
+    'Advertising/Public Relations/Marketing Services',
+    'Architecture/Building/Construction',
+    'Athletics/Sports',
+    'Charity/Social Services/Non-Profit Organization',
+    'Chemical/Plastic/Paper/Petrochemical',
+    'Civil Services (Government, Armed Forces)',
+    'Clothing/Garment/Textiles',
+    'Education',
+    'Electronics/Electrical Equipment',
+    'Energy/Power/Water/Oil & Gas/Waste Management',
+    'Engineering - Building, Civil, Construction/Quantity Survey',
+    'Engineering - Electrical/Electronics/Mechanical',
+    'Engineering - Others',
+    'Entertainment/Recreations',
+    'Financial Services',
+    'Food and Beverage/Catering',
+    'Freight Forwarding/Delivery/Shipping',
+    'General Business Services',
+    'Health & Beauty Care',
+    'Hospitality/Catering',
+    'Human Resources Management/Consultancy',
+    'Industrial Machinery/Automation Equipment',
+    'Information Technology',
+    'Insurance/Pension Funding',
+    'Interior Design/Graphic Design',
+    'Jewelry/Gems/Watches',
+    'Laboratory',
+    'Legal Services',
+    'Management Consultancy/Services',
+    'Manufacturing',
+    'Mass Transportation',
+    'Media/Publishing/Printing',
+    'Medical/Pharmaceutical',
+    'Mixed Industry Group',
+    'Motor Vehicles',
+    'Others',
+    'Packaging',
+    'Performance/Musical/Artistic',
+    'Petroleum',
+    'Property Development',
+    'Property Management/Consultancy',
+    'Public Utilities',
+    'Research',
+    'Security Escort',
+    'Security/Fire/Electronic Access Controls',
+    'Telecommunication',
+    'Tourism/Travel Agency',
+    'Toys',
+    'Trading and Distribution',
+    'Wholesale/Retail'
+  ];
+  
 
-  loadProfessions(): void {
-    // Example: Fetch or update the professions list dynamically
-    setTimeout(() => {
-      this.professions = [
-        { label: 'IT Company', value: 'IT Company' },
-        { label: 'BPO', value: 'BPO' },
-        { label: 'Finance', value: 'Finance' },
-        { label: 'Healthcare', value: 'Healthcare' },
-        { label: 'Education', value: 'Education' },
-      ];
-    }, 1000); // Simulate a delay like fetching from a server
-  }
+//status: string ="";
 
   onSubmit():void {
     if (this.selectedOption === 'I am over 18 years old') {
-    
+
       if (this.userForm.valid) {
           const formData = this.userForm.getRawValue();
           formData.contactno = `${formData.countryCode}${formData.contactno}`;
@@ -278,6 +321,8 @@ get companywebsite() {
     }
 
    }
+
+   //clients
    onSubmit2():void {
     // if (this.selectedOption === 'I am over 18 years old') {
     

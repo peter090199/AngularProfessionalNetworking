@@ -40,6 +40,20 @@ export class SigInService {
     );
   }
 
+
+  setActiveSignIn(email: any): Observable<any> {
+  return this.http.post<any>(_url + 'accountactivation', { email }).pipe(
+    tap(res => {
+      if (res && res.token) {
+        this.saveToken(res.token);
+        this._refreshrequired.next();
+        //this.startTokenExpirationCheck(); // Restart token expiration check on login
+      }
+    }),
+    catchError(this.handleError())
+  );
+}
+
   getUserRole(): string | null {
     const token = this.getToken();
     if (token) {

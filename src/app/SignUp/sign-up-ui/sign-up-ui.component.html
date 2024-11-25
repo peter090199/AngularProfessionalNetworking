@@ -23,12 +23,7 @@
                   <mat-form-field appearance="standard" class="form-field">
                     <mat-label>Your Profession</mat-label>
                     <mat-icon matPrefix class="aligned-icon">work</mat-icon>
-                    <mat-select formControlName="profession" required>
-                      <mat-option *ngFor="let option of professions" [value]="option.value">
-                        {{ option.label }}
-                      </mat-option>
-                    </mat-select>
-
+                    <input matInput formControlName="profession" required>
                     <mat-error *ngIf="userForm.get('profession')?.hasError('required')">
                       Please select a profession.
                     </mat-error>
@@ -103,29 +98,9 @@
                   </mat-form-field>
                 </div>
 
-              <div class="form-row">
-                <mat-form-field class="form-field" appearance="standard">
-                  <mat-icon matPrefix class="aligned-icon">straighten</mat-icon>
-                  <mat-label>Your Age:</mat-label>
-                  <input matInput type="number" formControlName="age" required>
-                  <mat-error *ngIf="userForm.get('age')?.hasError('required')">
-                    Your age is required.
-                  </mat-error>
-                </mat-form-field>
-
-                <mat-form-field appearance="standard"  class="form-field" >
-                  <mat-label>Choose an option</mat-label>
-                  <mat-select [(value)]="selectedOption">
-                    <mat-option *ngFor="let option of options" [value]="option.value">
-                      {{ option.value }} 
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
                 
-              </div>
-            
                 <div class="form-row">
-                  <mat-form-field appearance="standard" class="form-field">
+                  <mat-form-field appearance="standard" class="code-field">
                     <mat-icon matPrefix class="aligned-icon">flag</mat-icon>
                     <mat-label>Code</mat-label>
                     <mat-select formControlName="countryCode"  required>
@@ -143,6 +118,27 @@
                 </div>
                 
              
+              <div class="form-row">
+                <!-- <mat-form-field class="form-field" appearance="standard">
+                  <mat-icon matPrefix class="aligned-icon">straighten</mat-icon>
+                  <mat-label>Your Age:</mat-label>
+                  <input matInput type="number" formControlName="age" required>
+                  <mat-error *ngIf="userForm.get('age')?.hasError('required')">
+                    Your age is required.
+                  </mat-error>
+                </mat-form-field> -->
+
+                <mat-form-field appearance="standard"  class="form-field" >
+                  <mat-label>Your Age:</mat-label>
+                  <mat-select [(value)]="selectedOption">
+                    <mat-option *ngFor="let option of options" [value]="option.value">
+                      {{ option.value }} 
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                
+              </div>
+            
         
                 <!-- Agreement Checkboxes -->
                 <div class="agreement-section">
@@ -205,7 +201,11 @@
                     <mat-form-field class="form-field" appearance="standard">
                       <mat-icon matPrefix class="aligned-icon">business</mat-icon>
                       <mat-label>Company Industry:</mat-label>
-                      <input matInput type="text" formControlName="industry" required>
+                      <mat-select formControlName="industry" required>
+                        <mat-option *ngFor="let industry of industries" [value]="industry">
+                          {{ industry }}
+                        </mat-option>
+                      </mat-select>
                     </mat-form-field>
                     
                     <mat-form-field class="form-field" appearance="standard">
