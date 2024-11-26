@@ -107,6 +107,45 @@ export class TopNavigationComponent implements OnInit {
   //       }
    
   // }
+  searchQuery: string = ''; // The input model for the search query
+  filteredData: string[] = []; // The array of filtered results
+
+  // Sample data to be filtered
+  data: string[] = [
+    'Software Engineer',
+    'Frontend Developer',
+    'Backend Developer',
+    'Full Stack Developer',
+    'Data Scientist',
+    'Machine Learning Engineer',
+    'DevOps Engineer',
+    'UI/UX Designer',
+    'Product Manager',
+    'Project Manager',
+    'System Administrator',
+    'Cloud Engineer',
+    'Database Administrator',
+    'Quality Assurance Engineer',
+    'Technical Support Specialist',
+    'Business Analyst',
+    'Network Engineer',
+    'Security Engineer',
+    'Web Developer',
+    'Mobile Developer',
+    'SEO Specialist',
+    'Digital Marketing Manager',
+    'Content Writer',
+    'Graphic Designer',
+    'Game Developer'
+  ];
+  
+
+  // Method to filter data based on the search query
+  filterData(): void {
+    this.filteredData = this.data.filter(item =>
+      item.toLowerCase().includes(this.searchQuery.toLowerCase())
+    );
+  }
 
   async getModule(): Promise<void> {
     this.isLoading = true;
