@@ -68,7 +68,7 @@ h1{
 /* Card styling with scrolling enabled */
 .register-card {
   width: 100%;
-  max-width: 540px; /* Limits card width on larger screens */
+  max-width: 640px; /* Limits card width on larger screens */
   padding: 30px;
   box-shadow: 3 4px 10px rgba(0, 0, 0, 0.1);
   overflow: auto; /* Enables vertical scrolling */
@@ -101,31 +101,17 @@ h1{
 }
 
 
-/* Form rows for two-column layout */
-.form-row {
-  display: flex;
-  align-items: center;/* Space between columns */
-  margin-bottom: 0px; /* Space between rows */
-  gap:5px;
-}
-.form-field {
-  flex:1;
-  min-width: 100px;
-  
-}
 
 button .material-symbols-outlined {
   font-size: 25px;   /* Adjust the icon size */
 }
-
-
-.aligned-icon {
-  display: flex;
-  margin-bottom: 5px;
+.country-field{
+  width: 107px;
+  margin-top: 2px;
 }
 
 .code-field {
-  width: 100px;
+  width: 159px;
   margin-top: 2px; /* Fixed width for the country code field */
 }
 
@@ -172,7 +158,11 @@ mat-form-field {
   .code-field {
     width: 100%;
   }
-
+  .country-field{
+   display: flex;
+   flex-direction: column;
+   width: 100%;
+  }
   .contact-field {
     width: 100%;
   }
@@ -196,12 +186,12 @@ mat-form-field {
     align-items: flex-start;
   }
 
-  .aligned-icon {
+  /* .aligned-icon {
     margin-bottom: 4px;
-  }
+  } */
 
   .agreement-section {
-    margin: 12px 0;
+    margin: 5px 0;
   }
 
 

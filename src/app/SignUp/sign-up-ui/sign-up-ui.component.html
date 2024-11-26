@@ -2,7 +2,7 @@
     <mat-card class="register-card">
         <div class="left-panel">
           <div class="logo-container">
-          <img src="assets/images/logo2.png"  class="logo" />
+          <img src="assets/images/logo2.png"  class="logo" (click)="refreshHomePage()"/>
           <h2 style="margin-top: 4px;">exsuz</h2>
         </div>
        
@@ -14,20 +14,26 @@
             <div class="example-small-box mat-elevation-z4">
               <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                 <div class="form-row">
-                  <mat-form-field class="form-field" appearance="standard">
-                    <mat-icon matPrefix class="aligned-icon">email</mat-icon>
-                    <mat-label>Email:</mat-label>
-                    <input matInput type="email" formControlName="email" required>
-                  </mat-form-field>
-
                   <mat-form-field appearance="standard" class="form-field">
                     <mat-label>Your Profession</mat-label>
                     <mat-icon matPrefix class="aligned-icon">work</mat-icon>
                     <input matInput formControlName="profession" required>
                     <mat-error *ngIf="userForm.get('profession')?.hasError('required')">
-                      Please select a profession.
+                      Please input a profession.
                     </mat-error>
                   </mat-form-field>
+
+                  <mat-form-field appearance="standard"  class="form-field" >
+                    <mat-icon matPrefix class="aligned-icon">straighten</mat-icon>
+                    <mat-label>Your Age:</mat-label>
+                    <mat-select [(value)]="selectedOption">
+                      <mat-option *ngFor="let option of options" [value]="option.value">
+                        {{ option.value }} 
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+            
 
               </div>
               
@@ -47,6 +53,32 @@
                 </div>
         
                 <!-- Password and Confirm Password Fields -->
+                <div class="form-row">
+
+                  <mat-form-field class="form-field" appearance="standard">
+                    <mat-icon matPrefix class="aligned-icon">email</mat-icon>
+                    <mat-label>Email:</mat-label>
+                    <input matInput type="email" formControlName="email" required>
+                  </mat-form-field>
+
+                  <mat-form-field appearance="standard" class="country-field">
+                    <mat-icon matPrefix class="aligned-icon">flag</mat-icon>
+                    <mat-label>Code</mat-label>
+                    <mat-select formControlName="countryCode"  required>
+                        <mat-option *ngFor="let country of countryCodes" [value]="country.code">
+                          {{ country.code }} <!-- Display country name and code -->
+                        </mat-option>
+                      </mat-select>
+                  </mat-form-field>
+                  
+                  <mat-form-field class="code-field" appearance="standard">
+                    <mat-icon matPrefix class="aligned-icon">phone</mat-icon>
+                    <mat-label>Contact Number</mat-label>
+                    <input matInput type="text" formControlName="contactno" required>
+                  </mat-form-field>
+                </div>
+
+                
                 <div class="form-row">
                   <mat-form-field appearance="standard" class="form-field">
                     <mat-label>Password</mat-label>
@@ -96,50 +128,9 @@
                     </mat-error>
       
                   </mat-form-field>
-                </div>
 
-                
-                <div class="form-row">
-                  <mat-form-field appearance="standard" class="code-field">
-                    <mat-icon matPrefix class="aligned-icon">flag</mat-icon>
-                    <mat-label>Code</mat-label>
-                    <mat-select formControlName="countryCode"  required>
-                        <mat-option *ngFor="let country of countryCodes" [value]="country.code">
-                          {{ country.code }} <!-- Display country name and code -->
-                        </mat-option>
-                      </mat-select>
-                  </mat-form-field>
-                  
-                  <mat-form-field class="form-field" appearance="standard">
-                    <mat-icon matPrefix class="aligned-icon">phone</mat-icon>
-                    <mat-label>Contact Number</mat-label>
-                    <input matInput type="text" formControlName="contactno" required>
-                  </mat-form-field>
                 </div>
                 
-             
-              <div class="form-row">
-                <!-- <mat-form-field class="form-field" appearance="standard">
-                  <mat-icon matPrefix class="aligned-icon">straighten</mat-icon>
-                  <mat-label>Your Age:</mat-label>
-                  <input matInput type="number" formControlName="age" required>
-                  <mat-error *ngIf="userForm.get('age')?.hasError('required')">
-                    Your age is required.
-                  </mat-error>
-                </mat-form-field> -->
-
-                <mat-form-field appearance="standard"  class="form-field" >
-                  <mat-label>Your Age:</mat-label>
-                  <mat-select [(value)]="selectedOption">
-                    <mat-option *ngFor="let option of options" [value]="option.value">
-                      {{ option.value }} 
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-                
-              </div>
-            
-        
                 <!-- Agreement Checkboxes -->
                 <div class="agreement-section">
                   <mat-checkbox formControlName="agreementTerms" required>
@@ -173,31 +164,24 @@
                     <input matInput formControlName="company" required>
                   </mat-form-field>
                   
+                  <!-- company website -->
+                    
                   <mat-form-field class="form-field" appearance="standard">
-                    <mat-icon matPrefix class="aligned-icon">email</mat-icon>
-                    <mat-label>Email:</mat-label>
-                    <input matInput type="email" formControlName="email" required>
+                    <mat-icon matPrefix class="aligned-icon">language</mat-icon>
+                    <mat-label>Company's Website:</mat-label>
+                    <input matInput type="text" formControlName="companywebsite" required>
+                    <mat-error *ngIf="companyForm.get('companywebsite')?.hasError('required')">
+                      Please enter a domain like 'abc.com'.
+                    </mat-error>
+                    <mat-error *ngIf="companyForm.get('companywebsite')?.hasError('invalidDomain')">
+                      Only .com domains are allowed (e.g., 'abc.com').
+                    </mat-error>
                   </mat-form-field>
+
                 </div>
                 
                   <div class="form-row">
-                    <mat-form-field appearance="standard" class="form-field">
-                      <mat-icon matPrefix class="aligned-icon">flag</mat-icon>
-                      <mat-label>Code</mat-label>
-                      <mat-select formControlName="countryCode"  required>
-                          <mat-option *ngFor="let country of countryCodes" [value]="country.code">
-                            {{ country.code }} 
-                          </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    
-                    <mat-form-field class="form-field" appearance="standard">
-                      <mat-icon matPrefix class="aligned-icon">phone</mat-icon>
-                      <mat-label>Contact Number</mat-label>
-                      <input matInput type="text" formControlName="contactno" required>
-                    </mat-form-field>
-                  </div>
-                  <div class="form-row">
+                    <!-- industry -->
                     <mat-form-field class="form-field" appearance="standard">
                       <mat-icon matPrefix class="aligned-icon">business</mat-icon>
                       <mat-label>Company Industry:</mat-label>
@@ -207,20 +191,16 @@
                         </mat-option>
                       </mat-select>
                     </mat-form-field>
-                    
+
+                    <!-- designation -->
                     <mat-form-field class="form-field" appearance="standard">
-                      <mat-icon matPrefix class="aligned-icon">language</mat-icon>
-                      <mat-label>Company's Website:</mat-label>
-                      <input matInput type="text" formControlName="companywebsite" required>
-                      <mat-error *ngIf="companyForm.get('companywebsite')?.hasError('required')">
-                        Please enter a domain like 'abc.com'.
-                      </mat-error>
-                      <mat-error *ngIf="companyForm.get('companywebsite')?.hasError('invalidDomain')">
-                        Only .com domains are allowed (e.g., 'abc.com').
-                      </mat-error>
+                      <mat-icon matPrefix class="aligned-icon">work</mat-icon>
+                      <mat-label>Your Designation</mat-label>
+                      <input  matInput formControlName="designation" required>
                     </mat-form-field>
+                 
                   </div>
-                  
+            
                   <!-- Firstname and Family Name Fields -->
                   <div class="form-row">
                     <mat-form-field class="form-field" appearance="standard">
@@ -236,56 +216,83 @@
                     </mat-form-field>
                   </div>
           
-                  <!-- Password and Confirm Password Fields -->
+
                   <div class="form-row">
-                    <mat-form-field appearance="standard" class="form-field">
-                      <mat-label>Password</mat-label>
-                      <mat-icon  class="aligned-icon" matPrefix>lock</mat-icon>
-                      <input
-                        matInput
-                        [type]="passwordVisible ? 'text' : 'password'"
-                        formControlName="password"
-                        required
-                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
-                        placeholder="Enter your password"
-                      />
-                      <mat-icon
-                        matSuffix
-                        (click)="togglePasswordVisibility()"
-                        style="cursor: pointer;"
-                      >
-                        {{ passwordVisible ? 'visibility_off' : 'visibility' }}
-                      </mat-icon>
-                    
-                      <!-- Error messages -->
-                      <mat-error *ngIf="userForm.get('password')?.hasError('required')">
-                        Password is required.
-                      </mat-error>
-                      <mat-error *ngIf="userForm.get('password')?.hasError('pattern')">
-                        Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.
-                      </mat-error>
+                 <!-- email -->
+                  <mat-form-field class="form-field" appearance="standard">
+                    <mat-icon matPrefix class="aligned-icon">email</mat-icon>
+                    <mat-label>Email:</mat-label>
+                    <input matInput type="email" formControlName="email" required>
+                  </mat-form-field>
+
+                    <!-- country code -->
+                    <mat-form-field appearance="standard" class="country-field">
+                      <mat-icon matPrefix class="aligned-icon">flag</mat-icon>
+                      <mat-label>Code</mat-label>
+                      <mat-select formControlName="countryCode"  required>
+                          <mat-option *ngFor="let country of countryCodes" [value]="country.code">
+                            {{ country.code }} 
+                          </mat-option>
+                        </mat-select>
                     </mat-form-field>
-                
                     
-                    <mat-form-field class="form-field" appearance="standard">
-                      <mat-icon matPrefix class="aligned-icon">lock</mat-icon>
-                      <mat-label>Confirm Password</mat-label>
-                      <input matInput [type]="passwordVisible ? 'text' : 'password'"
-                      formControlName="password_confirmation"
-                      required  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+                    <mat-form-field class="code-field" appearance="standard">
+                      <mat-icon matPrefix class="aligned-icon">phone</mat-icon>
+                      <mat-label>Contact Number</mat-label>
+                      <input matInput type="text" formControlName="contactno" required>
+                    </mat-form-field>
+                </div>
+                <div class="form-row">
+                  <!-- password -->
+                      <mat-form-field appearance="standard" class="form-field">
+                        <mat-label>Password</mat-label>
+                        <mat-icon  class="aligned-icon" matPrefix>lock</mat-icon>
+                        <input
+                          matInput
+                          [type]="passwordVisible ? 'text' : 'password'"
+                          formControlName="password"
+                          required
+                          pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$"
+                          placeholder="Enter your password"
+                        />
+                        <mat-icon
+                          matSuffix
+                          (click)="togglePasswordVisibility()"
+                          style="cursor: pointer;"
+                        >
+                          {{ passwordVisible ? 'visibility_off' : 'visibility' }}
+                        </mat-icon>
                       
-                      <mat-icon matSuffix (click)="togglePasswordVisibility()"  style="cursor: pointer;" >  
-                        {{ passwordVisible ? 'visibility_off' : 'visibility' }}
-                    </mat-icon>
-                    
-                    <mat-error *ngIf="userForm.get('password_confirmation')?.hasError('required')">
-                        Confirm Password is required.
-                      </mat-error>
-                      <mat-error *ngIf="userForm.get('password_confirmation')?.hasError('pattern')">
-                        Confirm Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.
-                      </mat-error>
-        
-                    </mat-form-field>
+                        <!-- Error messages -->
+                        <mat-error *ngIf="userForm.get('password')?.hasError('required')">
+                          Password is required.
+                        </mat-error>
+                        <mat-error *ngIf="userForm.get('password')?.hasError('pattern')">
+                          Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.
+                        </mat-error>
+                      </mat-form-field>
+                  
+                      
+                      <mat-form-field class="form-field" appearance="standard">
+                        <mat-icon matPrefix class="aligned-icon">lock</mat-icon>
+                        <mat-label>Confirm Password</mat-label>
+                        <input matInput [type]="passwordVisible ? 'text' : 'password'"
+                        formControlName="password_confirmation"
+                        required  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$">
+                        
+                        <mat-icon matSuffix (click)="togglePasswordVisibility()"  style="cursor: pointer;" >  
+                          {{ passwordVisible ? 'visibility_off' : 'visibility' }}
+                      </mat-icon>
+                      
+                      <mat-error *ngIf="userForm.get('password_confirmation')?.hasError('required')">
+                          Confirm Password is required.
+                        </mat-error>
+                        <mat-error *ngIf="userForm.get('password_confirmation')?.hasError('pattern')">
+                          Confirm Password must be at least 8 characters long, include uppercase, lowercase, a number, and a special character.
+                        </mat-error>
+          
+                      </mat-form-field>
+      
                   </div>
           
                   <!-- Agreement Checkboxes -->

@@ -139,6 +139,11 @@ fadeIn: any;
  togglePasswordVisibility() {
   this.passwordVisible = !this.passwordVisible;
 }
+refreshHomePage() {
+  this.router.navigate(['/homepage']).then(() => {
+    window.location.reload();
+  });
+}
 
  // Custom domain validator
  comDomainValidator(control: AbstractControl): ValidationErrors | null {
@@ -186,6 +191,7 @@ get companywebsite() {
       agreementPrivacy: new FormControl(false, Validators.requiredTrue),
       industry: new FormControl('', Validators.required),
       companywebsite: ['', [Validators.required, this.comDomainValidator]],
+      designation: new FormControl('', Validators.required),
       statuscode: 1
     }, 
     { validator: this.passwordMatchValidator2 });

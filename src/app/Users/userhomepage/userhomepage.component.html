@@ -58,7 +58,7 @@
       <li>
         <button  mat-button [routerLink]="['/signUpUI']">{{ 'SIGN_UP' | translate }}</button>
       </li>
-     
+ 
     </ul>
    
 </div>
@@ -79,7 +79,7 @@
     
         <!-- Dropdown with filtered results -->
         <div *ngIf="filteredData.length > 0" class="dropdown-menu show" style="max-height: 200px; overflow-y: auto; position: absolute; width: 100%; z-index: 999;">
-          <a *ngFor="let item of filteredData" class="dropdown-item" href="#">{{ item }}</a>
+          <a *ngFor="let item of filteredData" class="dropdown-item" href="#">{{ item  }}</a>
         </div>
       </div>
     </div>

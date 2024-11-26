@@ -26,7 +26,11 @@ export class SignInUIComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();
   }
-
+  refreshHomePage() {
+    this.router.navigate(['/homepage']).then(() => {
+      window.location.reload();
+    });
+  }
 
 
 
@@ -61,6 +65,7 @@ export class SignInUIComponent implements OnInit {
       
 
     }
+    
     
     if (this.loginForm.valid ) {
     const { email, password } = this.loginForm.value;

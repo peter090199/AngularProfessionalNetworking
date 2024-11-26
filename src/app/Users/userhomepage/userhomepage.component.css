@@ -56,7 +56,7 @@
   align-items: center;
   padding: 10px; /* Padding for header */
   color: white; 
-  margin-top: 28px;/* Text color */
+  margin-top: 8px;/* Text color */
 }
 
 .logo {
@@ -76,7 +76,7 @@
   height: 100%; /* Full height */
   width: 250px; /* Width of sidebar */
   background-color: #0e79c0fb; /* Background color */
-  padding: 20px; /* Padding for sidebar */
+  padding: 10px; /* Padding for sidebar */
   transition: left 0.3s ease; /* Smooth transition */
   z-index: 1000; /* Ensure sidebar is on top */
   font-size: 14px;
@@ -92,7 +92,7 @@
   justify-content: space-between; /* Space between title and close button */
   align-items: center; /* Center vertically */
   color: #ffffff; /* Header text color */
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .close-btn {
@@ -338,7 +338,7 @@ p{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 290px;
+    width: 390px;
     padding-left: 0px;
   }
   .img-box img {
