@@ -1,0 +1,50 @@
+<div class="login-container">
+    <mat-card class="login-card">
+      <div class="left-panel">
+        <div class="logo-container">
+          <img src="assets/images/logo2.png" alt="Exsuz Logo" class="logo" />
+          <h2 style="margin-top: 3px;">exsuz</h2>
+        </div>
+        <h2 style="text-align: left;">Activate Account</h2>
+      </div>
+  
+      <mat-card-content>
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
+  
+        <form [formGroup]="activationForm" (ngSubmit)="onSubmit()">
+          <mat-form-field appearance="standard" class="full-width">
+            <mat-label>Activation Code</mat-label>
+            <mat-icon matPrefix>pin</mat-icon>
+            <input
+              matInput
+              placeholder="Enter your activation code"
+              type="number"
+              formControlName="code"
+              required
+            />
+            <mat-error *ngIf="activationForm.get('code')?.hasError('required')">
+              Activation code is required.
+            </mat-error>
+          </mat-form-field>
+  
+          <button
+            mat-raised-button
+            color="primary"
+            class="signin-button"
+            [disabled]="isLoading || activationForm.invalid"
+            type="submit"
+            aria-label="Send Activation Code"
+          >
+            Activate
+          </button>
+        </form>
+      </mat-card-content>
+  
+      <mat-card-footer>
+        <div class="links">
+          <a routerLink="/" aria-label="Back to Home">Back to home</a>
+        </div>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+  

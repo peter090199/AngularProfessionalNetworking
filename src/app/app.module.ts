@@ -12,7 +12,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 // Translate module imports
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-
+import { CookieService } from 'ngx-cookie-service';
 // Component declarations
 import { FooterComponent } from './footer/footer.component';
 import { SignInUIComponent } from './SignIn/sign-in-ui/sign-in-ui.component';
@@ -43,6 +43,7 @@ import { FeedUIComponent } from './ComponentSharedUI/home/feed-ui/feed-ui.compon
 import { UserhomepageComponent } from './Users/userhomepage/userhomepage.component';
 import { TranslateComponent } from './translate/translate.component';
 import { CookiesUIComponent } from './cookies/cookies-ui/cookies-ui.component';
+import { ActivationUIComponent } from './ComponentSharedUI/Activation/activation-ui/activation-ui.component';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -81,6 +82,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FeedUIComponent,
     TranslateComponent,
     CookiesUIComponent,
+    ActivationUIComponent,
     
   ],
   imports: [
@@ -100,8 +102,9 @@ export function HttpLoaderFactory(http: HttpClient) {
         deps: [HttpClient]
       }
     })
+    
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

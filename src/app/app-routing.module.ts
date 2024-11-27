@@ -16,6 +16,7 @@ import { MessagesComponent } from './ComponentUI/messages/messages.component';
 import { ForgotPasswordUIComponent } from './ComponentSharedUI/forgot-password-ui/forgot-password-ui.component';
 import { ResetPasswordUIComponent } from './ComponentSharedUI/reset-password-ui/reset-password-ui.component';
 import { ClientUIComponent } from './SignUp/client-ui/client-ui.component';
+import { ActivationUIComponent } from './ComponentSharedUI/Activation/activation-ui/activation-ui.component';
 
 
 const routes: Routes = [
@@ -29,7 +30,7 @@ const routes: Routes = [
   { path: 'signInUI/:email', component: SignInUIComponent },
   { path: 'forgetpassword', component: ForgotPasswordUIComponent },
   { path: 'reset-password/:email/:token', component: ResetPasswordUIComponent },
-
+  { path: 'activation/:email', component: ActivationUIComponent },
   // Top navigation with sub-routes
   { 
     path: '', 
