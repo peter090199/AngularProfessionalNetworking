@@ -27,7 +27,7 @@ body {
   background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));
   font-family: 'Tahoma';
   line-height: 1;
-  margin: 10px;
+  margin: 2px !important;
 
 }
 .code-field {

@@ -1,0 +1,75 @@
+/* Base styles for desktop layout */
+.layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  
+  .topbar {
+    height: 60px;
+    background-color: #283e4a;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+  }
+  
+  .main-content {
+    display: flex;
+    flex: 1;
+  }
+  
+  .sidebar, .profile {
+    width: 25%;
+    background-color: #f3f2ef;
+    padding: 20px;
+    overflow-y: auto;
+  }
+  
+  .feed {
+    flex: 1;
+    background-color: #ffffff;
+    padding: 20px;
+    overflow-y: auto;
+    border-left: 1px solid #e1e9ef;
+    border-right: 1px solid #e1e9ef;
+  }
+  
+  /* Responsive styles for smaller screens */
+  @media screen and (max-width: 768px) {
+    .main-content {
+      flex-direction: column;
+    }
+  
+    .sidebar, .profile {
+      width: 100%;
+      padding: 10px;
+      display: none; /* Hidden by default, can add a toggle */
+    }
+  
+    .sidebar.active, .profile.active {
+      display: block; /* Shown when toggled */
+    }
+  
+    .feed {
+      width: 100%;
+      padding: 10px;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .topbar {
+      height: 50px;
+      padding: 0 10px;
+    }
+  
+    .feed {
+      padding: 5px;
+    }
+  
+    .post {
+      font-size: 14px;
+    }
+  }
+  

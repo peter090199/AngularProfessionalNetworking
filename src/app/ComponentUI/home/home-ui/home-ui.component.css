@@ -47,11 +47,18 @@
     display: flex;
     flex-direction: column;
   }
-  
+  .post-card{
+    width: 100%;
+   
+  }
   .fb-feed {
     flex: 1;
-    padding: 10px;
-    overflow-y: auto;
+    padding:30px;
+    overflow: auto;
+    width: 120%;
+    background-color: white;
+    height: 760px;
+    max-height: 840px;
   }
   
   .fb-right-sidebar {

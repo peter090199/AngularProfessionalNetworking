@@ -1,15 +1,15 @@
 /* Same as before */
 .cookie-consent {
     position: fixed;
-    bottom: 250px;
+    bottom: 350px;
     left: 50%;
     transform: translateX(-50%);
     background-color: rgb(255, 240, 240);
     color: #0d0404;
-    padding: 15px;
+    padding: 20px;
     border-radius: 8px;
     z-index: 1000;
-    width: 90%;
+    width: 95%;
     max-width: 600px;
 
   }
@@ -54,4 +54,20 @@
   .cookie-consent .btn-secondary:hover {
     background-color: #5a6268;
   }
+  /* Responsive Styles */
+@media (max-width: 768px) {
+  .cookie-consent {
+   padding: 20px;
+   width: 330px;
+   margin-top: 20px;
+  }
+  .cookie-consent-content {
+    text-align: center;
+  }
   
+  .cookie-consent button {
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 100%;
+  }
+}

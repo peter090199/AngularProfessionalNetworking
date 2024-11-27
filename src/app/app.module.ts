@@ -44,6 +44,11 @@ import { UserhomepageComponent } from './Users/userhomepage/userhomepage.compone
 import { TranslateComponent } from './translate/translate.component';
 import { CookiesUIComponent } from './cookies/cookies-ui/cookies-ui.component';
 import { ActivationUIComponent } from './ComponentSharedUI/Activation/activation-ui/activation-ui.component';
+import { LayoutComponent } from './layout/layout.component';
+import { SidebarComponent } from './layout/sidebar/sidebar.component';
+import { FeedComponent } from './layout/feed/feed.component';
+import { ProfileComponent } from './layout/profile/profile.component';
+import { TopbarComponent } from './layout/topbar/topbar.component';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -83,6 +88,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     TranslateComponent,
     CookiesUIComponent,
     ActivationUIComponent,
+    LayoutComponent,
+    SidebarComponent,
+    FeedComponent,
+    ProfileComponent,
+    TopbarComponent,
     
   ],
   imports: [
