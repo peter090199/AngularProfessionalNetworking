@@ -173,7 +173,7 @@ get companywebsite() {
       agreementTerms: new FormControl(false, Validators.requiredTrue),
       agreementPrivacy: new FormControl(false, Validators.requiredTrue),
       // age: new FormControl('', Validators.required),
-      age: 0,
+      age: 1,
       statuscode: 0
     }, 
     { validator: this.passwordMatchValidator });
