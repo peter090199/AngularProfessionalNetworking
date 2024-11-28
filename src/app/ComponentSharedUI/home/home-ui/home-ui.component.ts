@@ -11,7 +11,10 @@ export class HomeUIComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  toggleMenu() {
-    // Implement your menu toggle logic if needed
+  isMobileMenuOpen = false;
+
+  // Method to toggle the mobile menu
+  toggleMobileMenu(): void {
+    this.isMobileMenuOpen = !this.isMobileMenuOpen;
   }
 }

@@ -1,48 +1,15 @@
 
-  <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
+<mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
 
+<div class="app-container">
 
-<div class="user-homepage">
-
-  <header class="header">
+  <mat-toolbar class="header" >
     
     <div class="logo">
       <img src="assets/images/logo.png" alt="logo" style="height:24px;">
       exsuz
    </div>
-   <div class="fb-header-right" *ngIf="!isMobile" >
-    <!-- <form class="example-form">
-      <mat-form-field class="example-full-width" appearance="standard">
-        <mat-label>Assignee</mat-label>
-        <input type="text" matInput [formControl]="myControl" [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-            {{option.name}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-    </form> -->
-    <div class="container-fluid" *ngIf="!isMobile" style="margin-right: 440px;position: fixed;">
-      <div class="input-group custom-search-bar">
-        <div class="input-group-prepend">
-          <span class="input-group-text bg-white border-0"><i class="fas fa-search"></i></span>
-        </div>
-        <input 
-          type="text" 
-          class="form-control" 
-          placeholder="Search"
-          [(ngModel)]="searchQuery"
-          (input)="filterData()"
-        >
-    
-        <!-- Dropdown with filtered results -->
-        <div *ngIf="filteredData.length > 0" class="dropdown-menu show" style="max-height: 200px; overflow-y: auto; position: absolute; width: 100%; z-index: 999;">
-          <a *ngFor="let item of filteredData" class="dropdown-item" href="#">{{ item }}</a>
-        </div>
-      </div>
-    </div>
-    
-  </div>
+
   
 
   <div class="button-mobile" *ngIf="isMobile" >
@@ -53,8 +20,27 @@
    
  
     <nav *ngIf="!isMobile" class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
-
-      <div class="padding-userpage" *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
+      <div class="fb-header-right" *ngIf="!isMobile" >
+        <div class="input-group custom-search-bar">
+          <div class="input-group-prepend">
+            <span class="input-group-text bg-white border-0"><i class="fas fa-search"></i></span>
+          </div>
+          <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Search"
+            [(ngModel)]="searchQuery"
+            (input)="filterData()"
+          >
+      
+          <!-- Dropdown with filtered results -->
+          <div *ngIf="filteredData.length > 0" class="dropdown-menu show" style="max-height: 200px; overflow-y: auto; position: absolute; width: 100%; z-index: 999;">
+            <a *ngFor="let item of filteredData" class="dropdown-item" href="#">{{ item }}</a>
+          </div>
+      </div>
+      
+    </div>
+      <div  *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
         
       
         <!-- If submenu exists, render as dropdown for desktop -->
@@ -85,9 +71,7 @@
       <mat-icon>{{ isSidebarOpen ? 'close' : 'menu' }}</mat-icon>
     </button>
     
-  </header>
-
-  
+  </mat-toolbar >
 
   <!-- Sidebar for mobile -->
   <div class="sidebar" [ngClass]="{'active': isSidebarOpen}">
@@ -99,10 +83,8 @@
     
     </div>
     <ul class="list-unstyled" *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
-        <!-- If submenu exists, render as dropdown for desktop -->
         <div *ngIf="link.submenus && link.submenus.length > 0; else regularLink">
           <button mat-button [matMenuTriggerFor]="menu" class="nav-link">{{ link.description }}</button>
-           <!-- Submenu for dropdown items -->
               <mat-menu #menu="matMenu">
                 <button mat-menu-item *ngFor="let submenu of link.submenus" [routerLinkActive]="[submenu.route]" style="color: black;">
                     {{submenu.description}}
@@ -119,10 +101,11 @@
 
   </div>
 
-     <div class="content-area">
+     <div class="app-container">
          <router-outlet></router-outlet>
+       <app-footer></app-footer>
      </div>
-     <app-footer></app-footer>
+  
 </div>
 
 

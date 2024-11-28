@@ -30,6 +30,38 @@ body {
   margin: 2px !important;
 
 }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.main-content > * {
+  overflow-y: auto;
+  flex-shrink: 0;
+}
+
+app-sidebar {
+  flex: 0 0 10px;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+app-feed {
+  flex: 1;
+  padding: 20px;
+}
+
+app-right-sidebar {
+  flex: 0 0 300px;
+  background-color: #fff;
+  box-shadow: -1px 0 5px rgba(0, 0, 0, 0.1);
+}
 .code-field {
   width: 100px;
   margin-top: 0px; /* Fixed width for the country code field */

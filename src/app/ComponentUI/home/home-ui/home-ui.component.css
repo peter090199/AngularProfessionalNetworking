@@ -1,87 +1,93 @@
-.fb-layout {
-    display: flex;
-    flex-direction: column;
-    height: 75vh;
-    overflow: hidden;
-    margin-bottom: 20px;
+/* Global styles for the main container */
+.example-container {
+  display: flex;
+  flex-direction: column;
+  height: 87vh;   /* Set a relative height */
+  max-height: 80vh; /* Max height for content */
+  width: 209vh;     /* Make the container responsive with 100% width */
+  max-width: 210vh;   /* Use max-width 100% to avoid overflow */
+  overflow-x:auto; 
+  margin: 0!important; /* Allow scrolling if content overflows */
+}
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+  .example-container {
+    width: 100%;       /* Full width on mobile */
+    max-width: 100%;   /* No max width limit */
+    height: auto;      /* Adjust height to auto to make it flexible */
+    max-height: 100vh;  /* Remove max-height restriction */
+    padding: 0px;     /* Add some padding for better spacing on small screens */
   }
-  
-  .fb-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 16px;
-    background-color: #094acb;
-    color: white;
-    height: 60px;
+}
+
+
+.main-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* Default desktop layout with 3 columns */
+  grid-gap: 16px;
+  padding: 16px;
+}
+
+/* Styling for each card */
+.mat-card {
+  margin-bottom: 16px;
+}
+
+/* Left column (profile) */
+.left-column .profile-card {
+  width: 100%;
+}
+
+/* Middle column (post) */
+.middle-column .post-card {
+  height: 70vh;
+
+}
+
+/* Right column (events) */
+.right-column .events-card {
+  width: 100%;
+  /* padding-right: 120px; */
+}
+mat-sidenav-container{
+  background-color:white;
+  margin: 0px;
+}
+/* Responsive design: Mobile and small screens */
+@media (max-width: 768px) {
+  .main-container {
+    grid-template-columns: 1fr; /* Stack the columns vertically on mobile */
+  }
+
+  .left-column,
+  .middle-column,
+  .right-column {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 2px;
+
   }
   mat-card{
-    padding-right: 200px;
-  }
-  
-  .fb-header .logo {
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-  
-  .fb-header-right {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .search-bar {
-    width: 200px;
-  }
-  
-  .fb-main {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-  }
-  
-  .fb-sidebar {
-    flex: 0 0 200px;
-    background-color: #f0f2f5;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-  .post-card{
     width: 100%;
-   
   }
-  .fb-feed {
-    flex: 1;
-    padding:30px;
-    overflow: auto;
-    width: 120%;
-    background-color: white;
-    height: 760px;
-    max-height: 840px;
-  }
-  
-  .fb-right-sidebar {
-    flex: 0 0 200px;
-    background-color: #f0f2f5;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  @media (max-width: 768px) {
-    .fb-sidebar,
-    .fb-right-sidebar {
-      display: none;
-    }
-  
-    .fb-feed {
-      flex: 1;
-      padding: 5px;
-    }
-  
-    .search-bar {
-      width: 150px;
-    }
-  }
-  
+}
+
+/* Additional styling */
+.mat-form-field {
+  width: 100%;
+}
+.button-container {
+  display: flex;
+  gap: 8px; /* Space between the buttons */
+}
+
+button {
+  margin-top: 8px;
+}
+
+/* Adjust image to fit well in the cards */
+.mat-card-image {
+  width: 100%;
+  height: auto;
+}

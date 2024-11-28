@@ -1,44 +1,55 @@
-<div class="fb-layout">
-    <!-- Main Content -->
-    <div class="fb-main">
-      <!-- Sidebar -->
-      <aside class="fb-sidebar">
-        <nav>
-         
-        </nav>
-      </aside>
-  
-      <main class="fb-feed">
+<mat-sidenav-container class="example-container">
+  <mat-sidenav-content>
+    <div class="main-container">
+      
+      <!-- Left Column (Profile) -->
+      <div class="left-column">
+        <mat-card class="profile-card">
+          <mat-card-header>
+            <mat-card-title>My Profile</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image src="assets/avatar3.png" alt="Avatar">
+          <mat-card-content>
+            <p>Designer, UI</p>
+            <p>London, UK</p>
+            <p>April 1, 1988</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Middle Column (Post Status) -->
+      <div class="middle-column" style="margin-right: 220px;">
         <mat-card class="post-card">
           <mat-card-header>
-            <mat-card-title>John Doe</mat-card-title>
-            <mat-card-subtitle>Just Now</mat-card-subtitle>
+            <mat-card-title>Post</mat-card-title>
           </mat-card-header>
-          <mat-card-content>
-            <p>This is a new post! 💬</p>
+          <mat-card-content class="post-card-content" >
+            <mat-form-field appearance="fill">
+              <mat-label>Status</mat-label>
+              <textarea matInput placeholder="Feeling Blue"></textarea>
+            </mat-form-field>
+            <div class="button-container">
+              <button mat-raised-button color="primary">Media</button>
+              <button mat-raised-button color="primary">Connection</button>
+            </div>
           </mat-card-content>
-          <mat-card-actions>
-            <button mat-button>Like</button>
-            <button mat-button>Comment</button>
-            <button mat-button>Share</button>
-          </mat-card-actions>
         </mat-card>
-      </main>
-  
-  
-      <!-- Right Sidebar -->
-      <aside class="fb-right-sidebar">
-        <h3>Online Users</h3>
-        <ul>
-          <li>Jane Smith</li>
-          <li>Mark Johnson</li>
-          <li>Emily Davis</li>
-        </ul>
-      </aside>
-     
+      </div>
+
+      <!-- Right Column (Upcoming Events) -->
+      <div class="right-column">
+        <mat-card class="events-card">
+          <mat-card-header>
+            <mat-card-title>Upcoming Events</mat-card-title>
+          </mat-card-header>
+          <img mat-card-image src="assets/forest.jpg" alt="Forest">
+          <mat-card-content>
+            <p>Friday 15:00</p>
+            <button mat-button>Info</button>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
     </div>
-  
-  </div>
-
-
-  
+  </mat-sidenav-content>
+</mat-sidenav-container>

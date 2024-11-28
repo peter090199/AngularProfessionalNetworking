@@ -3,8 +3,16 @@
   flex-direction: column;
   min-height: 100vh;
 }
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+  overflow: auto;
 
-
+}
+.fb-header-right{
+  padding-right: 490px;
+}
   .navbar-nav {
     display: flex;
     align-items: right;
@@ -59,19 +67,15 @@
   .header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: left;
     padding: 20px; /* Padding for header */
-    color: white; /* Text color */
-  }
-  
-  .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: none;
-    color: #666dfa;
-
+    padding-top: 0px;
+    background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));
   }
+  
   
   .header .logo img {
     font-size: 1.5rem;
