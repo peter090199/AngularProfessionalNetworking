@@ -1,55 +1,101 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav-content>
     <div class="main-container">
-      
-      <!-- Left Column (Profile) -->
-      <div class="left-column">
+
+      <!-- Left Column: Profile Section -->
+      <div class="left-column" *ngIf="!isMobile">
         <mat-card class="profile-card">
           <mat-card-header>
-            <mat-card-title>My Profile</mat-card-title>
+            <mat-card-title>Profile</mat-card-title>
           </mat-card-header>
-          <img mat-card-image src="assets/avatar3.png" alt="Avatar">
+          <img mat-card-image src="assets/images/logo.png" alt="Avatar">
           <mat-card-content>
-            <p>Designer, UI</p>
-            <p>London, UK</p>
-            <p>April 1, 1988</p>
+            <p>BIO</p>
           </mat-card-content>
+          <button mat-raised-button color="primary">Upload</button>
+        </mat-card>
+      </div>
+     
+
+      <!-- Middle Column: Post Section -->
+    <div class="middle-column" #scrollContainer (scroll)="onScroll()">
+      <!-- Create Post Card -->
+       
+      <mat-card class="post-create-card"><br><br>
+        <mat-card-header>
+          <mat-card-title>Create Your Post, Pedro?</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <button mat-raised-button color="primary" (click)="createPost()">Post</button>
+        </mat-card-content>
+      
+      </mat-card>
+      <!-- Post Display: Loop over posts -->
+      <div *ngFor="let post of posts">
+        <mat-card class="post-display-card">
+          <mat-card-content>
+            <p>{{ post.content }}</p>
+          </mat-card-content>
+          <div class="interaction-buttons">
+            <button mat-icon-button><mat-icon>thumb_up</mat-icon> Like</button>
+            <button mat-icon-button><mat-icon>chat</mat-icon> Comment</button>
+            <button mat-icon-button><mat-icon>repeat</mat-icon> Repost</button>
+            <button mat-icon-button><mat-icon>send</mat-icon> Send</button>
+          </div>
         </mat-card>
       </div>
 
-      <!-- Middle Column (Post Status) -->
-      <div class="middle-column" style="margin-right: 220px;">
-        <mat-card class="post-card">
+      <!-- Loading Spinner for New Posts -->
+      <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
+    </div>
+
+      
+      <!-- Right Column: Lists -->
+      <div class="right-column" *ngIf="!isMobile">
+        <!-- Clients List -->
+        <mat-card class="clients-list">
           <mat-card-header>
-            <mat-card-title>Post</mat-card-title>
+            <mat-card-title>LIST CLIENT'S</mat-card-title>
           </mat-card-header>
-          <mat-card-content class="post-card-content" >
-            <mat-form-field appearance="fill">
-              <mat-label>Status</mat-label>
-              <textarea matInput placeholder="Feeling Blue"></textarea>
-            </mat-form-field>
-            <div class="button-container">
-              <button mat-raised-button color="primary">Media</button>
-              <button mat-raised-button color="primary">Connection</button>
+          <mat-card-content>
+            <div class="list-item">
+              <!-- <img src="assets/images/logo.png" alt="Client"> -->
+              <mat-icon>person</mat-icon>
+              <button mat-raised-button color="primary">FOLLOW <mat-icon>add</mat-icon></button>
+            </div>
+            <div class="list-item">
+              <mat-icon>person</mat-icon>
+              <!-- <img src="assets/images/logo.png" alt="Client"> -->
+              <button mat-raised-button color="primary">FOLLOW <mat-icon>add</mat-icon></button>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <!-- Users List -->
+        <mat-card class="users-list">
+          <mat-card-header>
+            <mat-card-title>LIST USERS</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <div class="list-item">
+              <!-- <img src="assets/images/logo.png" alt="User"> -->
+              <mat-icon>person</mat-icon>
+              <button mat-raised-button color="primary">CONNECT <mat-icon>add</mat-icon></button>
+            </div>
+            <div class="list-item">
+              <!-- <img src="assets/images/logo.png" alt="User"> -->
+              <mat-icon>person</mat-icon>
+              <button mat-raised-button color="primary">CONNECT <mat-icon>add</mat-icon></button>
             </div>
           </mat-card-content>
         </mat-card>
       </div>
 
-      <!-- Right Column (Upcoming Events) -->
-      <div class="right-column">
-        <mat-card class="events-card">
-          <mat-card-header>
-            <mat-card-title>Upcoming Events</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image src="assets/forest.jpg" alt="Forest">
-          <mat-card-content>
-            <p>Friday 15:00</p>
-            <button mat-button>Info</button>
-          </mat-card-content>
-        </mat-card>
-      </div>
-
     </div>
+<!-- <div *ngIf='ismobile'>
+  <app-footer  *ngIf='ismobile'></app-footer>
+</div>   -->
+
   </mat-sidenav-content>
 </mat-sidenav-container>
+

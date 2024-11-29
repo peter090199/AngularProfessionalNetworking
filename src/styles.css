@@ -28,12 +28,12 @@ body {
   font-family: 'Tahoma';
   line-height: 1;
   margin: 2px !important;
-
+  overflow: hidden;
 }
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  min-height: 110vh;
 }
 
 .main-content {

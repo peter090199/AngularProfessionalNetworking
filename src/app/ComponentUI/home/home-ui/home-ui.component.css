@@ -1,93 +1,120 @@
-/* Global styles for the main container */
+/* General Styles */
 .example-container {
-  display: flex;
-  flex-direction: column;
-  height: 87vh;   /* Set a relative height */
-  max-height: 80vh; /* Max height for content */
-  width: 209vh;     /* Make the container responsive with 100% width */
-  max-width: 210vh;   /* Use max-width 100% to avoid overflow */
-  overflow-x:auto; 
-  margin: 0!important; /* Allow scrolling if content overflows */
+ height: 100vh;
+ overflow: hidden;
+ padding: 12px;
 }
 
-/* Responsive adjustments for mobile screens */
-@media (max-width: 768px) {
-  .example-container {
-    width: 100%;       /* Full width on mobile */
-    max-width: 100%;   /* No max width limit */
-    height: auto;      /* Adjust height to auto to make it flexible */
-    max-height: 100vh;  /* Remove max-height restriction */
-    padding: 0px;     /* Add some padding for better spacing on small screens */
-  }
+.middle-column {
+  height: 570px; 
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
-
 
 .main-container {
   display: grid;
-  grid-template-columns: 1fr 2fr 1fr; /* Default desktop layout with 3 columns */
-  grid-gap: 16px;
-  padding: 16px;
-}
-
-/* Styling for each card */
-.mat-card {
-  margin-bottom: 16px;
-}
-
-/* Left column (profile) */
-.left-column .profile-card {
-  width: 100%;
-}
-
-/* Middle column (post) */
-.middle-column .post-card {
-  height: 70vh;
+  gap: 21px;
+  padding: 20px;
+  overflow: hidden;
 
 }
 
-/* Right column (events) */
-.right-column .events-card {
-  width: 100%;
-  /* padding-right: 120px; */
-}
-mat-sidenav-container{
-  background-color:white;
-  margin: 0px;
-}
-/* Responsive design: Mobile and small screens */
-@media (max-width: 768px) {
+/* Desktop Layout */
+@media (min-width: 768px) {
   .main-container {
-    grid-template-columns: 1fr; /* Stack the columns vertically on mobile */
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: auto;
   }
 
   .left-column,
   .middle-column,
   .right-column {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 2px;
-
+    padding: 8px;
   }
-  mat-card{
-    width: 100%;
-  }
+ 
 }
 
-/* Additional styling */
-.mat-form-field {
-  width: 100%;
+/* Mobile Layout */
+@media (max-width: 767px) {
+  .main-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+
+  .left-column,
+  .middle-column,
+  .right-column {
+    margin-bottom: 16px;
+  }
+
+  .interaction-buttons button {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
 }
-.button-container {
+
+/* Profile Card */
+.profile-card {
   display: flex;
-  gap: 8px; /* Space between the buttons */
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Profile Card */
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.profile-card img {
+  max-width: 100px;
+  border-radius: 50%;
+  margin: 16px 0;
+}
+
+.main-container .left-column {
+  display: block;
+}
+
+@media screen and (max-width: 768px) {
+  .main-container .left-column {
+    display: none;
+  }
+}
+
+
+.post-display-card {
+  margin-bottom: 16px;
+}
+
+.interaction-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+/* Lists */
+.clients-list .list-item,
+.users-list .list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.clients-list img,
+.users-list img {
+  max-width: 40px;
+  border-radius: 50%;
 }
 
 button {
-  margin-top: 8px;
+  white-space: nowrap;
 }
-
-/* Adjust image to fit well in the cards */
-.mat-card-image {
-  width: 100%;
-  height: auto;
+.post-display-card {
+  margin-bottom: 16px;
 }

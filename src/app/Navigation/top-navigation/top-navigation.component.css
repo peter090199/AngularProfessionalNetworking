@@ -1,12 +1,13 @@
 .user-homepage {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 70vh;
+  margin: 10px;
 }
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+ height: 74vh;
   overflow: auto;
 
 }
