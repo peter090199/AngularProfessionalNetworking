@@ -1,7 +1,7 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav-content>
     <div class="main-container">
-
+      
       <!-- Left Column: Profile Section -->
       <div class="left-column" *ngIf="!isMobile">
         <mat-card class="profile-card">
@@ -12,65 +12,76 @@
           <mat-card-content>
             <p>BIO</p>
           </mat-card-content>
-          <button mat-raised-button color="primary">Upload</button>
+          <button mat-raised-button  class="w-100" color="primary">Upload</button>
         </mat-card>
       </div>
      
-
       <!-- Middle Column: Post Section -->
-    <div class="middle-column" #scrollContainer (scroll)="onScroll()">
-      <!-- Create Post Card -->
-       
-      <mat-card class="post-create-card"><br><br>
-        <mat-card-header>
-          <mat-card-title>Create Your Post, Pedro?</mat-card-title>
-        </mat-card-header>
-        <mat-card-content>
-          <button mat-raised-button color="primary" (click)="createPost()">Post</button>
-        </mat-card-content>
-      
-      </mat-card>
-      <!-- Post Display: Loop over posts -->
-      <div *ngFor="let post of posts">
-        <mat-card class="post-display-card">
-          <mat-card-content>
-            <p>{{ post.content }}</p>
-          </mat-card-content>
-          <div class="interaction-buttons">
-            <button mat-icon-button><mat-icon>thumb_up</mat-icon> Like</button>
-            <button mat-icon-button><mat-icon>chat</mat-icon> Comment</button>
-            <button mat-icon-button><mat-icon>repeat</mat-icon> Repost</button>
-            <button mat-icon-button><mat-icon>send</mat-icon> Send</button>
+      <div class="middle-column">
+            <div class="fb-header-left" *ngIf="isMobile" >
+              <div class="input-group custom-search-bar">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white border-0"><i class="fas fa-search"></i></span>
+                </div>
+                <input 
+                  type="text" 
+                  class="form-control" 
+                  placeholder="Search"
+              
+                >
+            
+                <!-- <div *ngIf="filteredData.length > 0" class="dropdown-menu show" style="max-height: 200px; overflow-y: auto; position: absolute; width: 100%; z-index: 999; color: black;">
+                  <a style="color: black;" *ngFor="let item of filteredData" class="dropdown-item" href="/search">{{ item }}</a>
+                </div> -->
+            </div>
           </div>
-        </mat-card>
+        
+          <mat-card class="post-create-card">
+            <mat-card-header>
+              <mat-card-title>Create Your Post, Pedro?</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <button mat-raised-button color="primary" (click)="createPost()">Post</button>
+            </mat-card-content>
+          </mat-card>
+          <br>
+          <!-- Post Display: Loop over posts -->
+          <div *ngFor="let post of posts">
+            <mat-card class="post-display-card">
+              <mat-card-content>
+                <p>{{ post.content }}</p>
+              </mat-card-content>
+              <div class="interaction-buttons">
+                <button mat-icon-button><mat-icon>thumb_up</mat-icon> Like</button>
+                <button mat-icon-button><mat-icon>chat</mat-icon> Comment</button>
+                <button mat-icon-button><mat-icon>repeat</mat-icon> Repost</button>
+                <button mat-icon-button><mat-icon>send</mat-icon> Send</button>
+              </div>
+            </mat-card>
+          </div>
+          <!-- Loading Spinner for New Posts -->
+          <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
       </div>
-
-      <!-- Loading Spinner for New Posts -->
-      <mat-spinner *ngIf="isLoading" diameter="50"></mat-spinner>
-    </div>
-
       
       <!-- Right Column: Lists -->
       <div class="right-column" *ngIf="!isMobile">
-        <!-- Clients List -->
         <mat-card class="clients-list">
           <mat-card-header>
             <mat-card-title>LIST CLIENT'S</mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <div class="list-item">
-              <!-- <img src="assets/images/logo.png" alt="Client"> -->
               <mat-icon>person</mat-icon>
               <button mat-raised-button color="primary">FOLLOW <mat-icon>add</mat-icon></button>
             </div>
             <div class="list-item">
               <mat-icon>person</mat-icon>
-              <!-- <img src="assets/images/logo.png" alt="Client"> -->
               <button mat-raised-button color="primary">FOLLOW <mat-icon>add</mat-icon></button>
             </div>
           </mat-card-content>
         </mat-card>
 
+        <div class="spacer-top"></div>
         <!-- Users List -->
         <mat-card class="users-list">
           <mat-card-header>
@@ -78,24 +89,18 @@
           </mat-card-header>
           <mat-card-content>
             <div class="list-item">
-              <!-- <img src="assets/images/logo.png" alt="User"> -->
               <mat-icon>person</mat-icon>
               <button mat-raised-button color="primary">CONNECT <mat-icon>add</mat-icon></button>
             </div>
             <div class="list-item">
-              <!-- <img src="assets/images/logo.png" alt="User"> -->
               <mat-icon>person</mat-icon>
               <button mat-raised-button color="primary">CONNECT <mat-icon>add</mat-icon></button>
             </div>
           </mat-card-content>
         </mat-card>
       </div>
-
     </div>
-<!-- <div *ngIf='ismobile'>
-  <app-footer  *ngIf='ismobile'></app-footer>
-</div>   -->
-
+   
   </mat-sidenav-content>
-</mat-sidenav-container>
 
+</mat-sidenav-container>

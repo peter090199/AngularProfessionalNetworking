@@ -1,31 +1,57 @@
-.spacer{
-    flex: 1 1 auto;
-}
-.acct-name{
-    color: #1b3cf8;
+/* General Styles */
+.spacer {
+  flex: 1 1 auto;
 }
 
-.footer {
+.acct-name {
+  color: #1b3cf8;
+}
+
+/* Footer Styles */
+
+
+/* Chat Body Styles */
+.chat-body {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
+  margin: 0;
+}
+
+.chat-body button {
+  float: none;
+  margin: 0;
+}
+
+/* Default: Hide the footer */
+#mobile-footer {
+  display: none;
+}
+
+/* Show footer only on mobile screens */
+@media (max-width: 768px) {
+  #mobile-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    background-color: #0545983f;
-    color: #fff;
-    line-height: 10px;
-    transition: line-height 0.3s;
+    width: 100%;
+    z-index: 1000;
   }
-  
-  .chat-body button {
-    float: right;         
-    margin-top: 0px;
 
-  }
-  
   .chat-body {
-    display: flex;
-    justify-content: flex-end;  
-    padding: 10px;
-    margin: 0px;
-    
+    flex: 1 1 auto;
+    text-align: right;
   }
+
+  button[mat-icon-button] {
+    flex: 0 0 auto;
+  }
+}

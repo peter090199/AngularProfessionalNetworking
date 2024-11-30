@@ -69,34 +69,52 @@ throw new Error('Method not implemented.');
   isLoading = false; // Flag for showing spinner
   page = 1; // Pagination or load more page tracking
   isMobile: boolean = false; 
-  
+  lastScrollTop: number = 0;
+  isScrollingDown: boolean = false;
   constructor() {}
   
-  ismobile: boolean = false;
-
   @HostListener('window:resize', ['$event'])
   onResize() {
     this.isMobile = window.innerWidth <= 768; // or your breakpoint for mobile
   }
 
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > this.lastScrollTop) {
+      // User is scrolling down
+      this.isScrollingDown = true;
+    } else {
+      // User is scrolling up
+      this.isScrollingDown = false;
+    }
+
+    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+
+    // Toggle the 'hidden' class based on scroll direction
+    const searchBar = document.querySelector('.fb-header-left') as HTMLElement;
+    if (this.isScrollingDown) {
+      searchBar.classList.add('hidden');  // Hide search bar
+    } else {
+      searchBar.classList.remove('hidden');  // Show search bar
+    }
+  }
 
   ngOnInit(): void {
     this.onResize();
   }
   ngOnDestroy(): void {
     // Clear the interval when the component is destroyed
-    if (this.scrollInterval) {
-      clearInterval(this.scrollInterval);
-    }
+  
   }
-  onScroll() {
-    const scrollElement = this.scrollContainer.nativeElement;
-    if (scrollElement.scrollHeight - scrollElement.scrollTop === scrollElement.clientHeight) {
-      if (!this.isLoading) {
-       // this.loadPosts(); // Load more posts when scrolled to the bottom
-      }
-    }
-  }
+  // onScroll() {
+  //   const scrollElement = this.scrollContainer.nativeElement;
+  //   if (scrollElement.scrollHeight - scrollElement.scrollTop === scrollElement.clientHeight) {
+  //     if (!this.isLoading) {
+  //      // this.loadPosts(); // Load more posts when scrolled to the bottom
+  //     }
+  //   }
+  // }
   startAutoScroll(): void {
     const middleColumn = document.querySelector('.middle-column') as HTMLElement;
 

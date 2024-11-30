@@ -7,13 +7,47 @@
 .app-container {
   display: flex;
   flex-direction: column;
- height: 74vh;
-  overflow: auto;
+  margin: 0px;
+  background-color: transparent;
+}
 
+
+.dropdown-item {
+  color: #111111; /* Font color */
+  font-size: 14px; /* Font size */
+  padding: 8px 12px; /* Padding for spacing */
+  text-decoration: none; /* Remove underline from links */
+  display: block; /* Ensure each item occupies its row */
+  transition: background-color 0.2s, color 0.2s; /* Smooth hover effect */
 }
-.fb-header-right{
-  padding-right: 490px;
+
+.dropdown-item:hover {
+  background-color: #0c2ad5; /* Highlight background on hover */
+  color: #055b9c; /* Change font color on hover */
 }
+
+.dropdown-menu {
+  position: absolute; /* Position relative to its closest positioned ancestor */
+  top: 100%; /* Aligns the dropdown directly below the input field */
+  left: 0; /* Aligns it to the left edge of the container */
+  width: 100%; /* Matches the width of the container */
+  max-height: 200px; /* Limits the dropdown height */
+  overflow-y: auto; /* Adds vertical scrolling if content exceeds height */
+  z-index: 1000; /* Ensures it appears above other elements */
+  border-radius: 4px; /* Rounded corners for better aesthetics */
+  position: fixed;
+}
+
+
+.dropdown-item:hover {
+  background-color: #f4f3f3; /* Highlight on hover */
+}
+
+/* Ensures proper layout within a relative container */
+.relative-container {
+  position: relative; /* Parent container to control dropdown positioning */
+}
+
   .navbar-nav {
     display: flex;
     align-items: right;
@@ -64,6 +98,15 @@
     padding-left: 450px;
     gap: 20px;
 
+  }
+  .fb-header-left{
+    top: 5;
+    left: 0; 
+    position: absolute;
+    width: 25%; 
+    margin-left: 120px;
+    /* overflow-y: auto; */
+  
   }
   .header {
     display: flex;
@@ -307,8 +350,10 @@ mat-icon.logout-icon {
     .welcome-section h1 {
       font-size: 2rem;
       font-weight: 'bold';
-  
+
+     
   }
+
   .nav {
     display: flex; /* Show nav links on desktop */
   }
