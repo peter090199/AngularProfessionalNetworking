@@ -63,7 +63,7 @@
 }
 
 .post-display-card {
-  margin-bottom: 16px;
+  margin-bottom: 26px;
 }
 
 .interaction-buttons {
@@ -88,9 +88,6 @@
 
 button {
   white-space: nowrap;
-}
-.post-display-card {
-  margin-bottom: 16px;
 }
 
 
@@ -150,7 +147,8 @@ button {
     gap: 4px;
   }
   .example-container {
-  max-height: 88vh;
+    max-height: 88vh;
+    margin-bottom: 120px;
   }
 
   .fb-header-left {
@@ -161,6 +159,11 @@ button {
     margin-top: 0px;
     margin-bottom: 22px;
   }
+  .post-display-card {
+    margin-bottom: 36px;
+    padding: 10px;
+  }
+  
 }
 
 

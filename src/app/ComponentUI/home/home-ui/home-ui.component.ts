@@ -123,4 +123,20 @@ throw new Error('Method not implemented.');
   toggleMenu() {
     // Implement your menu toggle logic if needed
   }
+
+  lastScrollTop: number = 0;
+  isScrollingDown: boolean = false;
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > this.lastScrollTop) {
+      // User is scrolling down
+      this.isScrollingDown = true;
+    } else {
+      // User is scrolling up
+      this.isScrollingDown = false;
+    }
+  }
+
+  
 }
