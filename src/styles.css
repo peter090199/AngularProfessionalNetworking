@@ -4,6 +4,34 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 68vh;
+}
+
+.header {
+  flex: 0 0 auto;
+}
+
+.content {
+  flex: 1 0 auto;
+}
+
+app-footer {
+  flex: 0 0 auto;
+  background-color: #f8f9fa;
+  text-align: center;
+  padding: 5px 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+
+
+
+
 html,
 body {
   height: 100%;

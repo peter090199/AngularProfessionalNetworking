@@ -1,26 +1,18 @@
-
 <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
 
 <div class="app-container">
-
-  <mat-toolbar class="header" >
-    
+  <mat-toolbar class="header">
     <div class="logo">
       <img src="assets/images/logo.png" alt="logo" style="height:24px;">
       exsuz
-   </div>
-
-  
-
-  <div class="button-mobile" *ngIf="isMobile" >
-        <button mat-icon-button (click)="onLogout()">
-          <mat-icon>logout</mat-icon>
-        </button>
-  </div>
-   
- 
+    </div>
+    <div class="button-mobile" *ngIf="isMobile">
+      <button mat-icon-button (click)="onLogout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
     <nav *ngIf="!isMobile" class="nav" [ngClass]="{'d-none d-md-flex': isDesktop}">
-      <div class="fb-header-left" *ngIf="!isMobile" >
+      <div class="fb-header-left" *ngIf="!isMobile">
         <div class="input-group custom-search-bar">
           <div class="input-group-prepend">
             <span class="input-group-text bg-white border-0"><i class="fas fa-search"></i></span>
@@ -31,46 +23,38 @@
             placeholder="Search"
             [(ngModel)]="searchQuery"
             (input)="filterData()"
-          >
-      
-          <div *ngIf="filteredData.length > 0" class="dropdown-menu show" style="max-height: 200px; overflow-y: auto; position: absolute; width: 100%; z-index: 999; color: black;">
+          />
+          <div 
+            *ngIf="filteredData.length > 0" 
+            class="dropdown-menu show" 
+            style="max-height: 200px; overflow-y: auto; position: absolute; width: 100%; z-index: 999; color: black;">
             <a style="color: black;" *ngFor="let item of filteredData" class="dropdown-item" href="/search">{{ item }}</a>
           </div>
+        </div>
       </div>
-      
-    </div>
-      <div  *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
-        
-      
-        <!-- If submenu exists, render as dropdown for desktop -->
-            <div *ngIf="link.submenus && link.submenus.length > 0; else regularLink">
-              <button mat-button  [matMenuTriggerFor]="menu" class="nav-link">{{ link.description }}</button>
-               <!-- Submenu for dropdown items -->
-                  <mat-menu #menu="matMenu">
-                    <button mat-menu-item *ngFor="let submenu of link.submenus" [routerLink]="[submenu.route]" style="color: black;">
-                        {{submenu.description}}
-                    </button>
-                  </mat-menu>
-            </div>
-            <ng-template #regularLink>
-              <button mat-button class="nav-link" [routerLink]="[link.route]">
-                <i class="{{ link.icon }}"></i> {{ link.description }}
-              </button>
-            </ng-template>
-           
-
+      <div *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
+        <div *ngIf="link.submenus && link.submenus.length > 0; else regularLink">
+          <button mat-button [matMenuTriggerFor]="menu" class="nav-link">{{ link.description }}</button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item *ngFor="let submenu of link.submenus" [routerLink]="[submenu.route]" style="color: black;">
+              {{submenu.description}}
+            </button>
+          </mat-menu>
+        </div>
+        <ng-template #regularLink>
+          <button mat-button class="nav-link" [routerLink]="[link.route]">
+            <i class="{{ link.icon }}"></i> {{ link.description }}
+          </button>
+        </ng-template>
       </div>
-      
       <button mat-icon-button (click)="onLogout()">
         <mat-icon>logout</mat-icon>
       </button>
-      
     </nav>
     <button class="navbar-toggler" type="button" (click)="toggleSidebar()" aria-label="Toggle navigation" *ngIf="isMobile">
       <mat-icon>{{ isSidebarOpen ? 'close' : 'menu' }}</mat-icon>
     </button>
-    
-  </mat-toolbar >
+  </mat-toolbar>
 
   <!-- Sidebar for mobile -->
   <div class="sidebar" [ngClass]="{'active': isSidebarOpen}">
@@ -78,35 +62,30 @@
       <div class="logo">
         <img src="assets/images/logo.png" alt="logo" style="height:20px;">
         exsuz
-     </div>
-    
+      </div>
     </div>
     <ul class="list-unstyled" *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
-        <div *ngIf="link.submenus && link.submenus.length > 0; else regularLink">
-          <button mat-button [matMenuTriggerFor]="menu" class="nav-link">{{ link.description }}</button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item *ngFor="let submenu of link.submenus" [routerLinkActive]="[submenu.route]" style="color: black;">
-                    {{submenu.description}}
-                </button>
-              </mat-menu>
-        </div>
-        <ng-template #regularLink>
-          <button mat-button class="nav-link" [routerLink]="[link.route]">
-            <i class="{{ link.icon }}"></i> {{ link.description }}
+      <div *ngIf="link.submenus && link.submenus.length > 0; else regularLink">
+        <button mat-button [matMenuTriggerFor]="menu" class="nav-link">{{ link.description }}</button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngFor="let submenu of link.submenus" [routerLink]="[submenu.route]" style="color: black;">
+            {{submenu.description}}
           </button>
-        </ng-template>
-       
+        </mat-menu>
+      </div>
+      <ng-template #regularLink>
+        <button mat-button class="nav-link" [routerLink]="[link.route]">
+          <i class="{{ link.icon }}"></i> {{ link.description }}
+        </button>
+      </ng-template>
     </ul>
-
   </div>
 
-     <div class="app-container">
-      
-         <router-outlet></router-outlet>
-         <app-footer></app-footer>
-     </div>
-  
+  <!-- Main Content -->
+  <div class="content">
+    <router-outlet></router-outlet>
+  </div>
+
+  <!-- Footer -->
+  <app-footer></app-footer>
 </div>
-
-
-
