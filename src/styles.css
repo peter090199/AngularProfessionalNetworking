@@ -8,7 +8,7 @@
 .app-container {
   display: flex;
   flex-direction: column;
-  height: 90vh;
+  height: 68vh;
 }
 
 .header {
@@ -21,11 +21,11 @@
 
 app-footer {
   flex: 0 0 auto;
+  background-color: #f8f9fa;
   text-align: center;
   padding:2px 0;
-  padding-top: 12px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
-  margin-top: 40px;
+
 }
 
 

@@ -50,6 +50,7 @@ import { FeedComponent } from './layout/feed/feed.component';
 import { ProfileComponent } from './layout/profile/profile.component';
 import { TopbarComponent } from './layout/topbar/topbar.component';
 import { environment } from '../environments/environment';
+import { CurriculumVitaeUIComponent } from './ComponentSharedUI/Individual/curriculum-vitae-ui/curriculum-vitae-ui.component';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -94,6 +95,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     FeedComponent,
     ProfileComponent,
     TopbarComponent,
+    CurriculumVitaeUIComponent,
     
   ],
   imports: [

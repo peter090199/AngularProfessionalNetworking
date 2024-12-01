@@ -1,0 +1,50 @@
+<div class="user-homepage">
+    <header class="header-cv">
+      <mat-stepper  #stepper>
+        <!-- Step 1: Upload CV -->
+        <mat-step [stepControl]="firstFormGroup">
+          <form  (ngSubmit)="onSubmit()" [formGroup]="firstFormGroup" enctype="multipart/form-data">
+            <ng-template matStepLabel>Upload CV</ng-template>
+            <input type="file" (change)="onFileSelected($event)" accept=".pdf">
+            <div class="button-gap">
+                 <button  mat-raised-button color="primary" matStepperNext type="submit" [disabled]="!selectedFile">Upload</button>
+            </div>
+          </form>
+        </mat-step>
+  
+        <!-- Step 2: Fill Address -->
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Check CV</ng-template>
+  
+            <mat-form-field appearance="standard" class="full-width">
+              <mat-label>Address</mat-label>
+              <input
+                matInput
+                formControlName="secondCtrl"
+                placeholder="Ex. 1 Main St, New York, NY"
+                required
+                [value]="pdfContent"
+              />
+            </mat-form-field>
+  
+            <div class="button-gap">
+              <button mat-raised-button color="warn" matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+  
+        <!-- Step 3: Completion -->
+        <mat-step>
+          <ng-template matStepLabel>Done</ng-template>
+          <p>You are now done.</p>
+          <div class="button-gap">
+            <button mat-raised-button color="warn" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" (click)="login()">Continue</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </header>
+  </div>
+  

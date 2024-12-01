@@ -18,6 +18,7 @@ import { ResetPasswordUIComponent } from './ComponentSharedUI/reset-password-ui/
 import { ClientUIComponent } from './SignUp/client-ui/client-ui.component';
 import { ActivationUIComponent } from './ComponentSharedUI/Activation/activation-ui/activation-ui.component';
 import { LayoutComponent } from './layout/layout.component';
+import { CurriculumVitaeUIComponent } from './ComponentSharedUI/Individual/curriculum-vitae-ui/curriculum-vitae-ui.component';
 
 
 const routes: Routes = [
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'reset-password/:email/:token', component: ResetPasswordUIComponent },
   { path: 'activation/:email', component: ActivationUIComponent },
   { path: 'layout', component: LayoutComponent },
+  { path: 'curriculum-vitae', component: CurriculumVitaeUIComponent },
   // Top navigation with sub-routes
   { 
     path: '', 

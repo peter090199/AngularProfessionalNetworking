@@ -1,0 +1,115 @@
+/* .mat-stepper-horizontal {
+    margin-top: 8px;
+  }
+  
+  .mat-form-field {
+    margin-top: 16px;
+  }
+
+  .user-homepage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  
+  .header-cv {
+    width: 100%;
+    max-width: 500px; 
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 24px;
+  }
+  
+  .mat-form-field {
+    width: 100%;
+  }
+  
+  .button-gap {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+  }
+  
+  @media (max-width: 768px) {
+    .header-cv {
+      padding: 16px;
+      max-width: 90%;
+    }
+  }
+   */
+/* General Styles */
+
+.header {
+    flex: 0 0 auto;
+  }
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: none;
+    color: #fff;
+    padding: 12px;
+    margin-right: 28px;
+    margin-left: 28px;
+  }
+  
+  .header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 0px;
+  }
+  
+.user-homepage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 16px;
+    box-sizing: border-box;
+  }
+  .full-width {
+    width: 100%;
+  }
+  
+  
+  .header-cv {
+    width: 100%;
+    max-width: 700px; /* Desktop max width */
+    background: white;
+    border-radius: 8px;
+    box-shadow: 2 6px 10px rgba(0, 0, 0, 0.1);
+    padding: 5px;
+    transition: all 0.3s ease; /* Smooth transition for responsiveness */
+    margin: 0px;
+  }
+
+
+  /* Button Gap Styling */
+  .button-gap {
+    display: flex;
+    gap: 5px;
+    justify-content: flex-end;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .header-cv {
+     width: 100%;
+      max-width: 100%; /* Reduce width on smaller screens */
+      padding: 1px;
+      margin: 2px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .header-cv {
+      max-width: 100%; /* Further reduce width for very small screens */
+      padding: 2px;
+    }
+  
+  }
+  
