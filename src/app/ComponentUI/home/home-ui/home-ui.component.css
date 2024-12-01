@@ -125,7 +125,9 @@ button {
   .main-container {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    margin-bottom: 10px;
+    margin-bottom: 60px;
+    height: 100vh;
+    
   }
   /* .fb-header-left{
     margin-top: 0px;
@@ -148,7 +150,6 @@ button {
   }
   .example-container {
     max-height: 88vh;
-    margin-bottom: 120px;
   }
 
   .fb-header-left {
