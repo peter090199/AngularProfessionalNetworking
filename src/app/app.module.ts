@@ -49,6 +49,7 @@ import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { FeedComponent } from './layout/feed/feed.component';
 import { ProfileComponent } from './layout/profile/profile.component';
 import { TopbarComponent } from './layout/topbar/topbar.component';
+import { environment } from '../environments/environment';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -111,7 +112,13 @@ export function HttpLoaderFactory(http: HttpClient) {
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+     }),
+// ServiceWorkerModule.register('ngsw-worker.js', {
+//   enabled: environment.production,
+//   // Register the ServiceWorker as soon as the application is stable
+//   // or after 30 seconds (whichever comes first).
+//   registrationStrategy: 'registerWhenStable:30000'
+// })
     
   ],
   providers: [CookieService],
