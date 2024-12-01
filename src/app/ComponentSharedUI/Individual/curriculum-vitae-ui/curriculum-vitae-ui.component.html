@@ -3,16 +3,20 @@
       <mat-stepper  #stepper>
         <!-- Step 1: Upload CV -->
         <mat-step [stepControl]="firstFormGroup">
-          <form  (ngSubmit)="onSubmit()" [formGroup]="firstFormGroup" enctype="multipart/form-data">
-            <ng-template matStepLabel>Upload CV</ng-template>
-            <input type="file" (change)="onFileSelected($event)" accept=".pdf">
-            <div class="button-gap">
-                 <button  mat-raised-button color="primary" matStepperNext type="submit" [disabled]="!selectedFile">Upload</button>
-            </div>
-          </form>
-        </mat-step>
-  
-        <!-- Step 2: Fill Address -->
+            <form (ngSubmit)="onSubmit()" [formGroup]="firstFormGroup" enctype="multipart/form-data">
+              <ng-template matStepLabel>Upload CV</ng-template>
+              <input type="file" (change)="onFileSelected($event)" accept=".pdf">
+              <div *ngIf="pdfContent">
+                <pre>{{ pdfContent }}</pre>
+              </div>
+              <div class="button-gap">
+                <button mat-raised-button color="warn" type="submit" [disabled]="!selectedFile">Upload</button>
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          
+        <!-- Step 2: Fill Address
         <mat-step [stepControl]="secondFormGroup">
           <form [formGroup]="secondFormGroup">
             <ng-template matStepLabel>Check CV</ng-template>
@@ -27,13 +31,16 @@
                 [value]="pdfContent"
               />
             </mat-form-field>
-  
+             <div *ngIf="pdfContent">
+                <pre>{{ pdfContent }}</pre>
+              </div>
+
             <div class="button-gap">
               <button mat-raised-button color="warn" matStepperPrevious>Back</button>
               <button mat-raised-button color="primary" matStepperNext>Next</button>
             </div>
           </form>
-        </mat-step>
+        </mat-step> -->
   
         <!-- Step 3: Completion -->
         <mat-step>

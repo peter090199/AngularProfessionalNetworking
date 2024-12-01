@@ -26,11 +26,11 @@ export class CurriculumVitaeUIComponent implements OnInit {
     private router:Router,
     private notificationService:NotificationsService
   ) {}
-  pdfContent: string = '';
+  pdfContent: string | null = null;
 
   ngOnInit(): void {
     this.firstFormGroup = this._formBuilder.group({
-      fileUpload: [null, Validators.required],
+    //  fileUpload: [null, Validators.required],
     });
 
     this.secondFormGroup = this._formBuilder.group({
@@ -70,6 +70,7 @@ export class CurriculumVitaeUIComponent implements OnInit {
           if (pageNum === numPages) {
             this.pdfContent = extractedText;  // You can bind this to a form field or log it
             console.log('Extracted PDF Text:', extractedText);
+          
           }
         });
       });
@@ -80,28 +81,63 @@ export class CurriculumVitaeUIComponent implements OnInit {
       extractPageText(i);
     }
   }
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
 
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-
-      // Validate file type
-      if (file.type !== 'application/pdf') {
-        alert('Only PDF files are allowed!');
-        this.selectedFile = null;
-        return;
-      }
-
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file && file.type === 'application/pdf') {
       this.selectedFile = file;
-      console.log('Selected file:', this.selectedFile.name);
+      this.readPdf(file);
+    } else {
+      console.error("Selected file is not a PDF.");
+      this.selectedFile = null;
+      this.pdfContent = null;
     }
   }
+
+  readPdf(file: File) {
+    const reader = new FileReader();
+    reader.onload = (e: any) => {
+      const pdfData = new Uint8Array(e.target.result);
+      
+      // Use pdf.js to load and parse the PDF
+      pdfjsLib.getDocument(pdfData).promise.then((pdf) => {
+        let textContent = '';
+        const numPages = pdf.numPages;
+        
+        // We will create an array of promises for each page's text extraction
+        let pagePromises: Promise<void>[] = [];
+
+        for (let i = 1; i <= numPages; i++) {
+          pagePromises.push(
+            pdf.getPage(i).then((page) => {
+              return page.getTextContent().then((text) => {
+                text.items.forEach((item: any) => {
+                  textContent += item.str + ' ';
+                });
+              });
+            })
+          );
+        }
+
+        // Wait for all page promises to resolve
+        Promise.all(pagePromises).then(() => {
+          this.pdfContent = textContent;
+        }).catch((err) => {
+          console.error('Error extracting PDF content:', err);
+        });
+      }).catch((err) => {
+        console.error('Error loading PDF:', err);
+      });
+    };
+
+    reader.readAsArrayBuffer(file);
+  }
+
   onSubmit(): void {
     if (this.selectedFile) {
       const formData = new FormData();
       formData.append('pdf', this.selectedFile, this.selectedFile.name);
-
+       console.log('File uploaded:', this.selectedFile);
       // Replace 'your-backend-url' with your backend API URL
       // this.http.post('your-backend-url/upload', formData).subscribe(response => {
       //   console.log('File uploaded successfully', response);

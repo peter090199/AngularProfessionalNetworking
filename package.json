@@ -28,6 +28,7 @@
     "bootstrap": "^5.3.3",
     "ngx-cookie-service": "^13.2.0",
     "ngx-toastr": "^14.3.0",
+    "pdfjs-dist": "^4.8.69",
     "rxjs": "~7.5.0",
     "sweetalert2": "^11.14.5",
     "tslib": "^2.3.0",
