@@ -19,6 +19,7 @@ import { ClientUIComponent } from './SignUp/client-ui/client-ui.component';
 import { ActivationUIComponent } from './ComponentSharedUI/Activation/activation-ui/activation-ui.component';
 import { LayoutComponent } from './layout/layout.component';
 import { CurriculumVitaeUIComponent } from './ComponentSharedUI/Individual/curriculum-vitae-ui/curriculum-vitae-ui.component';
+import { ProfileUIComponent } from './ComponentSharedUI/Profile/profile-ui/profile-ui.component';
 
 
 const routes: Routes = [
@@ -34,14 +35,15 @@ const routes: Routes = [
   { path: 'reset-password/:email/:token', component: ResetPasswordUIComponent },
   { path: 'activation/:email', component: ActivationUIComponent },
   { path: 'layout', component: LayoutComponent },
-  { path: 'curriculum-vitae', component: CurriculumVitaeUIComponent },
+  { path: 'curriculum-vitae', component:CurriculumVitaeUIComponent,canActivate:[AuthGuard] },
   // Top navigation with sub-routes
   { 
     path: '', 
     component: TopNavigationComponent, 
     canActivate: [AuthGuard],
     children: [
-      { path: 'home', component: HomeUIComponent},
+      { path: 'profile', component:ProfileUIComponent },
+      { path: 'home', component: HomeUIComponent },
       { path: 'message', component: MessagesComponent },
     ]
   },

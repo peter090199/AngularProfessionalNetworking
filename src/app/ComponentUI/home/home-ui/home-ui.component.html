@@ -3,18 +3,45 @@
     <div class="main-container">
       
       <!-- Left Column: Profile Section -->
-      <div class="left-column" *ngIf="!isMobile">
+      <!-- <div class="left-column" *ngIf="!isMobile">
         <mat-card class="profile-card">
           <mat-card-header>
-            <mat-card-title>Profile</mat-card-title>
+            <mat-card-title>Upload Image</mat-card-title>
           </mat-card-header>
           <img mat-card-image src="assets/images/logo.png" alt="Avatar">
           <mat-card-content>
             <p>BIO</p>
           </mat-card-content>
-          <button mat-raised-button  class="w-100" color="primary">Upload</button>
+          <button mat-raised-button  class="w-100" color="primary">Upload</button><div class="spacer-top"></div>
+          <button mat-raised-button  class="w-100" color="danger" routerLink="/profile">View Profile</button>
         </mat-card>
-      </div>
+      </div> -->
+
+      <mat-card class="profile-card" *ngIf="!isMobile">
+        <div class="profile-header">
+          <mat-icon class="profile-icon">work</mat-icon>
+          <button mat-icon-button class="add-btn">
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+        <br>
+        <mat-card-title class="profile-name">{{profiles.fullname}}</mat-card-title>
+        <mat-card-subtitle class="profile-email"></mat-card-subtitle>
+        <mat-card-subtitle class="profile-location">{{profiles.profession}}</mat-card-subtitle>
+      
+        <mat-card-content>
+          <mat-list>
+            <mat-divider></mat-divider>
+            <mat-list-item>
+              <!-- <span class="list-label">Connections</span> 16  -->
+             
+            </mat-list-item>
+           
+          </mat-list>
+          <a class="list-label" routerLink="/profile">View Profile</a>
+        </mat-card-content>
+      </mat-card>
+      
      
       <!-- Middle Column: Post Section -->
       <div class="middle-column">
@@ -29,21 +56,47 @@
                   placeholder="Search"
               
                 > 
-            
                 <!-- <div *ngIf="filteredData.length > 0" class="dropdown-menu show" style="max-height: 200px; overflow-y: auto; position: absolute; width: 100%; z-index: 999; color: black;">
                   <a style="color: black;" *ngFor="let item of filteredData" class="dropdown-item" href="/search">{{ item }}</a>
                 </div> -->
+
             </div>
           </div>
         
-          <mat-card class="post-create-card">
+          <!-- <mat-card class="post-create-card">
             <mat-card-header>
               <mat-card-title>Create Your Post, Francis?</mat-card-title>
             </mat-card-header>
             <mat-card-content>
               <button mat-raised-button color="primary" (click)="createPost()">Post</button>
             </mat-card-content>
-          </mat-card>
+          </mat-card> -->
+
+          <div class="post-box-container">
+            <!-- Input Section -->
+            <div class="input-section">
+              <img src="https://via.placeholder.com/40" alt="Avatar" class="avatar" />
+              <input
+                type="text"
+                placeholder="Create your Post, Test?"
+                class="post-input" disabled
+              />
+            </div>
+          
+            <!-- Action Buttons Section -->
+            <div class="actions-section">
+              <button class="action-btn live-video">
+                <span class="icon">🎥</span>Photo
+              </button>
+              <button class="action-btn photo-video">
+                <span class="icon">📷</span> Video
+              </button>
+              <!-- <button class="action-btn reel">
+                <span class="icon">🎞️</span> Reel
+              </button> -->
+            </div>
+          </div>
+          
           <br>
           <!-- Post Display: Loop over posts -->
           <div *ngFor="let post of posts">

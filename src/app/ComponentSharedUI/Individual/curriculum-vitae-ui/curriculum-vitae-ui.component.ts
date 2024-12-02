@@ -138,6 +138,8 @@ export class CurriculumVitaeUIComponent implements OnInit {
       const formData = new FormData();
       formData.append('pdf', this.selectedFile, this.selectedFile.name);
        console.log('File uploaded:', this.selectedFile);
+       this.notificationService.toastPopUp("Successfuly Upload.");
+       this.router.navigate(['/home']);
       // Replace 'your-backend-url' with your backend API URL
       // this.http.post('your-backend-url/upload', formData).subscribe(response => {
       //   console.log('File uploaded successfully', response);

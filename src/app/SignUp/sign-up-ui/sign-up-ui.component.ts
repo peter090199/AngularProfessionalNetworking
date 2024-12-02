@@ -291,6 +291,12 @@ get companywebsite() {
           const formData = this.userForm.getRawValue();
           formData.contactno = `${formData.countryCode}${formData.contactno}`;
 
+          //api => user and client 
+          //if(api && pdf sv)
+          // this.router.navigateByUrl("/curriculum-vitae");
+
+          //else{
+          //}
           this.signupService.signup(formData).subscribe({
                 next: (res) => {
                   if(res.success === true)

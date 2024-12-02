@@ -60,6 +60,15 @@ body {
   margin: 2px !important;
   overflow: hidden;
 }
+.example-container {
+  display: flex;
+  flex-direction: column;
+  height: 92vh;
+  max-height: 92vh;
+  background-color: rgb(246, 244, 244);
+  margin:0px;
+
+}
 .app-container {
   display: flex;
   flex-direction: column;

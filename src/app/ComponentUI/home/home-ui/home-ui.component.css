@@ -1,4 +1,263 @@
 /* General Styles */
+/* Main Post Box Container */
+
+/* Profile Card */
+.profile-card {
+  width: 100%;
+  max-width: 350px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: white;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.profile-icon {
+  font-size: 40px;
+  color: #4caf50;
+}
+
+.add-btn {
+  background-color: #f0f0f0;
+  padding: 6px;
+  border-radius: 50%;
+}
+
+.profile-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.profile-email,
+.profile-location {
+  font-size: 14px;
+  color: gray;
+}
+
+mat-list {
+  margin-top: 20px;
+}
+
+mat-list-item {
+  font-size: 14px;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-label {
+  font-weight: bold;
+}
+
+mat-divider {
+  margin: 8px 0;
+}
+
+/* Mobile Styles */
+@media (max-width: 600px) {
+  .profile-card {
+    padding: 12px;
+    width: 90%;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-icon {
+    font-size: 35px;
+  }
+
+  .profile-name {
+    font-size: 16px;
+  }
+
+  .profile-email,
+  .profile-location {
+    font-size: 12px;
+  }
+
+  mat-list-item {
+    flex-direction: column;
+    text-align: left;
+    padding: 8px 0;
+  }
+
+  mat-list-item .list-label {
+    font-size: 14px;
+  }
+}
+
+/* Tablet and Desktop Styles */
+@media (min-width: 601px) {
+  .profile-card {
+    padding: 20px;
+    width: 80%;
+  }
+
+  .profile-icon {
+    font-size: 45px;
+  }
+
+  .profile-name {
+    font-size: 18px;
+  }
+
+  .profile-email,
+  .profile-location {
+    font-size: 13px;
+  }
+
+  mat-list-item {
+    padding: 10px 0;
+  }
+
+  mat-list-item .list-label {
+    font-size: 15px;
+  }
+}
+
+.post-box-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+  position: relative; /* Ensures proper stacking of sticky elements */
+}
+
+/* Input Section */
+.input-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  position: sticky;
+  top: 0; /* Sticks input box to the top when scrolling */
+  background-color: #fff; /* Keep the background white */
+  padding: 10px 0;
+  z-index: 10; /* Ensure it's above other elements */
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .post-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    background-color: #f0f2f5;
+    font-size: 14px;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: #4267b2;
+      background-color: #fff;
+    }
+
+    &:disabled {
+      background-color: #e0e0e0;
+      color: #999;
+    }
+  }
+}
+
+/* Action Buttons Section */
+.actions-section {
+  display: flex;
+  justify-content: space-between;
+  position: sticky;
+  top: 60px; /* Pushes the buttons below the input field */
+  background-color: #fff; /* Keep background white */
+  padding: 10px 0;
+  z-index: 9; /* Ensure it's below the input section */
+
+  .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    padding: 10px;
+    margin: 0 5px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    background-color: #fff;
+
+    &:hover {
+      background-color: #f1f1f1;
+      border-color: #ddd;
+    }
+
+    .icon {
+      margin-right: 5px;
+      font-size: 16px;
+    }
+  }
+
+  .live-video {
+    background-color: #fbeaea;
+    color: #e53935;
+  }
+
+  .photo-video {
+    background-color: #e8f5e9;
+    color: #43a047;
+  }
+
+  .reel {
+    background-color: #fce4ec;
+    color: #d81b60;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .post-box-container {
+    padding: 10px;
+  }
+
+  .input-section {
+    padding: 5px 0;
+
+    .post-input {
+      font-size: 12px;
+    }
+  }
+
+  .actions-section {
+    .action-btn {
+      font-size: 12px;
+      padding: 8px;
+    }
+
+    .icon {
+      font-size: 14px;
+    }
+  }
+}
+
+
+
 .example-container {
   display: flex;
   flex-direction: column;

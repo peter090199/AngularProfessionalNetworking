@@ -1,11 +1,13 @@
 import { Component, OnInit,OnDestroy, ElementRef, ViewChild, HostListener } from '@angular/core';
-
+import { Router } from '@angular/router';
+import { ProfileService } from 'src/app/services/Profile/profile.service';
 @Component({
   selector: 'app-home-ui',
   templateUrl: './home-ui.component.html',
   styleUrls: ['./home-ui.component.css']
 })
 export class HomeUIComponent implements OnInit {
+
 createPost() {
 throw new Error('Method not implemented.');
 }
@@ -70,7 +72,7 @@ throw new Error('Method not implemented.');
   page = 1; // Pagination or load more page tracking
   isMobile: boolean = false; 
   
-  constructor() {}
+  constructor(private router:Router,private profile:ProfileService) {}
   
   ismobile: boolean = false;
 
@@ -80,9 +82,27 @@ throw new Error('Method not implemented.');
   }
 
 
+
+  error: any;
+  profiles: any;
+
+
   ngOnInit(): void {
     this.onResize();
+    this.profile.getProfileByUser().subscribe({
+      next: (response) => {
+        if (response.success) {
+          this.profiles = response.message[0]; // Access the first item in the message array
+        } else {
+          this.error = 'Failed to load profile data';
+        }
+      },
+      error: (err) => {
+        this.error = err.message || 'An error occurred while fetching profile data';
+      },
+    });
   }
+
   ngOnDestroy(): void {
     // Clear the interval when the component is destroyed
   
@@ -138,5 +158,5 @@ throw new Error('Method not implemented.');
     }
   }
 
-  
+
 }

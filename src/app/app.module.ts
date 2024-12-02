@@ -17,7 +17,6 @@ import { CookieService } from 'ngx-cookie-service';
 import { FooterComponent } from './footer/footer.component';
 import { SignInUIComponent } from './SignIn/sign-in-ui/sign-in-ui.component';
 import { SignUpUIComponent } from './SignUp/sign-up-ui/sign-up-ui.component';
-import { UsersPortalComponent } from './UserInterface/users-portal/users-portal.component';
 import { PageNotFoundComponentComponent } from './PageError/page-not-found-component/page-not-found-component.component';
 import { TopNavigationComponent } from './Navigation/top-navigation/top-navigation.component';
 import { TermsModalComponent } from './TermsModal/terms-modal/terms-modal.component';
@@ -39,7 +38,7 @@ import { ForgotPasswordUIComponent } from './ComponentSharedUI/forgot-password-u
 import { ResetPasswordUIComponent } from './ComponentSharedUI/reset-password-ui/reset-password-ui.component';
 import { ExpiredLinkDialogComponent } from './ComponentSharedUI/expired-link-dialog/expired-link-dialog.component';
 import { ClientUIComponent } from './SignUp/client-ui/client-ui.component';
-import { FeedUIComponent } from './ComponentSharedUI/home/feed-ui/feed-ui.component';
+
 import { UserhomepageComponent } from './Users/userhomepage/userhomepage.component';
 import { TranslateComponent } from './translate/translate.component';
 import { CookiesUIComponent } from './cookies/cookies-ui/cookies-ui.component';
@@ -51,6 +50,7 @@ import { ProfileComponent } from './layout/profile/profile.component';
 import { TopbarComponent } from './layout/topbar/topbar.component';
 import { environment } from '../environments/environment';
 import { CurriculumVitaeUIComponent } from './ComponentSharedUI/Individual/curriculum-vitae-ui/curriculum-vitae-ui.component';
+import { ProfileUIComponent } from './ComponentSharedUI/Profile/profile-ui/profile-ui.component';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -64,7 +64,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     FooterComponent,
     SignInUIComponent,
     SignUpUIComponent,
-    UsersPortalComponent,
     PageNotFoundComponentComponent,
     TopNavigationComponent,
     TermsModalComponent,
@@ -86,7 +85,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     ResetPasswordUIComponent,
     ExpiredLinkDialogComponent,
     ClientUIComponent,
-    FeedUIComponent,
     TranslateComponent,
     CookiesUIComponent,
     ActivationUIComponent,
@@ -96,6 +94,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfileComponent,
     TopbarComponent,
     CurriculumVitaeUIComponent,
+    ProfileUIComponent,
     
   ],
   imports: [

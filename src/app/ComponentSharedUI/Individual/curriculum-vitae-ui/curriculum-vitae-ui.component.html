@@ -11,7 +11,7 @@
               </div>
               <div class="button-gap">
                 <button mat-raised-button color="warn" type="submit" [disabled]="!selectedFile">Upload</button>
-                <button mat-raised-button color="primary" matStepperNext>Next</button>
+                <!-- <button mat-raised-button color="primary" matStepperNext>Next</button> -->
               </div>
             </form>
           </mat-step>
@@ -43,14 +43,14 @@
         </mat-step> -->
   
         <!-- Step 3: Completion -->
-        <mat-step>
+        <!-- <mat-step>
           <ng-template matStepLabel>Done</ng-template>
           <p>You are now done.</p>
           <div class="button-gap">
             <button mat-raised-button color="warn" matStepperPrevious>Back</button>
             <button mat-raised-button color="primary" (click)="login()">Continue</button>
           </div>
-        </mat-step>
+        </mat-step> -->
       </mat-stepper>
     </header>
   </div>

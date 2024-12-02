@@ -1,0 +1,116 @@
+<div class="profile-container">
+  <!-- Cover Photo -->
+  <div class="cover-photo">
+    <img
+      src="https://via.placeholder.com/1200x300"
+      alt="Cover Photo"
+      class="cover-photo-img"
+    />
+    <button mat-button class="edit-cover-btn">Edit cover photo</button>
+  </div>
+
+  <!-- Profile Info -->
+  <div class="profile-info">
+    <div class="profile-picture">
+      <img
+        src="https://via.placeholder.com/150"
+        alt="Profile Picture"
+        class="profile-img"
+      />
+      <button mat-icon-button class="edit-profile-btn">
+        <mat-icon>photo_camera</mat-icon>
+      </button>
+    </div>
+    <div class="profile-details" *ngIf="profiles">
+      <h1>{{ profiles.fullname }} <small>(My Bio)</small></h1>
+      <p>761 followers · 369 following</p>
+      <button mat-button class="edit-btn">Edit</button>
+    </div>
+  </div>
+
+  <!-- Tabs Section -->
+  <mat-tab-group class="tabs-container" dynamicHeight>
+    <mat-tab label="Posts">
+      <div class="tab-content">
+        <!-- Scrollable Content -->
+        <div class="scrollable-content">
+          <p>Post 1: Lorem ipsum dolor sit amet...</p>
+          <p>Post 2: Consectetur adipiscing elit...</p>
+          <p>Post 3: Sed do eiusmod tempor incididunt...</p>
+          <p>Post 4: Ut labore et dolore magna aliqua...</p>
+          <p>Post 5: Duis aute irure dolor in reprehenderit...</p>
+          <p>Post 6: Sed do eiusmod tempor incididunt...</p>
+          <p>Post 7: Ut labore et dolore magna aliqua...</p>
+          <p>Post 8: Duis aute irure dolor in reprehenderit...</p>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="About">
+      <div class="tab-content">
+        <div class="scrollable-content">
+          <mat-card *ngIf="profiles">
+            <mat-card-header>
+              <mat-card-title>{{ profiles.fullname }}</mat-card-title>
+              <mat-card-subtitle>{{ profiles.profession }}</mat-card-subtitle>
+            </mat-card-header>
+            
+              <mat-card-content>
+                <mat-list>
+                  <mat-list-item>
+                    <span>Full Name: {{ profiles.fullname }}</span>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <span>First Name: {{ profiles.fname }}</span>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <span>Last Name: {{ profiles.lname }}</span>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <span>Contact No: {{ profiles.contact_no }}</span>
+                  </mat-list-item>
+                  <mat-list-item>
+                    <span>Profession: {{ profiles.profession }}</span>
+                  </mat-list-item>
+                  <mat-list-item *ngIf="profiles.industry">
+                    <span>Industry: {{ profiles.industry }}</span>
+                  </mat-list-item>
+                  <mat-list-item *ngIf="profiles.companywebsite">
+                    <span>Company Website: {{ profiles.companywebsite }}</span>
+                  </mat-list-item>
+                </mat-list>
+              </mat-card-content>
+            </mat-card>
+          <br><br>
+          
+          <mat-card *ngIf="!profiles && error">
+            <mat-card-content>
+              <p class="error">Failed to load profile: {{ error }}</p>
+            </mat-card-content>
+          </mat-card>
+          
+          <mat-card *ngIf="!profiles && !error">
+            <mat-card-content>
+              <p>Loading...</p>
+            </mat-card-content>
+          </mat-card>
+          
+          
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="Photos">
+      <div class="tab-content">
+        <div class="scrollable-content">
+          <p>Photos gallery will be displayed here...</p>
+        </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="People">
+      <div class="tab-content">
+        <div class="scrollable-content">
+          <p>People list  will be displayed here...</p>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>
