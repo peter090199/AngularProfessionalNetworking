@@ -51,7 +51,12 @@ section{
   --card-bg-color: #FFFFFF;       /* White background for cards */
   --border-color: #E0E0E0;        /* Light border color for separation */
 }
-
+.button-gap {
+  display: flex;
+  justify-content: flex-start; /* Aligns buttons to the start */
+  gap: 10px; /* Adds a fixed amount of space between buttons */
+  margin-top: 15px; /* Adds space above the button group */
+}
 /* Overall Layout */
 body {
   background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));

@@ -1,115 +1,116 @@
-/* .mat-stepper-horizontal {
-    margin-top: 8px;
-  }
+::ng-deep mat-horizontal-stepper .mat-step-header {
+  display: none;
+}
   
-  .mat-form-field {
-    margin-top: 16px;
+.mat-form-field {
+  width: 100%;
+  margin-top: 2px;
+
+}
+
+.stepper-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-y: auto; /* Enables vertical scrolling if the content overflows */
+  padding: 10px; /* Add padding if needed for spacing */
+}
+
+mat-horizontal-stepper {
+  width: 100%;
+  max-width: 550px;
+  background-color: #fff;
+  padding: 0px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden; /* Ensures the stepper content doesn't overflow its bounds */
+}
+
+
+  h2 {
+    text-align: center;
+    margin: 16px;
+    font-size: 24px; /* Scales for mobile and desktop */
   }
 
-  .user-homepage {
+  mat-divider {
+    margin-bottom: 24px;
+  }
+
+  .form-row {
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    padding: 16px;
-    box-sizing: border-box;
+    gap: 6px;
+    flex-wrap: wrap; /* Ensures wrapping on smaller screens */
   }
-  
-  .header-cv {
-    width: 100%;
-    max-width: 500px; 
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 24px;
-  }
-  
-  .mat-form-field {
-    width: 100%;
-  }
-  
-  .button-gap {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-  }
-  
-  @media (max-width: 768px) {
-    .header-cv {
-      padding: 16px;
-      max-width: 90%;
+    .form-field {
+      flex: 1;
+      min-width: 120px;
     }
-  }
-   */
-/* General Styles */
 
-.header {
-    flex: 0 0 auto;
-  }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: none;
-    color: #fff;
-    padding: 12px;
-    margin-right: 28px;
-    margin-left: 28px;
-  }
-  
-  .header .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    margin-top: 0px;
-  }
-  
-.user-homepage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 16px;
-    box-sizing: border-box;
-  }
-  .full-width {
-    width: 100%;
-  }
-  
-  
-  .header-cv {
-    width: 100%;
-    max-width: 700px; /* Desktop max width */
-    background: white;
-    border-radius: 8px;
-    box-shadow: 2 6px 10px rgba(0, 0, 0, 0.1);
-    padding: 5px;
-    transition: all 0.3s ease; /* Smooth transition for responsiveness */
-    margin: 0px;
-  }
-
-
-  /* Button Gap Styling */
-  .button-gap {
-    display: flex;
-    gap: 5px;
-    justify-content: flex-end;
-  }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .header-cv {
-     width: 100%;
-      max-width: 100%; /* Reduce width on smaller screens */
-      padding: 1px;
-      margin: 2px;
+    .change-link {
+      color: #007bff;
+      text-decoration: underline;
+      cursor: pointer;
     }
-  }
-  
-  @media (max-width: 480px) {
-    .header-cv {
-      max-width: 100%; /* Further reduce width for very small screens */
-      padding: 2px;
+
+    .hide-toggle {
+      margin-left: auto;
     }
   
+
+/* Desktop View */
+@media (min-width: 768px) {
+  /* Styling for larger screens like tablets and desktops */
+  .container {
+    padding: 40px;
   }
-  
+
+  form {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  form > div {
+    flex: 1 1 calc(50% - 20px); /* Ensure each input takes half the width */
+  }
+
+  /* Styling for titles */
+  h1 {
+    font-size: 36px;
+  }
+}
+
+/* Mobile View */
+@media (max-width: 767px) {
+  /* Mobile-specific styles */
+  .container {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 28px;
+  }
+
+  form {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  form > div {
+    flex: 1 1 100%; /* Make each input take full width on smaller screens */
+  }
+
+  /* Adjust button for small screens */
+  button {
+    padding: 12px 30px;
+    font-size: 18px;
+  }
+
+  .add-more {
+    padding: 12px 30px;
+    font-size: 18px;
+  }
+}
