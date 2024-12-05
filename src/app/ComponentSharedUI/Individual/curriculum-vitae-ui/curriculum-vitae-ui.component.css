@@ -3,11 +3,13 @@
 }
   
 .mat-form-field {
-  width: 100%;
-  margin-top: 2px;
+  width: 85%;
+  margin-top: 0px;
 
 }
-
+.example-full-width{
+  width: 83%;
+}
 .stepper-container {
   display: flex;
   justify-content: center;
@@ -35,7 +37,7 @@ mat-horizontal-stepper {
   }
 
   mat-divider {
-    margin-bottom: 24px;
+    margin-bottom: 14px;
   }
 
   .form-row {
@@ -53,12 +55,39 @@ mat-horizontal-stepper {
       color: #007bff;
       text-decoration: underline;
       cursor: pointer;
+      margin-top: 20px;
     }
 
-    .hide-toggle {
+    mat-slide-toggle {
       margin-left: auto;
+      margin-top: 20px;
     }
   
+/* locationformgroup */
+.form-container {
+  width: 400px;
+  margin: 20px auto;
+}
+
+.language-row,
+.skill-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.language-input,
+.skill-input {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.progress-bar {
+  margin-top: 20px;
+  text-align: center;
+}
+
+
 
 /* Desktop View */
 @media (min-width: 768px) {

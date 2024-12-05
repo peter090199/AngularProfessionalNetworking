@@ -65,6 +65,7 @@ body {
   margin: 2px !important;
   overflow: hidden;
 }
+
 .example-container {
   display: flex;
   flex-direction: column;
@@ -384,9 +385,9 @@ h2{
   display: flex;
   align-items: center;/* Space between columns */
   margin-bottom: 0px; /* Space between rows */
-  gap:12px;
-  margin-left: 6px;
-  margin-right: 6px;
+  gap:25px;
+  margin-left: 10px;
+  margin-right: 10px;
 }
 .form-field {
   flex:1;
