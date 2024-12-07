@@ -497,20 +497,40 @@ trainings: any;
 
     });
     
-    // Step 3: Trainings
+    // Step 3: language spoken
     this.thirdFormGroup = this._formBuilder.group({
-      trainings: this._formBuilder.array([]) // Start with an empty training array
+      languages: ['', Validators.required],
+      // languages: this._formBuilder.array([this._formBuilder.control('')]),
+      skills: this._formBuilder.array([]),
     });
-
+    
     // Step 4: Confirmation
-    this.confirmFormGroup = this._formBuilder.group({
-      confirm: ['', Validators.required]
-    });
+    // this.confirmFormGroup = this._formBuilder.group({
+    //   confirm: ['', Validators.required]
+    // });
 
     // Populate capabilities, education, training, seminar, employment, certificate fields
-    this.populateForms();
+   // this.populateForms();
+  }
+  get languages() {
+    return this.thirdFormGroup.get('languages') as FormArray;
   }
 
+  get skills() {
+    return this.thirdFormGroup.get('skills') as FormArray;
+  }
+
+  addLanguage() {
+    this.languages.push(this._formBuilder.control(''));
+  }
+
+  removeLanguage(index: number) {
+    this.languages.removeAt(index);
+  }
+
+  save() {
+    console.log('Profile Saved!');
+  }
   // Populate capabilities, education, training, seminar, employment, certificate into the form
   populateForms(): void {
     // Populate capabilities, education, etc.

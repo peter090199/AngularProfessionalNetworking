@@ -20,6 +20,7 @@ import { ActivationUIComponent } from './ComponentSharedUI/Activation/activation
 import { LayoutComponent } from './layout/layout.component';
 import { CurriculumVitaeUIComponent } from './ComponentSharedUI/Individual/curriculum-vitae-ui/curriculum-vitae-ui.component';
 import { ProfileUIComponent } from './ComponentSharedUI/Profile/profile-ui/profile-ui.component';
+import { UserCVComponent } from './ComponentSharedUI/Individual/user-cv/user-cv.component';
 
 
 const routes: Routes = [
@@ -35,7 +36,7 @@ const routes: Routes = [
   { path: 'reset-password/:email/:token', component: ResetPasswordUIComponent },
   { path: 'activation/:email', component: ActivationUIComponent },
   { path: 'layout', component: LayoutComponent },
-  { path: 'curriculum-vitae', component:CurriculumVitaeUIComponent,canActivate:[AuthGuard] },
+  { path: 'user-cv', component:UserCVComponent,canActivate:[AuthGuard] },
   // Top navigation with sub-routes
   { 
     path: '', 

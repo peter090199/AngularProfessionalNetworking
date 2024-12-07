@@ -51,6 +51,7 @@ import { TopbarComponent } from './layout/topbar/topbar.component';
 import { environment } from '../environments/environment';
 import { CurriculumVitaeUIComponent } from './ComponentSharedUI/Individual/curriculum-vitae-ui/curriculum-vitae-ui.component';
 import { ProfileUIComponent } from './ComponentSharedUI/Profile/profile-ui/profile-ui.component';
+import { UserCVComponent } from './ComponentSharedUI/Individual/user-cv/user-cv.component';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -95,6 +96,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     TopbarComponent,
     CurriculumVitaeUIComponent,
     ProfileUIComponent,
+    UserCVComponent,
     
   ],
   imports: [
