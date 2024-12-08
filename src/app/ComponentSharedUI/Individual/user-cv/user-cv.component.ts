@@ -1,25 +1,7 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-user-cv',
-//   templateUrl: './user-cv.component.html',
-//   styleUrls: ['./user-cv.component.css']
-// })
-// export class UserCVComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import {MatAccordion} from '@angular/material/expansion';
+import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { MatAccordion } from '@angular/material/expansion';
 
-/**
- * @title Accordion with expand/collapse all toggles
- */
 @Component({
   selector: 'app-user-cv',
   templateUrl: './user-cv.component.html',
@@ -27,194 +9,192 @@ import {MatAccordion} from '@angular/material/expansion';
 })
 export class UserCVComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
-  
+
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-  fourthGroup:FormGroup;
+  fourthGroup: FormGroup;
+  fifthFormGroup: FormGroup;  // Added for work experience step
+  sixthFormGroup:FormGroup;
+
+
+  languages: FormArray;
+  skills: FormArray;
+  educationStatus: string = 'graduate'; 
+  educationStatus2: string = 'graduate'; 
 
   countryCodes = [
     { code: '+1', country: 'USA/Canada' },
     { code: '+7', country: 'Russia/Kazakhstan' },
     { code: '+20', country: 'Egypt' },
     { code: '+27', country: 'South Africa' },
-    { code: '+30', country: 'Greece' },
-    { code: '+31', country: 'Netherlands' },
-    { code: '+32', country: 'Belgium' },
-    { code: '+33', country: 'France' },
-    { code: '+34', country: 'Spain' },
-    { code: '+36', country: 'Hungary' },
-    { code: '+39', country: 'Italy' },
-    { code: '+40', country: 'Romania' },
-    { code: '+41', country: 'Switzerland' },
-    { code: '+43', country: 'Austria' },
-    { code: '+44', country: 'UK' },
-    { code: '+45', country: 'Denmark' },
-    { code: '+46', country: 'Sweden' },
-    { code: '+47', country: 'Norway' },
-    { code: '+48', country: 'Poland' },
-    { code: '+49', country: 'Germany' },
-    { code: '+52', country: 'Mexico' },
-    { code: '+54', country: 'Argentina' },
-    { code: '+55', country: 'Brazil' },
-    { code: '+56', country: 'Chile' },
-    { code: '+57', country: 'Colombia' },
-    { code: '+58', country: 'Venezuela' },
-    { code: '+60', country: 'Malaysia' },
-    { code: '+61', country: 'Australia' },
-    { code: '+62', country: 'Indonesia' },
-    { code: '+63', country: 'Philippines' },
-    { code: '+64', country: 'New Zealand' },
-    { code: '+65', country: 'Singapore' },
-    { code: '+66', country: 'Thailand' },
-    { code: '+81', country: 'Japan' },
-    { code: '+82', country: 'South Korea' },
-    { code: '+84', country: 'Vietnam' },
-    { code: '+86', country: 'China' },
-    { code: '+90', country: 'Turkey' },
-    { code: '+91', country: 'India' },
-    { code: '+92', country: 'Pakistan' },
-    { code: '+93', country: 'Afghanistan' },
-    { code: '+94', country: 'Sri Lanka' },
-    { code: '+95', country: 'Myanmar' },
-    { code: '+98', country: 'Iran' },
-    { code: '+212', country: 'Morocco' },
-    { code: '+213', country: 'Algeria' },
-    { code: '+216', country: 'Tunisia' },
-    { code: '+218', country: 'Libya' },
-    { code: '+220', country: 'Gambia' },
-    { code: '+221', country: 'Senegal' },
-    { code: '+234', country: 'Nigeria' },
-    { code: '+251', country: 'Ethiopia' },
-    { code: '+254', country: 'Kenya' },
-    { code: '+255', country: 'Tanzania' },
-    { code: '+256', country: 'Uganda' },
-    { code: '+260', country: 'Zambia' },
-    { code: '+263', country: 'Zimbabwe' },
-    { code: '+298', country: 'Faroe Islands' },
-    { code: '+351', country: 'Portugal' },
-    { code: '+352', country: 'Luxembourg' },
-    { code: '+353', country: 'Ireland' },
-    { code: '+354', country: 'Iceland' },
-    { code: '+355', country: 'Albania' },
-    { code: '+356', country: 'Malta' },
-    { code: '+357', country: 'Cyprus' },
-    { code: '+358', country: 'Finland' },
-    { code: '+370', country: 'Lithuania' },
-    { code: '+371', country: 'Latvia' },
-    { code: '+372', country: 'Estonia' },
-    { code: '+380', country: 'Ukraine' },
-    { code: '+385', country: 'Croatia' },
-    { code: '+386', country: 'Slovenia' },
-    { code: '+387', country: 'Bosnia and Herzegovina' },
-    { code: '+389', country: 'North Macedonia' },
-    { code: '+420', country: 'Czech Republic' },
-    { code: '+421', country: 'Slovakia' },
-    { code: '+423', country: 'Liechtenstein' },
-    { code: '+971', country: 'UAE' },
-    { code: '+972', country: 'Israel' },
-    { code: '+973', country: 'Bahrain' },
-    { code: '+974', country: 'Qatar' },
-    { code: '+975', country: 'Bhutan' },
-    { code: '+976', country: 'Mongolia' },
-    { code: '+977', country: 'Nepal' },
-    { code: '+992', country: 'Tajikistan' },
-    { code: '+993', country: 'Turkmenistan' },
-    { code: '+994', country: 'Azerbaijan' },
-    { code: '+995', country: 'Georgia' },
-    { code: '+996', country: 'Kyrgyzstan' },
-    { code: '+998', country: 'Uzbekistan' },
-    // Add additional codes as needed
-];
-  constructor(private _formBuilder: FormBuilder) {}
+    // More country codes...
+  ];
+
+  skillsText: string = '';  // Input-bound text for skills
+  skillsList: string[] = [];  // List of parsed skills
+
+  constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    // Initialize the first form group with basic information fields
-    this.firstFormGroup = this._formBuilder.group({
+    this.initializeFormGroups();
+  }
+
+  // Initialize form groups with controls and validators
+  private initializeFormGroups(): void {
+    this.firstFormGroup = this.formBuilder.group({
       firstName: ['', Validators.required],
       familyName: ['', Validators.required],
-      photo_pic: ['', Validators.required],
+      photo_pic: [null, Validators.required],
       profession: ['', Validators.required],
-      contactNo: ['', Validators.required],
+      contactNo: ['', [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)]],
       email: ['', [Validators.required, Validators.email]],
       dateOfBirth: ['', Validators.required],
     });
 
-    // Initialize the second form group with location details
-    this.secondFormGroup = this._formBuilder.group({
+    this.secondFormGroup = this.formBuilder.group({
       home_country: ['', Validators.required],
-      city_state: ['', Validators.required],
       current_country: ['', Validators.required],
+      city_state: ['', Validators.required],
       current_city_state: ['', Validators.required],
     });
 
-    // Initialize the third form group with language and skills
-    this.thirdFormGroup = this._formBuilder.group({
-      languages: this._formBuilder.array([this._formBuilder.control('')]), // FormArray for languages
-      skills: this._formBuilder.array([this._formBuilder.control('')]),    // FormArray for skills
+    this.thirdFormGroup = this.formBuilder.group({
+      languages: this.formBuilder.array([this.createLanguageControl()]),
+      skills: this.formBuilder.array([this.createSkillControl()]),
     });
-    this.fourthGroup = this._formBuilder.group({
-      hEducation: ['', Validators.required],
-      sNAME: ['', Validators.required],
-      current_country: ['', Validators.required],
-      current_city_state: ['', Validators.required],
+    this.languages = this.thirdFormGroup.get('languages') as FormArray;
+    this.skills = this.thirdFormGroup.get('skills') as FormArray;
+
+    this.fourthGroup = this.formBuilder.group(
+      {
+        hEducation: ['', Validators.required],
+        schoolName: ['', Validators.required],
+        start: [null, Validators.required],
+        end: [null, Validators.required],
+        major_course:[''],
+        schoolName2:[''],
+        educationStatus2:[''],
+        start_DateyearEntry: [null],
+        end_DateyearEntry: [null],
+
+      },
+      {
+        validators: [this.dateRangeValidator, this.dateRangeValidator2]
+      }
+      
+    );
+
+    this.fifthFormGroup = this.formBuilder.group({
+      training_title:['',Validators.required],
+      training_provider:['',Validators.required],
+      date_completed: [null, Validators.required],
+      training_title2:[''],
+      training_provider2:['']
     });
+    
+    this.sixthFormGroup = this.formBuilder.group({
+      seminar_title:['',Validators.required],
+      seminar_provider:['',Validators.required],
+      seminarDate_completed: [null, Validators.required],
+      seminar_title2:[''],
+      seminar_provider2:['']
+    });
+  }
+
+  // Validator to ensure start date is before end date for education and work experience
+  private dateRangeValidator(group: FormGroup): { [key: string]: boolean } | null {
+    const start = group.get('start')?.value;
+    const end = group.get('end')?.value;
+    if (start && end && new Date(start) > new Date(end)) {
+      return { invalidRange: true };
+    }
+    return null;
+  }
+  private dateRangeValidator2(group: FormGroup): { [key: string]: boolean } | null {
+    const start = group.get('start')?.value;
+    const end = group.get('end')?.value;
+    if (start && end && new Date(start) > new Date(end)) {
+      return { invalidRange: true };
+    }
+    return null;
+  }
+
+
+  // Getter for skills FormArray
+  get skillsArray(): FormArray {
+    return this.thirdFormGroup.get('skills') as FormArray;
   }
 
   // Getter for languages FormArray
-  get languages() {
-    return (this.thirdFormGroup.get('languages') as FormArray);
-  }
-
-  // Getter for skills FormArray
-  get skills() {
-    return (this.thirdFormGroup.get('skills') as FormArray);
+  get languagesArray(): FormArray {
+    return this.thirdFormGroup.get('languages') as FormArray;
   }
 
   // Add a new language field
-  addLanguage() {
-    this.languages.push(this._formBuilder.control(''));
+  addLanguage(): void {
+    this.languagesArray.push(this.createLanguageControl());
   }
 
   // Remove a language field
-  removeLanguage(index: number) {
-    this.languages.removeAt(index);
+  removeLanguage(index: number): void {
+    this.languagesArray.removeAt(index);
   }
 
   // Add a new skill field
-  addSkill() {
-    this.skills.push(this._formBuilder.control(''));
+  addSkill(): void {
+    this.skillsArray.push(this.createSkillControl());
   }
 
   // Remove a skill field
-  removeSkill(index: number) {
-    this.skills.removeAt(index);
+  removeSkill(index: number): void {
+    this.skillsArray.removeAt(index);
   }
 
-  // Save and complete form
-  save() {
-    if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.thirdFormGroup.valid) {
-      console.log('Form Data:', {
-        firstForm: this.firstFormGroup.value,
-        secondForm: this.secondFormGroup.value,
-        thirdForm: this.thirdFormGroup.value
-      });
-    } else {
-      console.log('Form is invalid');
-    }
+  // Create a new FormControl for languages
+  private createLanguageControl(): FormControl {
+    return this.formBuilder.control('');
   }
-  skillsText: string = ''; // To bind the input text
-  skillsList: string[] = []; // List to store individual skills
+
+  // Create a new FormControl for skills
+  private createSkillControl(): FormControl {
+    return this.formBuilder.control('');
+  }
 
   // Update skills list based on input text
   updateSkillsList(): void {
-    this.skillsList = this.skillsText.split('\n').map(skill => skill.trim()).filter(skill => skill !== '');
+    this.skillsList = this.skillsText
+      .split('\n')
+      .map(skill => skill.trim())
+      .filter(skill => skill !== '');
   }
-  // Handle file selection (for photo_pic field)
-  onFileSelected(event: any) {
-    const file = event.target.files[0];
-    this.firstFormGroup.patchValue({
-      photo_pic: file
-    });
+
+  // Handle file selection for photo_pic field
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.firstFormGroup.patchValue({ photo_pic: file });
+    }
+  }
+
+  // Save and complete the form
+  save(): void {
+    if (
+      this.firstFormGroup.valid &&
+      this.secondFormGroup.valid &&
+     // this.fourthGroup.valid &&
+      this.fifthFormGroup.valid
+    ) {
+      console.log('Form Data:', {
+        firstForm: this.firstFormGroup.value,
+        secondForm: this.secondFormGroup.value,
+        thirdForm: this.thirdFormGroup.value,
+        fourthGroup: this.fourthGroup.value,
+        fifthForm: this.fifthFormGroup.value,
+      });
+    } else {
+      console.error('Form is invalid');
+    }
   }
 }

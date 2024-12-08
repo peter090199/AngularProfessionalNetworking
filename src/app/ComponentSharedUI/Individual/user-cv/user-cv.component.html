@@ -1,210 +1,487 @@
 <div class="stepper-container">
-    <mat-horizontal-stepper [linear]="true" #stepper>
-      <!-- Step 1: Basic Information -->
-      <mat-step [stepControl]="firstFormGroup">
-        <form [formGroup]="firstFormGroup">
-          <ng-template matStepLabel>Basic Information</ng-template>
-          <div class="profile-container">
-            <h2>Build Your Profile</h2>
-            <mat-divider></mat-divider>
-  
-            <!-- Name Fields -->
-            <div class="form-row">
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>First Name</mat-label>
-                <input matInput formControlName="firstName" required />
-              </mat-form-field>
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>Family Name</mat-label>
-                <input matInput formControlName="familyName" required />
-              </mat-form-field>
-            </div>
-  
-            <!-- File Upload -->
-            <div class="form-row">
-              <input
-                type="file"
-                (change)="onFileSelected($event)"
-                accept=".pdf"
-                formControlName="photo_pic"
-              />
-            </div>
-  
-            <!-- Other Basic Details -->
-            <div class="form-row">
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>Profession</mat-label>
-                <input matInput formControlName="profession" required />
-              </mat-form-field>
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>Contact Number</mat-label>
-                <input matInput formControlName="contactNo" required />
-              </mat-form-field>
-            </div>
-  
-            <!-- Email -->
-            <div class="form-row">
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>Email</mat-label>
-                <input matInput formControlName="email" required />
-              </mat-form-field>
-            </div>
-  
-            <!-- Date of Birth -->
-            <div class="form-row">
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>Date of Birth</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" required />
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
-            </div>
-  
-            <!-- Navigation -->
-            <div>
-              <button mat-raised-button color="primary" matStepperNext [disabled]="firstFormGroup.invalid">
-                Next
-              </button>
-            </div>
-          </div>
-        </form>
-      </mat-step>
-  
-      <!-- Step 2: Location Details -->
-      <mat-step [stepControl]="secondFormGroup">
-        <form [formGroup]="secondFormGroup">
-          <ng-template matStepLabel>Location Details</ng-template>
-          <div class="profile-container">
-            <h2>Build Your Profile</h2>
-            <mat-divider></mat-divider>
-  
-            <!-- Home Country -->
-            <div class="form-row">
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>Your Home Country</mat-label>
-                <mat-select formControlName="home_country" required>
-                  <mat-option *ngFor="let country of countryCodes" [value]="country.country">
-                    {{ country.country }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>City, State</mat-label>
-                <input matInput formControlName="city_state" required />
-              </mat-form-field>
-            </div>
-  
-            <!-- Current Location -->
-            <div class="form-row">
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>Your Current Country</mat-label>
-                <mat-select formControlName="current_country" required>
-                  <mat-option *ngFor="let country of countryCodes" [value]="country.country">
-                    {{ country.country }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>City, State</mat-label>
-                <input matInput formControlName="current_city_state" required />
-              </mat-form-field>
-            </div>
-  
-            <!-- Navigation -->
-            <div class="button-gap">
-              <button mat-raised-button color="warn" matStepperPrevious>Back</button>
-              <button mat-raised-button color="primary" matStepperNext [disabled]="secondFormGroup.invalid">
-                Next
-              </button>
-            </div>
-          </div>
-        </form>
-      </mat-step>
-  
-      <!-- Step 3: Language and Skills -->
-      <mat-step [stepControl]="thirdFormGroup">
-        <form [formGroup]="thirdFormGroup">
-          <ng-template matStepLabel>Language and Skills</ng-template>
-          <div class="profile-container">
-            <h2>Build Your Profile</h2>
-            <mat-divider></mat-divider>
-  
-            <!-- Language Section -->
-            <div formArrayName="languages">
-              <label>Languages Spoken</label>
-              <div *ngFor="let language of languages.controls; let i = index">
-                <mat-form-field appearance="standard" class="form-field">
-                  <input matInput [formControlName]="i" placeholder="Enter a language" />
-                </mat-form-field>
-                <button mat-icon-button color="warn" (click)="removeLanguage(i)"><mat-icon>delete</mat-icon></button>
-              </div>
-              <button mat-icon-button color="primary" (click)="addLanguage()">
-                 <mat-icon>add</mat-icon> <span>Add more</span>
-             </button>
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <!-- Step 1: Basic Information -->
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Basic Information</ng-template>
+        <div class="profile-container">
+          <h2>Build Your Profile</h2>
+          <mat-divider></mat-divider>
 
+          <!-- Name Fields -->
+          <div class="form-row">
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstName" required />
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>Family Name</mat-label>
+              <input matInput formControlName="familyName" required />
+            </mat-form-field>
+          </div>
+
+          <!-- File Upload -->
+          <div class="form-row">
+            <mat-label>Upload Your Profile Picture</mat-label>
+            <input
+              type="file"
+              (change)="onFileSelected($event)"
+              accept="image/*"
+              class="file-input"
+            />
+            <mat-error *ngIf="firstFormGroup.get('photo_pic')?.invalid">
+              Photo is required
+            </mat-error>
+          </div>
+
+
+          <!-- Other Basic Details -->
+          <div class="form-row">
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>Profession</mat-label>
+              <input matInput formControlName="profession" required />
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>Contact Number</mat-label>
+              <input matInput formControlName="contactNo" required />
+            </mat-form-field>
+
+            <a class="change-link">Change</a>
+            <mat-slide-toggle>Hide</mat-slide-toggle>
+          </div>
+
+          <!-- Email -->
+          <div class="form-row">
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" required />
+            </mat-form-field>
+
+            <a class="change-link">Change</a>
+            <mat-slide-toggle>Hide</mat-slide-toggle>
+          </div>
+
+          <!-- Date of Birth -->
+          <div class="form-row">
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>Date of Birth</mat-label>  
+              <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" required />
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <a class="change-link">Change</a>
+            <mat-slide-toggle>Hide</mat-slide-toggle>
+          </div>
+
+          <!-- Navigation -->
+          <div>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="firstFormGroup.invalid">
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 2: Location Details -->
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Location Details</ng-template>
+        <div class="profile-container">
+          <h2>Build Your Profile</h2>
+          <mat-divider></mat-divider>
+
+          <!-- Home Country -->
+          <div class="form-row">
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>Your Home Country</mat-label>
+              <mat-select formControlName="home_country" required>
+                <mat-option *ngFor="let country of countryCodes" [value]="country.country">
+                  {{ country.country }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>City, State</mat-label>
+              <input matInput formControlName="city_state" required />
+            </mat-form-field>
+          </div>
+
+          <!-- Current Location -->
+          <div class="form-row">
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>Your Current Country</mat-label>
+              <mat-select formControlName="current_country" required>
+                <mat-option *ngFor="let country of countryCodes" [value]="country.country">
+                  {{ country.country }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>City, State</mat-label>
+              <input matInput formControlName="current_city_state" required />
+            </mat-form-field>
+          </div>
+
+          <!-- Navigation -->
+          <div class="button-gap">
+            <button mat-raised-button color="warn" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext [disabled]="secondFormGroup.invalid">
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+
+    <!-- Step 3: Language and Skills -->
+    <mat-step [stepControl]="thirdFormGroup">
+      <form [formGroup]="thirdFormGroup">
+        <ng-template matStepLabel>Language and Skills</ng-template>
+        <div class="profile-container">
+          <h2>Build Your Profile</h2>
+          <mat-divider></mat-divider>
+    
+          <!-- Language Section -->
+          <div formArrayName="languages">
+            <label>Languages Spoken</label>
+            <div *ngFor="let language of languages.controls; let i = index">
+              <mat-form-field appearance="standard" class="form-field">
+                <input matInput [formControlName]="i" placeholder="Enter a language" />
+              </mat-form-field>
+              <button mat-icon-button color="warn" (click)="removeLanguage(i)">
+                <mat-icon>delete</mat-icon>
+              </button>
             </div>
-            <div class="spacer-top"></div>
-          
-        <mat-accordion class="example-headers-align" multi>
-            <!-- #enddocregion multi -->
+            <button mat-icon-button color="primary" (click)="addLanguage()">
+              <mat-icon>add</mat-icon> <span>Add more</span>
+            </button>
+          </div>
+    
+          <div class="spacer-top"></div>
+    
+          <mat-accordion class="example-headers-align" multi>
             <mat-expansion-panel>
-                <mat-expansion-panel-header>
+              <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <div>
-                        <span>Skills</span>
-                    </div>
-                </mat-panel-title>
-                
-                </mat-expansion-panel-header>
-                 <div class="skills-container">
-                    <textarea [(ngModel)]="skillsText" (ngModelChange)="updateSkillsList()"></textarea>
-                    <ul class="skills-list">
-                      <li *ngFor="let skill of skillsList">{{ skill }}</li>
-                    </ul>
+                  <div>
+                    <span>Skills</span>
                   </div>
-                  
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="skills-container">
+                <textarea [(ngModel)]="skillsText" (ngModelChange)="updateSkillsList()"></textarea>
+                <ul class="skills-list">
+                  <li *ngFor="let skill of skillsList">{{ skill }}</li>
+                </ul>
+              </div>
             </mat-expansion-panel>
-            </mat-accordion>
-            <!-- Save and Completion -->
-            <div class="button-gap">
+          </mat-accordion>
+    
+          <!-- Save and Completion -->
+          <div class="button-gap">
+            <button mat-raised-button color="warn" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" matStepperNext >
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    
+    <!-- STEP 4 FOURTHGROUP education -->
+    <mat-step [stepControl]="fourthGroup">
+      <form [formGroup]="fourthGroup">
+        <ng-template matStepLabel>Location Details</ng-template>
+        <div class="profile-container">
+          <h2>Build Your Profile</h2>
+          <mat-divider></mat-divider>
+    
+          <label>Education</label>
+          <div mat-dialog-content>
+            <!-- Education Attainment Field -->
+            <mat-form-field appearance="standard" class="full-width">
+              <mat-label>Education Attainment</mat-label>
+              <input 
+                matInput 
+                placeholder="Highest Education Attainment" 
+                autocomplete="off" 
+                required 
+                formControlName="hEducation">
+            </mat-form-field>
+    
+            <!-- School Name Field -->
+            <mat-form-field appearance="standard" class="full-width">
+              <mat-label>School Name</mat-label>
+              <input 
+                matInput 
+                placeholder="School Name" 
+                autocomplete="off" 
+                required 
+                formControlName="schoolName">
+            </mat-form-field>
+    
+            <!-- Date Range Picker -->
+            <div class="form-row">
+              <mat-form-field appearance="standard" class="form-field">
+                <mat-label>Start Date</mat-label>  
+                <input matInput [matDatepicker]="startPicker" formControlName="start" required />
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+              </mat-form-field>
+              
+              <mat-form-field appearance="standard" class="form-field">
+                <mat-label>End Date</mat-label>  
+                <input matInput [matDatepicker]="endPicker" formControlName="end" required />
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+              </mat-form-field>
+              
+            </div>
+            <mat-radio-group class="education-status" [(ngModel)]="educationStatus">
+              <mat-radio-button value="graduate">Graduate</mat-radio-button>
+              <mat-radio-button value="undergraduate">Undergraduate</mat-radio-button>
+              <mat-radio-button value="ongoing">Ongoing</mat-radio-button>
+            </mat-radio-group>
+
+          </div>
+
+          <mat-accordion class="example-headers-align" multi>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  <div class="change-link">Add More</div>
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+          
+              <!-- Education Course Form Fields -->
+              <mat-form-field appearance="standard" class="full-width">
+                <mat-label>Education Course</mat-label>
+                <input matInput placeholder="Enter Major/Course" formControlName="major_course">
+              </mat-form-field>
+          
+              <mat-form-field appearance="standard" class="full-width">
+                <mat-label>School Name</mat-label>
+                <input matInput placeholder="Enter School Name" formControlName="schoolName2">
+              </mat-form-field>
+          
+              <div class="form-row">
+                <!-- Start Date -->
+                <mat-form-field appearance="standard" class="form-field">
+                  <mat-label>Start Date</mat-label>  
+                  <input matInput [matDatepicker]="educDateyearEntry" formControlName="start_DateyearEntry"  />
+                  <mat-datepicker-toggle matSuffix [for]="educDateyearEntry"></mat-datepicker-toggle>
+                  <mat-datepicker #educDateyearEntry></mat-datepicker>
+                </mat-form-field>
+          
+                <!-- End Date -->
+                <mat-form-field appearance="standard" class="form-field">
+                  <mat-label>End Date</mat-label>  
+                  <input matInput [matDatepicker]="endDateyearEntry" formControlName="end_DateyearEntry" />
+                  <mat-datepicker-toggle matSuffix [for]="endDateyearEntry"></mat-datepicker-toggle>
+                  <mat-datepicker #endDateyearEntry></mat-datepicker>
+                </mat-form-field>
+              </div>
+          
+              <mat-radio-group class="education-status" formControlName="educationStatus2">
+                <mat-radio-button value="graduate">Graduate</mat-radio-button>
+                <mat-radio-button value="undergraduate">Undergraduate</mat-radio-button>
+                <mat-radio-button value="ongoing">Ongoing</mat-radio-button>
+              </mat-radio-group>
+              
+
+            </mat-expansion-panel>
+          </mat-accordion>
+          
+          <div class="spacer-top"></div>
+          <!-- Navigation Buttons -->
+          <div class="button-gap">
+            <button mat-raised-button color="warn" matStepperPrevious>Back</button>
+            <button 
+              mat-raised-button 
+              color="primary" 
+              matStepperNext 
+              >
+              Next
+            </button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+        <!-- STEP 5 FITHGROUP TRAININGS -->
+        <mat-step [stepControl]="fifthFormGroup">
+          <form [formGroup]="fifthFormGroup">
+            <ng-template matStepLabel>Trainings</ng-template>
+            <div class="profile-container">
+              <h2>Build Your Profile</h2>
+              <mat-divider></mat-divider>
+        
+              <label>Trainings</label>
+              <div mat-dialog-content>
+                <!-- Education Attainment Field -->
+                <mat-form-field appearance="standard" class="full-width">
+                  <mat-label>Training Title</mat-label>
+                  <input 
+                    matInput 
+                    placeholder="Enter Training Title" 
+                    autocomplete="off" 
+                    required 
+                    formControlName="training_title">
+                </mat-form-field>
+        
+                <!-- School Name Field -->
+                <mat-form-field appearance="standard" class="full-width">
+                  <mat-label>Training Provider</mat-label>
+                  <input 
+                    matInput 
+                    placeholder="Enter Training Provider" 
+                    autocomplete="off" 
+                    required 
+                    formControlName="training_provider">
+                </mat-form-field>
+        
+                <!-- Date Range Picker -->
+                  <mat-form-field appearance="standard" class="full-width">
+                    <mat-label>Date Completed</mat-label>  
+                    <input matInput [matDatepicker]="datecompleted" formControlName="date_completed" required />
+                    <mat-datepicker-toggle matSuffix [for]="datecompleted"></mat-datepicker-toggle>
+                    <mat-datepicker #datecompleted></mat-datepicker>
+                  </mat-form-field>
+              </div>
+        
+              <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                     <div class="change-link">  Add More </div>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+              
+                  <mat-form-field appearance="standard" class="full-width">
+                    <mat-label>Training Title</mat-label>
+                    <input 
+                      matInput 
+                      placeholder="Enter Training Title" 
+                      formControlName="training_title2">
+                  </mat-form-field>
+
+                  <mat-form-field appearance="standard" class="full-width">
+                    <mat-label>Training Provider</mat-label>
+                    <input 
+                      matInput 
+                      placeholder="Enter Training Provider" 
+                      formControlName="training_provider2">
+                  </mat-form-field>
+          
+              
+                </mat-expansion-panel>
+              
+              </mat-accordion>
+
+              
+              <div class="spacer-top"></div>
+              <!-- Navigation Buttons -->
+              <div class="button-gap">
                 <button mat-raised-button color="warn" matStepperPrevious>Back</button>
-                <button mat-raised-button color="primary" matStepperNext [disabled]="thirdFormGroup.invalid">
+                <button 
+                  mat-raised-button 
+                  color="primary" 
+                  matStepperNext 
+                  [disabled]="fifthFormGroup.invalid">
                   Next
                 </button>
               </div>
-          </div>
-        </form>
-      </mat-step>
-
-      <!-- STEP 4 FOURTHGROUP education -->
-      <mat-step [stepControl]="fourthGroup">
-        <form [formGroup]="fourthGroup">
-          <ng-template matStepLabel>Location Details</ng-template>
-          <div class="profile-container">
-            <h2>Build Your Profile</h2>
-            <mat-divider></mat-divider>
-  
-            <div class="form-row">
-              <mat-form-field appearance="standard" class="form-field">
-                <mat-label>Education</mat-label>
-                <mat-form-field appearance="standard" >
-                    <input matInput formControlName="hEducation" placeholder="Highest Education Attainment" />
-                </mat-form-field>
-              </mat-form-field>
-           
             </div>
-  
+          </form>
+        </mat-step>
+
+         <!-- STEP 6 SIXTHGROUP SEMINARS -->
+         <mat-step [stepControl]="sixthFormGroup">
+          <form [formGroup]="sixthFormGroup">
+            <ng-template matStepLabel>Seminars</ng-template>
+            <div class="profile-container">
+              <h2>Build Your Profile</h2>
+              <mat-divider></mat-divider>
         
-            <div class="button-gap">
-              <button mat-raised-button color="warn" matStepperPrevious>Back</button>
-              <button mat-raised-button color="primary" matStepperNext [disabled]="fourthGroup.invalid">
-                Next
-              </button>
-            </div>
-          </div>
-        </form>
-      </mat-step>
+              <label>Seminars</label>
+              <div mat-dialog-content>
+                <!-- Seminar title Field -->
+                <mat-form-field appearance="standard" class="full-width">
+                  <mat-label>Seminar Title</mat-label>
+                  <input 
+                    matInput 
+                    placeholder="Enter Seminar Title" 
+                    autocomplete="off" 
+                    required 
+                    formControlName="seminar_title">
+                </mat-form-field>
+        
+                <!-- seminar provider Name Field -->
+                <mat-form-field appearance="standard" class="full-width">
+                  <mat-label>Seminar Provider</mat-label>
+                  <input 
+                    matInput 
+                    placeholder="Enter Seminar Provider" 
+                    autocomplete="off" 
+                    required 
+                    formControlName="seminar_provider">
+                </mat-form-field>
+        
+                <!-- Date Range Picker -->
+                  <mat-form-field appearance="standard" class="full-width">
+                    <mat-label>Date Completed</mat-label>  
+                    <input matInput [matDatepicker]="seminarDateCompleted" formControlName="seminarDate_completed" required />
+                    <mat-datepicker-toggle matSuffix [for]="seminarDateCompleted"></mat-datepicker-toggle>
+                    <mat-datepicker #seminarDateCompleted></mat-datepicker>
+                  </mat-form-field>
+              </div>
+        
+              <mat-accordion class="example-headers-align" multi>
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                     <div class="change-link">  Add More </div>
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+              
+                  <mat-form-field appearance="standard" class="full-width">
+                    <mat-label>Seminar Title</mat-label>
+                    <input 
+                      matInput 
+                      placeholder="Enter Seminar Title" 
+                      formControlName="seminar_title2">
+                  </mat-form-field>
 
-    </mat-horizontal-stepper>
-  </div>
-  
+                  <mat-form-field appearance="standard" class="full-width">
+                    <mat-label>Training Provider</mat-label>
+                    <input 
+                      matInput 
+                      placeholder="Enter Seminar Provider" 
+                      formControlName="seminar_provider2">
+                  </mat-form-field>
+          
+              
+                </mat-expansion-panel>
+              
+              </mat-accordion>
+
+              
+              <div class="spacer-top"></div>
+              <!-- Navigation Buttons -->
+              <div class="button-gap">
+                <button mat-raised-button color="warn" matStepperPrevious>Back</button>
+                <button 
+                  mat-raised-button 
+                  color="primary" 
+                  matStepperNext 
+                 >
+                  Next
+                </button>
+              </div>
+            </div>
+          </form>
+        </mat-step>
+
+  </mat-horizontal-stepper>
+</div>
