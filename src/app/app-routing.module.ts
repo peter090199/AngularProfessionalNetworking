@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'reset-password/:email/:token', component: ResetPasswordUIComponent },
   { path: 'activation/:email', component: ActivationUIComponent },
   { path: 'layout', component: LayoutComponent },
- // { path: 'user-cv', component:UserCVComponent},
+  { path: 'curriculum-vitae', component:CurriculumVitaeUIComponent,canActivate:[AuthGuard] },
   { path: 'user-cv', component:UserCVComponent,canActivate:[AuthGuard] },
   // Top navigation with sub-routes
   { 

@@ -7,6 +7,9 @@
   margin-top: 0px;
 
 }
+.full-width{
+  width: 100%;
+}
 .example-full-width{
   width: 83%;
 }
@@ -14,19 +17,80 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  overflow-y: auto; /* Enables vertical scrolling if the content overflows */
-  padding: 10px; /* Add padding if needed for spacing */
+  min-height: 90vh;
+  width: 100%;
+  margin: 30px;
+  overflow-y: auto;
 }
 
 mat-horizontal-stepper {
   width: 100%;
-  max-width: 550px;
+  max-width: 650px;
   background-color: #fff;
   padding: 0px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  overflow: hidden; /* Ensures the stepper content doesn't overflow its bounds */
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 600px;
+  
+}
+
+/* General Styles for the Education Status */
+.education-status {
+display: flex;
+justify-content: space-between;
+gap: 15px;
+align-items: center;
+font-family: Arial, sans-serif;
+padding: 10px;
+}
+
+mat-radio-button {
+color: #0076b6;
+font-size: 16px;
+display: inline-block;
+}
+
+/* When a radio button is checked, change the color */
+mat-radio-button.mat-radio-checked {
+color: #004b70;
+}
+
+/* Desktop view */
+@media screen and (min-width: 1024px) {
+.education-status {
+  flex-direction: row; /* Horizontal layout on large screens */
+  justify-content: space-evenly;
+}
+
+mat-radio-button {
+  font-size: 18px; /* Larger font size on desktop */
+}
+}
+
+/* Tablet and mobile view */
+@media screen and (max-width: 1023px) {
+.education-status {
+  flex-direction: column; /* Stack radio buttons vertically on smaller screens */
+  align-items: flex-start;
+}
+
+mat-radio-button {
+  font-size: 16px; /* Maintain readability on smaller screens */
+  margin-bottom: 10px; /* Add spacing between the radio buttons */
+}
+}
+
+/* Mobile view (small devices like phones) */
+@media screen and (max-width: 600px) {
+.education-status {
+  padding: 5px; /* Less padding on small screens */
+}
+
+mat-radio-button {
+  font-size: 14px; /* Smaller font size for mobile */
+}
 }
 
 
@@ -53,7 +117,7 @@ mat-horizontal-stepper {
 
     .change-link {
       color: #007bff;
-      text-decoration: underline;
+      text-decoration: none;
       cursor: pointer;
       margin-top: 20px;
     }
@@ -134,12 +198,52 @@ mat-horizontal-stepper {
 
   /* Adjust button for small screens */
   button {
-    padding: 12px 30px;
     font-size: 18px;
   }
 
-  .add-more {
-    padding: 12px 30px;
-    font-size: 18px;
-  }
+
+}
+.skills-container {
+  padding: 0px;
+  width: fit-content;
+}
+
+.skills-container h3 {
+  color: #4b87d1;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+textarea {
+  width: 430px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.skills-list {
+  list-style-type: square;
+  padding-left: 20px;
+  margin: 0;
+}
+
+.skills-list li {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.example-headers-align .mat-expansion-panel-header-title,
+.example-headers-align .mat-expansion-panel-header-description {
+  flex-basis: 0;
+}
+
+.example-headers-align .mat-expansion-panel-header-description {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.example-headers-align .mat-form-field + .mat-form-field {
+  margin-left: 8px;
 }

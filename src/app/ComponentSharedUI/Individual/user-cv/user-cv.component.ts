@@ -8,20 +8,12 @@ import { MatAccordion } from '@angular/material/expansion';
   styleUrls: ['./user-cv.component.css']
 })
 export class UserCVComponent implements OnInit {
+
   @ViewChild(MatAccordion) accordion: MatAccordion;
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-  fourthGroup: FormGroup;
-  fifthFormGroup: FormGroup;  // Added for work experience step
-  sixthFormGroup:FormGroup;
-
-
-  languages: FormArray;
-  skills: FormArray;
-  educationStatus: string = 'graduate'; 
-  educationStatus2: string = 'graduate'; 
 
   countryCodes = [
     { code: '+1', country: 'USA/Canada' },
@@ -31,167 +23,115 @@ export class UserCVComponent implements OnInit {
     // More country codes...
   ];
 
-  skillsText: string = '';  // Input-bound text for skills
-  skillsList: string[] = [];  // List of parsed skills
-
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
     this.initializeFormGroups();
   }
 
-  // Initialize form groups with controls and validators
   private initializeFormGroups(): void {
     this.firstFormGroup = this.formBuilder.group({
-      firstName: ['', Validators.required],
-      familyName: ['', Validators.required],
       photo_pic: [null, Validators.required],
-      profession: ['', Validators.required],
-      contactNo: ['', [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)]],
-      email: ['', [Validators.required, Validators.email]],
-      dateOfBirth: ['', Validators.required],
+      contact_no: ['', [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)]],
+      contact_visibility: [1],
+      email_visibility: [1],
+      summary: [''],
+      date_birth: ['', Validators.required],
     });
 
     this.secondFormGroup = this.formBuilder.group({
       home_country: ['', Validators.required],
-      current_country: ['', Validators.required],
-      city_state: ['', Validators.required],
+      current_location: ['', Validators.required],
+      home_city_state: ['', Validators.required],
       current_city_state: ['', Validators.required],
     });
 
     this.thirdFormGroup = this.formBuilder.group({
-      languages: this.formBuilder.array([this.createLanguageControl()]),
-      skills: this.formBuilder.array([this.createSkillControl()]),
-    });
-    this.languages = this.thirdFormGroup.get('languages') as FormArray;
-    this.skills = this.thirdFormGroup.get('skills') as FormArray;
-
-    this.fourthGroup = this.formBuilder.group(
-      {
-        hEducation: ['', Validators.required],
-        schoolName: ['', Validators.required],
-        start: [null, Validators.required],
-        end: [null, Validators.required],
-        major_course:[''],
-        schoolName2:[''],
-        educationStatus2:[''],
-        start_DateyearEntry: [null],
-        end_DateyearEntry: [null],
-
-      },
-      {
-        validators: [this.dateRangeValidator, this.dateRangeValidator2]
-      }
-      
-    );
-
-    this.fifthFormGroup = this.formBuilder.group({
-      training_title:['',Validators.required],
-      training_provider:['',Validators.required],
-      date_completed: [null, Validators.required],
-      training_title2:[''],
-      training_provider2:['']
-    });
-    
-    this.sixthFormGroup = this.formBuilder.group({
-      seminar_title:['',Validators.required],
-      seminar_provider:['',Validators.required],
-      seminarDate_completed: [null, Validators.required],
-      seminar_title2:[''],
-      seminar_provider2:['']
+      lines: this.formBuilder.group({
+        capability: this.formBuilder.array([this.createCapability()]),
+        education: this.formBuilder.array([this.createEducation()]),
+      })
     });
   }
 
-  // Validator to ensure start date is before end date for education and work experience
-  private dateRangeValidator(group: FormGroup): { [key: string]: boolean } | null {
-    const start = group.get('start')?.value;
-    const end = group.get('end')?.value;
-    if (start && end && new Date(start) > new Date(end)) {
-      return { invalidRange: true };
+  // Create a new capability FormGroup
+  createCapability(): FormGroup {
+    return this.formBuilder.group({
+      language: ['', Validators.required],
+      skills: ['', Validators.required]
+    });
+  }
+
+  // Add capability to the FormArray
+  addCapability(): void {
+    this.capabilityArray.push(this.createCapability());
+  }
+  addItemToArray(arrayName: 'capability'): void {
+    const formArray = this.thirdFormGroup.get(`lines.${arrayName}`) as FormArray;
+  
+    if (!formArray) {
+      console.error(`FormArray "lines.${arrayName}" not found.`);
+      return;
     }
-    return null;
-  }
-  private dateRangeValidator2(group: FormGroup): { [key: string]: boolean } | null {
-    const start = group.get('start')?.value;
-    const end = group.get('end')?.value;
-    if (start && end && new Date(start) > new Date(end)) {
-      return { invalidRange: true };
-    }
-    return null;
+  
+    // Add a new capability item to the form array
+    formArray.push(this.formBuilder.group({
+      language: ['', Validators.required],  // Adjust validators as necessary
+      skills: ['', Validators.required]      // Adjust validators as necessary
+    }));
   }
 
-
-  // Getter for skills FormArray
-  get skillsArray(): FormArray {
-    return this.thirdFormGroup.get('skills') as FormArray;
+  
+  // Create a new education FormGroup
+  createEducation(): FormGroup {
+    return this.formBuilder.group({
+      highest_education: ['', Validators.required],
+      school_name: ['', Validators.required]
+    });
   }
 
-  // Getter for languages FormArray
-  get languagesArray(): FormArray {
-    return this.thirdFormGroup.get('languages') as FormArray;
+  // Add education to the FormArray
+  addeducation(): void {
+    this.educationArray.push(this.createEducation());
   }
 
-  // Add a new language field
-  addLanguage(): void {
-    this.languagesArray.push(this.createLanguageControl());
+  // Remove capability from the FormArray
+  removeItemFromArray(arrayName: 'capability', index: number) {
+    const formArray = this.thirdFormGroup.get(`lines.${arrayName}`) as FormArray;
+    formArray.removeAt(index);
   }
 
-  // Remove a language field
-  removeLanguage(index: number): void {
-    this.languagesArray.removeAt(index);
+  // Remove education from the FormArray
+  removeItemFromArray2(arrayName: 'education', index: number) {
+    const formArray = this.thirdFormGroup.get(`lines.${arrayName}`) as FormArray;
+    formArray.removeAt(index);
   }
 
-  // Add a new skill field
-  addSkill(): void {
-    this.skillsArray.push(this.createSkillControl());
+  // Getters for the FormArrays
+  get capabilityArray(): FormArray {
+    return this.thirdFormGroup.get('lines.capability') as FormArray;
   }
 
-  // Remove a skill field
-  removeSkill(index: number): void {
-    this.skillsArray.removeAt(index);
+  get educationArray(): FormArray {
+    return this.thirdFormGroup.get('lines.education') as FormArray;
   }
 
-  // Create a new FormControl for languages
-  private createLanguageControl(): FormControl {
-    return this.formBuilder.control('');
-  }
-
-  // Create a new FormControl for skills
-  private createSkillControl(): FormControl {
-    return this.formBuilder.control('');
-  }
-
-  // Update skills list based on input text
-  updateSkillsList(): void {
-    this.skillsList = this.skillsText
-      .split('\n')
-      .map(skill => skill.trim())
-      .filter(skill => skill !== '');
-  }
-
-  // Handle file selection for photo_pic field
+  // Handle file selection for photo_pic
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.firstFormGroup.patchValue({ photo_pic: file });
+      this.firstFormGroup.get('photo_pic')?.updateValueAndValidity();
     }
   }
 
-  // Save and complete the form
-  save(): void {
-    if (
-      this.firstFormGroup.valid &&
-      this.secondFormGroup.valid &&
-     // this.fourthGroup.valid &&
-      this.fifthFormGroup.valid
-    ) {
+  submit(): void {
+    if (this.firstFormGroup.valid || this.secondFormGroup.valid || this.thirdFormGroup.valid) {
       console.log('Form Data:', {
         firstForm: this.firstFormGroup.value,
         secondForm: this.secondFormGroup.value,
-        thirdForm: this.thirdFormGroup.value,
-        fourthGroup: this.fourthGroup.value,
-        fifthForm: this.fifthFormGroup.value,
+        thirdForm: this.thirdFormGroup.value
       });
     } else {
       console.error('Form is invalid');
