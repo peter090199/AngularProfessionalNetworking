@@ -248,7 +248,7 @@
                   <input
                     matInput
                     placeholder="Enter Education"
-                    formControlName="highest_education:"
+                    formControlName="highest_education"
                   />
                 </mat-form-field>
                 <mat-form-field appearance="standard">
@@ -276,7 +276,7 @@
                 matInput
                 type="number"
                 formControlName="year_end"
-                placeholder="Enter year entry"
+                placeholder="Enter year end"
               />
             </mat-form-field>
 
@@ -310,7 +310,7 @@
                 <input
                   matInput
                   placeholder="Enter Training"
-                  formControlName="training_title:"
+                  formControlName="training_title"
                 />
               </mat-form-field>
               <mat-form-field appearance="standard">
@@ -346,12 +346,70 @@
               <mat-icon>delete</mat-icon>
             </button>
 
-            </div>
 
-          </div>
+             <!-- <Seminar -->
+              <br>
+              <h3>Seminar</h3>
+              <button mat-button color="primary" (click)="addSeminar()">
+                Add More
+              </button>
+            
+  
+              <!-- <div formArrayName="seminar">
+                <div
+                *ngFor="let item of seminarArray.controls; let i = index"
+                [formGroupName]="i"
+               >
+  
+                <mat-form-field appearance="standard">
+                  <mat-label>Enter Seminar</mat-label>
+                  <input
+                    matInput
+                    placeholder="Enter Seminar"
+                    formControlName="seminar_title"
+                  />
+                </mat-form-field>
+                <mat-form-field appearance="standard">
+                  <input
+                    matInput
+                    placeholder="Enter seminar_provider"
+                    formControlName="seminar_provider"
+                  />
+                </mat-form-field>
+  
+                <mat-form-field appearance="standard" class="form-field">
+                  <mat-label>Date of Birth</mat-label>
+                  <input
+                    matInput
+                    [matDatepicker]="picker"
+                    formControlName="seminardate"
+                    required
+                  />
+                  <mat-datepicker-toggle
+                    matSuffix
+                    [for]="picker"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+  
+                
+              <button
+                mat-icon-button
+                color="warn"
+                (click)="removeItemFromArray4('seminar', i)"
+                *ngIf="trainingArray.length > 1"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+ -->
+
+              <!-- </div>
+              </div> -->
+           </div>
          </div>
         </div>
-      </form>
+      </div>
+    </form>
 
     </mat-step>
 

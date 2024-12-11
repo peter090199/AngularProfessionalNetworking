@@ -62,22 +62,11 @@ export class CurriculumVitaeUIComponent implements OnInit {
         capability: this.formBuilder.array([this.createCapability()]),
         education: this.formBuilder.array([this.createEducation()]),
         training: this.formBuilder.array([this.createTraining()]),
+        seminar:this.formBuilder.array([this.createSeminar()]),
       }),
     });
   }
-  step = 0;
 
-  setStep(index: number) {
-    this.step = index;
-  }
-
-  nextStep() {
-    this.step++;
-  }
-
-  prevStep() {
-    this.step--;
-  }
   // Create a new capability FormGroup
   createCapability(): FormGroup {
     return this.formBuilder.group({
@@ -90,6 +79,8 @@ export class CurriculumVitaeUIComponent implements OnInit {
   addCapability(): void {
     this.capabilityArray.push(this.createCapability());
   }
+
+
   addItemToArray(arrayName: 'capability'): void {
     const formArray = this.thirdFormGroup.get(
       `lines.${arrayName}`
@@ -128,6 +119,14 @@ export class CurriculumVitaeUIComponent implements OnInit {
       trainingdate: ['', Validators.required]
     });
   }
+  //seminar
+  createSeminar(): FormGroup {
+    return this.formBuilder.group({
+      seminar_title: ['', Validators.required],
+      seminar_provider: ['', Validators.required],
+     // seminardate: ['', Validators.required]
+    });
+  }
 
   // Add education to the FormArray
   addeducation(): void {
@@ -136,6 +135,10 @@ export class CurriculumVitaeUIComponent implements OnInit {
   addTraining(): void {
     this.trainingArray.push(this.createTraining());
   }
+  addSeminar(): void {
+    this.trainingArray.push(this.createSeminar());
+  }
+
 
   // Remove capability from the FormArray
   removeItemFromArray(arrayName: 'capability', index: number) {
@@ -160,6 +163,12 @@ export class CurriculumVitaeUIComponent implements OnInit {
     ) as FormArray;
     formArray.removeAt(index);
   }
+  removeItemFromArray4(arrayName: 'seminar', index: number) {
+    const formArray = this.thirdFormGroup.get(
+      `lines.${arrayName}`
+    ) as FormArray;
+    formArray.removeAt(index);
+  }
 
   // Getters for the FormArrays
   get capabilityArray(): FormArray {
@@ -171,6 +180,10 @@ export class CurriculumVitaeUIComponent implements OnInit {
   }
   get trainingArray(): FormArray {
     return this.thirdFormGroup.get('lines.training') as FormArray;
+  }
+  
+  get seminarArray(): FormArray {
+    return this.thirdFormGroup.get('lines.seminar') as FormArray;
   }
 
   // Handle file selection for photo_pic
