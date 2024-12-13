@@ -1,5 +1,7 @@
 <div class="stepper-container">
-  <mat-horizontal-stepper [linear]="true" #stepper>
+  
+  <mat-horizontal-stepper [linear]="true" #stepper >
+   
     <!-- Step 1: Basic Information -->
     <mat-step [stepControl]="firstFormGroup">
       <form [formGroup]="firstFormGroup">
@@ -40,6 +42,7 @@
               <mat-label>Profession</mat-label>
               <input matInput required  [value]="profession" readonly />
             </mat-form-field>
+
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>Contact Number</mat-label>
               <input matInput formControlName="contact_no" required />
@@ -58,7 +61,6 @@
               <input matInput required />
             </mat-form-field>
 
-            <a class="change-link">Change</a>
             <mat-slide-toggle formControlName="email_visibility"
               >Hide</mat-slide-toggle
             >
@@ -81,7 +83,6 @@
               <mat-datepicker #picker1></mat-datepicker>
             </mat-form-field>
 
-            <a class="change-link">Change</a>
             <mat-slide-toggle>Hide</mat-slide-toggle>
           </div>
 
@@ -124,7 +125,7 @@
             </mat-form-field>
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>City, State</mat-label>
-              <input matInput formControlName="home_city_state" required />
+              <input matInput formControlName="home_state" required />
             </mat-form-field>
           </div>
 
@@ -143,7 +144,7 @@
             </mat-form-field>
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>City, State</mat-label>
-              <input matInput formControlName="current_city_state" required />
+              <input matInput formControlName="current_state" required />
             </mat-form-field>
           </div>
 
@@ -255,6 +256,7 @@
                     placeholder="Enter year entry"
                   />
                 </mat-form-field>
+                
 
                 <mat-form-field appearance="standard">
                   <mat-label>Year Entry</mat-label>
@@ -274,6 +276,13 @@
                 >
                   <mat-icon>delete</mat-icon>
                 </button>
+
+                <mat-radio-group aria-label="Select education status" class="radio-group">
+                  <mat-radio-button value="graduate">Graduate</mat-radio-button>
+                  <mat-radio-button value="undergraduate">Undergraduate</mat-radio-button>
+                  <mat-radio-button value="ongoing">Ongoing</mat-radio-button>
+                </mat-radio-group>
+
               </div>
             </div>
 
@@ -520,9 +529,34 @@
             <button mat-raised-button color="primary" (click)="submit()">
               Finish
             </button>
+            <mat-slider
+            class="example-margin"
+            [disabled]="disabled"
+            [invert]="invert"
+            [max]="max"
+            [min]="min"
+            [step]="step"
+            [thumbLabel]="thumbLabel"
+            [tickInterval]="getSliderTickInterval()"
+            [(ngModel)]="value"
+            [vertical]="vertical"
+            aria-labelledby="example-name-label">
+          </mat-slider>
           </div>
+
+         
         </div>
+        
+
+
       </form>
+
     </mat-step>
+
+
   </mat-horizontal-stepper>
+  
 </div>
+
+
+
