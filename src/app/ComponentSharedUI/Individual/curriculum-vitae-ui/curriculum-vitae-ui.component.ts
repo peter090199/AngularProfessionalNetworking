@@ -1,5 +1,7 @@
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 import {
   FormBuilder,
   FormGroup,
@@ -23,6 +25,7 @@ export class CurriculumVitaeUIComponent implements OnInit {
 
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  summaryFormGroup:FormGroup;
   thirdFormGroup: FormGroup;
 
   countryCodes = [
@@ -118,7 +121,11 @@ export class CurriculumVitaeUIComponent implements OnInit {
     { code: '+998', country: 'Uzbekistan' },
     // Add additional codes as needed
 ];
-  constructor(private formBuilder: FormBuilder,private userService:ProfileService) {}
+
+  constructor(private formBuilder: FormBuilder,private userService:ProfileService,
+              private cvService:CurriculumVitaeService,
+              private notificationService:NotificationsService
+  ) {}
  userData:any;
  error: any;
  familyName:string="";
@@ -128,17 +135,21 @@ export class CurriculumVitaeUIComponent implements OnInit {
  progressPercentage = 0;
 
  ngOnInit(): void {
-  // Initialize form groups first to avoid potential undefined errors
   this.initializeFormGroups();
+  this.GetUserData();
+}
 
-  // Fetch user profile data
-  this.userService.getProfileByUser().subscribe({
+ private GetUserData(): void {
+     this.userService.getProfileByUser().subscribe({
     next: (response) => {
       if (response.success && response.message.length) {
         const userData = response.message[0]; // Ensure message[0] exists
-        this.fname = userData.fname;
-        this.lname = userData.lname;
-        this.profession = userData.profession;
+        if(userData != null){
+          this.fname = userData.fname;
+          this.lname = userData.lname;
+          this.profession = userData.profession;
+        }
+       
       } else {
         this.error = 'Failed to load profile data';
       }
@@ -147,25 +158,6 @@ export class CurriculumVitaeUIComponent implements OnInit {
       this.error = err?.message || 'An error occurred while fetching profile data';
     },
   });
-}
-
-  private GetUserData(): void {
-    this.userService.getProfileByUser().subscribe({
-      next: (response) => {
-        if (response.success) {
-          const userData = response.fname; 
-          this.familyName = userData.familyName || 'N/A';
-          this.lname = userData.fname || 'N/A'; 
-        } else {
-          this.error = 'Failed to load profile data';
-          console.error(this.error);
-        }
-      },
-      error: (err) => {
-        this.error = err.message || 'An error occurred while fetching profile data';
-        console.error('API Error:', this.error);
-      }
-    });
   }
   autoTicks = false;
   disabled = false;
@@ -207,18 +199,20 @@ export class CurriculumVitaeUIComponent implements OnInit {
     const currentIndex = event.selectedIndex + 1;
     this.progressPercentage = (currentIndex / stepCount) * 100;
   }
-  
-  
+  label:any;
+  educationStatusOptions = [
+    { value: 'graduate', label: 'Graduate' },
+    { value: 'undergraduate', label: 'Undergraduate' },
+    { value: 'ongoing', label: 'Ongoing' }
+  ];
+
   private initializeFormGroups(): void {
+
     this.firstFormGroup = this.formBuilder.group({
-      photo_pic: [null, Validators.required],
-      contact_no: [
-        '',
-        [Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)],
-      ],
+      photo_pic: ['', Validators.required],
+      contact_no: ['',[Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)],],
       contact_visibility: [1],
       email_visibility: [1],
-      summary: [''],
       date_birth: ['', Validators.required],
     });
 
@@ -228,7 +222,10 @@ export class CurriculumVitaeUIComponent implements OnInit {
       home_state: ['', Validators.required],
       current_state: ['', Validators.required],
     });
-
+    this.summaryFormGroup = this.formBuilder.group({
+      summary: ['', Validators.required],
+    
+    });
     this.thirdFormGroup = this.formBuilder.group({
       lines: this.formBuilder.group({
         capability: this.formBuilder.array([this.createCapability()]),
@@ -280,7 +277,7 @@ export class CurriculumVitaeUIComponent implements OnInit {
       school_name: ['', Validators.required],
       year_entry: ['', Validators.required],
       year_end: ['', Validators.required],
-      status: ['completed'],
+      status: [''],
     });
   }
 
@@ -364,6 +361,7 @@ createCertificate(): FormGroup {
     ) as FormArray;
     formArray.removeAt(index);
   }
+
 //employment
 removeItemFromArray5(arrayName: 'employment', index: number) {
   const formArray = this.thirdFormGroup.get(
@@ -402,50 +400,189 @@ removeItemFromArray6(arrayName: 'certificate', index: number) {
   }
 
   // Handle file selection for photo_pic
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      const file = input.files[0];
-      this.firstFormGroup.patchValue({ photo_pic: file });
-      this.firstFormGroup.get('photo_pic')?.updateValueAndValidity();
-    }
-  }
-
-  submit(): void {
-    const mergedData = {
-      ...this.firstFormGroup.value, // Merge values from the first form group
-      ...this.secondFormGroup.value, // Merge values from the second form group
-      ...this.thirdFormGroup.value, // Merge values from the third form group
-    };
-  
-    // Ensure TypeScript understands the structure of the data
-    const sortedData = Object.keys(mergedData)
-      .sort()
-      .reduce((acc: { [key: string]: any }, key: string) => {
-        acc[key] = mergedData[key];
-        return acc;
-      }, {}); // Start with an empty object
-  
-    console.log("data:" ,sortedData); // Output the sorted object
-  }
-  
-  // submit(): void {
-  //   if (
-  //     this.firstFormGroup.valid ||
-  //     this.secondFormGroup.valid ||
-  //     this.thirdFormGroup.valid
-  //   ) {
-  //     const mergedData = {
-  //       ...this.firstFormGroup.value, // Merges the values from the first form group
-  //       ...this.secondFormGroup.value, // Merges the values from the second form group
-  //       ...this.thirdFormGroup.value, // Merges the values from the third form group
-  //     };
-
-  //     // Now you can use mergedData to send to the server or save it wherever needed
-  //     console.log(mergedData);
-  //   } else {
-  //     console.error('Form is invalid');
+  // onFileSelected(event: Event): void {
+  //   const input = event.target as HTMLInputElement;
+  //   if (input.files && input.files.length > 0) {
+  //     const file = input.files[0];
+  //     this.firstFormGroup.patchValue({ photo_pic: file });
+  //     this.firstFormGroup.get('photo_pic')?.updateValueAndValidity();
   //   }
   // }
 
+  imagePreview: string | null = null; // To store preview URL
+fileError: string = ''; // To store validation error messages
+
+onFileSelecteds(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    const file = input.files[0];
+    this.firstFormGroup.patchValue({ photo_pic: file });
+    this.firstFormGroup.get('photo_pic')?.updateValueAndValidity();
+
+    this.previewImage(file);
+  }
 }
+
+previewImage(file: File) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    this.imagePreview = reader.result as string;
+  };
+  reader.readAsDataURL(file);
+}
+
+onFileSelected3(event: Event): void {
+  const input = event.target as HTMLInputElement;
+  if (input.files && input.files.length > 0) {
+    const file: File = input.files[0];
+    this.firstFormGroup.patchValue({ photo_pic: file });
+    this.firstFormGroup.get('photo_pic')?.updateValueAndValidity();
+  }
+}
+
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+  
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+  
+      // Allowed file types
+      const allowedTypes = ['image/png', 'image/jpeg'];
+      // Max file size in bytes (e.g., 2MB)
+      const maxFileSize = 2 * 1024 * 1024;
+  
+      // Reset errors before validating
+      this.fileError = '';
+  
+      // Validate file type
+      if (!allowedTypes.includes(file.type)) {
+        this.fileError = 'The photo pic field must be an image (JPG or PNG).';
+        this.firstFormGroup.patchValue({ photo_pic: null });
+        return;
+      }
+  
+      // Validate file size
+      if (file.size > maxFileSize) {
+        this.fileError = 'The photo pic file size must not exceed 2MB.';
+        this.firstFormGroup.patchValue({ photo_pic: null });
+        return;
+      }
+  
+      // If valid, update the form control
+      this.firstFormGroup.patchValue({ photo_pic: file });
+      this.firstFormGroup.get('photo_pic')?.updateValueAndValidity();
+  
+      // Optional: Create a preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result as string; // Store preview URL
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.fileError = 'The photo pic field must be a file.';
+      this.firstFormGroup.patchValue({ photo_pic: null });
+    }
+  }
+  
+  
+  loading     : boolean = false;
+  success : boolean = true;
+
+  submit2(): void {
+    if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.summaryFormGroup.valid && this.thirdFormGroup.valid) {
+      const formData = new FormData();
+  
+      // Append basic form data
+      formData.append('photo_pic', this.firstFormGroup.get('photo_pic')?.value);
+      formData.append('contact_no', this.firstFormGroup.get('contact_no')?.value);
+      formData.append('email_visibility', this.firstFormGroup.get('email_visibility')?.value);
+      formData.append('date_birth', this.firstFormGroup.get('date_birth')?.value);
+      formData.append('home_country', this.secondFormGroup.get('home_country')?.value);
+      formData.append('current_location', this.secondFormGroup.get('current_location')?.value);
+      formData.append('summary', this.summaryFormGroup.get('summary')?.value);
+      this.thirdFormGroup.value,
+      // Append lines (capability, education, training, etc.) from third form group
+      // this.appendFormArrayToFormData(formData, 'capabilities', this.capabilityArray);
+      // this.appendFormArrayToFormData(formData, 'education', this.educationArray);
+      // this.appendFormArrayToFormData(formData, 'training', this.trainingArray);
+      // this.appendFormArrayToFormData(formData, 'seminar', this.seminarArray);
+      // this.appendFormArrayToFormData(formData, 'employment', this.employmentArray);
+      // this.appendFormArrayToFormData(formData, 'certificate', this.certificateArray);
+   
+      this.loading = true;
+      console.log(formData)
+      // Now send the form data to your backend
+      this.cvService.postCV(formData).subscribe({
+        next: (res) => {
+          if (res.success) {
+            this.notificationService.toastrSuccess(res.message);
+            this.loading = false;
+          } else {
+            this.notificationService.toastrError(res.message);
+            this.loading = false;
+          }
+        },
+        error: (error: any) => {
+          this.notificationService.toastrError(error.error);
+          this.loading = false;
+        }
+      });
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+  
+  // Helper method to append FormArray data to FormData
+  // appendFormArrayToFormData(formData: FormData, key: string, formArray: FormArray) {
+  //   formArray.controls.forEach((control, index) => {
+  //     Object.keys(control.value).forEach(field => {
+  //       formData.append(`${key}[${index}][${field}]`, control.get(field)?.value);
+  //     });
+  //   });
+  // }
+  
+  submit(): void {
+    if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.summaryFormGroup.valid && this.thirdFormGroup.valid) {
+      const mergedData = {
+                ...this.firstFormGroup.value,
+                ...this.secondFormGroup.value,
+                ...this.summaryFormGroup.value,
+                ...this.thirdFormGroup.value,
+            };
+         
+      console.log('Form Data:', mergedData);
+      this.cvService.postCV(mergedData).subscribe({
+                next: (res) => {
+                    if (res.success) {
+                        this.notificationService.toastrSuccess(res.message);
+                        // Optionally reset form or handle after success
+                        // this.ResetForm(); // Uncomment to reset the form if needed
+                        this.loading = false;
+                    } else {
+                        this.notificationService.toastrError(res.message);
+                        this.loading = false;
+                    }
+                },
+                error: (error: any) => {
+                    this.success = false;
+                    this.notificationService.toastrError(error.error);
+                    this.loading = false;
+                    // Set loading to false in case of error
+                },
+            });
+  }
+  else {
+    console.log('Form is invalid');
+  }
+}
+  appendFormArrayToFormData(formData: FormData, key: string, formArray: FormArray) {
+    formArray.controls.forEach((control, index) => {
+      Object.keys(control.value).forEach(field => {
+        formData.append(`${key}[${index}][${field}]`, control.get(field)?.value);
+      });
+    });
+  }
+
+   }
+
+
