@@ -1,5 +1,5 @@
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild,AfterViewInit  } from '@angular/core';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
 import {
@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { MatAccordion } from '@angular/material/expansion';
 import { ProfileService } from 'src/app/services/Profile/profile.service';
+import { MatHorizontalStepper } from '@angular/material/stepper/stepper';
 /**
  * @title Basic expansion panel
  */
@@ -20,14 +21,51 @@ import { ProfileService } from 'src/app/services/Profile/profile.service';
   styleUrls: ['./curriculum-vitae-ui.component.css'],
 })
 
-export class CurriculumVitaeUIComponent implements OnInit {
+export class CurriculumVitaeUIComponent implements AfterViewInit  {
   @ViewChild(MatAccordion) accordion: MatAccordion;
-
+  @ViewChild('stepper') stepper: MatHorizontalStepper;
+  progressValue: number = 0;
+  
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   summaryFormGroup:FormGroup;
   thirdFormGroup: FormGroup;
 
+  ngAfterViewInit() {
+    this.stepper.selectionChange.subscribe(() => {
+      this.updateProgress();
+    });
+
+    this.firstFormGroup.valueChanges.subscribe(() => {
+      this.updateProgress();
+    });
+    this.secondFormGroup.valueChanges.subscribe(() => {
+      this.updateProgress();
+    });
+    this.thirdFormGroup.valueChanges.subscribe(() => {
+      this.updateProgress();
+    });
+    this.summaryFormGroup.valueChanges.subscribe(() => {
+      this.updateProgress();
+    });
+  }
+  updateProgress() {
+    const totalSteps = 4; // Total steps in your stepper
+    const currentStepIndex = this.stepper.selectedIndex;
+    const stepsFilled = this.calculateFilledSteps();
+    this.progressValue = (stepsFilled / totalSteps) * 100;
+  }
+
+  calculateFilledSteps(): number {
+    let filledSteps = 0;
+
+    if (this.firstFormGroup.valid) filledSteps++;
+    if (this.secondFormGroup.valid) filledSteps++;
+    if (this.thirdFormGroup.valid) filledSteps++;
+    if (this.summaryFormGroup.valid) filledSteps++;
+
+    return filledSteps;
+  }
   countryCodes = [
     { code: '+1', country: 'USA/Canada' },
     { code: '+7', country: 'Russia/Kazakhstan' },
@@ -194,11 +232,11 @@ export class CurriculumVitaeUIComponent implements OnInit {
 
 
 
-  updateProgress(event: any) {
-    const stepCount = event.stepper._steps.length;
-    const currentIndex = event.selectedIndex + 1;
-    this.progressPercentage = (currentIndex / stepCount) * 100;
-  }
+  // updateProgress(event: any) {
+  //   const stepCount = event.stepper._steps.length;
+  //   const currentIndex = event.selectedIndex + 1;
+  //   this.progressPercentage = (currentIndex / stepCount) * 100;
+  // }
   label:any;
   educationStatusOptions = [
     { value: 'graduate', label: 'Graduate' },

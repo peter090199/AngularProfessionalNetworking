@@ -1,5 +1,7 @@
+
 <div class="stepper-container">
-  
+ 
+
   <mat-horizontal-stepper [linear]="true" #stepper >
     <div class="loading-overlay" *ngIf="loading">
       <mat-spinner></mat-spinner>
@@ -11,7 +13,7 @@
         <div class="profile-container">
           <h2>Build Your Profile</h2>
           <mat-divider></mat-divider>
-
+        
           <!-- Name Fields -->
           <div class="form-row">
             <mat-form-field appearance="standard" class="form-field">
@@ -575,34 +577,48 @@
             </button>
             <button mat-raised-button type="submit" (click)="submit()" [disabled]="!firstFormGroup.valid || 
             !secondFormGroup.valid || !summaryFormGroup.valid || !thirdFormGroup.valid">Finish</button>
-            <!-- <mat-slider
-            class="example-margin"
-            [disabled]="disabled"
-            [invert]="invert"
-            [max]="max"
-            [min]="min"
-            [step]="step"
-            [thumbLabel]="thumbLabel"
-            [tickInterval]="getSliderTickInterval()"
-            [(ngModel)]="value"
-            [vertical]="vertical"
-            aria-labelledby="example-name-label">
-          </mat-slider> -->
+         
           </div>
-
          
         </div>
-        
-
-
       </form>
-
     </mat-step>
-
-
   </mat-horizontal-stepper>
-  
+
+  <footer class="mat-footer">
+    <mat-divider></mat-divider>
+    <div class="footer-content">
+      <div class="footer-left">
+        <span>&copy; 2024 Nexsuz</span>
+      </div>
+      <div class="footer-right">
+        <span>Terms & Conditions | Privacy Policy</span>
+      </div>
+    </div>
+
+    <!-- Progress Bar with Number Display -->
+    <div class="progress-bar-container">
+      <mat-progress-bar mode="determinate" [value]="progressValue"></mat-progress-bar>
+      <div class="progress-number">
+        <span>{{ progressValue === 100 ? 'Completed' : progressValue + '%' }}</span>
+      </div>
+    </div>
+  </footer>
 </div>
 
+<!-- <footer class="mat-footer">
+  <mat-divider></mat-divider>
+  <div class="footer-content">
+    <div class="footer-left">
+      <span>&copy; 2024 Your Company Name</span>
+    </div>
+    <div class="footer-right">
+      <span>Terms & Conditions | Privacy Policy</span>
+    </div>
+  </div>
 
+  <div class="progress-bar-container">
+    <mat-progress-bar mode="determinate" [value]="progressValue"></mat-progress-bar>
+  </div>
+</footer> -->
 

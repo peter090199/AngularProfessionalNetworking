@@ -97,11 +97,13 @@ mat-radio-button {
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 90vh;
+  min-height: 100vh;
   width: 100%;
   margin: 0px;
   margin-top: 20px;
   overflow-y: auto;
+  flex-direction: column;
+
 }
 .loading-overlay {
   position: fixed;
@@ -347,6 +349,65 @@ textarea {
 .example-result-card .example-value-label {
   font-weight: 600;
 }
+/* General footer styling */
+.mat-footer {
+  background-color:none;/* Light grey background */
+  padding: 20px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  font-size: 14px;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-left, .footer-right {
+  flex: 1;
+}
+
+.footer-left {
+  text-align: left;
+}
+
+.footer-right {
+  text-align: right;
+}
+
+/* Progress bar container */
+.progress-bar-container {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .mat-footer {
+    padding: 15px;
+    font-size: 12px;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .footer-left, .footer-right {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  /* Progress bar size adjustments for mobile */
+  .progress-bar-container {
+    padding: 5px;
+  }
+}
+
 
 /* Responsive Mobile Adjustments */
   /* .@media (max-width: 768px) {
