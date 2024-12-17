@@ -18,7 +18,7 @@ export class CurriculumVitaeService {
     const token = this.getAuthToken();
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+      'Content-Type': 'multipart/form-data',
     });
   }
 
@@ -59,9 +59,10 @@ export class CurriculumVitaeService {
     return this.http.get(`${_url}security/${rolecode}`, { headers });
   }
 
-  postCV(body: any): Observable<any> {
-    const headers = this.createHeaders();
-    return this.http.post(`${_url}profile`, body, { headers });
+
+  postCV(formData: FormData): Observable<any> {
+    const headers = this.createHeaders(); // Ensure createHeaders is defined elsewhere if necessary
+    return this.http.post<any>(`${_url}profile`, formData, { headers });
   }
 
   putData(endpoint: string, body: any): Observable<any> {

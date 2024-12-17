@@ -248,9 +248,9 @@ export class CurriculumVitaeUIComponent implements AfterViewInit  {
 
     this.firstFormGroup = this.formBuilder.group({
       photo_pic: ['', Validators.required],
-      contact_no: ['',[Validators.required, Validators.pattern(/^\+?[0-9]{7,15}$/)],],
-      contact_visibility: [1],
-      email_visibility: [1],
+      contact_no: ['',Validators.required],
+      contact_visibility: ['1'],
+      email_visibility: ['1'],
       date_birth: ['', Validators.required],
     });
 
@@ -478,6 +478,21 @@ onFileSelected3(event: Event): void {
   }
 }
 
+selectedFile: File | null = null;
+previewUrl: string | ArrayBuffer | null = null;
+onFileChange(event: any): void {
+  const file = event.target.files[0];
+  if (file) {
+    this.selectedFile = file;
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.previewUrl = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
+
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
   
@@ -523,6 +538,21 @@ onFileSelected3(event: Event): void {
   }
   
   
+  
+  onUploadPhoto(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.selectedFile = file;
+
+      
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.previewUrl = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   loading     : boolean = false;
   success : boolean = true;
 
@@ -579,35 +609,154 @@ onFileSelected3(event: Event): void {
   //   });
   // }
   
+  isFormArray(value: any): boolean {
+    return value instanceof FormArray;
+  }
+  
+  
   submit(): void {
-    if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.summaryFormGroup.valid && this.thirdFormGroup.valid) {
+    if (
+      this.firstFormGroup.valid &&
+      this.secondFormGroup.valid &&
+      this.summaryFormGroup.valid &&
+      this.thirdFormGroup.valid
+    ) {
+
+      const formData = new FormData();
+  
+      // First Form Group
+      const first = this.firstFormGroup.value;
+      formData.append('photo_pic', first.photo_pic); 
+      formData.append('contact_no', first.contact_no);
+      formData.append('contact_visibility', first.contact_visibility.toString());
+      formData.append('email_visibility', first.email_visibility.toString()); 
+      formData.append('date_birth', first.date_birth);
+
+      // const fileInput = this.firstFormGroup.get('photo_pic')?.value;
+      // if (fileInput instanceof File) {
+      //   formData.append('photo_pic', fileInput, fileInput.name); 
+      // }
+      // Second Form Group
+      const second = this.secondFormGroup.value;
+      formData.append('home_country', second.home_country || '');
+      formData.append('current_location', second.current_location || '');
+      formData.append('home_state', second.home_state || '');
+      formData.append('current_state', second.current_state || '');
+  
+      // Summary Form Group
+      const summary = this.summaryFormGroup.value;
+      formData.append('summary', summary.summary || '');
+  
+      // Third Form Group
+      const third = this.thirdFormGroup.value;
+      formData.append('lines[capability]', JSON.stringify(third.lines.capability || []));
+      formData.append('lines[education]', JSON.stringify(third.lines.education || []));
+      formData.append('lines[training]', JSON.stringify(third.lines.training || []));
+      formData.append('lines[seminar]', JSON.stringify(third.lines.seminar || []));
+      formData.append('lines[employment]', JSON.stringify(third.lines.employment || []));
+      formData.append('lines[certificate]', JSON.stringify(third.lines.certificate || []));
+  
+      // Debug FormData
+    
+//     console.log(first);
+//     console.log(second);
+//     console.log(summary);
+//     console.log(third);
+//  // Debug: Log FormData content
+//     formData.forEach((value, key) => {
+//       console.log(`${key}: ${value}`);
+//     });
+
+
       const mergedData = {
                 ...this.firstFormGroup.value,
                 ...this.secondFormGroup.value,
                 ...this.summaryFormGroup.value,
                 ...this.thirdFormGroup.value,
             };
-         
-      console.log('Form Data:', mergedData);
+            console.log(mergedData)
+      // Submit to Service
       this.cvService.postCV(mergedData).subscribe({
-                next: (res) => {
-                    if (res.success) {
-                        this.notificationService.toastrSuccess(res.message);
-                        // Optionally reset form or handle after success
-                        // this.ResetForm(); // Uncomment to reset the form if needed
-                        this.loading = false;
-                    } else {
-                        this.notificationService.toastrError(res.message);
-                        this.loading = false;
-                    }
-                },
-                error: (error: any) => {
-                    this.success = false;
-                    this.notificationService.toastrError(error.error);
+        next: (res) => {
+          if (res.success) {
+            this.notificationService.toastrSuccess(res.message);
+            this.loading = false;
+          } else {
+            this.notificationService.toastrError(res.message);
+            this.loading = false;
+          }
+        },
+        error: (error: any) => {
+          console.error('Submission error:', error);
+          this.notificationService.toastrError(error.error);
+          this.loading = false;
+        }
+      });
+    } else {
+      console.log('Form is invalid');
+    }
+  }
+
+  
+
+  submit11(): void {
+    if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.summaryFormGroup.valid && this.thirdFormGroup.valid) {
+      const formData = new FormData();
+    
+    const first = this.firstFormGroup.value;
+    formData.append('photo_pic', first.photo_pic); 
+    formData.append('contact_no', first.contact_no);
+    formData.append('contact_visibility', first.contact_visibility.toString());
+    formData.append('email_visibility', first.email_visibility.toString()); 
+    formData.append('date_birth', first.date_birth);
+
+    const fileInput = this.firstFormGroup.get('photo_pic')?.value;
+    if (fileInput instanceof File) {
+      formData.append('photo_pic', fileInput, fileInput.name); 
+    }
+ // Second Form Group
+    const second = this.secondFormGroup.value;
+    formData.append('home_country', second.home_country);
+    formData.append('current_location', second.current_location);
+    formData.append('home_state', second.home_state);
+    formData.append('current_state', second.current_state);
+
+    // Summary Form Group
+    const summary = this.summaryFormGroup.value;
+    formData.append('summary', summary.summary); // Corrected key to 'summary'
+
+    const third = this.thirdFormGroup.value;
+    formData.append('lines[capability]', JSON.stringify(third.lines.capability));
+    formData.append('lines[education]', JSON.stringify(third.lines.education));
+    formData.append('lines[training]', JSON.stringify(third.lines.training));
+    formData.append('lines[seminar]', JSON.stringify(third.lines.seminar));
+    formData.append('lines[employment]', JSON.stringify(third.lines.employment));
+    formData.append('lines[certificate]', JSON.stringify(third.lines.certificate));
+   
+
+
+    console.log(formData);
+    
+
+  this.cvService.postCV(formData).subscribe({
+            next: (res) => {
+                if (res.success) {
+                    this.notificationService.toastrSuccess(res.message);
+                    // Optionally reset form or handle after success
+                    // this.ResetForm(); // Uncomment to reset the form if needed
                     this.loading = false;
-                    // Set loading to false in case of error
-                },
-            });
+                } else {
+                    this.notificationService.toastrError(res.message);
+                    this.loading = false;
+                }
+            },
+            error: (error: any) => {
+                this.success = false;
+                this.notificationService.toastrError(error.error);
+                this.loading = false;
+                // Set loading to false in case of error
+            },
+        });
   }
   else {
     console.log('Form is invalid');
