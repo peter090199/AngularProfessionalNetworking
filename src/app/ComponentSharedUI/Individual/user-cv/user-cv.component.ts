@@ -116,13 +116,22 @@ export class UserCVComponent implements OnInit {
     return this.thirdFormGroup.get('lines.education') as FormArray;
   }
 
+
+  selectedFile: File | null = null;
   // Handle file selection for photo_pic
-  onFileSelected(event: Event): void {
+  onFileSelectedww(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
       this.firstFormGroup.patchValue({ photo_pic: file });
       this.firstFormGroup.get('photo_pic')?.updateValueAndValidity();
+    }
+  }
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      this.firstFormGroup.patchValue({ photo_pic: this.selectedFile });
     }
   }
 

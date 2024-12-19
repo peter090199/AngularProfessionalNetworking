@@ -1,233 +1,82 @@
-::ng-deep mat-horizontal-stepper .mat-step-header {
-    display: none;
-  }
-    
-  .mat-form-field {
-    width: 85%;
-    margin-top: 0px;
-  
-  }
-  .full-width{
-    width: 100%;
-  }
-  .example-full-width{
-    width: 83%;
-  }
-  .stepper-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    width: 100%;
-    overflow-y: auto;
-  }
-  
-  mat-horizontal-stepper {
-    width: 100%;
-    max-width: 550px;
-    background-color: #fff;
-    padding: 0px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    overflow-x: hidden;
-    max-height: 700px;
-  }
-  /* General Styles for the Education Status */
-.education-status {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  align-items: center;
+/* General Styles */
+body {
   font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scrolling of the body */
+}
+
+.container {
+  max-width: 900px; /* Set maximum width for desktop */
+  margin: 20px auto;
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  height: 100vh; /* Full height container */
+  overflow: auto; /* Enable scrolling for overflowing content */
+}
+
+/* Form Styles */
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Form Group Spacing */
+.form-group {
+  margin-bottom: 20px;
+}
+
+/* Labels and Inputs */
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input, textarea, button {
+  width: 100%;
   padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
 }
 
-mat-radio-button {
-  color: #0076b6;
-  font-size: 16px;
-  display: inline-block;
+textarea {
+  resize: vertical;
 }
 
-/* When a radio button is checked, change the color */
-mat-radio-button.mat-radio-checked {
-  color: #004b70;
+/* Button Styles */
+button {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-/* Desktop view */
-@media screen and (min-width: 1024px) {
-  .education-status {
-    flex-direction: row; /* Horizontal layout on large screens */
-    justify-content: space-evenly;
-  }
-
-  mat-radio-button {
-    font-size: 18px; /* Larger font size on desktop */
-  }
+button:hover {
+  background-color: #0056b3;
 }
 
-/* Tablet and mobile view */
-@media screen and (max-width: 1023px) {
-  .education-status {
-    flex-direction: column; /* Stack radio buttons vertically on smaller screens */
-    align-items: flex-start;
-  }
-
-  mat-radio-button {
-    font-size: 16px; /* Maintain readability on smaller screens */
-    margin-bottom: 10px; /* Add spacing between the radio buttons */
+/* Desktop Overflow */
+@media (min-width: 768px) {
+  .container {
+    max-height: 80vh; /* Limit height for desktop */
+    overflow: auto; /* Enable scrolling for overflowing content */
   }
 }
 
-/* Mobile view (small devices like phones) */
-@media screen and (max-width: 600px) {
-  .education-status {
-    padding: 5px; /* Less padding on small screens */
+/* Mobile Overflow */
+@media (max-width: 767px) {
+  .container {
+    max-width: 100%; /* Use full width for smaller screens */
+    height: 100vh; /* Full height container */
+    overflow-y: auto; /* Enable vertical scrolling */
   }
 
-  mat-radio-button {
-    font-size: 14px; /* Smaller font size for mobile */
+  form {
+    padding-bottom: 20px; /* Ensure padding for scrollable content */
   }
 }
-
-  
-    h2 {
-      text-align: center;
-      margin: 16px;
-      font-size: 24px; /* Scales for mobile and desktop */
-    }
-  
-    mat-divider {
-      margin-bottom: 14px;
-    }
-  
-    .form-row {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      flex-wrap: wrap; /* Ensures wrapping on smaller screens */
-    }
-      .form-field {
-        flex: 1;
-        min-width: 120px;
-      }
-  
-      .change-link {
-        color: #007bff;
-        text-decoration: none;
-        cursor: pointer;
-        margin-top: 20px;
-      }
-  
-      mat-slide-toggle {
-        margin-left: auto;
-        margin-top: 20px;
-      }
-    
-  /* locationformgroup */
-  .form-container {
-    width: 400px;
-    margin: 20px auto;
-  }
-  
-  .language-row,
-  .skill-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .language-input,
-  .skill-input {
-    flex: 1;
-    margin-right: 10px;
-  }
-  
-  .progress-bar {
-    margin-top: 20px;
-    text-align: center;
-  }
-  
-  
-  
-  /* Desktop View */
-  @media (min-width: 768px) {
-    /* Styling for larger screens like tablets and desktops */
-    .container {
-      padding: 40px;
-    }
-  
-    form {
-      flex-direction: row;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-  
-    form > div {
-      flex: 1 1 calc(50% - 20px); /* Ensure each input takes half the width */
-    }
-  
-    /* Styling for titles */
-    h1 {
-      font-size: 36px;
-    }
-  }
-  
-  /* Mobile View */
-  @media (max-width: 767px) {
-    /* Mobile-specific styles */
-    .container {
-      padding: 10px;
-    }
-  
-    h1 {
-      font-size: 28px;
-    }
-  
-    form {
-      flex-direction: column;
-      gap: 15px;
-    }
-  
-    form > div {
-      flex: 1 1 100%; /* Make each input take full width on smaller screens */
-    }
-  
-    /* Adjust button for small screens */
-    button {
-      font-size: 18px;
-    }
-  
-  
-  }
-  .skills-container {
-    padding: 0px;
-    width: fit-content;
-  }
-  
-  .skills-container h3 {
-    color: #4b87d1;
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-  
-  textarea {
-    width: 430px;
-    height: 100px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    margin-bottom: 10px;
-    font-size: 16px;
-  }
-  
-  .skills-list {
-    list-style-type: square;
-    padding-left: 20px;
-    margin: 0;
-  }
-  
-  .skills-list li {
-    font-size: 16px;
-    margin-bottom: 5px;
-  }
-  

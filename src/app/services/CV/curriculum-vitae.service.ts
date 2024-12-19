@@ -18,9 +18,11 @@ export class CurriculumVitaeService {
     const token = this.getAuthToken();
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data',
+      'Content-Type': 'application/json'
     });
   }
+  
+
 
   private createParams(): HttpParams {
     return new HttpParams().set('desc_code', 'top_navigation');
@@ -60,9 +62,9 @@ export class CurriculumVitaeService {
   }
 
 
-  postCV(formData: FormData): Observable<any> {
+  postCV(mergedData: any): Observable<any> {
     const headers = this.createHeaders(); // Ensure createHeaders is defined elsewhere if necessary
-    return this.http.post<any>(`${_url}profile`, formData, { headers });
+    return this.http.post<any>(`${_url}profile`, mergedData, { headers });
   }
 
   putData(endpoint: string, body: any): Observable<any> {
