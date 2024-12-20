@@ -12,6 +12,7 @@ import {
 import { MatAccordion } from '@angular/material/expansion';
 import { ProfileService } from 'src/app/services/Profile/profile.service';
 import { MatHorizontalStepper } from '@angular/material/stepper/stepper';
+import { Router } from '@angular/router';
 /**
  * @title Basic expansion panel
  */
@@ -168,7 +169,7 @@ export class CurriculumVitaeUIComponent implements AfterViewInit  {
 
   constructor(private formBuilder: FormBuilder,private userService:ProfileService,
               private cvService:CurriculumVitaeService,
-              private notificationService:NotificationsService
+              private notificationService:NotificationsService,private router:Router
   ) {}
  userData:any;
  error: any;
@@ -517,6 +518,13 @@ removeItemFromArray6(arrayName: 'certificate', index: number) {
     return value instanceof FormArray;
   }
 
+
+  refreshHomePage() {
+    this.router.navigate(['/home']).then(() => {
+      window.location.reload();
+    });
+  }
+
   submit() {
     const formData = this.firstFormGroup.getRawValue();
     const secondFormData = this.secondFormGroup.getRawValue();
@@ -536,6 +544,7 @@ removeItemFromArray6(arrayName: 'certificate', index: number) {
       next: (res) => {
         if (res.success) {
           this.notificationService.toastrSuccess(res.message);
+          this.refreshHomePage();
         } else {
           this.notificationService.toastrError(res.message);
         }
