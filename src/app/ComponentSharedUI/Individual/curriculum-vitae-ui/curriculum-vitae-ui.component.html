@@ -29,23 +29,27 @@
   
           <!-- Upload Profile Picture -->
           <div class="form-row">
-            <mat-label  for="photo_pic">Upload Photo</mat-label>
-            <input type="file" id="photo_pic" (change)="onFileSelect($event)" accept="image/*" />
-
+            <mat-label>Upload Photo</mat-label>
+            <input
+              matInput
+              type="file"
+              id="photo_pic"
+              (change)="onUploadPhoto2($event)"
+              accept="image/*"
+            />
             <mat-error *ngIf="fileError">
               {{ fileError }}
             </mat-error>
-          </div>
   
           <!-- Image Preview -->
-          <div *ngIf="imagePreview" class="image-preview-container">
+          <div *ngIf="previewUrl" class="image-preview-container">
             <img
-              [src]="imagePreview"
+              [src]="previewUrl"
               alt="Profile Picture Preview"
               class="profile-picture-preview"
             />
           </div>
-  
+        </div>
           <!-- Other Basic Details -->
           <div class="form-row">
             <mat-form-field appearance="standard" class="form-field">
@@ -590,13 +594,16 @@
 
           <!-- Navigation -->
           <div class="button-gap">
-            <button mat-raised-button color="warn" matStepperPrevious>
-              Back
-            </button>
+            <!-- <button mat-raised-button color="warn" matStepperPrevious>
+              Back -->
+            <!-- </button>
             <button mat-raised-button type="submit" (click)="submit()" [disabled]="!firstFormGroup.valid || 
             !secondFormGroup.valid || !summaryFormGroup.valid || !thirdFormGroup.valid">Finish</button>
          
-          </div>
+          </div> -->
+          <button mat-raised-button type="submit" (click)="submit()">Finish</button>
+       
+        </div>
          
         </div>
       </form>
