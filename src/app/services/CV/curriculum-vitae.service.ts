@@ -18,7 +18,7 @@ export class CurriculumVitaeService {
     const token = this.getAuthToken();
     return new HttpHeaders({
       'Authorization': `Bearer ${token}`,
-      //  'Content-Type': 'application/json'
+      //'Content-Type': 'application/json'
     });
   }
   
@@ -61,18 +61,19 @@ export class CurriculumVitaeService {
     return this.http.get(`${_url}security/${rolecode}`, { headers });
   }
 
-  postCVss(formData: any): Observable<any> {
+  postCV2(mergedData: any): Observable<any> {
     const token = this.getAuthToken();
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`,
+     'Authorization': `Bearer ${token}`,
+    //  'Content-Type': 'application/json'
     });
-    return this.http.post(`${_url}profile`, formData, { headers });
-  }
-  postCV(mergedData: FormData): Observable<any> {
-    const headers = this.createHeaders(); // Ensure createHeaders is defined elsewhere if necessary
-    return this.http.post<any>(`${_url}profile`, mergedData, { headers });
+    return this.http.post(`${_url}profile`, mergedData, { headers });
   }
 
+  postCV(payload: FormData): Observable<any> {
+    const headers = this.createHeaders(); // Ensure createHeaders is defined elsewhere if necessary
+    return this.http.post<any>(`${_url}profile`, payload, { headers });
+  }
   putData(endpoint: string, body: any): Observable<any> {
     const headers = this.createHeaders();
     return this.http.put(`${_url}${endpoint}`, body, { headers });

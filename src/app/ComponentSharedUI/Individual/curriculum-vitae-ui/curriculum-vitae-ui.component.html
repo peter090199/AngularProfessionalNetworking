@@ -1,11 +1,11 @@
 
 <div class="stepper-container">
  
-  <mat-horizontal-stepper [linear]="true" #stepper>
+  <mat-stepper orientation="vertical" class="scroll-container">
     <!-- Loading Overlay -->
-    <!-- <div class="loading-overlay" *ngIf="loading">
+    <div class="loading-overlay" *ngIf="loading">
       <mat-spinner></mat-spinner>
-    </div> -->
+    </div>
   
     <!-- Step 1: Basic Information -->
     <mat-step [stepControl]="firstFormGroup">
@@ -30,25 +30,19 @@
           <!-- Upload Profile Picture -->
           <div class="form-row">
             <mat-label>Upload Photo</mat-label>
-            <input
-              matInput
-              type="file"
-              id="photo_pic"
-              (change)="onUploadPhoto2($event)"
-              accept="image/*"
-            />
+            <input type="file" (change)="onFileSelected2($event)" />
             <mat-error *ngIf="fileError">
               {{ fileError }}
             </mat-error>
           </div>
           <!-- Image Preview -->
-          <div *ngIf="previewUrl" class="image-preview-container">
+          <!-- <div *ngIf="previewUrl" class="image-preview-container">
             <img
               [src]="previewUrl"
               alt="Profile Picture Preview"
               class="profile-picture-preview"
             />
-          </div>
+          </div> -->
      
           <!-- Other Basic Details -->
           <div class="form-row">
@@ -137,8 +131,8 @@
     </mat-step>
 
     <!-- Step 2: Location Details -->
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Location Details</ng-template>
         <div class="profile-container">
           <h2>Build Your Profile</h2>
@@ -189,7 +183,7 @@
             <button
               mat-raised-button
               color="primary"
-              [disabled]="secondFormGroup.invalid"
+              [disabled]="firstFormGroup.invalid"
               matStepperNext
             >
               Next
@@ -201,8 +195,8 @@
 
 
     <!--Summary-->
-    <mat-step [stepControl]="summaryFormGroup">
-      <form [formGroup]="summaryFormGroup">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Summary</ng-template>
         <div class="profile-container">
           <h2>Build Your Profile</h2>
@@ -225,7 +219,7 @@
             <button
               mat-raised-button
               color="primary"
-              [disabled]="summaryFormGroup.invalid"
+              [disabled]="firstFormGroup.invalid"
               matStepperNext
             >
               Next
@@ -236,8 +230,8 @@
     </mat-step>
 
     <!-- Step 3: ARRAY  -->
-    <mat-step [stepControl]="thirdFormGroup">
-      <form [formGroup]="thirdFormGroup">
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
         <ng-template matStepLabel>Professional Development</ng-template>
         <div class="profile-container">
           <h2>Build Your Profile</h2>
@@ -608,7 +602,7 @@
         </div>
       </form>
     </mat-step>
-  </mat-horizontal-stepper>
+  </mat-stepper>
 
   <footer class="mat-footer">
     <mat-divider></mat-divider>
