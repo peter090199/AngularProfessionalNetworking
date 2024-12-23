@@ -21,6 +21,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { CurriculumVitaeUIComponent } from './ComponentSharedUI/Individual/curriculum-vitae-ui/curriculum-vitae-ui.component';
 import { ProfileUIComponent } from './ComponentSharedUI/Profile/profile-ui/profile-ui.component';
 import { UserCVComponent } from './ComponentSharedUI/Individual/user-cv/user-cv.component';
+import { UploadProfileComponent } from './ComponentSharedUI/Individual/upload-profile/upload-profile.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,7 @@ const routes: Routes = [
   { path: 'layout', component: LayoutComponent },
   { path: 'curriculum-vitae', component:CurriculumVitaeUIComponent,canActivate:[AuthGuard] },
   { path: 'user-cv', component:UserCVComponent,canActivate:[AuthGuard] },
+  { path: 'upload-cv', component:UploadProfileComponent,canActivate:[AuthGuard] },
   // Top navigation with sub-routes
   { 
     path: '', 

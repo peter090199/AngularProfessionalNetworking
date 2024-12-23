@@ -3,9 +3,9 @@
  
   <mat-horizontal-stepper [linear]="true" #stepper>
     <!-- Loading Overlay -->
-    <!-- <div class="loading-overlay" *ngIf="loading">
+    <div class="loading-overlay" *ngIf="loading">
       <mat-spinner></mat-spinner>
-    </div> -->
+    </div>
   
     <!-- Step 1: Basic Information -->
     <mat-step [stepControl]="firstFormGroup">
@@ -28,7 +28,7 @@
           </div>
   
           <!-- Upload Profile Picture -->
-          <div class="form-row">
+          <!-- <div class="form-row">
             <mat-label>Upload Photo</mat-label>
             <input
               matInput
@@ -41,7 +41,6 @@
               {{ fileError }}
             </mat-error>
           </div>
-          <!-- Image Preview -->
           <div *ngIf="previewUrl" class="image-preview-container">
             <img
               [src]="previewUrl"
@@ -49,7 +48,7 @@
               class="profile-picture-preview"
             />
           </div>
-     
+      -->
           <!-- Other Basic Details -->
           <div class="form-row">
             <mat-form-field appearance="standard" class="form-field">
@@ -612,13 +611,10 @@
 
   <footer class="mat-footer">
     <mat-divider></mat-divider>
-    <div class="footer-content">
-      <div class="footer-left">
+     <div class="button-gap">
         <span>&copy; 2024 Nexsuz</span>
-      </div>
-      <div class="footer-right">
-        <span>Terms & Conditions | Privacy Policy</span>
-      </div>
+        <!-- <a routerLink="/home">Back to home</a> -->
+      
     </div>
 
     <!-- Progress Bar with Number Display -->

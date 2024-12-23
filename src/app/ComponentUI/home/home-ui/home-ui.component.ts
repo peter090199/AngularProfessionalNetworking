@@ -84,7 +84,7 @@ throw new Error('Method not implemented.');
 
 
   error: any;
-  profiles: any;
+  profiles: any=[];
 
 
   ngOnInit(): void {

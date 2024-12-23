@@ -18,12 +18,20 @@
       </div> -->
 
       <mat-card class="profile-card" *ngIf="!isMobile">
-        <div class="profile-header">
-          <mat-icon class="profile-icon">work</mat-icon>
-          <button mat-icon-button class="add-btn">
-            <mat-icon>add</mat-icon>
-          </button>
+        <div class="cover-photo">
+          <img
+            src="https://via.placeholder.com/1200x300"
+            alt="Cover Photo"
+            class="cover-photo-img"
+          />
+          <button mat-button class="edit-cover-btn"  routerLink="/upload-cv">Upload Profile Picture</button>
+          <!-- <button mat-icon-button  routerLink="/upload-cv" style="text-align: center;margin-right: 120px;" class="edit-cover-btn">
+            <mat-icon>photo_camera</mat-icon> Upload Profile Picture
+          </button> -->
         </div>
+        
+       
+        
         <br>
         <mat-card-title class="profile-name">{{profiles.fullname}}</mat-card-title>
         <mat-card-subtitle class="profile-email"></mat-card-subtitle>
@@ -38,7 +46,18 @@
             </mat-list-item>
            
           </mat-list>
-          <a class="list-label" routerLink="/profile">View Profile</a>
+          <div class="button-gap">
+            <button mat-icon-button class="add-btn" class="list-label" routerLink="/profile">
+              <mat-icon>person</mat-icon>View Profile
+            </button>
+            <button mat-icon-button class="add-btn" class="list-label" routerLink="/print-cv">
+              <mat-icon>description</mat-icon>Print CV
+            </button>
+            <button mat-icon-button class="add-btn" class="list-label" routerLink="/user-cv">
+              <mat-icon>description</mat-icon>Edit CV
+            </button>
+
+          </div>
         </mat-card-content>
       </mat-card>
       

@@ -1,13 +1,4 @@
-.profile-container {
-  width: 100%;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  height: 92vh;
-  max-height: 92vh;
-  background-color: rgb(246, 244, 244);
-  overflow-y: auto; /* Use overflow-y for vertical scroll only */
-}
+
 
 /* Cover Photo Section */
 .cover-photo {

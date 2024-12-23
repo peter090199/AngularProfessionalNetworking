@@ -53,14 +53,16 @@ section{
 }
 .button-gap {
   display: flex;
-  justify-content: flex-start; /* Aligns buttons to the start */
-  gap: 10px; /* Adds a fixed amount of space between buttons */
-  margin-top: 15px; /* Adds space above the button group */
+  gap:65px; /* Adds a fixed amount of space between buttons */
+  margin-top: 5px; /* Adds space above the button group */
+  margin-right: 30px;
 }
+
+
 /* Overall Layout */
 body {
   background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));
-  font-family: 'Tahoma';
+  font-family: 'Verdana', sans-serif; 
   line-height: 1;
   margin: 2px !important;
   overflow: hidden;

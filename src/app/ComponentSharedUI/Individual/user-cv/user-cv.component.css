@@ -363,6 +363,8 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 20px;
+
 }
 
 .footer-left, .footer-right {
@@ -371,8 +373,15 @@ textarea {
 
 .footer-left {
   text-align: left;
+  display: flex-end;
+  gap: 15px;
 }
-
+.button-gap {
+  display: flex;
+  gap:20px; /* Adds a fixed amount of space between buttons */
+  margin-top: 5px; /* Adds space above the button group */
+  margin-right: 60px;
+}
 .footer-right {
   text-align: right;
 }

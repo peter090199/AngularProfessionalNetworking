@@ -53,6 +53,8 @@ import { CurriculumVitaeUIComponent } from './ComponentSharedUI/Individual/curri
 import { ProfileUIComponent } from './ComponentSharedUI/Profile/profile-ui/profile-ui.component';
 import { UserCVComponent } from './ComponentSharedUI/Individual/user-cv/user-cv.component';
 import { DatePipe } from '@angular/common';
+import { UploadProfileComponent } from './ComponentSharedUI/Individual/upload-profile/upload-profile.component';
+
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -97,6 +99,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     CurriculumVitaeUIComponent,
     ProfileUIComponent,
     UserCVComponent,
+    UploadProfileComponent,
+  
     
   ],
   imports: [
