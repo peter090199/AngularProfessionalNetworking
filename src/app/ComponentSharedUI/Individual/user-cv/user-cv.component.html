@@ -55,6 +55,12 @@
               <mat-label>Profession</mat-label>
               <input matInput [value]="profession" readonly />
             </mat-form-field>
+
+            <button mat-raised-button color="basic" class="button-field" (click)="onClickNew()">
+              <mat-icon>add_circle</mat-icon>
+               Language
+            </button>
+            
           </div>
   
           <!-- Contact Number -->
@@ -64,12 +70,13 @@
               <input
                 type="text"
                 matInput
+                [(ngModel)]="contact_no"
                 formControlName="contact_no"
                 placeholder="Enter your contact number"
                 required
               />
             </mat-form-field>
-  
+            
             <a class="change-link">Change</a>
             <mat-slide-toggle
               [checked]="false"
@@ -112,6 +119,7 @@
                 formControlName="date_birth"
                 placeholder="Select your date of birth"
                 required
+                (dateChange)="validateAge()"
               />
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
@@ -125,8 +133,8 @@
             <button
               mat-raised-button
               color="primary"
-              [disabled]="firstFormGroup.invalid"
               matStepperNext
+              [disabled]="!isEligible"
             >
               Next
             </button>
@@ -147,15 +155,13 @@
           <div class="form-row">
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>Your Home Country</mat-label>
-              <mat-select formControlName="home_country" required>
-                <mat-option
-                  *ngFor="let country of countryCodes"
-                  [value]="country.country"
-                >
+              <mat-select formControlName="home_country">
+                <mat-option *ngFor="let country of filteredCountries" [value]="country.country">
                   {{ country.country }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+            
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>City, State</mat-label>
               <input matInput formControlName="home_state" required />
@@ -234,377 +240,56 @@
       </form>
     </mat-step>
 
-    <!-- Step 3: ARRAY  -->
+    <!-- Step 3: ARRAY-->
     <mat-step [stepControl]="thirdFormGroup">
       <form [formGroup]="thirdFormGroup">
         <ng-template matStepLabel>Professional Development</ng-template>
         <div class="profile-container">
           <h2>Build Your Profile</h2>
           <mat-divider></mat-divider>
-
-          <!-- Capability Section -->
-          <div formGroupName="lines">
-            <h3>Language</h3>
-            <button
-              mat-button
-              color="primary"
-              (click)="addItemToArray('capability')"
-            >
-              Add More
+          
+           <br> <br>
+            <button mat-button color="basic" class="button-field" (click)="AddSkills()">
+              <mat-icon>add_circle</mat-icon>
+               Add Skills
             </button>
 
-            <div formArrayName="capability">
-              <div
-                *ngFor="let item of capabilityArray.controls; let i = index"
-                [formGroupName]="i"
-              >
-                <mat-form-field appearance="standard">
-                  <mat-label>Language</mat-label>
-                  <input
-                    matInput
-                    formControlName="language"
-                    placeholder="Enter Language"
-                  />
-                </mat-form-field>
-
-                <mat-form-field appearance="standard">
-                  <mat-label>Skills</mat-label>
-                  <textarea
-                    matInput
-                    formControlName="skills"
-                    placeholder="Enter Skills"
-                  ></textarea>
-                </mat-form-field>
-
-                <button
-                  mat-icon-button
-                  color="warn"
-                  (click)="removeItemFromArray('capability', i)"
-                  *ngIf="capabilityArray.length > 1"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </div>
-
-            <br />
-            <h3>Education</h3>
-            <button mat-button color="primary" (click)="addeducation()">
-              Add Education
-            </button>
-            <div formArrayName="education">
-              <div
-                *ngFor="let item of educationArray.controls; let i = index"
-                [formGroupName]="i"
-              >
-                <mat-form-field appearance="standard">
-                  <mat-label>Enter Education</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter Education"
-                    formControlName="highest_education"
-                  />
-                </mat-form-field>
-
-                <mat-form-field appearance="standard">
-                  <mat-label>School Name</mat-label>
-                  <input
-                    matInput
-                    formControlName="skills"
-                    placeholder="Enter school name"
-                    formControlName="school_name"
-                  />
-                </mat-form-field>
-
-                <mat-form-field appearance="standard">
-                  <mat-label>Year Entry</mat-label>
-                  <input
-                    matInput
-                    type="number"
-                    formControlName="year_entry"
-                    placeholder="Enter year entry"
-                  />
-                </mat-form-field>
-                
-
-                <mat-form-field appearance="standard">
-                  <mat-label>Year Entry</mat-label>
-                  <input
-                    matInput
-                    type="number"
-                    formControlName="year_end"
-                    placeholder="Enter year end"
-                  />
-                </mat-form-field>
-
-                <button
-                  mat-icon-button
-                  color="warn"
-                  (click)="removeItemFromArray2('education', i)"
-                  *ngIf="educationArray.length > 1"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-
-                  <mat-radio-group aria-label="Select education status" class="radio-group" formControlName="status">
-                    <mat-radio-button *ngFor="let option of educationStatusOptions" [value]="option.value">
-                      {{ option.label }}
-                    </mat-radio-button>
-                  </mat-radio-group>
-                
-                
-              </div>
-            </div>
-
-            <!-- <Trainings -->
-            <br />
-            <h3>Trainings</h3>
-            <button mat-button color="primary" (click)="addTraining()">
-              Add More
+            <br> <br>
+            <button mat-button color="basic" class="button-field" (click)="AddEducation()">
+              <mat-icon>add_circle</mat-icon>
+               Add Education
             </button>
 
-            <div formArrayName="training">
-              <div
-                *ngFor="let item of trainingArray.controls; let i = index"
-                [formGroupName]="i"
-              >
-                <mat-form-field appearance="standard">
-                  <mat-label>Enter Training</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter Training Title"
-                    formControlName="training_title"
-                    required
-                  />
-                </mat-form-field>
-
-                <mat-form-field appearance="standard">
-                  <mat-label>Enter Training Provider</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter Training Provider"
-                    formControlName="training_provider"
-                    required
-                  />
-                </mat-form-field>
-
-                <mat-form-field appearance="standard" class="form-field">
-                  <mat-label>Date Completed</mat-label>
-                  <input
-                    matInput
-                    [matDatepicker]="picker"
-                    formControlName="trainingdate"
-                    required
-                  />
-                  <mat-datepicker-toggle
-                    matSuffix
-                    [for]="picker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-
-                <button
-                  mat-icon-button
-                  color="warn"
-                  (click)="removeItemFromArray3('training', i)"
-                  *ngIf="trainingArray.length > 1"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </div>
-
-            <!-- <Seminar -->
-            <br />
-            <h3>Seminar</h3>
-            <button mat-button color="primary" (click)="addSeminar()">
-              Add More
+            <br> <br>
+            <button mat-button color="basic" class="button-field" (click)="AddTrainings()">
+              <mat-icon>add_circle</mat-icon>
+               Add Trainings
             </button>
-            <div formArrayName="seminar">
-              <div
-                *ngFor="let item of seminarArray.controls; let i = index"
-                [formGroupName]="i"
-              >
-                <mat-form-field appearance="standard">
-                  <mat-label>Enter Seminar</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter Seminar"
-                    formControlName="seminar_title"
-                  />
-                </mat-form-field>
 
-                <mat-form-field appearance="standard">
-                  <mat-label>Provider</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter Provider"
-                    formControlName="seminar_provider"
-                  />
-                </mat-form-field>
-
-                <mat-form-field appearance="standard" class="form-field">
-                  <mat-label>Date Completed</mat-label>
-                  <input
-                    matInput
-                    [matDatepicker]="picker"
-                    formControlName="seminardate"
-                    required
-                  />
-                  <mat-datepicker-toggle
-                    matSuffix
-                    [for]="picker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-
-                <button
-                  mat-icon-button
-                  color="warn"
-                  (click)="removeItemFromArray4('seminar', i)"
-                  *ngIf="seminarArray.length > 1"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </div>
-
-            <!-- employment -->
-            <br />
-            <h3>Employment</h3>
-            <button mat-button color="primary" (click)="addSeminar()">
-              Add More
+            <br> <br>
+            <button mat-button color="basic" class="button-field" (click)="AddSeminar()">
+              <mat-icon>add_circle</mat-icon>
+               Add Seminar
             </button>
-            <div formArrayName="employment">
-              <div
-                *ngFor="let item of employmentArray.controls; let i = index"
-                [formGroupName]="i"
-              >
-                <mat-form-field appearance="standard">
-                  <mat-label>Company Name</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter company_name"
-                    formControlName="company_name"
-                  />
-                </mat-form-field>
 
-                <mat-form-field appearance="standard">
-                  <mat-label>Position</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter Position"
-                    formControlName="position"
-                  />
-                </mat-form-field>
-
-                <mat-form-field appearance="standard">
-                  <mat-label>Job_description</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter job_description"
-                    formControlName="job_description"
-                  />
-                </mat-form-field>
-
-                <mat-form-field appearance="standard" class="form-field">
-                  <mat-label>Date Completed</mat-label>
-                  <input
-                    matInput
-                    [matDatepicker]="picker"
-                    formControlName="date_completed"
-                    required
-                  />
-                  <mat-datepicker-toggle
-                    matSuffix
-                    [for]="picker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-
-                <button
-                  mat-icon-button
-                  color="warn"
-                  (click)="removeItemFromArray5('employment', i)"
-                  *ngIf="employmentArray.length > 1"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </div>
-
-            <!-- certificate -->
-            <br />
-            <h3>Certificate</h3>
-            <button mat-button color="primary" (click)="addCertificate()">
-              Add More
+            <br> <br>
+            <button mat-button color="basic" class="button-field" (click)="AddEmployment()">
+              <mat-icon>add_circle</mat-icon>
+               Add Employment
             </button>
-            <div formArrayName="certificate">
-              <div
-                *ngFor="let item of certificateArray.controls; let i = index"
-                [formGroupName]="i"
-              >
-                <mat-form-field appearance="standard">
-                  <mat-label>Certificate Title</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter Certificate Title"
-                    formControlName="certificate_title"
-                  />
-                </mat-form-field>
 
-                <mat-form-field appearance="standard">
-                  <mat-label>Certificate Provider</mat-label>
-                  <input
-                    matInput
-                    placeholder="Enter certificate_provider"
-                    formControlName="certificate_provider"
-                  />
-                </mat-form-field>
-
-                <mat-form-field appearance="standard" class="form-field">
-                  <mat-label>Date Completed</mat-label>
-                  <input
-                    matInput
-                    [matDatepicker]="picker"
-                    formControlName="date_completed"
-                    required
-                  />
-                  <mat-datepicker-toggle
-                    matSuffix
-                    [for]="picker"
-                  ></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-
-                <button
-                  mat-icon-button
-                  color="warn"
-                  (click)="removeItemFromArray6('certificate', i)"
-                  *ngIf="certificateArray.length > 1"
-                >
-                  <mat-icon>delete</mat-icon>
-                </button>
-              </div>
-            </div>
-
-            <!-- Lines -->
+            <br> <br>
+            <button mat-button color="basic" class="button-field" (click)="AddCertificate()">
+              <mat-icon>add_circle</mat-icon>
+               Add Certificate
+            </button>
           </div>
-
-          <!-- Navigation -->
+         
+          <br><br>
           <div class="button-gap">
-            <!-- <button mat-raised-button color="warn" matStepperPrevious>
-              Back -->
-            <!-- </button>
-            <button mat-raised-button type="submit" (click)="submit()" [disabled]="!firstFormGroup.valid || 
-            !secondFormGroup.valid || !summaryFormGroup.valid || !thirdFormGroup.valid">Finish</button>
+             <button mat-raised-button color="primary" type="submit" (click)="submit()">Finish</button>
+          </div>
          
-          </div> -->
-          <button mat-raised-button type="submit" (click)="submit()">Finish</button>
-       
-        </div>
-         
-        </div>
       </form>
     </mat-step>
   </mat-horizontal-stepper>
@@ -614,7 +299,9 @@
      <div class="button-gap">
         <span>&copy; 2024 Nexsuz</span>
         <!-- <a routerLink="/home">Back to home</a> -->
-      
+        <div class="footer-right">
+          <span>Terms & Conditions | Privacy Policy</span>
+        </div>
     </div>
 
     <!-- Progress Bar with Number Display -->
@@ -626,19 +313,3 @@
     </div>
   </footer>
 </div>
-
-<!-- <footer class="mat-footer">
-  <mat-divider></mat-divider>
-  <div class="footer-content">
-    <div class="footer-left">
-      <span>&copy; 2024 Your Company Name</span>
-    </div>
-    <div class="footer-right">
-      <span>Terms & Conditions | Privacy Policy</span>
-    </div>
-  </div>
-
-  <div class="progress-bar-container">
-    <mat-progress-bar mode="determinate" [value]="progressValue"></mat-progress-bar>
-  </div>
-</footer> -->

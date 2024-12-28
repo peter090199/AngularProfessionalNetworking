@@ -1,0 +1,78 @@
+  <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+  <br>
+
+<button mat-button color="primary"  (click)="addEducation()">
+    <mat-icon>add_circle</mat-icon>
+    Language
+</button>
+<br><br>
+
+<form [formGroup]="educationForm" (ngSubmit)="submitForm()">
+    <div class="education-group-wrapper" formArrayName="education">
+      <div
+        *ngFor="let item of educationArray.controls; let i = index"
+        [formGroupName]="i"
+        class="education-group"
+      >
+        <mat-form-field appearance="standard">
+          <mat-label>Enter Education</mat-label>
+          <input
+           required
+            matInput
+            placeholder="Enter Education"
+            formControlName="highest_education"
+          />
+        </mat-form-field>
+  
+        <mat-form-field appearance="standard">
+          <mat-label>School Name</mat-label>
+          <input
+            required
+            matInput
+            placeholder="Enter school name"
+            formControlName="school_name"
+          />
+        </mat-form-field>
+  
+        <mat-form-field appearance="standard">
+          <mat-label>Year Entry</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            placeholder="Enter year entry"
+            formControlName="year_entry"
+          />
+        </mat-form-field>
+  
+        <mat-form-field appearance="standard">
+          <mat-label>Year End</mat-label>
+          <input
+            required
+            matInput
+            type="number"
+            placeholder="Enter year end"
+            formControlName="year_end"
+          />
+        </mat-form-field>
+  
+        <mat-radio-group aria-label="Select education status" class="radio-group" formControlName="status">
+          <mat-radio-button *ngFor="let option of educationStatusOptions" [value]="option.value">
+            {{ option.label }}
+          </mat-radio-button>
+        </mat-radio-group>
+  
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="removeItemFromArray2('education', i)"
+          *ngIf="educationArray.length > 1"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </div>
+    <button mat-raised-button color="primary" type="submit" >Add</button>
+  </form>

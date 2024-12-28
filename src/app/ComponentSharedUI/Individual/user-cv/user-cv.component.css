@@ -1,7 +1,7 @@
 /* General Styling */
 /* ::ng-deep mat-horizontal-stepper .mat-step-header {
-  /* display: none; 
-}*/
+   display: none; 
+} */
 
 mat-form-field {
   width: 92%;
@@ -217,13 +217,16 @@ mat-divider {
 .form-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
   flex-wrap: wrap; /* Ensures wrapping on smaller screens */
 }
 
 .form-field {
   flex: 1;
   min-width: 120px;
+}
+button .button-field{
+  width: 100px;
 }
 
 .change-link {

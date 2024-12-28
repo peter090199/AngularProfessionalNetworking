@@ -1,0 +1,64 @@
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+  <mat-icon class="close-icon" color="warn">close</mat-icon>
+</button>
+    <button mat-button color="primary"  (click)="addTraining()">
+        <mat-icon>add_circle</mat-icon>
+        Trainings
+    </button>
+    <br><br>
+
+    <form [formGroup]="trainingForm" (ngSubmit)="submitForm()">
+        <div class="form-group-wrapper" formArrayName="training">
+            <div
+            *ngFor="let item of trainingArray.controls; let i = index"
+            [formGroupName]="i"
+            class="form-group"
+          >
+          <mat-form-field appearance="standard">
+            <mat-label>Enter Training</mat-label>
+            <input
+              matInput
+              placeholder="Enter Training Title"
+              formControlName="training_title"
+              required
+            />
+          </mat-form-field>
+    
+          <mat-form-field appearance="standard">
+            <mat-label>Enter Training Provider</mat-label>
+            <input
+              matInput
+              placeholder="Enter Training Provider"
+              formControlName="training_provider"
+              required
+            />
+          </mat-form-field>
+    
+          <mat-form-field appearance="standard" class="form-field">
+            <mat-label>Date Completed</mat-label>
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="trainingdate"
+              required
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+          <button
+          mat-icon-button
+          color="warn"
+          (click)="removeItemFromArray3('training', i)"
+          *ngIf="trainingArray.length > 1"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+
+          </div>
+       </div>
+        <button mat-raised-button color="primary" type="submit" >Add</button>
+    </form>

@@ -54,6 +54,14 @@ import { ProfileUIComponent } from './ComponentSharedUI/Profile/profile-ui/profi
 import { UserCVComponent } from './ComponentSharedUI/Individual/user-cv/user-cv.component';
 import { DatePipe } from '@angular/common';
 import { UploadProfileComponent } from './ComponentSharedUI/Individual/upload-profile/upload-profile.component';
+import { AddLanguageUIComponent } from './ComponentSharedUI/Individual/Languange/add-language-ui/add-language-ui.component';
+import { AddSkillsUIComponent } from './ComponentSharedUI/Individual/ProfessionalDev/add-skills-ui/add-skills-ui.component';
+import { AddEducationUIComponent } from './ComponentSharedUI/Individual/ProfessionalDev/add-education-ui/add-education-ui.component';
+import { AddTrainingsUiComponent } from './ComponentSharedUI/Individual/ProfessionalDev/add-trainings-ui/add-trainings-ui.component';
+import { AddSeminarUiComponent } from './ComponentSharedUI/Individual/ProfessionalDev/add-seminar-ui/add-seminar-ui.component';
+import { AddEmploymentUiComponent } from './ComponentSharedUI/Individual/ProfessionalDev/add-employment-ui/add-employment-ui.component';
+import { AddCertificateUiComponent } from './ComponentSharedUI/Individual/ProfessionalDev/add-certificate-ui/add-certificate-ui.component';
+
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -100,6 +108,14 @@ export function HttpLoaderFactory(http: HttpClient) {
     ProfileUIComponent,
     UserCVComponent,
     UploadProfileComponent,
+    AddLanguageUIComponent,
+    AddSkillsUIComponent,
+    AddEducationUIComponent,
+    AddTrainingsUiComponent,
+    AddSeminarUiComponent,
+    AddEmploymentUiComponent,
+    AddCertificateUiComponent,
+ 
   
     
   ],

@@ -1,0 +1,37 @@
+<section class="section">
+<button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+  
+  <mat-form-field class="example-chip-list" appearance="standard">
+    <mat-label>Skills</mat-label>
+    <mat-chip-list #chipList aria-label="Language selection">
+      <mat-chip
+        *ngFor="let skill of skills"
+        (removed)="remove(skill)">
+        {{skill}}
+        <button matChipRemove>
+          <mat-icon>cancel</mat-icon>
+        </button>
+      </mat-chip>
+      <input
+        placeholder="Add Skills..."
+        #languageInput
+        [formControl]="skillsCtrl"
+        [matAutocomplete]="auto"
+        [matChipInputFor]="chipList"
+        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+        (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+      <mat-option *ngFor="let language of filteredSkills | async" [value]="language">
+        {{language}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+  
+  <!-- Save Button -->
+  <button mat-raised-button color="primary" (click)="passData()">
+    Add
+  </button>
+</section>

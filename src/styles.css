@@ -5,6 +5,7 @@
 
 
 
+
 .app-container {
   display: flex;
   flex-direction: column;
@@ -53,16 +54,14 @@ section{
 }
 .button-gap {
   display: flex;
-  gap:65px; /* Adds a fixed amount of space between buttons */
-  margin-top: 5px; /* Adds space above the button group */
-  margin-right: 30px;
+  justify-content: flex-start; /* Aligns buttons to the start */
+  gap: 10px; /* Adds a fixed amount of space between buttons */
+  margin-top: 15px; /* Adds space above the button group */
 }
-
-
 /* Overall Layout */
 body {
   background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));
-  font-family: 'Verdana', sans-serif; 
+  font-family: 'Tahoma';
   line-height: 1;
   margin: 2px !important;
   overflow: hidden;

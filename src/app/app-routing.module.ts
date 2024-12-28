@@ -38,8 +38,10 @@ const routes: Routes = [
   { path: 'activation/:email', component: ActivationUIComponent },
   { path: 'layout', component: LayoutComponent },
   { path: 'curriculum-vitae', component:CurriculumVitaeUIComponent,canActivate:[AuthGuard] },
-  { path: 'user-cv', component:UserCVComponent,canActivate:[AuthGuard] },
+  //{ path: 'user-cv', component:UserCVComponent,canActivate:[AuthGuard] },
+  { path: 'user-cv', component:UserCVComponent},
   { path: 'upload-cv', component:UploadProfileComponent,canActivate:[AuthGuard] },
+  
   // Top navigation with sub-routes
   { 
     path: '', 

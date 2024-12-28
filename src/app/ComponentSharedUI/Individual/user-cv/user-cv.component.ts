@@ -1,5 +1,5 @@
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
-import { Component, OnInit, ViewChild,AfterViewInit  } from '@angular/core';
+import { Component, OnInit, ViewChild,AfterViewInit, Inject  } from '@angular/core';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
 import {
@@ -14,6 +14,17 @@ import { ProfileService } from 'src/app/services/Profile/profile.service';
 import { MatHorizontalStepper } from '@angular/material/stepper/stepper';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AddLanguageUIComponent } from '../Languange/add-language-ui/add-language-ui.component';
+import { AddEducationUIComponent } from '../ProfessionalDev/add-education-ui/add-education-ui.component';
+import { AddSkillsUIComponent } from '../ProfessionalDev/add-skills-ui/add-skills-ui.component';
+import { AddTrainingsUiComponent } from '../ProfessionalDev/add-trainings-ui/add-trainings-ui.component';
+import { AddSeminarUiComponent } from '../ProfessionalDev/add-seminar-ui/add-seminar-ui.component';
+import { AddEmploymentUiComponent } from '../ProfessionalDev/add-employment-ui/add-employment-ui.component';
+import { AddCertificateUiComponent } from '../ProfessionalDev/add-certificate-ui/add-certificate-ui.component';
+import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
+import { V } from '@angular/cdk/keycodes';
+
 /**
  * @title Basic expansion panel
  */
@@ -75,8 +86,10 @@ export class UserCVComponent implements AfterViewInit  {
     return filledSteps;
   }
   countryCodes = [
-    { code: '+1', country: 'USA/Canada' },
-    { code: '+7', country: 'Russia/Kazakhstan' },
+    { code: '+1', country: 'USA' },
+    { code: '+1', country: 'Canada' },
+    { code: '+7', country: 'Russia' },
+    { code: '+7', country: 'Kazakhstan' },
     { code: '+20', country: 'Egypt' },
     { code: '+27', country: 'South Africa' },
     { code: '+30', country: 'Greece' },
@@ -170,7 +183,8 @@ export class UserCVComponent implements AfterViewInit  {
 
   constructor(private formBuilder: FormBuilder,private userService:ProfileService,
               private cvService:CurriculumVitaeService,
-              private notificationService:NotificationsService,private router:Router,private datePipe:DatePipe
+              private notificationService:NotificationsService,private router:Router,private datePipe:DatePipe,
+              private dialog:MatDialog, private passDataServices:ProfessionalService
   ) {}
  userData:any;
  error: any;
@@ -182,10 +196,54 @@ export class UserCVComponent implements AfterViewInit  {
  profession:string="";
  progressPercentage = 0;
 
+ isEligible: boolean = false;
+ searchCtrl = new FormControl('');
+filteredCountries = this.countryCodes;
+
+
+formData: any=[];
+
  ngOnInit(): void {
+
+  this.searchCtrl.valueChanges.subscribe((searchText) => {
+    this.filteredCountries = this.filterCountries(searchText);
+  });
   this.initializeFormGroups();
   this.GetUserData();
+  
 }
+filterCountries(searchText: string) {
+  if (!searchText) {
+    return this.countryCodes;
+  }
+  return this.countryCodes.filter((country) =>
+    country.country.toLowerCase().includes(searchText.toLowerCase())
+  );
+}
+
+ validateAge(): void {
+    const dateOfBirth = this.firstFormGroup.get('date_birth')?.value;
+
+    if (!dateOfBirth) {
+      this.isEligible = false;
+      return;
+    }
+
+    const today = new Date();
+    const dob = new Date(dateOfBirth);
+    const age = today.getFullYear() - dob.getFullYear();
+    const monthDifference = today.getMonth() - dob.getMonth();
+
+    // Adjust age if the current month/day is before the birth month/day
+    if (
+      monthDifference < 0 ||
+      (monthDifference === 0 && today.getDate() < dob.getDate())
+    ) {
+      this.isEligible = age - 1 >= 18;
+    } else {
+      this.isEligible = age >= 18;
+    }
+  }
 
  private GetUserData(): void {
      this.userService.getProfileByUser().subscribe({
@@ -257,15 +315,16 @@ export class UserCVComponent implements AfterViewInit  {
   ];
 
 
-
   private initializeFormGroups(): void {
-  
+
+   
     this.firstFormGroup = this.formBuilder.group({
       photo_pic: [null],  // Set to null if no file is selected
       contact_no: ['', Validators.required],
       contact_visibility: [0],
       email_visibility: [0],
       date_birth: ['', Validators.required],
+      
     });
 
     this.secondFormGroup = this.formBuilder.group({
@@ -278,18 +337,19 @@ export class UserCVComponent implements AfterViewInit  {
       summary: ['', Validators.required],
     
     });
-  
+    const data = this.passDataServices.getData();
+    const skillsData = data || []; // Fallback to an empty array if no skills are provided
+
     this.thirdFormGroup = this.formBuilder.group({
-      lines: this.formBuilder.group({
-        capability: this.formBuilder.array([this.createCapability()]),
-        education: this.formBuilder.array([this.createEducation()]),
-        training: this.formBuilder.array([this.createTraining()]),
-        seminar: this.formBuilder.array([this.createSeminar()]),
-        employment: this.formBuilder.array([this.createEmployment()]),
-        certificate:this.formBuilder.array([this.createCertificate()]),
-      }),
+      skills: this.formBuilder.array([]), // Empty FormArray for skills
+      education: this.formBuilder.array([]), // Empty FormArray for education
+      trainings: this.formBuilder.array([]), // Empty FormArray for trainings
+      seminars: this.formBuilder.array([]), // Empty FormArray for seminars
+      employment: this.formBuilder.array([]), // Empty FormArray for employment
+      certificates: this.formBuilder.array([]), // Empty FormArray for certificates
     });
   }
+ 
 
   onToggleChange(event: any, controlName: string): void {
     const toggleValue = event.checked ? 1 : 0; // 1 for Hide, 0 for Show
@@ -327,15 +387,39 @@ export class UserCVComponent implements AfterViewInit  {
     );
   }
 
+  createSkills(): FormArray {
+    const formData = this.passDataServices.getData();
+    const skillsArray = this.formBuilder.array([]);
+  
+    if (Array.isArray(formData) && formData.length > 0) {
+      formData.forEach((data) => {
+        skillsArray.push(
+          this.formBuilder.group({
+               data
+          })
+        );
+      });
+    } else {
+      console.warn('No skills data available from passDataServices.getData()');
+      skillsArray.push(this.formBuilder.group({ skillItem: [''] }));
+    }
+    return skillsArray;
+  }
+  
+  
   // Create a new education FormGroup
-  createEducation(): FormGroup {
-    return this.formBuilder.group({
-      highest_education: ['', Validators.required],
-      school_name: ['', Validators.required],
-      year_entry: ['', Validators.required],
-      year_end: ['', Validators.required],
-      status: [''],
-    });
+  createEducation(): FormArray {
+    const formData = this.passDataServices.getData();
+    const educationArray = this.formBuilder.array([]);
+
+    if (Array.isArray(formData)) {
+      formData.forEach((data) => {
+        educationArray.push(this.formBuilder.group({
+          educationItem: [data]  // For each item, create a FormControl inside a FormGroup
+        }));
+      });
+    }
+    return educationArray;
   }
 
   // Add education to the FormArray
@@ -371,6 +455,7 @@ export class UserCVComponent implements AfterViewInit  {
       seminardate: ['', Validators.required],
     });
   }
+
 //employment
 createEmployment(): FormGroup {
   return this.formBuilder.group({
@@ -538,20 +623,160 @@ removeItemFromArray6(arrayName: 'certificate', index: number) {
     });
   }
 
-  submit() {
+
+
+  //basic info 
+
+ onClickNew(): void {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '400px';
+
+  const dialogRef = this.dialog.open(AddLanguageUIComponent, dialogConfig);
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+    //  this.getRoles(); // Refresh the table after dialog closure
+    }
+  });
+}
+AddSkills(): void {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '500px';
+
+  const dialogRef = this.dialog.open(AddSkillsUIComponent, dialogConfig);
+  dialogRef.afterClosed().subscribe(result => {
+     if (result) {
+     
+    }
+  });
+}
+AddEducation(): void {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '500px';
+
+  const dialogRef = this.dialog.open(AddEducationUIComponent, dialogConfig);
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      
+    }
+  });
+}
+
+AddTrainings(): void {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '500px';
+
+  const dialogRef = this.dialog.open(AddTrainingsUiComponent, dialogConfig);
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+     
+    }
+  });
+}
+
+
+AddSeminar(): void {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '500px';
+
+  const dialogRef = this.dialog.open(AddSeminarUiComponent, dialogConfig);
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+     
+    }
+  });
+}
+
+
+
+AddEmployment(): void {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '500px';
+
+  const dialogRef = this.dialog.open(AddEmploymentUiComponent, dialogConfig);
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+      
+    }
+  });
+}
+
+AddCertificate(): void {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '500px';
+
+  const dialogRef = this.dialog.open(AddCertificateUiComponent, dialogConfig);
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+    
+    }
+  });
+}
+
+
+submit() {
+  this.loading = true;
+  const dateOfBirth = this.firstFormGroup.value?.date_birth
+    ? this.datePipe.transform(this.firstFormGroup.value.date_birth, 'yyyy-MM-dd')
+    : null;
+
+  const skills = this.passDataServices.getData();
+  const mergeData = {
+    ...this.firstFormGroup.getRawValue(),
+    ...this.secondFormGroup.getRawValue(),
+    ...this.summaryFormGroup.getRawValue(),
+    skills
+  };
+  if (dateOfBirth) {
+    mergeData.date_birth = dateOfBirth;
+  }
+
+  console.log(mergeData)
+  return;
+  
+}
+
+
+
+
+  submit333() {
     // Set loading to true to indicate process start
     this.loading = true;
     const dateOfBirth = this.firstFormGroup.value?.date_birth
       ? this.datePipe.transform(this.firstFormGroup.value.date_birth, 'yyyy-MM-dd')
       : null;
+      
   
-    // Merge all form group values
+    const skills = this.passDataServices.getData();
     const mergeData = {
       ...this.firstFormGroup.getRawValue(),
       ...this.secondFormGroup.getRawValue(),
       ...this.summaryFormGroup.getRawValue(),
-      ...this.thirdFormGroup.getRawValue(),
+      skills
     };
+
+
+    if (dateOfBirth) {
+      mergeData.date_birth = dateOfBirth;
+    }
+
+    console.log(mergeData)
+    return;
+   // const data = this.thirdFormGroup.value;
+ 
   
     // Add formatted date of birth to mergeData if it exists
     if (dateOfBirth) {
