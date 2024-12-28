@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 @Component({
   selector: 'app-add-education-ui',
   templateUrl: './add-education-ui.component.html',
@@ -10,7 +10,10 @@ export class AddEducationUIComponent implements OnInit {
   educationForm: FormGroup;
   educationList: any[] = []; 
   
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder,private dataService:ProfessionalService
+
+
+  ) { }
 
   ngOnInit(): void {
     this.educationForm = this.formBuilder.group({
@@ -58,13 +61,17 @@ export class AddEducationUIComponent implements OnInit {
 
  submitForm(): void {
     if (this.educationForm.valid) {
-      this.educationList.push(...this.educationArray.value); // Add to the array
+      this.educationList.push(...this.educationArray.value); 
+
+      this.dataService.setformEducation(this.educationList); 
       console.log('Education List:', this.educationList); // Optional: View the data in console
       this.resetForm(); // Reset the form
     } else {
       console.error('Form is invalid');
     }
   }
+
+  
 
   resetForm(): void {
     while (this.educationArray.length !== 0) {

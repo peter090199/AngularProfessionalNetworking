@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Certificate } from 'crypto';
+import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 
 @Component({
   selector: 'app-add-certificate-ui',
@@ -9,9 +9,9 @@ import { Certificate } from 'crypto';
 })
 export class AddCertificateUiComponent implements OnInit {
   certificateForm:FormGroup;
-  certList: any[] = []; 
+  dataList: any[] = []; 
 
-  constructor(private fb:FormBuilder) { }
+  constructor(private fb:FormBuilder,private dataService:ProfessionalService) { }
 
   ngOnInit(): void {
     this.certificateForm = this.fb.group({
@@ -36,13 +36,16 @@ export class AddCertificateUiComponent implements OnInit {
   }
   submitForm(): void {
     if (this.certificateForm.valid) {
-      this.certList.push(...this.certificateArray.value); // Add to the array
-      console.log('List:', this.certList); // Optional: View the data in console
+      this.dataList.push(...this.certificateArray.value); 
+
+      this.dataService.setformCertificate(this.dataList); 
+      console.log('List:', this.dataList); // Optional: View the data in console
       this.resetForm(); // Reset the form
     } else {
       console.error('Form is invalid');
     }
   }
+
 
   resetForm(): void {
     while (this.certificateArray.length !== 0) {

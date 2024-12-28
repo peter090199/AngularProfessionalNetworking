@@ -88,7 +88,7 @@ export class AddSkillsUIComponent {
 
   // Pass selected skills data to the service or parent component
   passData(): void {
-    this.dataService.setData(this.skills);  // Pass the selected skills to the service
+    this.dataService.setformSkills(this.skills);  // Pass the selected skills to the service
    // console.log('Selected skills passed to service:', this.skills);  // Log for verification
     this.saveData.emit(this.skills);
   }

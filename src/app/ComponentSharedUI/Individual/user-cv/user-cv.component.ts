@@ -337,8 +337,6 @@ filterCountries(searchText: string) {
       summary: ['', Validators.required],
     
     });
-    const data = this.passDataServices.getData();
-    const skillsData = data || []; // Fallback to an empty array if no skills are provided
 
     this.thirdFormGroup = this.formBuilder.group({
       skills: this.formBuilder.array([]), // Empty FormArray for skills
@@ -388,7 +386,7 @@ filterCountries(searchText: string) {
   }
 
   createSkills(): FormArray {
-    const formData = this.passDataServices.getData();
+    const formData = this.passDataServices.getSkills();
     const skillsArray = this.formBuilder.array([]);
   
     if (Array.isArray(formData) && formData.length > 0) {
@@ -409,7 +407,7 @@ filterCountries(searchText: string) {
   
   // Create a new education FormGroup
   createEducation(): FormArray {
-    const formData = this.passDataServices.getData();
+    const formData = this.passDataServices.getDataEducation();
     const educationArray = this.formBuilder.array([]);
 
     if (Array.isArray(formData)) {
@@ -733,12 +731,25 @@ submit() {
     ? this.datePipe.transform(this.firstFormGroup.value.date_birth, 'yyyy-MM-dd')
     : null;
 
-  const skills = this.passDataServices.getData();
+  const language = this.passDataServices.getSkills();
+  const skills = this.passDataServices.getSkills();
+  const education = this.passDataServices.getDataEducation();
+  const trainings = this.passDataServices.getDataTraining();
+  const seminar = this.passDataServices.getDataSeminar();
+  const employment = this.passDataServices.getDataEmployment();
+  const certificate = this.passDataServices.getDataCertificate();
+
   const mergeData = {
     ...this.firstFormGroup.getRawValue(),
     ...this.secondFormGroup.getRawValue(),
     ...this.summaryFormGroup.getRawValue(),
-    skills
+    language,
+    skills,
+    education,
+    trainings,
+    seminar,
+    employment,
+    certificate
   };
   if (dateOfBirth) {
     mergeData.date_birth = dateOfBirth;
@@ -760,12 +771,10 @@ submit() {
       : null;
       
   
-    const skills = this.passDataServices.getData();
     const mergeData = {
       ...this.firstFormGroup.getRawValue(),
       ...this.secondFormGroup.getRawValue(),
       ...this.summaryFormGroup.getRawValue(),
-      skills
     };
 
 
