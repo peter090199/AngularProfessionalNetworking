@@ -809,7 +809,7 @@ submit() {
   this.cvService.postCV2(mergeData).subscribe({
     next: (res) => {
       if (res.success) {
-        this.notificationService.popupWarning(res.message,"");
+        this.notificationService.toastrSuccess(res.message);
         this.refreshHomePage();
       } else {
         this.notificationService.toastrError(res.message);
