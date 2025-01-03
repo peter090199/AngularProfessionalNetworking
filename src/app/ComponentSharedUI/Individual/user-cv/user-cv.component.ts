@@ -1,7 +1,6 @@
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, OnInit, ViewChild,AfterViewInit, Inject  } from '@angular/core';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
-import { NotificationsService } from 'src/app/services/Global/notifications.service';
 import {
   FormBuilder,
   FormGroup,
@@ -23,7 +22,7 @@ import { AddSeminarUiComponent } from '../ProfessionalDev/add-seminar-ui/add-sem
 import { AddEmploymentUiComponent } from '../ProfessionalDev/add-employment-ui/add-employment-ui.component';
 import { AddCertificateUiComponent } from '../ProfessionalDev/add-certificate-ui/add-certificate-ui.component';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
-import { V } from '@angular/cdk/keycodes';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 
 /**
  * @title Basic expansion panel
@@ -184,7 +183,7 @@ export class UserCVComponent implements AfterViewInit  {
   constructor(private formBuilder: FormBuilder,private userService:ProfileService,
               private cvService:CurriculumVitaeService,
               private notificationService:NotificationsService,private router:Router,private datePipe:DatePipe,
-              private dialog:MatDialog, private passDataServices:ProfessionalService
+              private dialog:MatDialog, private passDataServices:ProfessionalService,private alert:NotificationsService
   ) {}
  userData:any;
  error: any;
@@ -647,21 +646,34 @@ AddSkills(): void {
   const dialogRef = this.dialog.open(AddSkillsUIComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(result => {
      if (result) {
-     
+        
     }
   });
 }
+
 AddEducation(): void {
   const dialogConfig = new MatDialogConfig();
-  dialogConfig.disableClose = true;
-  dialogConfig.autoFocus = true;
   dialogConfig.width = '500px';
-
   const dialogRef = this.dialog.open(AddEducationUIComponent, dialogConfig);
-  dialogRef.afterClosed().subscribe(result => {
-    if (result) {
-      
+
+  dialogRef.afterClosed().subscribe((formResult) => {
+    if (!formResult) {
+      console.log("No changes made, form closed.");
+      return; // Allow the form to close without further interaction
     }
+    // else{
+    // this.alert
+    //   .popupWarningDiscard("")
+    //   .then((confirmation) => {
+    //     if (confirmation === "denied") {
+    //       console.log("Form closed and changes discarded.");
+    //     } else if (confirmation === "confirmed") {
+    //       console.log("Form kept open and changes saved.");
+    //     } else {
+    //       console.log("Form kept open.");
+    //     }
+    //   });
+    // }
   });
 }
 
@@ -724,14 +736,12 @@ AddCertificate(): void {
   });
 }
 
+lines:any=[];
 
 submit() {
   this.loading = true;
-  const dateOfBirth = this.firstFormGroup.value?.date_birth
-    ? this.datePipe.transform(this.firstFormGroup.value.date_birth, 'yyyy-MM-dd')
-    : null;
 
-  const language = this.passDataServices.getSkills();
+  const language = this.passDataServices.getLanguange();
   const skills = this.passDataServices.getSkills();
   const education = this.passDataServices.getDataEducation();
   const trainings = this.passDataServices.getDataTraining();
@@ -739,413 +749,80 @@ submit() {
   const employment = this.passDataServices.getDataEmployment();
   const certificate = this.passDataServices.getDataCertificate();
 
-  const mergeData = {
-    ...this.firstFormGroup.getRawValue(),
-    ...this.secondFormGroup.getRawValue(),
-    ...this.summaryFormGroup.getRawValue(),
+  const lines = {
     language,
     skills,
     education,
     trainings,
     seminar,
     employment,
-    certificate
+    certificate,
   };
-  if (dateOfBirth) {
-    mergeData.date_birth = dateOfBirth;
+
+
+  const formatDate = (dateString: string): string => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0'); 
+    const day = String(date.getDate()).padStart(2, '0'); 
+    return `${year}-${month}-${day}`; 
+  };
+
+  
+  if (lines) {
+    // Format the dates for each section within lines
+    if (lines.trainings) {
+      lines.trainings.forEach((training: { trainingdate: string }) => {
+        training.trainingdate = formatDate(training.trainingdate);
+      });
+    }
+
+    if (lines.seminar) {
+      lines.seminar.forEach((seminar: { seminardate: string }) => {
+        seminar.seminardate = formatDate(seminar.seminardate);
+      });
+    }
+
+    if (lines.employment) {
+      lines.employment.forEach((employment: { date_completed: string }) => {
+        employment.date_completed = formatDate(employment.date_completed);
+      });
+    }
+
+    if (lines.certificate) {
+      lines.certificate.forEach((cert: { date_completed: string }) => {
+        cert.date_completed = formatDate(cert.date_completed);
+      });
+    }
+  } else {
+    console.warn('No lines data found in thirdFormGroup.');
   }
 
+  const mergeData = {
+    ...this.firstFormGroup.getRawValue(),
+    ...this.secondFormGroup.getRawValue(),
+    ...this.summaryFormGroup.getRawValue(),
+   lines
+  };
   console.log(mergeData)
-  return;
-  
-}
 
-
-
-
-  submit333() {
-    // Set loading to true to indicate process start
-    this.loading = true;
-    const dateOfBirth = this.firstFormGroup.value?.date_birth
-      ? this.datePipe.transform(this.firstFormGroup.value.date_birth, 'yyyy-MM-dd')
-      : null;
-      
-  
-    const mergeData = {
-      ...this.firstFormGroup.getRawValue(),
-      ...this.secondFormGroup.getRawValue(),
-      ...this.summaryFormGroup.getRawValue(),
-    };
-
-
-    if (dateOfBirth) {
-      mergeData.date_birth = dateOfBirth;
-    }
-
-    console.log(mergeData)
-    return;
-   // const data = this.thirdFormGroup.value;
- 
-  
-    // Add formatted date of birth to mergeData if it exists
-    if (dateOfBirth) {
-      mergeData.date_birth = dateOfBirth;
-    }
-  
-    const formatDate = (dateString: string): string => {
-      const date = new Date(dateString);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Pad single-digit months
-      const day = String(date.getDate()).padStart(2, '0'); // Pad single-digit days
-      return `${year}-${month}-${day}`; // Returns in 'YYYY-MM-DD' format
-    };
-  
-    const lines = this.thirdFormGroup.get('lines')?.value;
-  
-    if (lines) {
-      // Initialize empty arrays for each section within lines
-      const capability: { language: string; skills: string; }[] = [];
-      const education: { highest_education: string; school_name: string; year_entry: number; year_end: number; status: string; }[] = [];
-      const training: { training_title: string; training_provider: string; trainingdate: string; }[] = [];
-      const seminar: { seminar_title: string; seminar_provider: string; seminardate: string; }[] = [];
-      const employment: { company_name: string; position: string; job_description: string; date_completed: string; }[] = [];
-      const certificate: { certificate_title: string; certificate_provider: string; date_completed: string; }[] = [];
-  
-      // Format the data for each section within lines
-      if (lines.capability) {
-        lines.capability.forEach((cap: { language: string, skills: string }) => {
-          capability.push({
-            language: cap.language,
-            skills: cap.skills,
-          });
-        });
-      }
-  
-      if (lines.education) {
-        lines.education.forEach((edu: { highest_education: string, school_name: string, year_entry: number, year_end: number, status: string }) => {
-          education.push({
-            highest_education: edu.highest_education,
-            school_name: edu.school_name,
-            year_entry: edu.year_entry,
-            year_end: edu.year_end,
-            status: edu.status,
-          });
-        });
-      }
-  
-      if (lines.training) {
-        lines.training.forEach((train: { training_title: string, training_provider: string, trainingdate: string }) => {
-          training.push({
-            training_title: train.training_title,
-            training_provider: train.training_provider,
-            trainingdate: formatDate(train.trainingdate),
-          });
-        });
-      }
-  
-      if (lines.seminar) {
-        lines.seminar.forEach((sem: { seminar_title: string, seminar_provider: string, seminardate: string }) => {
-          seminar.push({
-            seminar_title: sem.seminar_title,
-            seminar_provider: sem.seminar_provider,
-            seminardate: formatDate(sem.seminardate),
-          });
-        });
-      }
-  
-      if (lines.employment) {
-        lines.employment.forEach((emp: { company_name: string, position: string, job_description: string, date_completed: string }) => {
-          employment.push({
-            company_name: emp.company_name,
-            position: emp.position,
-            job_description: emp.job_description,
-            date_completed: formatDate(emp.date_completed),
-          });
-        });
-      }
-  
-      if (lines.certificate) {
-        lines.certificate.forEach((cert: { certificate_title: string, certificate_provider: string, date_completed: string }) => {
-          certificate.push({
-            certificate_title: cert.certificate_title,
-            certificate_provider: cert.certificate_provider,
-            date_completed: formatDate(cert.date_completed),
-          });
-        });
-      }
-  
-      // Structure the final 'lines' object
-      const formattedLines = {
-        capability: capability,
-        education: education,
-        training: training,
-        seminar: seminar,
-        employment: employment,
-        certificate: certificate,
-      };
-  
-      // Merge the formatted lines with the rest of the form data
-      const final = { ...mergeData, lines: formattedLines };
-      // Submit the combined payload to the server
-      this.cvService.postCV2(final).subscribe({
-        next: (res) => {
-          if (res.success) {
-            this.notificationService.toastrSuccess(res.message);
-            this.refreshHomePage();
-          } else {
-            this.notificationService.toastrError(res.message);
-          }
-          this.loading = false;
-        },
-        error: (error: any) => {
-          console.error('Submission error:', error);
-          this.notificationService.toastrError(error?.error || 'An unexpected error occurred.');
-          this.loading = false;
-        },
-      });
-    } else {
-      console.warn('No lines data found in thirdFormGroup.');
-    }
-  }
-  
-  submit22() {
-    // Set loading to true to indicate process start
-    this.loading = true;
-    const dateOfBirth = this.firstFormGroup.value?.date_birth
-      ? this.datePipe.transform(this.firstFormGroup.value.date_birth, 'yyyy-MM-dd')
-      : null;
-  
-    // Merge all form group values
-    const mergeData = {
-      ...this.firstFormGroup.getRawValue(),
-      ...this.secondFormGroup.getRawValue(),
-      ...this.summaryFormGroup.getRawValue(),
-      ...this.thirdFormGroup.getRawValue(),
-    };
-  
-    // Log the merged data and formatted date of birth
-  
-  
-    // Add formatted date of birth to mergeData if it exists
-    if (dateOfBirth) {
-      mergeData.date_birth = dateOfBirth;
-    }
-    const formatDate = (dateString: string): string => {
-      const date = new Date(dateString);
-      const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Pad single-digit months
-      const day = String(date.getDate()).padStart(2, '0'); // Pad single-digit days
-      return `${year}-${month}-${day}`; // Returns in 'YYYY-MM-DD' format
-    };
-  
-    const lines = this.thirdFormGroup.get('lines')?.value;
-  
-    
-    if (lines) {
-      // Format the dates for each section within lines
-      if (lines.training) {
-        lines.training.forEach((training: { trainingdate: string }) => {
-          training.trainingdate = formatDate(training.trainingdate);
-        });
-      }
-  
-      if (lines.seminar) {
-        lines.seminar.forEach((seminar: { seminardate: string }) => {
-          seminar.seminardate = formatDate(seminar.seminardate);
-        });
-      }
-  
-      if (lines.employment) {
-        lines.employment.forEach((employment: { date_completed: string }) => {
-          employment.date_completed = formatDate(employment.date_completed);
-        });
-      }
-  
-      if (lines.certificate) {
-        lines.certificate.forEach((cert: { date_completed: string }) => {
-          cert.date_completed = formatDate(cert.date_completed);
-        });
-      }
-  
-      // Optionally log formatted lines
-      console.log('Formatted Lines:', JSON.stringify(lines, null, 2));
-    } else {
-      console.warn('No lines data found in thirdFormGroup.');
-    }
-  
-    // console.log('Merged Data:', mergeData);
-    // console.log('Formatted Date of Birth:', dateOfBirth);
-    const data1 = mergeData;
-    const data = lines;
-   
-    const final = { ...data1, ...data}; // Parse the JSON to merge with final data
-
-    console.log(final);
-
-    // Submit the combined payload to the server
-    this.cvService.postCV2(final).subscribe({
-      next: (res) => {
-        if (res.success) {
-          this.notificationService.toastrSuccess(res.message);
-          this.refreshHomePage();
-        } else {
-          this.notificationService.toastrError(res.message);
-        }
-        this.loading = false;
-      },
-      error: (error: any) => {
-        console.error('Submission error:', error);
-        this.notificationService.toastrError(error?.error || 'An unexpected error occurred.');
-        this.loading = false;
-      },
-    });
-  }
-  
-  
-  submit44() {
-    const mergeData = { 
-      ...this.firstFormGroup.getRawValue(),
-      ...this.secondFormGroup.getRawValue(),
-      ...this.summaryFormGroup.getRawValue(),
-      ...this.thirdFormGroup.getRawValue(),
-    }
-
-    const dateOfBirth = this.firstFormGroup.value?.date_birth;
-    const trainingdate = this.thirdFormGroup.value?.trainingdate;
-    const seminardate = this.thirdFormGroup.value?.seminardate;
-    const date_completed = this.thirdFormGroup.value?.date_completed;
-
-    const formattedDate = dateOfBirth 
-      ? this.datePipe.transform(dateOfBirth, 'yyyy-MM-dd') 
-      : null;
-  
-    console.log('Merged Data:', mergeData);
-    console.log('Formatted Date of Birth:', formattedDate);
-  
-    // Add formattedDate to mergeData if necessary
-    if (formattedDate) {
-      mergeData.date_birth = formattedDate;
-    }
-  
-    this.cvService.postCV2(mergeData).subscribe({
-      next: (res) => {
-        if (res.success) {
-          this.notificationService.toastrSuccess(res.message);
-          this.refreshHomePage();
-        } else {
-          this.notificationService.toastrError(res.message);
-        }
-        this.loading = false;
-      },
-      error: (error: any) => {
-        console.error('Submission error:', error);
-        this.notificationService.toastrError(error.error);
-        this.loading = false;
-      },
-    });
-}
-  
-
-
-  submit33(): void {
-    this.firstFormGroup.valid &&
-    this.secondFormGroup.valid &&
-    this.thirdFormGroup.valid
-      const formData = new FormData();
-    
-      if (this.selectedFile) {
-        formData.append('photo_pic', this.selectedFile, this.selectedFile.name); // Optional: provide a filename
-      } 
-      formData.append('contact_no', this.firstFormGroup.value.contact_no);
-      formData.append('contact_visibility', this.firstFormGroup.value.contact_visibility.toString());
-      formData.append('email_visibility', this.firstFormGroup.value.email_visibility.toString());
-      formData.append('date_birth', this.firstFormGroup.value.date_birth);
-      formData.append('home_country', this.secondFormGroup.value.home_country);
-      formData.append('current_location', this.secondFormGroup.value.current_location);
-      formData.append('home_state', this.secondFormGroup.value.home_state);
-      formData.append('current_state', this.secondFormGroup.value.current_state);
-      formData.append('summary',  this.summaryFormGroup.value.summary);
-    
-      const lines = this.firstFormGroup.get('lines')?.value;
-      if (lines && typeof lines === 'object') {
-        // Convert lines object into an array of objects
-        const linesArray = [
-          { capability: lines.capability },
-          { education: lines.education },
-          { training: lines.training },
-          { seminar: lines.seminar },
-          { employment: lines.employment },
-          { certificate: lines.certificate },
-        ];
-    
-        // Append the whole lines array as a JSON string
-        formData.append('lines', JSON.stringify(linesArray));
+  this.cvService.postCV2(mergeData).subscribe({
+    next: (res) => {
+      if (res.success) {
+        this.notificationService.popupWarning(res.message,"");
+        this.refreshHomePage();
       } else {
-        console.error('The "lines" object is not valid or is undefined.');
+        this.notificationService.toastrError(res.message);
       }
-    
+      this.loading = false;
+    },
+    error: (error: any) => {
+      this.notificationService.toastrError(error?.error || 'An unexpected error occurred.');
+      this.loading = false;
+    },
+  });
+
   
-//     const appendFormArrayData = (formArray: FormArray, baseKey: string) => {
-//       formArray.controls.forEach((control, index) => {
-//           const controlValue = control.value; // Assuming control.value is an object with keys like `language`, `skills`, etc.
-//           Object.keys(controlValue).forEach((key) => {
-//               formData.append(`${baseKey}[${index}][${key}]`, controlValue[key]);
-//           });
-//       });
-//   };
+}
 
-//   // Capability
-// const capabilityArray = this.thirdFormGroup.get(['lines', 'capability']) as FormArray;
-// if (capabilityArray) {
-//     appendFormArrayData(capabilityArray, 'lines.capability');
-// }
-
-// // Education
-// const educationArray = this.thirdFormGroup.get(['lines', 'education']) as FormArray;
-// if (educationArray) {
-//     appendFormArrayData(educationArray, 'lines.education');
-// }
-
-// // Training
-// const trainingArray = this.thirdFormGroup.get(['lines', 'training']) as FormArray;
-// if (trainingArray) {
-//     appendFormArrayData(trainingArray, 'lines.training');
-// }
-
-// // Seminar
-// const seminarArray = this.thirdFormGroup.get(['lines', 'seminar']) as FormArray;
-// if (seminarArray) {
-//     appendFormArrayData(seminarArray, 'lines.seminar');
-// }
-
-// // Employment
-// const employmentArray = this.thirdFormGroup.get(['lines', 'employment']) as FormArray;
-// if (employmentArray) {
-//     appendFormArrayData(employmentArray, 'lines.employment');
-// }
-
-// // Certificate
-// const certificateArray = this.thirdFormGroup.get(['lines', 'certificate']) as FormArray;
-// if (certificateArray) {
-//     appendFormArrayData(certificateArray, 'lines.certificate');
-// }
-      this.cvService.postCV(formData).subscribe({
-        next: (res) => {
-          if (res.success === true) {
-            this.notificationService.toastrSuccess(res.message);
-          } else {
-            this.notificationService.toastrError(res.message);
-          }
-          this.loading = false;
-        },
-        error: (error: any) => {
-          console.error('Submission error:', error);
-          this.notificationService.toastrError(error.error);
-          this.loading = false;
-        },
-      });
-    
-  }
-
-
-   }
+}

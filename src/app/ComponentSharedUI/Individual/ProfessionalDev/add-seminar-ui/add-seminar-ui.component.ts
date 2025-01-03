@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 @Component({
   selector: 'app-add-seminar-ui',
   templateUrl: './add-seminar-ui.component.html',
@@ -10,7 +11,7 @@ export class AddSeminarUiComponent implements OnInit {
   dataList: any[] = []; 
   seminarForm:FormGroup;
 
-  constructor(private fb:FormBuilder,private dataService:ProfessionalService
+  constructor(private fb:FormBuilder,private dataService:ProfessionalService,private alert:NotificationsService
 
   ) { }
 
@@ -50,8 +51,9 @@ submitForm(): void {
   if (this.seminarForm.valid) {
     this.dataList.push(...this.seminarArray.value); 
 
-    this.dataService.setformTraining(this.dataList); 
+    this.dataService.setformSeminar(this.dataList); 
     console.log('List:', this.dataList); // Optional: View the data in console
+    this.alert.toastPopUp("Successfully Added.");
     this.resetForm(); // Reset the form
   } else {
     console.error('Form is invalid');

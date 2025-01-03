@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 
 @Component({
   selector: 'app-add-employment-ui',
@@ -11,7 +12,9 @@ export class AddEmploymentUiComponent implements OnInit {
   dataList: any[] = []; 
   employmentForm:FormGroup;
 
-  constructor(private fb:FormBuilder,private dataService: ProfessionalService) { }
+  constructor(private fb:FormBuilder,private dataService: ProfessionalService,
+    private alert:NotificationsService
+  ) { }
 
   ngOnInit(): void {
     this.employmentForm = this.fb.group({
@@ -52,8 +55,9 @@ submitForm(): void {
   if (this.employmentForm.valid) {
     this.dataList.push(...this.employmentArray.value); 
 
-    this.dataService.setformTraining(this.dataList); 
+    this.dataService.setformEmployment(this.dataList); 
     console.log('List:', this.dataList); // Optional: View the data in console
+    this.alert.toastPopUp("Successfully Added.");
     this.resetForm(); // Reset the form
   } else {
     console.error('Form is invalid');

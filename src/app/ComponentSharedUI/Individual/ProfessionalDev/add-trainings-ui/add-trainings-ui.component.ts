@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 
 @Component({
   selector: 'app-add-trainings-ui',
@@ -13,7 +14,7 @@ export class AddTrainingsUiComponent implements OnInit {
   trainingForm:FormGroup;
 
   constructor(private fb:FormBuilder,private dataService:ProfessionalService,
-    private datePipe:DatePipe
+    private datePipe:DatePipe,private alert:NotificationsService
 
   ) { }
 
@@ -49,26 +50,12 @@ export class AddTrainingsUiComponent implements OnInit {
 
       submitForm(): void {
         if (this.trainingForm.valid) {
-          // Ensure that the value of trainingdate is a valid Date object
-          const trainingdate = this.trainingForm.value?.trainingdate
-            ? this.datePipe.transform(new Date(this.trainingForm.value.trainingdate), 'yyyy-MM-dd')
-            : null;
-      
-          // Add the form array data to the data list
+
           this.dataList.push(...this.trainingArray.getRawValue());
-      
-          // If trainingdate exists, assign it to each item in the dataList
-          if (trainingdate) {
-            this.dataList.forEach(item => {
-              item.trainingdate = trainingdate;
-            });
-          }
-      
-          // Set the updated data list in the data service
+          this.alert.toastPopUp("SuccessFully Trainings Added!"),
           this.dataService.setformTraining(this.dataList);
-      
+
           console.log('List:', this.trainingForm.value); // Optional: View the data in console
-      
           this.resetForm(); // Reset the form after submission
         } else {
           console.error('Form is invalid');

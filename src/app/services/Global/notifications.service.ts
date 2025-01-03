@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
+import { AddEducationUIComponent } from 'src/app/ComponentSharedUI/Individual/ProfessionalDev/add-education-ui/add-education-ui.component';
+import { ProfessionalService } from '../SharedServices/professional.service';
 import Swal from 'sweetalert2';
 
 @Injectable({
@@ -8,6 +11,8 @@ import Swal from 'sweetalert2';
 export class NotificationsService {
   constructor(
     private toastr : ToastrService,
+    private dialog: MatDialog,
+    private dataService:ProfessionalService
   ) { }
 
 
@@ -64,7 +69,42 @@ export class NotificationsService {
             denyButtonText: 'Yes, Remove All'
           });
   }
-  
+
+  popupWarningDiscard(title: string): Promise<string> {
+    return Swal.fire({
+      title: title, // Use the passed title
+      text: 'Do you want to save the changes?',
+      showDenyButton: true,
+      confirmButtonText: 'Yes',
+      denyButtonText: 'No',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire('Saved!', '', 'success');
+        this.refreshFormData(); // Trigger refresh after saving
+        return 'confirmed'; // Return a value to indicate confirmation
+      } else if (result.isDenied) {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.width = '500px';
+        const dialogRef = this.dialog.open(AddEducationUIComponent, dialogConfig);
+
+        dialogRef.afterClosed().subscribe(() => {
+          // Ensure the form data is refreshed after the dialog is closed
+          this.refreshFormData();
+        });
+
+        return 'denied'; // Return a value to indicate denial
+      }
+
+      return 'cancelled'; // Return if the action was cancelled
+    });
+  }
+
+  // Method to refresh form data
+  refreshFormData() {
+    const education = this.dataService.getDataEducation();
+    return education;
+  }
+
 toastPopUp(msg:string){
   return Swal.fire({
     text: msg,

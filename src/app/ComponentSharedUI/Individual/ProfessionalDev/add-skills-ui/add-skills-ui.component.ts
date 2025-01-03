@@ -5,6 +5,7 @@ import { map, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 
 @Component({
   selector: 'app-add-skills-ui',
@@ -13,7 +14,9 @@ import { ProfessionalService } from 'src/app/services/SharedServices/professiona
 })
 export class AddSkillsUIComponent {
 
-  constructor(private dataService: ProfessionalService) { }
+  constructor(private dataService: ProfessionalService,
+    private alert:NotificationsService
+  ) { }
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   skillsCtrl = new FormControl('');
@@ -73,7 +76,6 @@ export class AddSkillsUIComponent {
 
     if (index >= 0) {
       this.skills.splice(index, 1);
-      this.passData();  // Call passData after removing a skill
     }
   }
 
@@ -86,13 +88,17 @@ export class AddSkillsUIComponent {
     this.skillsCtrl.setValue(null);
   }
 
-  // Pass selected skills data to the service or parent component
   passData(): void {
-    this.dataService.setformSkills(this.skills);  // Pass the selected skills to the service
-   // console.log('Selected skills passed to service:', this.skills);  // Log for verification
-    this.saveData.emit(this.skills);
+    this.dataService.setformSkills(this.skills);  
+   // this.saveData.emit(this.skills);
+    this.alert.toastPopUp("Successfully Added.");
+    this.resetForm();
   }
-
+ // Reset the form: clear skills array, reset the input control
+ resetForm(): void {
+  this.skills = [];  // Clear selected skills
+  this.skillsCtrl.setValue('');  // Clear the input field
+}
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.allSkills.filter(skill => skill.toLowerCase().includes(filterValue));

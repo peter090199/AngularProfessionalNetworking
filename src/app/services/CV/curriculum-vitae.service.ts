@@ -65,7 +65,7 @@ export class CurriculumVitaeService {
     const token = this.getAuthToken();
     const headers = new HttpHeaders({
      'Authorization': `Bearer ${token}`,
-    //  'Content-Type': 'application/json'
+    'Content-Type': 'application/json'
     });
     return this.http.post(`${_url}profile`, mergedData, { headers });
   }

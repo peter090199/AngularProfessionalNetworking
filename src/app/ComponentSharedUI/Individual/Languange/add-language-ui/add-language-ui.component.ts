@@ -1,81 +1,11 @@
-// import {COMMA, ENTER} from '@angular/cdk/keycodes';
-// import {Component, ElementRef, ViewChild, OnInit} from '@angular/core';
-// import {FormControl} from '@angular/forms';
-// import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-// import {MatChipInputEvent} from '@angular/material/chips';
-// import {Observable} from 'rxjs';
-// import {map, startWith} from 'rxjs/operators';
-
-// /**
-//  * @title Chips Autocomplete
-//  */
-// @Component({
-//   selector: 'app-add-language-ui',
-//   templateUrl: './add-language-ui.component.html',
-//   styleUrls: ['./add-language-ui.component.css']
-// })
-// export class AddLanguageUIComponent {
-//   separatorKeysCodes: number[] = [ENTER, COMMA];
-//   fruitCtrl = new FormControl();
-//   filteredFruits: Observable<string[]>;
-//   fruits: string[] = [];
-//   allFruits: string[] = ['Apple', 'Lemon', 'Lime', 'Orange', 'Strawberry'];
-
-//   @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
-
-//   constructor() {
-//     this.filteredFruits = this.fruitCtrl.valueChanges.pipe(
-//       startWith(null),
-//       map((fruit: string | null) => (fruit ? this._filter(fruit) : this.allFruits.slice())),
-//     );
-//   }
-//   clearInput(): void {
-//     this.fruitCtrl.setValue('');
-//   }
-//   ngOnInit(): void {
-//   }
-
-//   add(event: MatChipInputEvent): void {
-//     const value = (event.value || '').trim();
-
-//     // Add our fruit
-//     if (value) {
-//       this.fruits.push(value);
-//     }
-
-//     // Clear the input value
-//     event.chipInput!.clear();
-
-//     this.fruitCtrl.setValue(null);
-//   }
-
-//   remove(fruit: string): void {
-//     const index = this.fruits.indexOf(fruit);
-
-//     if (index >= 0) {
-//       this.fruits.splice(index, 1);
-//     }
-//   }
-
-//   selected(event: MatAutocompleteSelectedEvent): void {
-//     this.fruits.push(event.option.viewValue);
-//     this.fruitInput.nativeElement.value = '';
-//     this.fruitCtrl.setValue(null);
-//   }
-
-//   private _filter(value: string): string[] {
-//     const filterValue = value.toLowerCase();
-
-//     return this.allFruits.filter(fruit => fruit.toLowerCase().includes(filterValue));
-//   }
-// }
-
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { map, startWith } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
+import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 
 @Component({
   selector: 'app-add-language-ui',
@@ -83,6 +13,11 @@ import { MatChipInputEvent } from '@angular/material/chips';
   styleUrls: ['./add-language-ui.component.css']
 })
 export class AddLanguageUIComponent {
+  constructor(private dataService:ProfessionalService,
+    private alert:NotificationsService
+  ){
+
+  }
   separatorKeysCodes: number[] = [ENTER, COMMA];
   languageCtrl = new FormControl('');
   languages: string[] = [];
@@ -217,11 +152,15 @@ export class AddLanguageUIComponent {
   }
 
   save(): void {
-    // Emit the list of languages to the parent or other components
-   this.saveData.emit(this.languages);
-    console.log('Languages saved:', this.languages);
+    this.saveData.emit(this.languages);
+    this.dataService.setformLanguage(this.languages);
+    this.alert.toastPopUp("Successfully Added.");
+    this.resetForm();
   }
-
+  resetForm(): void {
+    this.languages = [];  // Clear selected skills
+    this.languageCtrl.setValue('');  // Clear the input field
+  }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.allLanguages.filter(language => language.toLowerCase().includes(filterValue));

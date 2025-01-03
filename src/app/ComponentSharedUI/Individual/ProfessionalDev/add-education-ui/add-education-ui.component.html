@@ -5,7 +5,7 @@
 
 <button mat-button color="primary"  (click)="addEducation()">
     <mat-icon>add_circle</mat-icon>
-    Language
+    Add More
 </button>
 <br><br>
 
@@ -35,28 +35,49 @@
             formControlName="school_name"
           />
         </mat-form-field>
-  
-        <mat-form-field appearance="standard">
-          <mat-label>Year Entry</mat-label>
-          <input
-            required
-            matInput
-            type="number"
-            placeholder="Enter year entry"
-            formControlName="year_entry"
-          />
-        </mat-form-field>
-  
-        <mat-form-field appearance="standard">
-          <mat-label>Year End</mat-label>
-          <input
-            required
-            matInput
-            type="number"
-            placeholder="Enter year end"
-            formControlName="year_end"
-          />
-        </mat-form-field>
+        <div class="form-row">
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>Start Month</mat-label>
+              <mat-select formControlName="start_month">
+                <mat-option *ngFor="let month of months" [value]="month">
+                  {{ month }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="standard" class="form-field">
+              <mat-label>Year Entry</mat-label>
+              <mat-select formControlName="year_entry">
+                <mat-option *ngFor="let year of years" [value]="year">
+                  {{ year }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+           
+        </div>
+       
+        <div class="form-row">
+          <mat-form-field appearance="standard" class="form-field">
+            <mat-label>End Month</mat-label>
+            <mat-select formControlName="end_month">
+              <mat-option *ngFor="let month of months" [value]="month">
+                {{ month }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="standard" class="form-field">
+            <mat-label>Year End</mat-label>
+            <mat-select formControlName="year_end">
+              <mat-option *ngFor="let year of years" [value]="year">
+                {{ year }}
+              </mat-option>
+            </mat-select>
+          
+          </mat-form-field>
+      
+        </div>
+       
   
         <mat-radio-group aria-label="Select education status" class="radio-group" formControlName="status">
           <mat-radio-button *ngFor="let option of educationStatusOptions" [value]="option.value">

@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class ProfessionalService {
 
   constructor() { }
+
+  private formLanguage: any[] = [];
   private formSkills: any[] = [];
   private formEducation: any[] = [];
   private formTraining: any[] = [];
@@ -13,9 +15,14 @@ export class ProfessionalService {
   private formEmployment: any[] = [];
   private formCertificate: any[] = [];
 
+  setformLanguage(data: any[]) {
+    this.formLanguage = data;
+  }
+
   setformSkills(data: any[]) {
     this.formSkills = data;
   }
+
 
   setformEducation(data: any[]) {
     this.formEducation = data;
@@ -32,6 +39,11 @@ export class ProfessionalService {
   }
   setformCertificate(data: any[]) {
     this.formCertificate = data;
+  }
+
+
+  getLanguange() {
+    return this.formLanguage;
   }
 
   getSkills() {

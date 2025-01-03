@@ -1,6 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 
 @Component({
   selector: 'app-add-certificate-ui',
@@ -11,7 +13,10 @@ export class AddCertificateUiComponent implements OnInit {
   certificateForm:FormGroup;
   dataList: any[] = []; 
 
-  constructor(private fb:FormBuilder,private dataService:ProfessionalService) { }
+  constructor(private fb:FormBuilder,private dataService:ProfessionalService,
+    private datePipe:DatePipe,private alert:NotificationsService
+
+  ) { }
 
   ngOnInit(): void {
     this.certificateForm = this.fb.group({
@@ -35,12 +40,15 @@ export class AddCertificateUiComponent implements OnInit {
     });
   }
   submitForm(): void {
-    if (this.certificateForm.valid) {
-      this.dataList.push(...this.certificateArray.value); 
 
+    if (this.certificateForm.valid) {
+      console.log(this.certificateForm.value.date_completed)
+      this.dataList.push(...this.certificateArray.value); 
       this.dataService.setformCertificate(this.dataList); 
       console.log('List:', this.dataList); // Optional: View the data in console
+      this.alert.toastPopUp("Successfully Added.");
       this.resetForm(); // Reset the form
+      
     } else {
       console.error('Form is invalid');
     }
