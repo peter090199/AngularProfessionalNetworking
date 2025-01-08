@@ -1,21 +1,6 @@
 <mat-sidenav-container class="example-container">
   <mat-sidenav-content>
     <div class="main-container">
-      
-      <!-- Left Column: Profile Section -->
-      <!-- <div class="left-column" *ngIf="!isMobile">
-        <mat-card class="profile-card">
-          <mat-card-header>
-            <mat-card-title>Upload Image</mat-card-title>
-          </mat-card-header>
-          <img mat-card-image src="assets/images/logo.png" alt="Avatar">
-          <mat-card-content>
-            <p>BIO</p>
-          </mat-card-content>
-          <button mat-raised-button  class="w-100" color="primary">Upload</button><div class="spacer-top"></div>
-          <button mat-raised-button  class="w-100" color="danger" routerLink="/profile">View Profile</button>
-        </mat-card>
-      </div> -->
 
       <mat-card class="profile-card" *ngIf="!isMobile">
         <div class="cover-photo">
@@ -24,10 +9,9 @@
             alt="Cover Photo"
             class="cover-photo-img"
           />
-          <button mat-button class="edit-cover-btn"  routerLink="/upload-cv">Upload Profile Picture</button>
-          <!-- <button mat-icon-button  routerLink="/upload-cv" style="text-align: center;margin-right: 120px;" class="edit-cover-btn">
-            <mat-icon>photo_camera</mat-icon> Upload Profile Picture
-          </button> -->
+          <button mat-button class="edit-cover-btn"  routerLink="/upload-cv">
+           <mat-icon>photo_camera</mat-icon> Upload Profile Picture</button>
+         
         </div>
         
        
@@ -47,13 +31,13 @@
            
           </mat-list>
           <div class="button-gaps">
-            <button mat-icon-button class="add-btn" class="list-label" routerLink="/profile">
+            <button mat-button  class="list-label" routerLink="/profile">
               <mat-icon>person</mat-icon>View Profile
             </button>
-            <button mat-icon-button class="add-btn" class="list-label" routerLink="/print-cv">
+            <button mat-button class="list-label" (click)="printCV()">
               <mat-icon>description</mat-icon>Print CV
             </button>
-            <button mat-icon-button class="add-btn" class="list-label" routerLink="/user-cv">
+            <button mat-button  class="list-label" routerLink="/user-cv">
               <mat-icon>description</mat-icon>Edit CV
             </button>
 
@@ -87,7 +71,7 @@
               <img src="https://via.placeholder.com/40" alt="Avatar" class="avatar" />
               <input
                 type="text"
-                placeholder="Create your Post,"
+                placeholder="Create your post?"
                 class="post-input" disabled
               />
             </div>
@@ -96,12 +80,12 @@
               <button class="action-btn live-video">
                 <span class="icon">🎥</span>Photo
               </button>
-              <!-- <button class="action-btn photo-video">
+              <button class="action-btn photo-video">
                 <span class="icon">📷</span> Video
-              </button> -->
-              <!-- <button class="action-btn reel">
-                <span class="icon">🎞️</span> Reel
-              </button> -->
+              </button>
+              <button class="action-btn reel">
+                <span class="icon">🎞️</span> Events
+              </button>
             </div>
           </div>
           

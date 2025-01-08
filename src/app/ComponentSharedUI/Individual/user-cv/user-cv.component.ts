@@ -804,8 +804,10 @@ submit() {
     ...this.summaryFormGroup.getRawValue(),
    lines
   };
-  console.log(mergeData)
+  mergeData.date_birth = formatDate(mergeData.date_birth);
 
+  console.log("data:", mergeData)
+ 
   this.cvService.postCV2(mergeData).subscribe({
     next: (res) => {
       if (res.success) {

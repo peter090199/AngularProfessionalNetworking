@@ -205,7 +205,6 @@
   
   /* Hover effect for buttons */
   .btn-link:hover {
-    color: #e3effc; /* Change color on hover */
     text-decoration: underline; /* Underline on hover */
   }
   
@@ -300,9 +299,10 @@ mat-icon.logout-icon {
       color: #ffffff;
       text-decoration: none;
     }
-    button{
+
+    /* button{
       color: #ffffff;
-    }
+    } */
     
     .header .nav a:hover {
       text-decoration: underline;

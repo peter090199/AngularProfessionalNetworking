@@ -10,7 +10,7 @@
       <mat-card-content>
         <!-- <mat-progress-bar *ngIf="isLoading" mode="indeterminate" color="primary"></mat-progress-bar>
          -->
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <form [formGroup]="uploadform" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="standard" class="full-width">
                 <mat-icon matPrefix>cloud_upload</mat-icon>  <!-- Icon for file upload -->
                 <input matInput type="file" (change)="onFileSelected($event)" accept="image/*" required>
@@ -20,7 +20,7 @@
               </mat-form-field>
               
          
-          <button mat-raised-button color="primary"routerLink="/home" class="signin-button" 
+          <button mat-raised-button color="primary" class="signin-button" 
            type="submit">
              Upload Cv Image
           </button>

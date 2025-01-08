@@ -1,5 +1,8 @@
 import { Component, OnInit,OnDestroy, ElementRef, ViewChild, HostListener } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { PrintCVComponent } from 'src/app/ComponentSharedUI/Individual/print-cv/print-cv.component';
 import { ProfileService } from 'src/app/services/Profile/profile.service';
 @Component({
   selector: 'app-home-ui',
@@ -7,6 +10,7 @@ import { ProfileService } from 'src/app/services/Profile/profile.service';
   styleUrls: ['./home-ui.component.css']
 })
 export class HomeUIComponent implements OnInit {
+
 
 createPost() {
 throw new Error('Method not implemented.');
@@ -72,7 +76,9 @@ throw new Error('Method not implemented.');
   page = 1; // Pagination or load more page tracking
   isMobile: boolean = false; 
   
-  constructor(private router:Router,private profile:ProfileService) {}
+  constructor(private router:Router,private profile:ProfileService,
+    private dialog:MatDialog
+  ) {}
   
   ismobile: boolean = false;
 
@@ -158,5 +164,24 @@ throw new Error('Method not implemented.');
     }
   }
 
+   displayedColumns: string[] = ['item'];
+    dataSource = new MatTableDataSource([
+      { item: 'test' },
+    ]);
+  
+ 
+  printCV() {
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.disableClose = true;
+        dialogConfig.autoFocus = true;
+        dialogConfig.width = '500px';
+
+        const dialogRef = this.dialog.open(PrintCVComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe(result => {
+          if (result) {
+          
+          }
+        });
+    }
 
 }

@@ -61,6 +61,7 @@ import { AddTrainingsUiComponent } from './ComponentSharedUI/Individual/Professi
 import { AddSeminarUiComponent } from './ComponentSharedUI/Individual/ProfessionalDev/add-seminar-ui/add-seminar-ui.component';
 import { AddEmploymentUiComponent } from './ComponentSharedUI/Individual/ProfessionalDev/add-employment-ui/add-employment-ui.component';
 import { AddCertificateUiComponent } from './ComponentSharedUI/Individual/ProfessionalDev/add-certificate-ui/add-certificate-ui.component';
+import { PrintCVComponent } from './ComponentSharedUI/Individual/print-cv/print-cv.component';
 
 
 // Loader function for TranslateHttpLoader
@@ -115,6 +116,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddSeminarUiComponent,
     AddEmploymentUiComponent,
     AddCertificateUiComponent,
+    PrintCVComponent,
  
   
     

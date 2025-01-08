@@ -61,7 +61,7 @@ section{
 /* Overall Layout */
 body {
   background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));
-  font-family: 'Tahoma';
+  font-family: Verdana, sans-serif;
   line-height: 1;
   margin: 2px !important;
   overflow: hidden;
@@ -334,6 +334,10 @@ p {
   text-decoration: underline;
 }
 
+.nav-link :hover {
+  text-decoration: none;
+  color: #fffefe;
+}
 
 .links a {
   color: #007bff;

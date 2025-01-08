@@ -47,7 +47,12 @@
     border-radius: 4px;
     width: 25%;
   }
-    
+  .close-button {
+    position: absolute;
+    top: 18px;
+    right: 8px;
+  }
+   
   
   @media (max-width: 600px) {
     .form-container {

@@ -1,0 +1,46 @@
+  table {
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  .total {
+    margin-top: 20px;
+    font-size: 1.2rem;
+    text-align: right;
+  }
+  
+  /* Hide elements during print */
+  @media print {
+    .no-print {
+      display: none;
+    }
+    .print-container {
+      margin: 20;
+      padding: 40;
+      box-shadow: none;
+    }
+  }
+
+  .scrollable-container {
+    width: 100%; /* Set a desired width */
+    height: 520px; /* Set a fixed height */
+    overflow: auto; /* Enable scrolling */
+    border: 1px solid #ccc; /* Optional: Add a border for visibility */
+    padding: 10px; /* Optional: Add padding for better content spacing */
+    box-sizing: border-box; /* Ensure padding doesn't increase element size */
+  }
+ 
+  .close-button {
+    position: absolute;
+    top: 18px;
+    right: 8px;
+  }
+  .mat-icon-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .close-icon:hover {
+    color: #555; /* Change color on hover */
+  }
