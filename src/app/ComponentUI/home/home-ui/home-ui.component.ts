@@ -174,8 +174,8 @@ throw new Error('Method not implemented.');
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.width = '500px';
-
+        dialogConfig.width = '800px';
+        dialogConfig.height = '700px';
         const dialogRef = this.dialog.open(PrintCVComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(result => {
           if (result) {

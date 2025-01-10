@@ -23,16 +23,15 @@ import { AddEmploymentUiComponent } from '../ProfessionalDev/add-employment-ui/a
 import { AddCertificateUiComponent } from '../ProfessionalDev/add-certificate-ui/add-certificate-ui.component';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
-
+import {Observable} from 'rxjs';
+import {startWith, map} from 'rxjs/operators';
 /**
  * @title Basic expansion panel
  */
 
-interface FileDetails {
-  file: File;
-  filename: string;
+export interface User {
+  name: string;
 }
-
 
 @Component({
   selector: 'app-user-cv',
@@ -40,6 +39,7 @@ interface FileDetails {
   styleUrls: ['./user-cv.component.css']
 })
 export class UserCVComponent implements AfterViewInit  {
+
   @ViewChild(MatAccordion) accordion: MatAccordion;
   @ViewChild('stepper') stepper: MatHorizontalStepper;
   progressValue: number = 0;
@@ -84,107 +84,15 @@ export class UserCVComponent implements AfterViewInit  {
 
     return filledSteps;
   }
-  countryCodes = [
-    { code: '+1', country: 'USA' },
-    { code: '+1', country: 'Canada' },
-    { code: '+7', country: 'Russia' },
-    { code: '+7', country: 'Kazakhstan' },
-    { code: '+20', country: 'Egypt' },
-    { code: '+27', country: 'South Africa' },
-    { code: '+30', country: 'Greece' },
-    { code: '+31', country: 'Netherlands' },
-    { code: '+32', country: 'Belgium' },
-    { code: '+33', country: 'France' },
-    { code: '+34', country: 'Spain' },
-    { code: '+36', country: 'Hungary' },
-    { code: '+39', country: 'Italy' },
-    { code: '+40', country: 'Romania' },
-    { code: '+41', country: 'Switzerland' },
-    { code: '+43', country: 'Austria' },
-    { code: '+44', country: 'UK' },
-    { code: '+45', country: 'Denmark' },
-    { code: '+46', country: 'Sweden' },
-    { code: '+47', country: 'Norway' },
-    { code: '+48', country: 'Poland' },
-    { code: '+49', country: 'Germany' },
-    { code: '+52', country: 'Mexico' },
-    { code: '+54', country: 'Argentina' },
-    { code: '+55', country: 'Brazil' },
-    { code: '+56', country: 'Chile' },
-    { code: '+57', country: 'Colombia' },
-    { code: '+58', country: 'Venezuela' },
-    { code: '+60', country: 'Malaysia' },
-    { code: '+61', country: 'Australia' },
-    { code: '+62', country: 'Indonesia' },
-    { code: '+63', country: 'Philippines' },
-    { code: '+64', country: 'New Zealand' },
-    { code: '+65', country: 'Singapore' },
-    { code: '+66', country: 'Thailand' },
-    { code: '+81', country: 'Japan' },
-    { code: '+82', country: 'South Korea' },
-    { code: '+84', country: 'Vietnam' },
-    { code: '+86', country: 'China' },
-    { code: '+90', country: 'Turkey' },
-    { code: '+91', country: 'India' },
-    { code: '+92', country: 'Pakistan' },
-    { code: '+93', country: 'Afghanistan' },
-    { code: '+94', country: 'Sri Lanka' },
-    { code: '+95', country: 'Myanmar' },
-    { code: '+98', country: 'Iran' },
-    { code: '+212', country: 'Morocco' },
-    { code: '+213', country: 'Algeria' },
-    { code: '+216', country: 'Tunisia' },
-    { code: '+218', country: 'Libya' },
-    { code: '+220', country: 'Gambia' },
-    { code: '+221', country: 'Senegal' },
-    { code: '+234', country: 'Nigeria' },
-    { code: '+251', country: 'Ethiopia' },
-    { code: '+254', country: 'Kenya' },
-    { code: '+255', country: 'Tanzania' },
-    { code: '+256', country: 'Uganda' },
-    { code: '+260', country: 'Zambia' },
-    { code: '+263', country: 'Zimbabwe' },
-    { code: '+298', country: 'Faroe Islands' },
-    { code: '+351', country: 'Portugal' },
-    { code: '+352', country: 'Luxembourg' },
-    { code: '+353', country: 'Ireland' },
-    { code: '+354', country: 'Iceland' },
-    { code: '+355', country: 'Albania' },
-    { code: '+356', country: 'Malta' },
-    { code: '+357', country: 'Cyprus' },
-    { code: '+358', country: 'Finland' },
-    { code: '+370', country: 'Lithuania' },
-    { code: '+371', country: 'Latvia' },
-    { code: '+372', country: 'Estonia' },
-    { code: '+380', country: 'Ukraine' },
-    { code: '+385', country: 'Croatia' },
-    { code: '+386', country: 'Slovenia' },
-    { code: '+387', country: 'Bosnia and Herzegovina' },
-    { code: '+389', country: 'North Macedonia' },
-    { code: '+420', country: 'Czech Republic' },
-    { code: '+421', country: 'Slovakia' },
-    { code: '+423', country: 'Liechtenstein' },
-    { code: '+971', country: 'UAE' },
-    { code: '+972', country: 'Israel' },
-    { code: '+973', country: 'Bahrain' },
-    { code: '+974', country: 'Qatar' },
-    { code: '+975', country: 'Bhutan' },
-    { code: '+976', country: 'Mongolia' },
-    { code: '+977', country: 'Nepal' },
-    { code: '+992', country: 'Tajikistan' },
-    { code: '+993', country: 'Turkmenistan' },
-    { code: '+994', country: 'Azerbaijan' },
-    { code: '+995', country: 'Georgia' },
-    { code: '+996', country: 'Kyrgyzstan' },
-    { code: '+998', country: 'Uzbekistan' },
-    // Add additional codes as needed
-];
-
+  
   constructor(private formBuilder: FormBuilder,private userService:ProfileService,
               private cvService:CurriculumVitaeService,
               private notificationService:NotificationsService,private router:Router,private datePipe:DatePipe,
               private dialog:MatDialog, private passDataServices:ProfessionalService,private alert:NotificationsService
   ) {}
+
+
+
  userData:any;
  error: any;
  familyName:string="";
@@ -197,28 +105,55 @@ export class UserCVComponent implements AfterViewInit  {
 
  isEligible: boolean = false;
  searchCtrl = new FormControl('');
-filteredCountries = this.countryCodes;
+
 
 
 formData: any=[];
 
- ngOnInit(): void {
+country: any[] = [];
+selectedCountry: string;
 
-  this.searchCtrl.valueChanges.subscribe((searchText) => {
-    this.filteredCountries = this.filterCountries(searchText);
-  });
+myControl = new FormControl();
+selectedValue: string = '';  // Initialize as an empty string to avoid errors
+allOptions: string[] = [
+  'USA', 'Canada', 'Russia', 'Kazakhstan', 'Egypt', 'South Africa', 'Greece', 'Netherlands', 'Belgium', 'France',
+  'Spain', 'Hungary', 'Italy', 'Romania', 'Switzerland', 'Austria', 'UK', 'Denmark', 'Sweden', 'Norway', 'Poland', 
+  'Germany', 'Mexico', 'Argentina', 'Brazil', 'Chile', 'Colombia', 'Venezuela', 'Malaysia', 'Australia', 'Indonesia', 
+  'Philippines', 'New Zealand', 'Singapore', 'Thailand', 'Japan', 'South Korea', 'Vietnam', 'China', 'Turkey', 
+  'India', 'Pakistan', 'Afghanistan', 'Sri Lanka', 'Myanmar', 'Iran', 'Morocco', 'Algeria', 'Tunisia', 'Libya', 'Gambia', 
+  'Senegal', 'Nigeria', 'Ethiopia', 'Kenya', 'Tanzania', 'Uganda', 'Zambia', 'Zimbabwe', 'Faroe Islands', 'Portugal', 
+  'Luxembourg', 'Ireland', 'Iceland', 'Albania', 'Malta', 'Cyprus', 'Finland', 'Lithuania', 'Latvia', 'Estonia', 'Ukraine', 
+  'Croatia', 'Slovenia', 'Bosnia and Herzegovina', 'North Macedonia', 'Czech Republic', 'Slovakia', 'Liechtenstein', 'UAE', 
+  'Israel', 'Bahrain', 'Qatar', 'Bhutan', 'Mongolia', 'Nepal', 'Tajikistan', 'Turkmenistan', 'Azerbaijan', 'Georgia', 
+  'Kyrgyzstan', 'Uzbekistan'
+];
+filteredOptions: Observable<string[]>;
+
+ngOnInit(): void {
   this.initializeFormGroups();
   this.GetUserData();
-  
-}
-filterCountries(searchText: string) {
-  if (!searchText) {
-    return this.countryCodes;
-  }
-  return this.countryCodes.filter((country) =>
-    country.country.toLowerCase().includes(searchText.toLowerCase())
+  this.filteredOptions = this.secondFormGroup.get('home_country')!.valueChanges.pipe(
+    startWith(''),
+    map(value => this._filter(value))
   );
 }
+private _filter(value: string): string[] {
+  const filterValue = value.toLowerCase();
+  return this.allOptions.filter(option => option.toLowerCase().includes(filterValue));
+}
+
+// Function to check if a field is valid
+isFieldValid(field: string) {
+  const control = this.secondFormGroup.get(field);
+  return control?.valid || control?.touched;
+}
+
+
+resetSearch(): void {
+  this.selectedValue = '';  // Clear the selected value
+  //this.filteredOptions = [...this.allOptions];  // Reset the filtered options to show all
+}
+
 
  validateAge(): void {
     const dateOfBirth = this.firstFormGroup.get('date_birth')?.value;
@@ -315,8 +250,6 @@ filterCountries(searchText: string) {
 
 
   private initializeFormGroups(): void {
-
-   
     this.firstFormGroup = this.formBuilder.group({
       photo_pic: [null],  // Set to null if no file is selected
       contact_no: ['', Validators.required],
@@ -325,7 +258,6 @@ filterCountries(searchText: string) {
       date_birth: ['', Validators.required],
       
     });
-
     this.secondFormGroup = this.formBuilder.group({
       home_country: ['', Validators.required],
       current_location: ['', Validators.required],

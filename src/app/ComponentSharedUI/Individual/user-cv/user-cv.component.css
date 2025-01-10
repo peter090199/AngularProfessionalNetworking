@@ -3,6 +3,12 @@
    display: none; 
 } */
 
+::ng-deep .mat-autocomplete-panel {
+  max-height: 300px; /* Adjust the height as needed */
+  overflow-y: auto;
+}
+
+
 mat-form-field {
   width: 92%;
   margin-top: 0;

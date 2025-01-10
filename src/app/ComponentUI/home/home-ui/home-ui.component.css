@@ -28,11 +28,10 @@
 .cover-photo {
   position: relative;
 }
-.button-gaps {
+.button-gap{
   display: flex;
   justify-content: flex-start; /* Aligns buttons to the start */
   flex: 1; /* Adds a fixed amount of space between buttons */
-  margin-top: 15px;
 
 }
 .cover-photo-img {

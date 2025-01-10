@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-print-cv',
@@ -7,81 +6,130 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./print-cv.component.css']
 })
 export class PrintCVComponent implements OnInit {
-
+  cvData = {
+    header: {
+      firstname: "TESTING",
+      familyname: "JOSE",
+      profession: "CONSTRUCTION MANAGER",
+      datebirth: "09 NOV 1976",
+      contact: "+639198555057",
+      current: "ILO-ILO, PHILIPPINES",
+    },
+    profile: "A dedicated software developer with over 5 years of experience in creating robust and scalable web applications.",
+    workExperience: [
+      {
+        title: "Senior Developer at TechCorp",
+        duration: "Jan 2020 - Present",
+        details: [
+          "Developed and maintained enterprise-level applications using Angular and .NET Core.",
+          "Improved application performance by 25% through optimized code and database queries.",
+        ],
+      },
+      {
+        title: "Software Engineer at DevSolutions",
+        duration: "Aug 2017 - Dec 2019",
+        details: [
+          "Built responsive web applications using HTML, CSS, and JavaScript frameworks.",
+          "Collaborated with cross-functional teams to design and implement innovative solutions.",
+        ],
+      },
+    ],
+    education: [
+      {
+        degree: "Bachelor of Computer Science",
+        institution: "University of Technology",
+        duration: "2013 - 2017",
+      },
+    ],
+    skills: ["Angular", "React", "Vue.js", ".NET Core", "C#", "SQL", "NoSQL Databases", "Version Control (Git)"],
+  };
 
   constructor() { }
 
   ngOnInit(): void {
   }
-  fullName = 'John Doe';
-  email = 'johndoe@example.com';
-  phone = '+1234567890';
-
-  skills = ['Angular', 'TypeScript', 'JavaScript', 'HTML', 'CSS'];
-
-  educationList = [
-    { degree: 'Bachelor of Science in Computer Science', institution: 'XYZ University', year: '2015 - 2019' },
-    { degree: 'Master of Software Engineering', institution: 'ABC Institute', year: '2020 - 2022' }
-  ];
-
-  experienceList = [
-    { 
-      role: 'Software Engineer', 
-      company: 'TechCorp Inc.', 
-      duration: '2020 - Present', 
-      description: 'Developing modern web applications using Angular and TypeScript.' 
-    },
-    { 
-      role: 'Junior Developer', 
-      company: 'CodeWorks LLC', 
-      duration: '2019 - 2020', 
-      description: 'Assisted in building responsive websites using JavaScript frameworks.' 
+  printData() {
+    //const printContent = document.getElementById('print-content');
+    const originalContent = document.body.innerHTML;
+    if (originalContent) {
+      document.body.innerHTML = originalContent;
+      window.print();
+     document.body.innerHTML = originalContent;
+      window.location.reload(); // Reload to restore original content
     }
-  ];
-  isVisible = true;
-  closeLayout() {
-    // Logic to close the layout
-    console.log('Close button clicked');
-    // Optionally hide or destroy the element
   }
-  closeForm() {
   
-    }
+
+
+
+  // printDataxx() {
+  //   const printContent = document.getElementById('print-content')?.innerHTML;
+    
+  //   // Calculate the center position of the window
+  //   const windowWidth = 600; // Set desired window width
+  //   const windowHeight = 800; // Set desired window height
+  //   const left = (window.innerWidth / 2) - (windowWidth / 2);  // Center horizontally
+  //   const top = (window.innerHeight / 2) - (windowHeight / 2);  // Center vertically
   
-  closeContainer() {
-    this.isVisible = false; // Hide the container when close icon is clicked
-  }
-  dataSource = [
-    { item: 'Project A', quantity: 'Completed', price: 'N/A' },
-  ];
+  //   // Open a new window with calculated positions
+  //   const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},left=${left},top=${top}`);
+    
+  //   // Write content to the new window
+  //   newWindow?.document.write(`<html><head><title>Print CV</title></head><body>${printContent}</body></html>`);
+  //   newWindow?.document.close();
+    
+  //   // Print the content and close the window
+  //   newWindow?.print();
+  //   newWindow?.close();
+  // }
+  
 
-  displayedColumns: string[] = ['item', 'quantity', 'price'];
+  // printLayout() {
+  //   const printContents = document.getElementById('printSection');
+  //   const popupWin = window.open('', '_blank', 'width=800,height=600');
+  //   popupWin?.document.open();
+  //   popupWin?.document.write(`
+  //     <html>
+  //       <head>
+  //         <title>Print Resume</title>
+        
+  //       </head>
+  //       <body onload="window.print(); window.close()">
+  //         ${printContents}
+  //       </body>
+  //     </html>
+  //   `);
+  //   popupWin?.document.close();
+  // }
 
-  printLayout() {
-    const printContents = document.getElementById('printSection')?.innerHTML;
-    const popupWin = window.open('', '_blank', 'width=800,height=600');
-    popupWin?.document.open();
-    popupWin?.document.write(`
-      <html>
-        <head>
-          <title>Print Resume</title>
-          <style>
-            body { font-family: Verdana, sans-serif; margin: 0; padding: 20px; }
-            .mat-elevation-z2 { box-shadow: 0px 2px 2px rgba(0,0,0,0.2); }
-            .mat-elevation-z4 { box-shadow: 0px 4px 4px rgba(0,0,0,0.4); }
-            h1, h2 { margin-bottom: 10px; }
-            ul { list-style: none; padding: 0; }
-            ul li { margin-bottom: 5px; }
-            table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-            th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
-            th { background-color: #f4f4f4; }
-          </style>
-        </head>
-        <body onload="window.print(); window.close()">
-          ${printContents}
-        </body>
-      </html>
-    `);
-    popupWin?.document.close();
-  }
+
+  // printPages() {
+  //   // Capture the content you want to print
+  //   const content = document.getElementById('print-content');
+
+  //   if (content) {
+  //     // First, generate the PDF using jsPDF
+  //     html2canvas(content).then((canvas) => {
+  //       const doc = new jsPDF();
+
+  //       // Convert the canvas to an image and add it to the PDF
+  //       const imgData = canvas.toDataURL('image/png');
+
+  //       // Adjust the image size (You can tweak these numbers to adjust size)
+  //       const imgWidth = 210; // A4 width in mm
+  //       const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+  //       // Add image to the PDF, starting at position (10, 10)
+  //       doc.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
+
+  //       // Save the generated PDF with a custom filename
+  //       // doc.save('filename.pdf');
+  //     });
+
+  //     // Trigger the browser's print dialog
+  //     window.print();
+  //   } else {
+  //     console.error('Content not found!');
+  //   }
+  // }
 }

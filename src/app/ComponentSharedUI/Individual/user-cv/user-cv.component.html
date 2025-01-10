@@ -153,15 +153,26 @@
 
           <!-- Home Country -->
           <div class="form-row">
-            <mat-form-field appearance="standard" class="form-field">
-              <mat-label>Your Home Country</mat-label>
-              <mat-select formControlName="home_country">
-                <mat-option *ngFor="let country of filteredCountries" [value]="country.country">
-                  {{ country.country }}
+            <!-- <mat-form-field class="form-field" appearance="standard"> -->
+              <!-- <mat-label>Your Home Country</mat-label>
+              <input  matInput [formControl]="myControl" [matAutocomplete]="auto">
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{ option }}
                 </mat-option>
-              </mat-select>
+              </mat-autocomplete>
             </mat-form-field>
-            
+             -->
+             <mat-form-field appearance="standard" class="form-field">
+              <mat-label>City, State</mat-label>
+              <input matInput formControlName="home_country" required />
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                  {{ option }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>City, State</mat-label>
               <input matInput formControlName="home_state" required />
@@ -174,10 +185,10 @@
               <mat-label>Your Current Country</mat-label>
               <mat-select formControlName="current_location" required>
                 <mat-option
-                  *ngFor="let country of countryCodes"
-                  [value]="country.country"
+                  *ngFor="let country of allOptions"
+                  [value]="country"
                 >
-                  {{ country.country }}
+                  {{ country }}
                 </mat-option>
               </mat-select>
             </mat-form-field>

@@ -1,64 +1,65 @@
+  <div id="print-content" class="print-content">
 
-<div class="no-print">
-    <button mat-icon-button class="close-button" [mat-dialog-close]="true">
+    <div class="button-gaps">
+      <button class="no-print" (click)="printData()">
+        <mat-icon>print</mat-icon> Print CV
+      </button>
+  
+
+    <div class="close-button2" >
+      <button mat-icon-button  [mat-dialog-close]="true" class="hide-closeprint">
         <mat-icon class="close-icon" color="warn">close</mat-icon>
       </button>
-      <br>
-    
-    <h1>PDF Layout SAMPLE TESTING</h1>
-        <button mat-raised-button color="primary" (click)="printLayout()">Print</button>
-     
+   </div>
+
   </div>
   
-  <div class="scrollable-container">
-    <div id="printSection" class="print-container mat-elevation-z4">
-        <h1>RESUME</h1>
-        <h2>{{ fullName }}</h2>
-        <p>Email: {{ email }}</p>
-        <p>Phone: {{ phone }}</p>
-    
-        <h2>Skills</h2>
-        <ul>
-        <li *ngFor="let skill of skills">{{ skill }}</li>
-        </ul>
-    
-        <h2>Education</h2>
-        <div *ngFor="let education of educationList">
-        <p><strong>{{ education.degree }}</strong>, {{ education.institution }}</p>
-        <p>{{ education.year }}</p>
-        </div>
-    
-        <h2>Experience</h2>
-        <div *ngFor="let experience of experienceList">
-        <p><strong>{{ experience.role }}</strong>, {{ experience.company }}</p>
-        <p>{{ experience.duration }}</p>
-        <p>{{ experience.description }}</p>
-        </div>
-    
-        <h2> Details</h2>
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z4">
-        <!-- Item Column -->
-        <ng-container matColumnDef="item">
-            <th mat-header-cell *matHeaderCellDef> Item </th>
-            <td mat-cell *matCellDef="let element"> {{ element.item }} </td>
-        </ng-container>
-    
-        <!-- Quantity Column -->
-        <ng-container matColumnDef="quantity">
-            <th mat-header-cell *matHeaderCellDef> Quantity </th>
-            <td mat-cell *matCellDef="let element"> {{ element.quantity }} </td>
-        </ng-container>
-    
-        <!-- Price Column -->
-        <ng-container matColumnDef="price">
-            <th mat-header-cell *matHeaderCellDef> Price </th>
-            <td mat-cell *matCellDef="let element"> {{ element.price }} </td>
-        </ng-container>
-    
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-    </div>
+    <header class="cv-header">
+      <h1>{{ cvData.header.firstname }}</h1>
+      <p>{{ cvData.header.familyname }}</p>
+      <p>{{ cvData.header.profession }}</p>
+      <p>{{ cvData.header.datebirth }}</p>
+      <p>{{ cvData.header.contact }}</p>
+      <p>{{ cvData.header.current }}</p>
+    </header>
   
+    <section class="cv-section">
+      <h2>Profile</h2>
+      <p>{{ cvData.profile }}</p>
+    </section>
+  
+    <section class="cv-section">
+      <h2>Work Experience</h2>
+      <div class="cv-item">
+        <div *ngFor="let experience of cvData.workExperience" class="cv-item">
+          <h3>{{ experience.title }}</h3>
+          <p><em>{{ experience.duration }}</em></p>
+          <ul>
+            <li *ngFor="let detail of experience.details">{{ detail }}</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  
+    <section class="cv-section">
+      <h2>Education</h2>
+      <div *ngFor="let education of cvData.education" class="cv-item">
+        <h3>{{ education.degree }}</h3>
+        <p><em>{{ education.institution }} | {{ education.duration }}</em></p>
+      </div>
+    </section>
+  
+    <section class="cv-section">
+      <h2>Skills</h2>
+      <ul>
+        <li *ngFor="let skill of cvData.skills">{{ skill }}</li>
+      </ul>
+    </section>
+  
+    
   </div>
+  
+  <!-- Button to trigger print functionality -->
+
+  
   

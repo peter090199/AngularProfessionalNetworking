@@ -1,0 +1,163 @@
+
+.no-print {
+  display: inline-flex;
+  align-items: center; /* Aligns text and icon vertically */
+  padding: 8px 16px; /* Adds some padding around the button */
+  background-color:transparent; /* Button background color */
+  color: rgb(36, 138, 255); /* Text and icon color */
+  border: none; /* Removes border */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Adjust font size */
+  cursor: pointer; /* Changes the cursor to a pointer */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+.hide-closeprint{
+  display: none;
+}
+
+.no-print:hover {
+  background-color: #4b87ff23; /* Darker background on hover */
+}
+
+.no-print mat-icon {
+  margin-right: 8px; /* Adds space between the icon and the text */
+}
+
+.no-print:focus {
+  outline: none; /* Removes the focus outline */
+}
+
+@media print {
+  .no-print, .hide-closeprint,.close-icon{
+    display: none !important; /* Ensure these elements are hidden */
+  }
+  .hide-closeprint{
+    display: none;
+  }
+  
+  body {
+    font-family: Verdana, sans-serif; /* Ensures the use of Verdana font */
+    margin: 0;
+    padding: 0;
+  }
+  
+
+
+  #print-content, #print-content * {
+    visibility: visible; /* Show only the print content */
+  }
+
+  #print-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+
+  .cv-header {
+    margin-top: 0px;
+    text-align: left;
+    margin-bottom: 20px;
+  }
+
+  .cv-header h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+
+  .cv-header p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  .cv-section {
+    margin-bottom: 20px;
+  }
+
+  .cv-section h2 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+  }
+
+  .cv-item h3 {
+    font-size: 16px;
+    margin: 0;
+  }
+
+  .cv-item p {
+    font-size: 14px;
+    margin: 5px 0;
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+  }
+}
+
+
+/* Mobile Styles */
+@media (max-width: 600px) {
+  .no-print {
+    padding: 6px 12px;
+    font-size: 14px;
+  }
+
+  .cv-header h1 {
+    font-size: 20px;
+  }
+
+  .cv-header p {
+    font-size: 12px;
+  }
+
+  .cv-section h2 {
+    font-size: 16px;
+  }
+
+  .cv-item h3 {
+    font-size: 14px;
+  }
+
+  .cv-item p {
+    font-size: 12px;
+  }
+
+  ul {
+    padding-left: 15px;
+  }
+}
+
+/* Tablet Styles */
+@media (max-width: 768px) {
+  .no-print {
+    padding: 7px 14px;
+    font-size: 15px;
+  }
+
+  .cv-header h1 {
+    font-size: 22px;
+  }
+
+  .cv-header p {
+    font-size: 13px;
+  }
+
+  .cv-section h2 {
+    font-size: 17px;
+  }
+
+  .cv-item h3 {
+    font-size: 15px;
+  }
+
+  .cv-item p {
+    font-size: 13px;
+  }
+
+  ul {
+    padding-left: 18px;
+  }
+}
