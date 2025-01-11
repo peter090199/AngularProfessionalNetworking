@@ -11,12 +11,28 @@
   cursor: pointer; /* Changes the cursor to a pointer */
   transition: background-color 0.3s ease; /* Smooth background color transition */
 }
+.button-gaps{
+  display: flex;
+  justify-content: left;
+  margin-top: 0px;
+  gap: 20px;
+  margin-left: 550px;
+  position: fixed;
+}
+
+.close-button2 {
+  display: flex;
+  justify-content: right;
+}
+
 .hide-closeprint{
   display: none;
 }
-
-.no-print:hover {
-  background-color: #4b87ff23; /* Darker background on hover */
+.cv-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-top:10px;
 }
 
 .no-print mat-icon {
@@ -27,6 +43,10 @@
   outline: none; /* Removes the focus outline */
 }
 
+.header-title {
+  margin-left: 200px;
+  text-align: right;
+}
 @media print {
   .no-print, .hide-closeprint,.close-icon{
     display: none !important; /* Ensure these elements are hidden */
@@ -34,14 +54,18 @@
   .hide-closeprint{
     display: none;
   }
-  
+  .header-title {
+    margin-left: 200px;
+    text-align: right;
+  }
+ 
   body {
     font-family: Verdana, sans-serif; /* Ensures the use of Verdana font */
-    margin: 0;
-    padding: 0;
+    margin: 30px 0;
+    padding: 40;
+    color: black;
+    line-height: 1;
   }
-  
-
 
   #print-content, #print-content * {
     visibility: visible; /* Show only the print content */
@@ -53,29 +77,33 @@
     left: 0;
     width: 100%;
   }
-  #cv-container {
-    width: 8.5in;
-    margin: 20px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  .cv-header {
+
+  .cv-container {
     text-align: left;
-    margin-bottom: 20px;
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Angular Material elevation */
   }
 
-  .cv-header h1 {
+  .cv-header h1, .cv-section-title {
+    text-align: right;
     font-size: 24px;
-    margin-bottom: 5px;
-    color: #02060e;
+    margin-bottom: 10px;
+    color: #898a8c;
+    font-style: italic;
   }
+  .cv-item {
+    margin-bottom: 10px;
+  }
+  
 
-  .cv-header p {
-    margin: 2px 0;
+  .cv-p {
     font-weight: bold;
-    color: #929293;
+    color:  black;
+    font-size: 18px;
+    gap: 10px;
   }
 
   .cv-section {
@@ -84,11 +112,12 @@
 
   .cv-section h2 {
     font-size: 18px;
-    color: #bdbfc4;
+    color:  #02060e;
     border-bottom: 1px solid #707276;
-    padding-bottom: 5px;
-    margin-bottom: 10px;
+    padding-bottom: 1px;
+    margin-bottom: 2px;
     text-transform: uppercase;
+    font-weight: bold;
   }
 
   /* Section Content */
@@ -103,6 +132,9 @@
 
   .cv-item p {
     margin: 0 0 5px;
+    margin-left: 10px;
+    color:  #02060e;
+    font-size: 14px;
   }
 
   ul {

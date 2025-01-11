@@ -1,20 +1,8 @@
-.button-gaps{
-  display: flex;
-  justify-content: left;
-  margin-top: 0px;
-  gap: 20px;
-  margin-left: 550px;
-  position: fixed;
+.logo img {
+  width: 100%;
+  height: 100px;
 }
 
-.close-button2 {
-  display: flex;
-  justify-content: right;
-}
-
-/* Hide elements during print */
-@media print {
-  .no-print, .hide-closeprint {
-    display: none !important;
-  }
+.logo  {
+  width: 100%;
 }
