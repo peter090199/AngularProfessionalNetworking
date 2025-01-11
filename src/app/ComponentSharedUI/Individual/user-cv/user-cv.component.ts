@@ -25,11 +25,16 @@ import { ProfessionalService } from 'src/app/services/SharedServices/professiona
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
 import {Observable} from 'rxjs';
 import {startWith, map} from 'rxjs/operators';
+
 /**
  * @title Basic expansion panel
  */
 
 export interface User {
+  name: string;
+}
+
+export interface User2 {
   name: string;
 }
 
@@ -88,8 +93,17 @@ export class UserCVComponent implements AfterViewInit  {
   constructor(private formBuilder: FormBuilder,private userService:ProfileService,
               private cvService:CurriculumVitaeService,
               private notificationService:NotificationsService,private router:Router,private datePipe:DatePipe,
-              private dialog:MatDialog, private passDataServices:ProfessionalService,private alert:NotificationsService
-  ) {}
+              private dialog:MatDialog, private passDataServices:ProfessionalService,private alert:NotificationsService,
+              private profileService: ProfileService
+  ) {
+    this.countryControl1.valueChanges.subscribe(value => {
+      this.filteredCountries1 = this.filterCountries(value);
+    });
+
+    this.countryControl2.valueChanges.subscribe(value => {
+      this.filteredCountries2 = this.filterCountries(value);
+    });
+  }
 
 
 
@@ -113,34 +127,71 @@ formData: any=[];
 country: any[] = [];
 selectedCountry: string;
 
-myControl = new FormControl();
-selectedValue: string = '';  // Initialize as an empty string to avoid errors
-allOptions: string[] = [
-  'USA', 'Canada', 'Russia', 'Kazakhstan', 'Egypt', 'South Africa', 'Greece', 'Netherlands', 'Belgium', 'France',
-  'Spain', 'Hungary', 'Italy', 'Romania', 'Switzerland', 'Austria', 'UK', 'Denmark', 'Sweden', 'Norway', 'Poland', 
-  'Germany', 'Mexico', 'Argentina', 'Brazil', 'Chile', 'Colombia', 'Venezuela', 'Malaysia', 'Australia', 'Indonesia', 
-  'Philippines', 'New Zealand', 'Singapore', 'Thailand', 'Japan', 'South Korea', 'Vietnam', 'China', 'Turkey', 
-  'India', 'Pakistan', 'Afghanistan', 'Sri Lanka', 'Myanmar', 'Iran', 'Morocco', 'Algeria', 'Tunisia', 'Libya', 'Gambia', 
-  'Senegal', 'Nigeria', 'Ethiopia', 'Kenya', 'Tanzania', 'Uganda', 'Zambia', 'Zimbabwe', 'Faroe Islands', 'Portugal', 
-  'Luxembourg', 'Ireland', 'Iceland', 'Albania', 'Malta', 'Cyprus', 'Finland', 'Lithuania', 'Latvia', 'Estonia', 'Ukraine', 
-  'Croatia', 'Slovenia', 'Bosnia and Herzegovina', 'North Macedonia', 'Czech Republic', 'Slovakia', 'Liechtenstein', 'UAE', 
-  'Israel', 'Bahrain', 'Qatar', 'Bhutan', 'Mongolia', 'Nepal', 'Tajikistan', 'Turkmenistan', 'Azerbaijan', 'Georgia', 
-  'Kyrgyzstan', 'Uzbekistan'
+
+selectedValue: string = ''; 
+countries: { name: string }[] = [
+  { name: 'USA' }, { name: 'Canada' }, { name: 'Russia' }, { name: 'Kazakhstan' }, { name: 'Egypt' },
+  { name: 'South Africa' }, { name: 'Greece' }, { name: 'Netherlands' }, { name: 'Belgium' },
+  { name: 'France' }, { name: 'Spain' }, { name: 'Hungary' }, { name: 'Italy' }, { name: 'Romania' },
+  { name: 'Switzerland' }, { name: 'Austria' }, { name: 'UK' }, { name: 'Denmark' }, { name: 'Sweden' },
+  { name: 'Norway' }, { name: 'Poland' }, { name: 'Germany' }, { name: 'Mexico' }, { name: 'Argentina' },
+  { name: 'Brazil' }, { name: 'Chile' }, { name: 'Colombia' }, { name: 'Venezuela' }, { name: 'Malaysia' },
+  { name: 'Australia' }, { name: 'Indonesia' }, { name: 'Philippines' }, { name: 'New Zealand' },
+  { name: 'Singapore' }, { name: 'Thailand' }, { name: 'Japan' }, { name: 'South Korea' },
+  { name: 'Vietnam' }, { name: 'China' }, { name: 'Turkey' }, { name: 'India' }, { name: 'Pakistan' },
+  { name: 'Afghanistan' }, { name: 'Sri Lanka' }, { name: 'Myanmar' }, { name: 'Iran' }, { name: 'Morocco' },
+  { name: 'Algeria' }, { name: 'Tunisia' }, { name: 'Libya' }, { name: 'Gambia' }, { name: 'Senegal' },
+  { name: 'Nigeria' }, { name: 'Ethiopia' }, { name: 'Kenya' }, { name: 'Tanzania' }, { name: 'Uganda' },
+  { name: 'Zambia' }, { name: 'Zimbabwe' }, { name: 'Faroe Islands' }, { name: 'Portugal' },
+  { name: 'Luxembourg' }, { name: 'Ireland' }, { name: 'Iceland' }, { name: 'Albania' }, { name: 'Malta' },
+  { name: 'Cyprus' }, { name: 'Finland' }, { name: 'Lithuania' }, { name: 'Latvia' }, { name: 'Estonia' },
+  { name: 'Ukraine' }, { name: 'Croatia' }, { name: 'Slovenia' }, { name: 'Bosnia and Herzegovina' },
+  { name: 'North Macedonia' }, { name: 'Czech Republic' }, { name: 'Slovakia' }, { name: 'Liechtenstein' },
+  { name: 'UAE' }, { name: 'Israel' }, { name: 'Bahrain' }, { name: 'Qatar' }, { name: 'Bhutan' },
+  { name: 'Mongolia' }, { name: 'Nepal' }, { name: 'Tajikistan' }, { name: 'Turkmenistan' },
+  { name: 'Azerbaijan' }, { name: 'Georgia' }, { name: 'Kyrgyzstan' }, { name: 'Uzbekistan' }
 ];
-filteredOptions: Observable<string[]>;
+
+  homeFilteredOptions: Observable<{ name: string }[]>;
+  currentFilteredOptions: Observable<{ name: string }[]>;
+
+  countryControl1 = new FormControl();
+  countryControl2 = new FormControl();
+  
+  filteredCountries1: { name: string }[] = this.countries;
+  filteredCountries2: { name: string }[] = this.countries;
+  
 
 ngOnInit(): void {
   this.initializeFormGroups();
   this.GetUserData();
-  this.filteredOptions = this.secondFormGroup.get('home_country')!.valueChanges.pipe(
-    startWith(''),
-    map(value => this._filter(value))
-  );
 }
-private _filter(value: string): string[] {
+
+
+displayFn(user: User): string {
+  return user && user.name ? user.name : '';
+}
+
+displayFn2(user: User): string {
+  return user && user.name ? user.name : '';
+}
+
+private filterCountries(value: string): { name: string }[] {
   const filterValue = value.toLowerCase();
-  return this.allOptions.filter(option => option.toLowerCase().includes(filterValue));
+  return this.countries.filter(country => country.name.toLowerCase().includes(filterValue));
 }
+
+// private _filterCountries(value: any, countries: { name: string }[]): { name: string }[] {
+//   console.log('Filtering value:', value); // Debugging line
+//   if (typeof value === 'string') {
+//     const filterValue = value.toLowerCase();
+//     return countries.filter(option =>
+//       option.name.toLowerCase().includes(filterValue)
+//     );
+//   }
+//   return [];
+// }
+
 
 // Function to check if a field is valid
 isFieldValid(field: string) {
@@ -179,6 +230,7 @@ resetSearch(): void {
     }
   }
 
+
  private GetUserData(): void {
      this.userService.getProfileByUser().subscribe({
     next: (response) => {
@@ -187,7 +239,7 @@ resetSearch(): void {
         if(userData != null){
           this.fname = userData.fname;
           this.lname = userData.lname;
-          this.email = "pedroyorpo22@gmail.com";
+          this.email =  userData.email;
           this.contact_no = userData.contact_no;
           this.profession = userData.profession;
         }
@@ -228,7 +280,6 @@ resetSearch(): void {
     // Total fields and number of filled fields
     const fields = [this.fname, this.lname];
     const filledFields = fields.filter(field => field.trim().length > 0).length;
-
     // Calculate percentage
     this.percentage = (filledFields / fields.length) * 100;
     this.displayPercentage = `${this.percentage}%`;
@@ -249,6 +300,18 @@ resetSearch(): void {
   ];
 
 
+ private DisplayEmail(): void {
+    this.profileService.getProfileByEmail().subscribe(
+      (profile) => {
+        // Assuming the profile contains an email property
+        this.email = profile.email;
+      },
+      (error) => {
+        console.error('Error fetching profile:', error);
+      }
+    );
+  }
+
   private initializeFormGroups(): void {
     this.firstFormGroup = this.formBuilder.group({
       photo_pic: [null],  // Set to null if no file is selected
@@ -259,8 +322,8 @@ resetSearch(): void {
       
     });
     this.secondFormGroup = this.formBuilder.group({
-      home_country: ['', Validators.required],
-      current_location: ['', Validators.required],
+     // home_country: ['', Validators.required],
+     // current_location: ['', Validators.required],
       home_state: ['', Validators.required],
       current_state: ['', Validators.required],
     });
@@ -672,11 +735,10 @@ lines:any=[];
 
 submit() {
   this.loading = true;
-
   const language = this.passDataServices.getLanguange();
   const skills = this.passDataServices.getSkills();
   const education = this.passDataServices.getDataEducation();
-  const trainings = this.passDataServices.getDataTraining();
+  const training = this.passDataServices.getDataTraining();
   const seminar = this.passDataServices.getDataSeminar();
   const employment = this.passDataServices.getDataEmployment();
   const certificate = this.passDataServices.getDataCertificate();
@@ -685,7 +747,7 @@ submit() {
     language,
     skills,
     education,
-    trainings,
+    training,
     seminar,
     employment,
     certificate,
@@ -703,8 +765,8 @@ submit() {
   
   if (lines) {
     // Format the dates for each section within lines
-    if (lines.trainings) {
-      lines.trainings.forEach((training: { trainingdate: string }) => {
+    if (lines.training) {
+      lines.training.forEach((training: { trainingdate: string }) => {
         training.trainingdate = formatDate(training.trainingdate);
       });
     }
@@ -736,26 +798,34 @@ submit() {
     ...this.summaryFormGroup.getRawValue(),
    lines
   };
+  mergeData.home_country = this.countryControl1.value;
+  mergeData.current_location = this.countryControl2.value;
   mergeData.date_birth = formatDate(mergeData.date_birth);
 
   console.log("data:", mergeData)
- 
-  this.cvService.postCV2(mergeData).subscribe({
-    next: (res) => {
-      if (res.success) {
-        this.notificationService.toastrSuccess(res.message);
-        this.refreshHomePage();
-      } else {
-        this.notificationService.toastrError(res.message);
-      }
-      this.loading = false;
-    },
-    error: (error: any) => {
-      this.notificationService.toastrError(error?.error || 'An unexpected error occurred.');
-      this.loading = false;
-    },
-  });
-
+ if(mergeData == null)
+ {
+    this.notificationService.toastrError("Error Data!");
+    return;
+ }
+ else{
+    this.cvService.postCV2(mergeData).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.notificationService.toastPopUp(res.message);
+          console.log(res.message)
+          this.router.navigate(['/home']);
+        } else {
+          this.notificationService.toastrError(res.message);
+        }
+        this.loading = false;
+      },
+      error: (error: any) => {
+        this.notificationService.toastrError(error?.error || 'An unexpected error occurred.');
+        this.loading = false;
+      },
+    });
+ }
   
 }
 

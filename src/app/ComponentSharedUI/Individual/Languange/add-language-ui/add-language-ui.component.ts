@@ -150,13 +150,25 @@ export class AddLanguageUIComponent {
     }
     this.languageCtrl.setValue(null);
   }
-
   save(): void {
-    this.saveData.emit(this.languages);
-    this.dataService.setformLanguage(this.languages);
+    const formattedLanguages = this.languages.map(language => ({ language }));
+
+    //this.saveData.emit(formattedLanguages);
+    console.log(formattedLanguages);
+    this.dataService.setformLanguage(formattedLanguages);
     this.alert.toastPopUp("Successfully Added.");
     this.resetForm();
   }
+  
+  // savexx(): void {
+  //   const formattedLanguages = this.languages.map(language => ({ language }));
+  
+  //   this.saveData.emit(this.languages);
+  //   console.log(this.languages)
+  //   this.dataService.setformLanguage(this.languages);
+  //   this.alert.toastPopUp("Successfully Added.");
+  //   this.resetForm();
+  // }
   resetForm(): void {
     this.languages = [];  // Clear selected skills
     this.languageCtrl.setValue('');  // Clear the input field

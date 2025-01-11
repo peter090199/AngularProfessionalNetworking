@@ -15,14 +15,12 @@ export class ProfessionalService {
   private formEmployment: any[] = [];
   private formCertificate: any[] = [];
 
-  setformLanguage(data: any[]) {
-    this.formLanguage = data;
+  setformLanguage(languages: { language: string }[]) {
+    this.formLanguage = languages;
   }
-
-  setformSkills(data: any[]) {
-    this.formSkills = data;
+  setformSkills(skills: { skills: string }[]): void {
+    this.formSkills = skills;
   }
-
 
   setformEducation(data: any[]) {
     this.formEducation = data;

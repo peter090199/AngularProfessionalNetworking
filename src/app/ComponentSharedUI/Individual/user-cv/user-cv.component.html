@@ -77,7 +77,6 @@
               />
             </mat-form-field>
             
-            <a class="change-link">Change</a>
             <mat-slide-toggle
               [checked]="false"
               (change)="onToggleChange($event, 'contact_visibility')"
@@ -91,15 +90,9 @@
           <div class="form-row">
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>Email</mat-label>
-              <input
-                matInput
-               
-                placeholder="Enter your email"
-                required
-              />
+              <input matInput [value]="email" readonly />
             </mat-form-field>
-  
-            <a class="change-link">Change</a>
+
             <mat-slide-toggle
               [checked]="false"
               (change)="onToggleChange($event, 'email_visibility')"
@@ -153,27 +146,16 @@
 
           <!-- Home Country -->
           <div class="form-row">
-            <!-- <mat-form-field class="form-field" appearance="standard"> -->
-              <!-- <mat-label>Your Home Country</mat-label>
-              <input  matInput [formControl]="myControl" [matAutocomplete]="auto">
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{ option }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-             -->
-             <mat-form-field appearance="standard" class="form-field">
-              <mat-label>City, State</mat-label>
-              <input matInput formControlName="home_country" required />
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                  {{ option }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-
-            <mat-form-field appearance="standard" class="form-field">
+            <mat-form-field class="form-field" appearance="standard">
+            <mat-autocomplete #auto1="matAutocomplete" class="form-field">
+              <mat-option *ngFor="let country of filteredCountries1" [value]="country.name">
+                {{ country.name }}
+              </mat-option>
+            </mat-autocomplete>
+            <input matInput [formControl]="countryControl1" [matAutocomplete]="auto1" id="country1" placeholder="Choose Country" tabindex="1">
+          </mat-form-field>
+          
+          <mat-form-field appearance="standard" class="form-field">
               <mat-label>City, State</mat-label>
               <input matInput formControlName="home_state" required />
             </mat-form-field>
@@ -181,21 +163,20 @@
 
           <!-- Current Location -->
           <div class="form-row">
-            <mat-form-field appearance="standard" class="form-field">
-              <mat-label>Your Current Country</mat-label>
-              <mat-select formControlName="current_location" required>
-                <mat-option
-                  *ngFor="let country of allOptions"
-                  [value]="country"
-                >
-                  {{ country }}
-                </mat-option>
-              </mat-select>
+            <mat-form-field class="form-field" appearance="standard">
+                <mat-autocomplete #auto2="matAutocomplete">
+                  <mat-option *ngFor="let country of filteredCountries2" [value]="country.name">
+                    {{ country.name }}
+                  </mat-option>
+                </mat-autocomplete>
+                <input matInput [formControl]="countryControl2" [matAutocomplete]="auto2" id="country2" placeholder="Choose Country" tabindex="2">
             </mat-form-field>
+
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>City, State</mat-label>
               <input matInput formControlName="current_state" required />
             </mat-form-field>
+            
           </div>
 
           <div class="button-gap">
@@ -205,7 +186,6 @@
             <button
               mat-raised-button
               color="primary"
-              [disabled]="secondFormGroup.invalid"
               matStepperNext
             >
               Next

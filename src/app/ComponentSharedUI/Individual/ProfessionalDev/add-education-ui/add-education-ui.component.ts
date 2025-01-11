@@ -51,16 +51,16 @@ export class AddEducationUIComponent implements OnInit {
       highest_education: ['', Validators.required],
       school_name: ['', Validators.required],
       start_month:['', Validators.required],
-      end_month:['',Validators.required],
-      year_entry: [null, [Validators.required, Validators.min(1900), Validators.max(this.currentYear)]],
-      year_end: [null, [Validators.required, Validators.min(1900), Validators.max(this.currentYear)]],
+      start_year:['',Validators.required],
+      end_month: [null, [Validators.required, Validators.min(1900), Validators.max(this.currentYear)]],
+      end_year: [null, [Validators.required, Validators.min(1900), Validators.max(this.currentYear)]],
       status: ['', Validators.required]
     });
   }
 
   validateDateRange(group: FormGroup): { [key: string]: boolean } | null {
-    const yearEntry = group.get('year_entry')?.value;
-    const yearEnd = group.get('year_end')?.value;
+    const yearEntry = group.get('start_year')?.value;
+    const yearEnd = group.get('end_year')?.value;
     const startMonth = group.get('start_month')?.value;
     const endMonth = group.get('end_month')?.value;
 

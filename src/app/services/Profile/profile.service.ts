@@ -28,11 +28,17 @@ export class ProfileService {
 
   getProfileByUser(): Observable<any> {
     const headers = this.createHeaders();
-    return this.http.get(`${_url}profile`, { headers }).pipe(
+    return this.http.get(`${_url}user/profile`, { headers }).pipe(
       catchError(error => this.handleAuthError(error))
     );
   }
-  
+  getProfileByEmail(): Observable<any> {
+    const headers = this.createHeaders();
+    return this.http.get(`${_url}user/profile`, { headers }).pipe(
+      catchError(error => this.handleAuthError(error))
+    );
+  }
+
   private handleAuthError(error: any): Observable<any> {
     if (error.status === 401) {
       console.error('Unauthorized: Please log in.');

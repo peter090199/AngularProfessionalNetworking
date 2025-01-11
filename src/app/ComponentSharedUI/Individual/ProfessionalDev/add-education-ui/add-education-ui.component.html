@@ -47,7 +47,7 @@
 
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>Year Entry</mat-label>
-              <mat-select formControlName="year_entry">
+              <mat-select formControlName="start_year">
                 <mat-option *ngFor="let year of years" [value]="year">
                   {{ year }}
                 </mat-option>
@@ -68,7 +68,7 @@
 
           <mat-form-field appearance="standard" class="form-field">
             <mat-label>Year End</mat-label>
-            <mat-select formControlName="year_end">
+            <mat-select formControlName="end_year">
               <mat-option *ngFor="let year of years" [value]="year">
                 {{ year }}
               </mat-option>

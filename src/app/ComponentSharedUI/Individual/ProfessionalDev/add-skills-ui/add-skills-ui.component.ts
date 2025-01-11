@@ -20,6 +20,7 @@ export class AddSkillsUIComponent {
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
   skillsCtrl = new FormControl('');
+
   skills: string[] = [];  // Array to store selected skills
   allSkills: string[] = [
     "Network Configuration",
@@ -89,11 +90,14 @@ export class AddSkillsUIComponent {
   }
 
   passData(): void {
-    this.dataService.setformSkills(this.skills);  
-   // this.saveData.emit(this.skills);
+    const formattedSkills = this.skills.map(skill => ({ skills: skill }));
+    console.log(formattedSkills);
+    this.dataService.setformSkills(formattedSkills);
     this.alert.toastPopUp("Successfully Added.");
     this.resetForm();
   }
+
+
  // Reset the form: clear skills array, reset the input control
  resetForm(): void {
   this.skills = [];  // Clear selected skills

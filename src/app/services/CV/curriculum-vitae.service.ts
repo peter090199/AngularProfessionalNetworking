@@ -89,4 +89,9 @@ export class CurriculumVitaeService {
     return this.http.post(`${_url}security`,formData, { headers });
   }
 
+
+  getDataCV(): Observable<any> {
+    const headers = this.createHeaders();
+    return this.http.get(`${_url}profile`, { headers });
+  }
 }
