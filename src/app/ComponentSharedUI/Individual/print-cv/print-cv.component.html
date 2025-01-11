@@ -1,65 +1,98 @@
-  <div id="print-content" class="print-content">
-
-    <div class="button-gaps">
-      <button class="no-print" (click)="printData()">
-        <mat-icon>print</mat-icon> Print CV
-      </button>
-  
-
-    <div class="close-button2" >
-      <button mat-icon-button  [mat-dialog-close]="true" class="hide-closeprint">
+ <div id="print-content" class="print-content">
+  <div class="button-gaps">
+    <button class="no-print" (click)="printData()">
+      <mat-icon>print</mat-icon> Print CV
+    </button>
+    <div class="close-button2">
+      <button mat-icon-button [mat-dialog-close]="true" class="hide-closeprint">
         <mat-icon class="close-icon" color="warn">close</mat-icon>
       </button>
-   </div>
-
+    </div>
   </div>
-  
-    <header class="cv-header">
-      <h1>{{ cvData.header.firstname }}</h1>
-      <p>{{ cvData.header.familyname }}</p>
-      <p>{{ cvData.header.profession }}</p>
-      <p>{{ cvData.header.datebirth }}</p>
-      <p>{{ cvData.header.contact }}</p>
-      <p>{{ cvData.header.current }}</p>
-    </header>
-  
-    <section class="cv-section">
-      <h2>Profile</h2>
-      <p>{{ cvData.profile }}</p>
-    </section>
-  
-    <section class="cv-section">
-      <h2>Work Experience</h2>
-      <div class="cv-item">
-        <div *ngFor="let experience of cvData.workExperience" class="cv-item">
-          <h3>{{ experience.title }}</h3>
-          <p><em>{{ experience.duration }}</em></p>
-          <ul>
-            <li *ngFor="let detail of experience.details">{{ detail }}</li>
-          </ul>
+
+  <header class="cv-header" *ngIf="cvData">
+    <h1>Professional Resume</h1>
+    <br>
+    <p>CANDIDATE DETAILS:</p>
+    <p><strong>First Name:</strong> {{ cvData.fname }}</p>
+    <p><strong>Family Name:</strong> {{ cvData.lname }}</p>
+    <p><strong>Profession:</strong> {{ cvData.profession }}</p>
+    <p><strong>Date of Birth:</strong> {{ cvData.date_birth }}</p>
+    <p><strong>Contact Number:</strong> {{ cvData.contact_no }}</p>
+    <p><strong>Email Address:</strong> {{ cvData.email }}</p>
+    <p><strong>Current Location:</strong> {{ cvData.current_location }}</p>
+    <p><strong>Availability:</strong> {{ cvData.availability }}</p>
+  </header>
+
+
+  <div *ngIf="cvData?.lines">
+      <section class="cv-section" *ngIf="cvData.lines.education?.length">
+        <h2>Education</h2>
+        <div *ngFor="let edu of cvData.lines.education" class="cv-item">
+          <p>{{ edu.highest_education }}</p>
+          <p>{{ edu.school_name }}</p>
+          <p>{{ edu.start_month }} {{ edu.start_year }} - {{ edu.end_month }} {{ edu.end_year }}</p>
         </div>
-      </div>
-    </section>
-  
-    <section class="cv-section">
-      <h2>Education</h2>
-      <div *ngFor="let education of cvData.education" class="cv-item">
-        <h3>{{ education.degree }}</h3>
-        <p><em>{{ education.institution }} | {{ education.duration }}</em></p>
-      </div>
-    </section>
-  
-    <section class="cv-section">
-      <h2>Skills</h2>
-      <ul>
-        <li *ngFor="let skill of cvData.skills">{{ skill }}</li>
-      </ul>
-    </section>
-  
+      </section>
+
+
+      <section class="cv-section" *ngIf="cvData.lines.certifications?.length">
+        <h2>Certifications</h2>
+        <ul>
+          <li *ngFor="let cert of cvData.lines.certifications">{{ cert }}</li>
+        </ul>
+      </section>
+
+      <section class="cv-section" *ngIf="cvData.lines.skills?.length">
+        <h2>Skills</h2>
+        <ul>
+          <li *ngFor="let skill of cvData.lines.skills">{{ skill.skills }}</li>
+        </ul>
+      </section>
+
+      <section class="cv-section" *ngIf="cvData.lines.training?.length">
+        <h2>Trainings</h2>
+        <div *ngFor="let training of cvData.lines.training" class="cv-item">
+          <p>Training Title: <strong>{{ training.training_title }}</strong></p>
+          <p>Training Provider: {{ training.training_provider }}</p>
+          <p>Date Completed: {{ training.date_completed }}</p>
+        </div>
+      </section>
+
+      <section class="cv-section" *ngIf="cvData.lines.seminar?.length">
+        <h2>Seminars</h2>
+        <div *ngFor="let seminar of cvData.lines.seminar" class="cv-item">
+          <p>Seminar Title: <strong>{{ seminar.seminar_title }}</strong></p>
+          <p>Seminar Provider: {{ seminar.seminar_provider }}</p>
+          <p>Date Completed: {{ seminar.date_completed }}</p>
+        </div>
+      </section>
+
+      <section class="cv-section" *ngIf="cvData.lines.employment?.length">
+        <h2>Employment</h2>
+        <div *ngFor="let job of cvData.lines.employment" class="cv-item">
+          <p><strong>{{ job.company_name }}</strong></p>
+          <p>Position: {{ job.position }}</p>
+          <p>Description: {{ job.job_description }}</p>
+          <p>End Date: {{ job.date_completed }}</p>
+        </div>
+      </section>
+
+      <section class="cv-section" *ngIf="cvData.lines.certificate?.length">
+        <h2>Certificates</h2>
+        <div *ngFor="let cert of cvData.lines.certificate" class="cv-item">
+          <p><strong>{{ cert.certificate_title }}</strong></p>
+          <p>Provider: {{ cert.certificate_provider }}</p>
+          <p>Completion Date: {{ cert.date_completed }}</p>
+        </div>
+      </section>
+
+      <section class="cv-section" *ngIf="cvData">
+        <h2>Summary</h2>
+        <p>{{ cvData.summary }}</p>
+      </section>
     
   </div>
-  
-  <!-- Button to trigger print functionality -->
+</div>
 
-  
-  
+   

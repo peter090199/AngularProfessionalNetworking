@@ -1,53 +1,36 @@
 import { Component, OnInit } from '@angular/core';
-
+import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
 @Component({
   selector: 'app-print-cv',
   templateUrl: './print-cv.component.html',
   styleUrls: ['./print-cv.component.css']
 })
 export class PrintCVComponent implements OnInit {
-  cvData = {
-    header: {
-      firstname: "TESTING",
-      familyname: "JOSE",
-      profession: "CONSTRUCTION MANAGER",
-      datebirth: "09 NOV 1976",
-      contact: "+639198555057",
-      current: "ILO-ILO, PHILIPPINES",
-    },
-    profile: "A dedicated software developer with over 5 years of experience in creating robust and scalable web applications.",
-    workExperience: [
-      {
-        title: "Senior Developer at TechCorp",
-        duration: "Jan 2020 - Present",
-        details: [
-          "Developed and maintained enterprise-level applications using Angular and .NET Core.",
-          "Improved application performance by 25% through optimized code and database queries.",
-        ],
-      },
-      {
-        title: "Software Engineer at DevSolutions",
-        duration: "Aug 2017 - Dec 2019",
-        details: [
-          "Built responsive web applications using HTML, CSS, and JavaScript frameworks.",
-          "Collaborated with cross-functional teams to design and implement innovative solutions.",
-        ],
-      },
-    ],
-    education: [
-      {
-        degree: "Bachelor of Computer Science",
-        institution: "University of Technology",
-        duration: "2013 - 2017",
-      },
-    ],
-    skills: ["Angular", "React", "Vue.js", ".NET Core", "C#", "SQL", "NoSQL Databases", "Version Control (Git)"],
-  };
+  constructor(private cvService:CurriculumVitaeService ) { }
 
-  constructor() { }
-
+  cvData: any;
+  
   ngOnInit(): void {
+    this.getCVData();
   }
+
+
+  getCVData(): void {
+    this.cvService.getDataCV().subscribe(
+      (response) => {
+        if (response && response.message) {
+          this.cvData = response.message; // Assign the response data to `cvData`
+        } else {
+          console.error('Invalid response format:', response);
+        }
+      },
+      (error) => {
+        console.error('Error fetching CV data:', error);
+      }
+    );
+  }
+
+
   printData() {
     //const printContent = document.getElementById('print-content');
     const originalContent = document.body.innerHTML;
@@ -58,9 +41,6 @@ export class PrintCVComponent implements OnInit {
       window.location.reload(); // Reload to restore original content
     }
   }
-  
-
-
 
   // printDataxx() {
   //   const printContent = document.getElementById('print-content')?.innerHTML;

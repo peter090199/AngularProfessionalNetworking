@@ -53,21 +53,29 @@
     left: 0;
     width: 100%;
   }
-
+  #cv-container {
+    width: 8.5in;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
   .cv-header {
-    margin-top: 0px;
     text-align: left;
     margin-bottom: 20px;
   }
 
   .cv-header h1 {
     font-size: 24px;
-    margin: 0;
+    margin-bottom: 5px;
+    color: #02060e;
   }
 
   .cv-header p {
-    font-size: 14px;
-    margin: 5px 0;
+    margin: 2px 0;
+    font-weight: bold;
+    color: #929293;
   }
 
   .cv-section {
@@ -76,9 +84,16 @@
 
   .cv-section h2 {
     font-size: 18px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
+    color: #bdbfc4;
+    border-bottom: 1px solid #707276;
     padding-bottom: 5px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  /* Section Content */
+  .cv-item {
+    margin-bottom: 15px;
   }
 
   .cv-item h3 {
@@ -87,14 +102,53 @@
   }
 
   .cv-item p {
-    font-size: 14px;
-    margin: 5px 0;
+    margin: 0 0 5px;
   }
 
   ul {
-    list-style-type: disc;
+    margin: 0;
     padding-left: 20px;
   }
+
+ul li {
+  margin-bottom: 5px;
+}
+
+/* Candidate Details Table */
+.details-table {
+  width: 100%;
+  margin-bottom: 20px;
+  border-collapse: collapse;
+}
+
+.details-table td {
+  padding: 5px 10px;
+}
+
+.details-table td:first-child {
+  font-weight: bold;
+  width: 30%;
+}
+
+/* Skills and Knowledge Sections */
+.skills-list,
+.certificates-list {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.skills-list li,
+.certificates-list li {
+  margin-bottom: 5px;
+}
+
+/* Footer and Margins */
+footer {
+  text-align: center;
+  font-size: 12px;
+  margin-top: 20px;
+  color: #666;
+}
 }
 
 

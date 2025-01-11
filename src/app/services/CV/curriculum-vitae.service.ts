@@ -94,4 +94,6 @@ export class CurriculumVitaeService {
     const headers = this.createHeaders();
     return this.http.get(`${_url}profile`, { headers });
   }
+
+  
 }
