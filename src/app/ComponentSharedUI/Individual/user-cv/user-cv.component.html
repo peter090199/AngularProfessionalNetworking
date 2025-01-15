@@ -3,6 +3,7 @@
  
   <mat-horizontal-stepper [linear]="true" #stepper>
     <!-- Loading Overlay -->
+   
     <div class="loading-overlay" *ngIf="loading">
       <mat-spinner></mat-spinner>
     </div>
@@ -56,15 +57,20 @@
               <input matInput [value]="profession" readonly />
             </mat-form-field>
 
-            <button mat-raised-button color="basic" class="button-field" (click)="onClickNew()">
+            <!-- <button mat-raised-button color="basic" class="button-field" (click)="onClickNew()">
               <mat-icon>add_circle</mat-icon>
                Language
-            </button>
+            </button> -->
             
           </div>
   
           <!-- Contact Number -->
           <div class="form-row">
+            <button mat-raised-button color="basic" class="button-field" (click)="onClickNew()">
+              <mat-icon>add_circle</mat-icon>
+               Language
+            </button>
+
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>Contact Number</mat-label>
               <input
@@ -152,7 +158,7 @@
                 {{ country.name }}
               </mat-option>
             </mat-autocomplete>
-            <input matInput [formControl]="countryControl1" [matAutocomplete]="auto1" id="country1" placeholder="Choose Country" tabindex="1">
+            <input matInput [formControl]="countryControl1" [matAutocomplete]="auto1" id="country1" placeholder="Your Home Country" tabindex="1">
           </mat-form-field>
           
           <mat-form-field appearance="standard" class="form-field">
@@ -169,7 +175,7 @@
                     {{ country.name }}
                   </mat-option>
                 </mat-autocomplete>
-                <input matInput [formControl]="countryControl2" [matAutocomplete]="auto2" id="country2" placeholder="Choose Country" tabindex="2">
+                <input matInput [formControl]="countryControl2" [matAutocomplete]="auto2" id="country2" placeholder="Your Current Location" tabindex="2">
             </mat-form-field>
 
             <mat-form-field appearance="standard" class="form-field">
@@ -239,41 +245,108 @@
           <h2>Build Your Profile</h2>
           <mat-divider></mat-divider>
           
-           <br> <br>
-            <button mat-button color="basic" class="button-field" (click)="AddSkills()">
-              <mat-icon>add_circle</mat-icon>
-               Add Skills
-            </button>
+          <mat-tab-group dynamicHeight>
+            <mat-tab label="Education">
+              <mat-card-header>
+                <button mat-button color="basic" class="button-field" (click)="AddEducation()">
+                  <mat-icon>add_circle</mat-icon>
+                   Add Education
+                </button>
+                <button mat-button color="primary" class="button-load" (click)="LoadEducationData()">
+                  <mat-icon>visibility</mat-icon>
+                  View
+                </button>
 
-            <br> <br>
-            <button mat-button color="basic" class="button-field" (click)="AddEducation()">
-              <mat-icon>add_circle</mat-icon>
-               Add Education
-            </button>
+              </mat-card-header>
+              <mat-card-content>
+                <div>
+                  <h3>Education</h3>
+                </div>
+                </mat-card-content>
 
-            <br> <br>
-            <button mat-button color="basic" class="button-field" (click)="AddTrainings()">
-              <mat-icon>add_circle</mat-icon>
-               Add Trainings
-            </button>
+              <div class="education-container">
+                <mat-card *ngFor="let edu of formEducation; let i = index" class="education-card">
+                  <mat-card-content>
+                   <h3>{{ edu.highest_education }}</h3>
 
-            <br> <br>
-            <button mat-button color="basic" class="button-field" (click)="AddSeminar()">
-              <mat-icon>add_circle</mat-icon>
-               Add Seminar
-            </button>
+                    <p><strong>School Name: </strong> {{ edu.school_name }} </p>
+                    <p><strong>Start Month:</strong> {{ edu.start_month }} {{ edu.start_year }}</p>
+                    <p><strong>End Month:</strong> {{ edu.end_month }} {{ edu.end_year }}</p>
+                    <p><strong>Status:</strong> {{ edu.status }}</p>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-icon-button color="warn" (click)="removeEducation(i)">
+                      <mat-icon>delete</mat-icon>
+                    </button>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
 
-            <br> <br>
+            </mat-tab>
+            <mat-tab label="Skills">
+              <mat-card-header>
+                <button mat-button color="basic" class="button-field" (click)="AddSkills()">
+                  <mat-icon>add_circle</mat-icon>
+                  Add Skills
+                </button>
+              </mat-card-header>
+              <mat-card-content>
+                <p>List your technical, interpersonal, or professional skills here.</p>
+              </mat-card-content>
+             
+            </mat-tab>
+            <mat-tab label="Seminar">
+              <mat-card-header>
+                <button mat-button color="basic" class="button-field" (click)="AddSeminar()">
+                  <mat-icon>add_circle</mat-icon>
+                   Add Seminar
+                </button>
+
+              </mat-card-header>
+              <mat-card-content>
+                <p>List your technical, interpersonal, or professional skills here.</p>
+              </mat-card-content>
+
+            </mat-tab>
+            <mat-tab label="Trainings">
+              <mat-card-header>
+                <button mat-button color="basic" class="button-field" (click)="AddTrainings()">
+                  <mat-icon>add_circle</mat-icon>
+                   Add Trainings
+                </button>
+              </mat-card-header>
+              
+              <mat-card-content>
+                <div>
+                  <h3>Trainings</h3>
+                  <p>Highlight any professional or technical training you have completed.</p>
+                </div>
+              </mat-card-content>
+             
+            </mat-tab>
+            <mat-tab label="Certificate">
+              <mat-card-header>
+                <button mat-button color="basic" class="button-field" (click)="AddCertificate()">
+                  <mat-icon>add_circle</mat-icon>
+                   Add Certificate
+                </button>
+              </mat-card-header>
+              
+              <mat-card-content>
+                <div>
+                  <h3>Trainings</h3>
+                  <p>Highlight any professional or technical training you have completed.</p>
+                </div>
+              </mat-card-content>
+             
+            </mat-tab>
+          </mat-tab-group>
+          
+            <!-- <br> <br>
             <button mat-button color="basic" class="button-field" (click)="AddEmployment()">
               <mat-icon>add_circle</mat-icon>
                Add Employment
-            </button>
-
-            <br> <br>
-            <button mat-button color="basic" class="button-field" (click)="AddCertificate()">
-              <mat-icon>add_circle</mat-icon>
-               Add Certificate
-            </button>
+            </button> -->
           </div>
          
           <br><br>

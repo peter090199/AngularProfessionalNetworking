@@ -31,7 +31,15 @@ app-footer {
 
 
 
-
+.content-body{
+  font-family: Verdana, sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  margin: 2px !important;
+  overflow: hidden;
+  height: 92vh;
+  max-height: 92vh;
+}
 
 
 html,

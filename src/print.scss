@@ -28,6 +28,8 @@
 .hide-closeprint{
   display: none;
 }
+
+
 .cv-header {
   display: flex;
   align-items: center;
@@ -48,6 +50,27 @@
   text-align: right;
 }
 @media print {
+  .data-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px;
+    font-family: Verdana, sans-serif; /* Choose a clean, readable font */
+    font-size: 14px; /* Adjust text size */
+    margin-bottom: 0px; /* Add spacing between items */
+  }
+  
+  .label {
+    font-weight: bold;
+    text-align: left;
+    color: #808080; 
+    width: 150px; /* Set a fixed width for alignment */
+  }
+  
+  .value {
+    text-align: left;
+    flex: 1; /* Let the value section expand naturally */
+  }
+  
   .no-print, .hide-closeprint,.close-icon{
     display: none !important; /* Ensure these elements are hidden */
   }

@@ -1,13 +1,7 @@
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, OnInit, ViewChild,AfterViewInit, Inject  } from '@angular/core';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
-import {
-  FormBuilder,
-  FormGroup,
-  FormArray,
-  Validators,
-  FormControl,
-} from '@angular/forms';
+import {FormBuilder,FormGroup,FormArray,Validators,FormControl} from '@angular/forms';
 import { MatAccordion } from '@angular/material/expansion';
 import { ProfileService } from 'src/app/services/Profile/profile.service';
 import { MatHorizontalStepper } from '@angular/material/stepper/stepper';
@@ -24,7 +18,9 @@ import { AddCertificateUiComponent } from '../ProfessionalDev/add-certificate-ui
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
 import {Observable} from 'rxjs';
+
 import {startWith, map} from 'rxjs/operators';
+
 
 /**
  * @title Basic expansion panel
@@ -53,7 +49,10 @@ export class UserCVComponent implements AfterViewInit  {
   secondFormGroup: FormGroup;
   summaryFormGroup:FormGroup;
   thirdFormGroup: FormGroup;
+  
+  formEducation: any[] = [];
 
+  
   ngAfterViewInit() {
     this.stepper.selectionChange.subscribe(() => {
       this.updateProgress();
@@ -94,7 +93,7 @@ export class UserCVComponent implements AfterViewInit  {
               private cvService:CurriculumVitaeService,
               private notificationService:NotificationsService,private router:Router,private datePipe:DatePipe,
               private dialog:MatDialog, private passDataServices:ProfessionalService,private alert:NotificationsService,
-              private profileService: ProfileService
+              private profileService: ProfessionalService,
   ) {
     this.countryControl1.valueChanges.subscribe(value => {
       this.filteredCountries1 = this.filterCountries(value);
@@ -103,8 +102,20 @@ export class UserCVComponent implements AfterViewInit  {
     this.countryControl2.valueChanges.subscribe(value => {
       this.filteredCountries2 = this.filterCountries(value);
     });
+
+    this.loadEducationData();
   }
 
+//tab education
+
+loadEducationData() {
+  this.formEducation = this.profileService.getDataEducation();
+
+}
+
+removeEducation(index: number) {
+  this.formEducation.splice(index, 1);
+}
 
 
  userData:any;
@@ -165,6 +176,7 @@ countries: { name: string }[] = [
 ngOnInit(): void {
   this.initializeFormGroups();
   this.GetUserData();
+ 
 }
 
 
@@ -301,7 +313,7 @@ resetSearch(): void {
 
 
  private DisplayEmail(): void {
-    this.profileService.getProfileByEmail().subscribe(
+    this.userService.getProfileByEmail().subscribe(
       (profile) => {
         // Assuming the profile contains an email property
         this.email = profile.email;
@@ -829,4 +841,12 @@ submit() {
   
 }
 
+  ViewEducationData() {
+
+  }
+
+  LoadEducationData(): void {
+    this.loadEducationData();
+  }
+  
 }

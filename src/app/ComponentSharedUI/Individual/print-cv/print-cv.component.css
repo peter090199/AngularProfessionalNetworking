@@ -6,3 +6,46 @@
 .logo  {
   width: 100%;
 }
+.data-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+  font-family: Verdana, sans-serif; /* Choose a clean, readable font */
+  font-size: 16px; /* Adjust text size */
+  margin-bottom: 1px; /* Add spacing between items */
+  object-fit: cover; 
+
+}
+
+.label {
+  font-weight: bold;
+  text-align: left;
+  color: #808080; 
+  width: 150px; /* Set a fixed width for alignment */
+}
+
+.value {
+  text-align: left;
+  flex: 1; /* Let the value section expand naturally */
+}
+
+
+
+.data-item img {
+  width: 30%; /* Make image take half the width of its container */
+  height: 200px; /* Set a fixed height for the image */
+  object-fit: cover; /* Make the image cover the area */
+  margin-left: 30px;
+  border-radius: 10px; /* Optional: rounded corners */
+}
+
+.header {
+  display: flex;
+  justify-content: left;
+  margin: 15px;
+}
+.header img {
+  width: 100px;
+  height: 100px;
+ margin-left: 460px;
+}

@@ -14,98 +14,130 @@
       <img src="assets/images/nexsuz.png" alt="logo">
    </div>
   </header>
-  <br><br><br>
-
-  <div class="cv-container">
-    <p>CANDIDATE DETAILS:</p>
-    <br>
-    <div *ngIf="cvData" class="cv-p">
-      <p class="cv-item"><strong style="color: rgba(203, 172, 172, 0.873);">FIRST NAME:</strong>{{cvData.fname}}</p>
-      <p><strong style="color: rgba(203, 172, 172, 0.873);">FAMILY NAME:</strong> {{cvData.lname}}</p>
-      <p><strong style="color: rgba(203, 172, 172, 0.873);">PROFESSION:</strong> {{cvData.profession}}</p>
-      <p><strong style="color: rgba(203, 172, 172, 0.873);">DATE OF BIRTH:</strong>{{cvData.date_birth}}</p>
-      <p><strong style="color: rgba(203, 172, 172, 0.873);">CONTACT NUMBER:</strong> {{cvData.contact_no}}</p>
-      <p><strong style="color: rgba(203, 172, 172, 0.873);">EMAIL ADDRESS:</strong> 
-        <a href={{cvData.email}}> {{cvData.email}}</a>
-      </p>
-      <p><strong style="color: rgba(203, 172, 172, 0.873);">CURRENT LOCATION:</strong> {{cvData.current_location}}</p>
-      <!-- <p><strong>AVAILABILITY:</strong> ONE MONTH NOTICE</p> -->
-    </div>
-    <br>
-
-      <div *ngIf="cvData?.lines">
-          <section class="cv-section" *ngIf="cvData.lines.education?.length">
-            <h2>Education</h2>
-            <div *ngFor="let edu of cvData.lines.education" class="cv-item">
-              <p>{{ edu.highest_education }}</p>
-              <p>{{ edu.school_name }}</p>
-              <p>{{ edu.start_month }} {{ edu.start_year }} - {{ edu.end_month }} {{ edu.end_year }}</p>
-            </div>
-          </section>
+  <br>
+  <br>
+  <br>
 
 
-          <section class="cv-section" *ngIf="cvData.lines.certifications?.length">
-            <h2>Certifications</h2>
-            <ul>
-              <li *ngFor="let cert of cvData.lines.certifications">{{ cert }}</li>
-            </ul>
-          </section>
+  <div class="header">
+    <div *ngIf="cvData">
+      <div class="data-item">
+        <div class="label">FIRST NAME:</div>
+        <div class="value">{{ cvData.fname }}</div>
+      </div>
 
-          <section class="cv-section" *ngIf="cvData.lines.skills?.length">
-            <h2>Skills</h2>
-            <ul>
-              <li *ngFor="let skill of cvData.lines.skills">{{ skill.skills }}</li>
-            </ul>
-          </section>
-
-          <section class="cv-section" *ngIf="cvData.lines.training?.length">
-            <h2>Trainings</h2>
-            <div *ngFor="let training of cvData.lines.training" class="cv-item">
-              <p>Training Title: <strong>{{ training.training_title }}</strong></p>
-              <p>Training Provider: {{ training.training_provider }}</p>
-              <p>Date Completed: {{ training.date_completed }}</p>
-            </div>
-          </section>
-
-          <section class="cv-section" *ngIf="cvData.lines.seminar?.length">
-            <h2>Seminars</h2>
-            <div *ngFor="let seminar of cvData.lines.seminar" class="cv-item">
-              <p>Seminar Title: <strong>{{ seminar.seminar_title }}</strong></p>
-              <p>Seminar Provider: {{ seminar.seminar_provider }}</p>
-              <p>Date Completed: {{ seminar.date_completed }}</p>
-            </div>
-          </section>
-
-          <section class="cv-section" *ngIf="cvData.lines.employment?.length">
-            <h2>Employment</h2>
-            <div *ngFor="let job of cvData.lines.employment" class="cv-item">
-              <p><strong>{{ job.company_name }}</strong></p>
-              <p>Position: {{ job.position }}</p>
-              <p>Description: {{ job.job_description }}</p>
-              <p>End Date: {{ job.date_completed }}</p>
-            </div>
-          </section>
-
-          <section class="cv-section" *ngIf="cvData.lines.certificate?.length">
-            <h2>Certificates</h2>
-            <div *ngFor="let cert of cvData.lines.certificate" class="cv-item">
-              <p><strong>{{ cert.certificate_title }}</strong></p>
-              <p>Provider: {{ cert.certificate_provider }}</p>
-              <p>Completion Date: {{ cert.date_completed }}</p>
-            </div>
-          </section>
-
-          <section class="cv-section" *ngIf="cvData">
-            <h2>Summary</h2>
-            <div class="cv-item">
-              <p>{{ cvData.summary }}</p>
-
-            </div>
-           
-          </section>
-        
+      <div class="data-item">
+        <div class="label">FAMILY NAME:</div>
+        <div class="value">{{ cvData.lname }}</div>
+      </div>
+      <div class="data-item">
+        <div class="label">PROFESSION:</div>
+        <div class="value">{{ cvData.profession }}</div>
+      </div>
+      <div class="data-item">
+        <div class="label">DATE OF BIRTH:</div>
+        <div class="value">{{ cvData.date_birth }}</div>
+      </div>
+      <div class="data-item">
+        <div class="label">CONTACT NUMBER:</div>
+        <div class="value">{{ cvData.contact_no }}</div>
+      </div>
+      <div class="data-item">
+        <div class="label">EMAIL ADDRESS:</div>
+        <div class="value">{{ cvData.email }}</div>
+      </div>
+      <div class="data-item">
+        <div class="label">CURRENT LOCATION:</div>
+        <div class="value">{{ cvData.current_location }}</div>
       </div>
     </div>
-</div>
+    <img src="assets/images/logo2.png" alt="CV Logo" />
+  </div>
 
-   
+
+  <br>
+  <div class="content-body">
+    <!-- <div class="cv-container"> -->
+  
+        <div *ngIf="cvData?.lines">
+            <section class="cv-section" *ngIf="cvData.lines.education?.length">
+              <h2>Education</h2>
+              <div *ngFor="let edu of cvData.lines.education" class="cv-item">
+                <p>{{ edu.highest_education }}</p>
+                <p>{{ edu.school_name }}</p>
+                <p>{{ edu.start_month }} {{ edu.start_year }} - {{ edu.end_month }} {{ edu.end_year }}</p>
+              </div>
+            </section>
+
+
+            <section class="cv-section" *ngIf="cvData.lines.certifications?.length">
+              <h2>Certifications</h2>
+              <ul>
+                <li *ngFor="let cert of cvData.lines.certifications">{{ cert }}</li>
+              </ul>
+            </section>
+
+            <section class="cv-section" *ngIf="cvData.lines.skills?.length">
+              <h2>Skills</h2>
+              <ul>
+                <li *ngFor="let skill of cvData.lines.skills">{{ skill.skills }}</li>
+              </ul>
+            </section>
+
+            <section class="cv-section" *ngIf="cvData.lines.language?.length">
+              <h2>Languages</h2>
+              <ul>
+                <li *ngFor="let language of cvData.lines.language">{{ language.language }}</li>
+              </ul>
+            </section>
+            
+            <section class="cv-section" *ngIf="cvData.lines.training?.length">
+              <h2>Trainings</h2>
+              <div *ngFor="let training of cvData.lines.training" class="cv-item">
+                <p>Training Title: <strong>{{ training.training_title }}</strong></p>
+                <p>Training Provider: {{ training.training_provider }}</p>
+                <p>Date Completed: {{ training.date_completed }}</p>
+              </div>
+            </section>
+
+            <section class="cv-section" *ngIf="cvData.lines.seminar?.length">
+              <h2>Seminars</h2>
+              <div *ngFor="let seminar of cvData.lines.seminar" class="cv-item">
+                <p>Seminar Title: <strong>{{ seminar.seminar_title }}</strong></p>
+                <p>Seminar Provider: {{ seminar.seminar_provider }}</p>
+                <p>Date Completed: {{ seminar.date_completed }}</p>
+              </div>
+            </section>
+
+            <section class="cv-section" *ngIf="cvData.lines.employment?.length">
+              <h2>Employment</h2>
+              <div *ngFor="let job of cvData.lines.employment" class="cv-item">
+                <p>Company Name:<strong>{{ job.company_name }}</strong></p>
+                <p>Position: {{ job.position }}</p>
+                <p>Description: {{ job.job_description }}</p>
+                <p>End Date: {{ job.date_completed }}</p>
+              </div>
+            </section>
+
+            <section class="cv-section" *ngIf="cvData.lines.certificate?.length">
+              <h2>Certificates</h2>
+              <div *ngFor="let cert of cvData.lines.certificate" class="cv-item">
+                <p>Certificate Title: <strong>{{ cert.certificate_title }}</strong></p>
+                <p>Provider: {{ cert.certificate_provider }}</p>
+                <p>Completion Date: {{ cert.date_completed }}</p>
+              </div>
+            </section>
+
+            <section class="cv-section" *ngIf="cvData">
+              <h2>Summary</h2>
+              <div class="cv-item">
+                <p>{{ cvData.summary }}</p>
+
+              </div>
+            
+            </section>
+          
+      </div>
+  </div>
+  </div>
+  
