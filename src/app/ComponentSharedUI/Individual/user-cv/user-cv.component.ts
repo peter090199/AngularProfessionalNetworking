@@ -20,6 +20,7 @@ import { NotificationsService } from 'src/app/services/Global/notifications.serv
 import {Observable} from 'rxjs';
 
 import {startWith, map} from 'rxjs/operators';
+import { AddEditEducationDialogComponent } from '../ProfessionalDev/Edit/add-edit-education-dialog/add-edit-education-dialog.component';
 
 
 /**
@@ -103,7 +104,7 @@ export class UserCVComponent implements AfterViewInit  {
       this.filteredCountries2 = this.filterCountries(value);
     });
 
-    this.loadEducationData();
+    this.LoadEducationData();
   }
 
 //tab education
@@ -111,6 +112,23 @@ export class UserCVComponent implements AfterViewInit  {
 loadEducationData() {
   this.formEducation = this.profileService.getDataEducation();
 
+}
+
+
+editEducation(index: number): void {
+  const educationToEdit = this.formEducation[index];
+  console.log(educationToEdit)
+  const dialogRef = this.dialog.open(AddEditEducationDialogComponent, {
+    width: '600px',
+    data: educationToEdit, // Pass the specific education entry as data
+  
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result) {
+      this.loadEducationData();
+    }
+  });
 }
 
 removeEducation(index: number) {
@@ -664,23 +682,9 @@ AddEducation(): void {
   const dialogRef = this.dialog.open(AddEducationUIComponent, dialogConfig);
 
   dialogRef.afterClosed().subscribe((formResult) => {
-    if (!formResult) {
-      console.log("No changes made, form closed.");
-      return; // Allow the form to close without further interaction
+    if (formResult) {
+      this.LoadEducationData();
     }
-    // else{
-    // this.alert
-    //   .popupWarningDiscard("")
-    //   .then((confirmation) => {
-    //     if (confirmation === "denied") {
-    //       console.log("Form closed and changes discarded.");
-    //     } else if (confirmation === "confirmed") {
-    //       console.log("Form kept open and changes saved.");
-    //     } else {
-    //       console.log("Form kept open.");
-    //     }
-    //   });
-    // }
   });
 }
 

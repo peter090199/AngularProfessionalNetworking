@@ -4,6 +4,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { PrintCVComponent } from 'src/app/ComponentSharedUI/Individual/print-cv/print-cv.component';
 import { ProfileService } from 'src/app/services/Profile/profile.service';
+import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
+import { THREE } from '@angular/cdk/keycodes';
 @Component({
   selector: 'app-home-ui',
   templateUrl: './home-ui.component.html',
@@ -76,7 +78,7 @@ throw new Error('Method not implemented.');
   page = 1; // Pagination or load more page tracking
   isMobile: boolean = false; 
   
-  constructor(private router:Router,private profile:ProfileService,
+  constructor(private router:Router,private profile:ProfileService,private photo:CurriculumVitaeService,
     private dialog:MatDialog
   ) {}
   
@@ -92,9 +94,11 @@ throw new Error('Method not implemented.');
   error: any;
   profiles: any=[];
 
+  profile_pic: any;
 
   ngOnInit(): void {
     this.onResize();
+    this.fetchProfilePicture();
     this.profile.getProfileByUser().subscribe({
       next: (response) => {
         if (response.success) {
@@ -108,6 +112,35 @@ throw new Error('Method not implemented.');
       },
     });
   }
+
+  fetchProfilePicture(): void {
+    this.photo.getDataCV().subscribe(
+      (response) => {
+        if (response && response.message) {
+          this.profile_pic = response.message; // Assign the response data to `cvData`
+        } else {
+          console.error('Invalid response format:', response);
+        }
+      },
+      (error) => {
+        console.error('Error fetching CV data:', error);
+      }
+    );
+  }
+
+  fetchProfilePicturess(): void {
+    this.photo.getDataCV().subscribe({
+      next: (res) => {
+        console.log(res.photo_pic); // Log for debugging
+        this.profile_pic = res.photo_pic; // Assign the image URL
+      },
+      error: (err) => {
+        console.error('Error fetching profile picture:', err); // Log error for debugging
+        this.error = err.message || 'An error occurred while fetching profile data';
+      },
+    });
+  }
+
 
   ngOnDestroy(): void {
     // Clear the interval when the component is destroyed
@@ -174,8 +207,8 @@ throw new Error('Method not implemented.');
         const dialogConfig = new MatDialogConfig();
         dialogConfig.disableClose = true;
         dialogConfig.autoFocus = true;
-        dialogConfig.width = '800px';
-        dialogConfig.height = '700px';
+        dialogConfig.width = '90%';
+        dialogConfig.height = '600px';
         const dialogRef = this.dialog.open(PrintCVComponent, dialogConfig);
         dialogRef.afterClosed().subscribe(result => {
           if (result) {

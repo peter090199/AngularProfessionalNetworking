@@ -51,7 +51,17 @@
         <div class="value">{{ cvData.current_location }}</div>
       </div>
     </div>
-    <img src="assets/images/logo2.png" alt="CV Logo" />
+   
+    <div *ngIf="cvData?.photo_pic; else loadingOrError">
+      <img [src]="cvData.photo_pic" alt="CV Logo" />
+    </div>
+    
+    <ng-template #loadingOrError>
+      <p *ngIf="!error">Loading CV data...</p>
+      <p *ngIf="error" class="error-message">{{ error }}</p>
+    </ng-template>
+    
+    
   </div>
 
 

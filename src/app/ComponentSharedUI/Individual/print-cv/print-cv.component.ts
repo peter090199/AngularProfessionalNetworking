@@ -6,10 +6,12 @@ import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.ser
   styleUrls: ['./print-cv.component.css']
 })
 export class PrintCVComponent implements OnInit {
+  cvData: any = null; // Initialize as null to indicate loading
+  error: string | null = null;
+  
   constructor(private cvService:CurriculumVitaeService ) { }
 
-  cvData: any;
-  
+
   ngOnInit(): void {
     this.getCVData();
   }
@@ -18,7 +20,7 @@ export class PrintCVComponent implements OnInit {
   getCVData(): void {
     this.cvService.getDataCV().subscribe(
       (response) => {
-        if (response && response.message) {
+        if (response.message) {
           this.cvData = response.message; // Assign the response data to `cvData`
         } else {
           console.error('Invalid response format:', response);

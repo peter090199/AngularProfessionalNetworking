@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 @Component({
   selector: 'app-upload-profile',
   templateUrl: './upload-profile.component.html',
   styleUrls: ['./upload-profile.component.css']
 })
 export class UploadProfileComponent implements OnInit {
+  constructor( private fb: FormBuilder,private uploadServices:CurriculumVitaeService,
+               private notificationService:NotificationsService
+  ) { }
 
 
-  constructor( private fb: FormBuilder) { }
   uploadform: FormGroup;
   isLoading = false;
   fileControl = new FormControl(null, Validators.required);  // Add this to your form control
@@ -48,34 +51,38 @@ export class UploadProfileComponent implements OnInit {
     
     });
   }
+
+
   onSubmit() {
     if (!this.uploadform.valid) {
-      console.error('Form is invalid');
-      return;
+     
     }
+    const formData = new FormData(); 
+    // const formValues = this.uploadform.getRawValue();
+    // Object.keys(formValues).forEach(key => {
+    //   formData.append(key, formValues[key]);
+    // });
   
-    const formData = new FormData(); // Use FormData to handle file uploads
-  
-    // Append form data
-    const formValues = this.uploadform.getRawValue();
-    Object.keys(formValues).forEach(key => {
-      formData.append(key, formValues[key]);
-    });
-  
-    // Append the selected file (if any)
     if (this.selectedFile) {
       formData.append('photo_pic', this.selectedFile, this.selectedFile.name);
     }
-  
-    // Log the FormData contents for debugging
     console.log('FormData contents:',formData);
    
-    // Here, you can send `formData` to your backend API
-    // Example:
-    // this.http.post('your-api-endpoint', formData).subscribe(
-    //   response => console.log('Upload successful!', response),
-    //   error => console.error('Upload failed', error)
-    // );
+    this.uploadServices.uploadCV(formData).subscribe({
+      next: (res) => {
+        if (res.success) {
+         this.notificationService.toastPopUp(res.message);
+          console.log(res.message)
+        } else {
+          this.notificationService.toastrError(res.message);
+        }
+     //   this.loading = false;
+      },
+      error: (error: any) => {
+        this.notificationService.toastrError(error?.error || 'An unexpected error occurred.');
+        //this.loading = false;
+      },
+    });
   }
   
   

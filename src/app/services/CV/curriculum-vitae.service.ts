@@ -71,9 +71,15 @@ export class CurriculumVitaeService {
   }
 
   postCV(payload: FormData): Observable<any> {
-    const headers = this.createHeaders(); // Ensure createHeaders is defined elsewhere if necessary
+    const headers = this.createHeaders(); 
     return this.http.post<any>(`${_url}profile`, payload, { headers });
   }
+
+  uploadCV(payload: FormData): Observable<any> {
+    const headers = this.createHeaders(); 
+    return this.http.post<any>(`${_url}profile_pic`, payload, { headers });
+  }
+
   putData(endpoint: string, body: any): Observable<any> {
     const headers = this.createHeaders();
     return this.http.put(`${_url}${endpoint}`, body, { headers });

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-education-ui',
   templateUrl: './add-education-ui.component.html',
@@ -18,8 +19,9 @@ export class AddEducationUIComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,private dataService:ProfessionalService,
-    private alert:NotificationsService
-  ) { 
+    private alert:NotificationsService, @Inject(MAT_DIALOG_DATA) public data: any,
+  ) 
+  { 
       for (let year = 2000; year <= this.currentYear; year++) {
         this.years.push(year);
       }
@@ -31,13 +33,41 @@ export class AddEducationUIComponent implements OnInit {
     'July', 'August', 'September', 'October', 'November', 'December'
   ];
 
+
   ngOnInit(): void {
     this.educationForm = this.formBuilder.group({
       education: this.formBuilder.array([
         this.createEducationGroup() // Initializes the first FormGroup
       ])
     });
+  //  this.GetItemFormData();
+    // if (this.data) {
+    //   this.populateForm(this.data);
+    // }
     
+  }
+  populateForm(data: any): void {
+    const educationGroup = this.educationArray.at(0);
+    educationGroup.patchValue({
+      highest_education: data.highest_education,
+      school_name: data.school_name,
+      start_month: data.start_month,
+      start_year: data.start_year,
+      end_month: data.end_month,
+      end_year: data.end_year,
+      status: data.status
+    });
+  }
+
+  GetItemFormData(){
+    this.educationForm.controls['id'].setValue(this.data.id);
+    this.educationForm.controls['highest_education'].setValue(this.data.highest_education);
+    this.educationForm.controls['school_name'].setValue(this.data.school_name);
+    this.educationForm.controls['start_month'].setValue(this.data.start_month);
+    this.educationForm.controls['start_year'].setValue(this.data.start_year);
+    this.educationForm.controls['end_month'].setValue(this.data.end_month);
+    this.educationForm.controls['end_year'].setValue(this.data.end_year);
+    this.educationForm.controls['status'].setValue(this.data.status);
   }
 
   addEducation(): void {

@@ -258,12 +258,6 @@
                 </button>
 
               </mat-card-header>
-              <mat-card-content>
-                <div>
-                  <h3>Education</h3>
-                </div>
-                </mat-card-content>
-
               <div class="education-container">
                 <mat-card *ngFor="let edu of formEducation; let i = index" class="education-card">
                   <mat-card-content>
@@ -274,11 +268,16 @@
                     <p><strong>End Month:</strong> {{ edu.end_month }} {{ edu.end_year }}</p>
                     <p><strong>Status:</strong> {{ edu.status }}</p>
                   </mat-card-content>
-                  <mat-card-actions>
+                 
+                  <div class="button-gap">
                     <button mat-icon-button color="warn" (click)="removeEducation(i)">
                       <mat-icon>delete</mat-icon>
                     </button>
-                  </mat-card-actions>
+                    <button mat-icon-button color="primary" (click)="editEducation(i)">
+                         <mat-icon>edit</mat-icon>
+                    </button>
+                  </div>
+
                 </mat-card>
               </div>
 
@@ -348,8 +347,6 @@
                Add Employment
             </button> -->
           </div>
-         
-          <br><br>
           <div class="button-gap">
              <button mat-raised-button color="primary" type="submit" (click)="submit()">Finish</button>
           </div>

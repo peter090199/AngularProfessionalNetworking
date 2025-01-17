@@ -75,11 +75,13 @@ export class SignInUIComponent implements OnInit {
       next: (res) => {
         if (res.success && res.token) {
           this.isLoading = true;
-          this.notificationService.toastPopUp(res.message);
-          this.router.navigate(['/user-cv']);
-       //  this.router.navigate(['/home']);
-          this.loginForm.reset(); // Reset form after successful login
-          this.isLoading = false;
+            if(res.message == 0){
+              this.router.navigate(['/home']);
+            }else{
+              this.router.navigate(['/user-cv']);
+            }
+            this.loginForm.reset(); 
+            this.isLoading = false;
         }
         else
         {

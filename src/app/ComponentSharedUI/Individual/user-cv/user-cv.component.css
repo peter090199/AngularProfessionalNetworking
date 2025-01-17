@@ -544,7 +544,7 @@ textarea {
 .education-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px; /* Spacing between cards */
+  gap: 10px; /* Spacing between cards */
   padding: 16px; /* Padding around the container */
   justify-content: center; /* Center items horizontally */
   max-height: 95vh; /* Maximum height for the container */
@@ -555,9 +555,8 @@ textarea {
 
 /* Card styles */
 .education-card {
-  flex: 1 1 calc(100% - 32px); /* Default to full width */
-  max-width: 600px; /* Maximum width of each card */
-  margin: auto; /* Center cards within their row */
+  max-width: 900px; /* Maximum width of each card */
+  margin: 2px; /* Center cards within their row */
   border: 1px solid #e0e0e0; /* Light border for better visibility */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   padding: 16px; /* Add padding inside the card */
@@ -580,8 +579,6 @@ textarea {
     justify-content: flex-start; /* Align items to the left */
   }
   .education-card {
-    margin-top: 20px;
-    margin-bottom: 20px;
     flex: 1 1 calc(100%);
     width: 100%;
   }
