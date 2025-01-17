@@ -13,10 +13,11 @@
 }
 .button-gaps{
   display: flex;
-  justify-content: left;
+  flex: 1;
+  justify-content: right;
   margin-top: 0px;
   gap: 20px;
-  margin-left: 550px;
+  margin-left: 990px;
   position: fixed;
 }
 
@@ -34,7 +35,8 @@
   display: flex;
   align-items: center;
   padding: 10px;
-  margin-top:10px;
+  margin-top:0px;
+  margin-bottom: 30px;
 }
 
 .no-print mat-icon {
@@ -50,6 +52,11 @@
   text-align: right;
 }
 @media print {
+  .logo img  {
+    width: 100%;
+    height: 100px;
+  }
+
   .data-item {
     display: flex;
     justify-content: space-between;

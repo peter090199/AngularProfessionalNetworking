@@ -3,27 +3,18 @@
   <div mat-dialog-content>
     <!-- School Name -->
      <div class="form-row">
+        <mat-form-field appearance="standard" class="half-width">
+          <mat-label>Highest Education</mat-label>
+          <input matInput [(ngModel)]="data.highest_education" name="highest_education" required />
+        </mat-form-field>
+        
          <mat-form-field appearance="standard" class="half-width">
             <mat-label>School Name</mat-label>
             <input matInput [(ngModel)]="data.school_name" name="school_name" required />
           </mat-form-field>
-
-          <mat-form-field appearance="standard" class="half-width">
-            <mat-label>Highest Education</mat-label>
-            <input matInput [(ngModel)]="data.highest_education" name="highest_education" required />
-          </mat-form-field>
      </div>
    
      <div class="form-row">
-        <mat-form-field appearance="standard" class="half-width">
-          <mat-label>Status</mat-label>
-          <mat-select [(ngModel)]="data.status" name="status" required>
-            <mat-option value="Graduate">Graduate</mat-option>
-            <mat-option value="Undergraduate">Undergraduate</mat-option>
-            <mat-option value="Ongoing">Ongoing</mat-option>
-          </mat-select>
-        </mat-form-field>
-
         <mat-form-field appearance="standard" class="half-width">
           <mat-label>Start Month</mat-label>
           <mat-select [(ngModel)]="data.start_month" name="start_month" required>
@@ -33,6 +24,15 @@
           </mat-select>
         </mat-form-field>
         
+        <mat-form-field appearance="standard" class="half-width">
+          <mat-label>End Month</mat-label>
+          <mat-select [(ngModel)]="data.end_month" name="end_month" required>
+            <mat-option *ngFor="let month of months" [value]="month">
+              {{ month }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    
       </div>
    
       <div class="form-row">
@@ -54,19 +54,19 @@
           </mat-select>
         </mat-form-field>
       </div>
-     <!-- End Month -->
-     <mat-form-field appearance="fill" class="full-width">
-      <mat-label>End Month</mat-label>
-      <input
-        matInput
-        [(ngModel)]="data.end_month"
-        name="end_month"
-        required
-      />
-    </mat-form-field>
 
-    <!-- End Year -->
-   
+
+      <div class="form-row">
+        <mat-form-field appearance="standard" class="full-width">
+          <mat-label>Status</mat-label>
+          <mat-select [(ngModel)]="data.status" name="status" [value]="data.status" required>
+            <mat-option value="Graduate">Graduate</mat-option>
+            <mat-option value="Undergraduate">Undergraduate</mat-option>
+            <mat-option value="Ongoing">Ongoing</mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+
   </div>
 
   <div mat-dialog-actions>

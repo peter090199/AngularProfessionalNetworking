@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
 @Component({
@@ -9,7 +10,7 @@ import { NotificationsService } from 'src/app/services/Global/notifications.serv
 })
 export class UploadProfileComponent implements OnInit {
   constructor( private fb: FormBuilder,private uploadServices:CurriculumVitaeService,
-               private notificationService:NotificationsService
+               private notificationService:NotificationsService,private router: Router,
   ) { }
 
 
@@ -55,26 +56,20 @@ export class UploadProfileComponent implements OnInit {
 
   onSubmit() {
     if (!this.uploadform.valid) {
-     
     }
     const formData = new FormData(); 
-    // const formValues = this.uploadform.getRawValue();
-    // Object.keys(formValues).forEach(key => {
-    //   formData.append(key, formValues[key]);
-    // });
-  
     if (this.selectedFile) {
       formData.append('photo_pic', this.selectedFile, this.selectedFile.name);
     }
-    console.log('FormData contents:',formData);
+    //console.log('FormData contents:',formData);
    
     this.uploadServices.uploadCV(formData).subscribe({
       next: (res) => {
         if (res.success) {
-         this.notificationService.toastPopUp(res.message);
-          console.log(res.message)
+         this.notificationService.toastrSuccess("Successfully Upload.");
+         this.router.navigate(['/home']);
         } else {
-          this.notificationService.toastrError(res.message);
+          this.notificationService.toastrError("Error upload!");
         }
      //   this.loading = false;
       },

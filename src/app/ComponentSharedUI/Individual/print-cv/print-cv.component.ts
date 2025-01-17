@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
 @Component({
   selector: 'app-print-cv',
@@ -8,6 +8,7 @@ import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.ser
 export class PrintCVComponent implements OnInit {
   cvData: any = null; // Initialize as null to indicate loading
   error: string | null = null;
+  @ViewChild('printContent') printContent!: ElementRef;
   
   constructor(private cvService:CurriculumVitaeService ) { }
 
@@ -32,7 +33,37 @@ export class PrintCVComponent implements OnInit {
     );
   }
 
+  printDataxxx(): void {
+    const printContent = document.getElementById('print-content')?.innerHTML;
 
+    const newWindow = window.open('', '_blank', 'width=800,height=600');
+    if (newWindow) {
+      newWindow.document.open();
+      newWindow.document.write(`
+        <html>
+          <head>
+            <title>Print CV</title>
+            <style>
+              /* Add your print styles here */
+              body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+              }
+              .cv-header, .cv-section {
+                margin-bottom: 20px;
+              }
+            </style>
+          </head>
+          <body onload="window.print(); window.close();">
+            ${printContent}
+          </body>
+        </html>
+      `);
+      newWindow.document.close();
+    } else {
+      alert('Unable to open print window. Please check your browser settings.');
+    }
+  }
   printData() {
     //const printContent = document.getElementById('print-content');
     const originalContent = document.body.innerHTML;
@@ -44,45 +75,45 @@ export class PrintCVComponent implements OnInit {
     }
   }
 
-  // printDataxx() {
-  //   const printContent = document.getElementById('print-content')?.innerHTML;
+  printDatacc() {
+    const printContent = document.getElementById('print-content')?.innerHTML;
     
-  //   // Calculate the center position of the window
-  //   const windowWidth = 600; // Set desired window width
-  //   const windowHeight = 800; // Set desired window height
-  //   const left = (window.innerWidth / 2) - (windowWidth / 2);  // Center horizontally
-  //   const top = (window.innerHeight / 2) - (windowHeight / 2);  // Center vertically
+    // Calculate the center position of the window
+    const windowWidth = 600; // Set desired window width
+    const windowHeight = 800; // Set desired window height
+    const left = (window.innerWidth / 2) - (windowWidth / 2);  // Center horizontally
+    const top = (window.innerHeight / 2) - (windowHeight / 2);  // Center vertically
   
-  //   // Open a new window with calculated positions
-  //   const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},left=${left},top=${top}`);
+    // Open a new window with calculated positions
+    const newWindow = window.open('', '_blank', `width=${windowWidth},height=${windowHeight},left=${left},top=${top}`);
     
-  //   // Write content to the new window
-  //   newWindow?.document.write(`<html><head><title>Print CV</title></head><body>${printContent}</body></html>`);
-  //   newWindow?.document.close();
+    // Write content to the new window
+    newWindow?.document.write(`<html><head><title>Print CV</title></head><body>${printContent}</body></html>`);
+    newWindow?.document.close();
     
-  //   // Print the content and close the window
-  //   newWindow?.print();
-  //   newWindow?.close();
-  // }
+    // Print the content and close the window
+    newWindow?.print();
+    newWindow?.close();
+  }
   
 
-  // printLayout() {
-  //   const printContents = document.getElementById('printSection');
-  //   const popupWin = window.open('', '_blank', 'width=800,height=600');
-  //   popupWin?.document.open();
-  //   popupWin?.document.write(`
-  //     <html>
-  //       <head>
-  //         <title>Print Resume</title>
+  printDatavv() {
+    const printContents = document.getElementById('printSection');
+    const popupWin = window.open('', '_blank', 'width=800,height=600');
+    popupWin?.document.open();
+    popupWin?.document.write(`
+      <html>
+        <head>
+          <title>Print Resume</title>
         
-  //       </head>
-  //       <body onload="window.print(); window.close()">
-  //         ${printContents}
-  //       </body>
-  //     </html>
-  //   `);
-  //   popupWin?.document.close();
-  // }
+        </head>
+        <body onload="window.print(); window.close()">
+          ${printContents}
+        </body>
+      </html>
+    `);
+    popupWin?.document.close();
+  }
 
 
   // printPages() {
