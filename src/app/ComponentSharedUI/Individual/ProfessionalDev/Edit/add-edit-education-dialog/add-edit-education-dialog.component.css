@@ -1,0 +1,54 @@
+/* Base Styles */
+mat-card {
+    margin: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .half-width {
+    flex: 1 1 calc(50% - 8px);
+    min-width: 200px;
+  }
+  
+  .full-width {
+    flex: 1 1 100%;
+  }
+  
+  .button-end {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+  
+  /* Responsive Styles */
+  
+  /* Mobile Phones (<= 600px) */
+  @media (max-width: 600px) {
+    .form-row {
+      width: 100%; /* Stack items vertically */
+    }
+    .half-width {
+      width: 100%; /* Full width for mobile */
+    }
+    
+  }
+  
+  /* Tablets (601px - 960px) */
+  @media (min-width: 601px) and (max-width: 960px) {
+    .form-row {
+        width: 100%; 
+    }
+    .half-width {
+        width: 100%; 
+    }
+   
+  }
+  

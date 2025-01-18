@@ -66,6 +66,12 @@ section{
   gap: 10px; /* Adds a fixed amount of space between buttons */
   margin-top: 15px; /* Adds space above the button group */
 }
+.button-end{
+  display: flex;
+  justify-content: flex-end; /* Aligns buttons to the start */
+  gap: 10px; /* Adds a fixed amount of space between buttons */
+  margin:0px; /* Adds space above the button group */
+}
 /* Overall Layout */
 body {
   background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));

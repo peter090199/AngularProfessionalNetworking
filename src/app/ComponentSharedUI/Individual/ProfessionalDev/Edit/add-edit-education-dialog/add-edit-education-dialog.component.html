@@ -59,7 +59,7 @@
       <div class="form-row">
         <mat-form-field appearance="standard" class="full-width">
           <mat-label>Status</mat-label>
-          <mat-select [(ngModel)]="data.status" name="status" [value]="data.status" required>
+          <mat-select [(ngModel)]="data.status" name="status" required>
             <mat-option value="Graduate">Graduate</mat-option>
             <mat-option value="Undergraduate">Undergraduate</mat-option>
             <mat-option value="Ongoing">Ongoing</mat-option>
@@ -69,9 +69,9 @@
 
   </div>
 
-  <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button color="primary"[disabled]="!educationForm.valid" (click)="save()">
+  <div class="button-end">
+    <button mat-raised-button color="warn"  (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary"[disabled]="!educationForm.valid" (click)="save()">
       Update
     </button>
   </div>

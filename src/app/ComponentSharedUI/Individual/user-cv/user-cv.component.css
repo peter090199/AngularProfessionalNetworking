@@ -275,7 +275,7 @@ mat-radio-button {
 }
 
 mat-horizontal-stepper {
-  width: 65%;
+  width: 70%;
   background-color: #fff;
   padding: 0;
   border-radius: 8px;
@@ -555,7 +555,7 @@ textarea {
 
 /* Card styles */
 .education-card {
-  max-width: 900px; /* Maximum width of each card */
+  max-width: 990px; /* Maximum width of each card */
   margin: 2px; /* Center cards within their row */
   border: 1px solid #e0e0e0; /* Light border for better visibility */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */

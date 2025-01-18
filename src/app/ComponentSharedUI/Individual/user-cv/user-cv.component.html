@@ -128,7 +128,7 @@
           </div>
   
           <!-- Navigation -->
-          <div class="button-gap">
+          <div class="button-end">
             <button
               mat-raised-button
               color="primary"
@@ -185,7 +185,7 @@
             
           </div>
 
-          <div class="button-gap">
+          <div class="button-end">
             <button mat-raised-button color="warn" matStepperPrevious>
               Back
             </button>
@@ -201,8 +201,6 @@
       </form>
     </mat-step>
 
-
-    <!--Summary-->
     <mat-step [stepControl]="summaryFormGroup">
       <form [formGroup]="summaryFormGroup">
         <ng-template matStepLabel>Summary</ng-template>
@@ -220,7 +218,7 @@
           </mat-form-field>
 
 
-          <div class="button-gap">
+          <div class="button-end">
             <button mat-raised-button color="warn" matStepperPrevious>
               Back
             </button>
@@ -235,12 +233,12 @@
           </div>
         </div>
       </form>
-    </mat-step>
+    </mat-step> 
 
     <!-- Step 3: ARRAY-->
     <mat-step [stepControl]="thirdFormGroup">
       <form [formGroup]="thirdFormGroup">
-        <ng-template matStepLabel>Professional Development</ng-template>
+        <ng-template matStepLabel>Qualifications</ng-template>
         <div class="profile-container">
           <h2>Build Your Profile</h2>
           <mat-divider></mat-divider>
@@ -252,10 +250,10 @@
                   <mat-icon>add_circle</mat-icon>
                    Add Education
                 </button>
-                <button mat-button color="primary" class="button-load" (click)="LoadEducationData()">
+                <!-- <button mat-button color="primary" class="button-load" (click)="LoadEducationData()">
                   <mat-icon>visibility</mat-icon>
                   View
-                </button>
+                </button> -->
 
               </mat-card-header>
               <div class="education-container">
@@ -277,7 +275,6 @@
                          <mat-icon>edit</mat-icon>
                     </button>
                   </div>
-
                 </mat-card>
               </div>
 
@@ -300,13 +297,12 @@
                   <mat-icon>add_circle</mat-icon>
                    Add Seminar
                 </button>
-
               </mat-card-header>
               <mat-card-content>
                 <p>List your technical, interpersonal, or professional skills here.</p>
               </mat-card-content>
-
             </mat-tab>
+
             <mat-tab label="Trainings">
               <mat-card-header>
                 <button mat-button color="basic" class="button-field" (click)="AddTrainings()">
@@ -314,15 +310,14 @@
                    Add Trainings
                 </button>
               </mat-card-header>
-              
               <mat-card-content>
                 <div>
                   <h3>Trainings</h3>
                   <p>Highlight any professional or technical training you have completed.</p>
                 </div>
               </mat-card-content>
-             
             </mat-tab>
+
             <mat-tab label="Certificate">
               <mat-card-header>
                 <button mat-button color="basic" class="button-field" (click)="AddCertificate()">
@@ -330,24 +325,32 @@
                    Add Certificate
                 </button>
               </mat-card-header>
-              
               <mat-card-content>
                 <div>
-                  <h3>Trainings</h3>
-                  <p>Highlight any professional or technical training you have completed.</p>
+                  <h3>Certificate</h3>
+                  <p>Highlight any professional or Certificate you have completed.</p>
                 </div>
               </mat-card-content>
              
             </mat-tab>
+
+            <mat-tab label="Work Experience">
+              <mat-card-header>
+                <button mat-button color="primary" class="button-field" (click)="AddEmployment()">
+                  <mat-icon>add_circle</mat-icon>
+                   Add Work Experience
+                </button>
+              </mat-card-header>
+              <mat-card-content>
+                <div>
+                  <h3>Work Experience</h3>
+                </div>
+              </mat-card-content>
+            </mat-tab>
           </mat-tab-group>
-          
-            <!-- <br> <br>
-            <button mat-button color="basic" class="button-field" (click)="AddEmployment()">
-              <mat-icon>add_circle</mat-icon>
-               Add Employment
-            </button> -->
+
           </div>
-          <div class="button-gap">
+          <div class="button-end">
              <button mat-raised-button color="primary" type="submit" (click)="submit()">Finish</button>
           </div>
          

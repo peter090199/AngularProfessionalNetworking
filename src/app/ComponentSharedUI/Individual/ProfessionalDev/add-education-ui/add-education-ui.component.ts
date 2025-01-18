@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-education-ui',
   templateUrl: './add-education-ui.component.html',
@@ -19,7 +19,8 @@ export class AddEducationUIComponent implements OnInit {
 
 
   constructor(private formBuilder: FormBuilder,private dataService:ProfessionalService,
-    private alert:NotificationsService, @Inject(MAT_DIALOG_DATA) public data: any,
+              private alert:NotificationsService, @Inject(MAT_DIALOG_DATA) public data: any,
+              public dialogRef: MatDialogRef<AddEducationUIComponent>
   ) 
   { 
       for (let year = 2000; year <= this.currentYear; year++) {
@@ -116,7 +117,11 @@ export class AddEducationUIComponent implements OnInit {
       { value: 'undergraduate', label: 'Undergraduate' },
       { value: 'ongoing', label: 'Ongoing' }
     ];
-
+    onNoClick(): void {
+      this.dialogRef.close();
+      
+      
+    }
     
   // Remove education from the FormArray
   removeItemFromArray2(arrayName: string, index: number): void {
