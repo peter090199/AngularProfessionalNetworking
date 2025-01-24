@@ -13,9 +13,9 @@
       <div
         *ngFor="let item of educationArray.controls; let i = index"
         [formGroupName]="i"
-        class="education-group"
+       
       >
-        <mat-form-field appearance="standard" class="form-field">
+        <mat-form-field appearance="standard" class="full-width">
           <mat-label>Education</mat-label>
           <input
            required
@@ -25,12 +25,12 @@
           />
         </mat-form-field>
   
-        <mat-form-field appearance="standard" class="form-field">
+        <mat-form-field appearance="standard"  class="full-width">
           <mat-label>School Name</mat-label>
           <input
             required
             matInput
-            placeholder="chool name"
+            placeholder="School name"
             formControlName="school_name"
           />
         </mat-form-field>
@@ -87,12 +87,6 @@
           </mat-form-field>
           
       </div>
-        <!-- <mat-radio-group aria-label="Select education status" class="radio-group" formControlName="status">
-          <mat-radio-button *ngFor="let option of educationStatusOptions" [value]="option.value">
-            {{ option.label }}
-          </mat-radio-button>
-        </mat-radio-group> -->
-  
         <button mat-icon-button (click)="removeItemFromArray2('education', i)" *ngIf="educationArray.length > 1">
           <mat-icon color="warn">delete</mat-icon>
         </button>
@@ -101,7 +95,7 @@
     </div>
     
     <div class="button-end">
-      <button mat-raised-button color="primary" [mat-dialog-close]="true"> Cancel </button>
+      <button mat-raised-button color="warn" [mat-dialog-close]="true"> Cancel </button>
       <button mat-raised-button color="primary" type="submit" >Add</button>
     </div>
    

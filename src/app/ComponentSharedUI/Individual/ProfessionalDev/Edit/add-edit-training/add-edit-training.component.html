@@ -1,0 +1,38 @@
+<h2 mat-dialog-title>Edit Training</h2>
+<form #trainingForm="ngForm">
+  <div mat-dialog-content>
+    <!-- School Name -->
+        <mat-form-field appearance="standard" class="full-width">
+            <mat-label>Training Title</mat-label>
+            <input matInput [(ngModel)]="data.training_title" name="training_title" required />
+          </mat-form-field>
+
+        <mat-form-field appearance="standard" class="full-width">
+          <mat-label>Training Provider</mat-label>
+          <input matInput [(ngModel)]="data.training_provider" name="training_provider" required />
+        </mat-form-field>
+        
+      <mat-form-field appearance="standard" class="full-width">
+        <mat-label>Date Completed</mat-label>
+        <input
+          matInput
+          [matDatepicker]="picker"
+          [(ngModel)]="data.trainingdate"
+          required
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+  </div>
+
+  <div class="button-end">
+    <button mat-raised-button color="warn"  (click)="onNoClick()">Cancel</button>
+    <button mat-raised-button color="primary"[disabled]="!trainingForm.valid" (click)="save()">
+      Update
+    </button>
+  </div>
+</form>

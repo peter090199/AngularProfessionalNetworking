@@ -1,15 +1,16 @@
-<button mat-icon-button class="close-button" [mat-dialog-close]="true">
-    <mat-icon class="close-icon" color="warn">close</mat-icon>
-  </button>
-  <br> 
-  
-  <button mat-button color="primary"  (click)="addSeminar()">
+<div class="button-end">
+  <button mat-button color="primary"  (click)="addSeminar()" class="button-end">
     <mat-icon>add_circle</mat-icon>
     Add More
 </button>
-<br><br>
+
+
+</div>
+<h2 mat-dialog-title>Seminar</h2>
+<mat-divider></mat-divider>
 
 <form [formGroup]="seminarForm" (ngSubmit)="submitForm()">
+
     <div class="form-group-wrapper" formArrayName="seminar">
         <div
         *ngFor="let item of seminarArray.controls; let i = index"
@@ -49,17 +50,14 @@
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
 
-      <button
-        mat-icon-button
-        color="warn"
-        (click)="removeItemFromArray4('seminar', i)"
-        *ngIf="seminarArray.length > 1"
-      >
+      <button mat-icon-button color="warn" (click)="removeItemFromArray4('seminar', i)" *ngIf="seminarArray.length > 1">
         <mat-icon>delete</mat-icon>
       </button>
       
       </div>
     </div>
-
-    <button mat-raised-button color="primary" type="submit" >Add</button>
+    <div class="button-end">
+      <button mat-raised-button color="warn" [mat-dialog-close]="true"> Cancel </button>
+      <button mat-raised-button color="primary" type="submit" >Add</button>
+    </div>
 </form>

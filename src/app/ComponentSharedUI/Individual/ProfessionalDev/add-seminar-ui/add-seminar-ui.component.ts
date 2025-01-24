@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-seminar-ui',
   templateUrl: './add-seminar-ui.component.html',
@@ -11,9 +12,12 @@ export class AddSeminarUiComponent implements OnInit {
   dataList: any[] = []; 
   seminarForm:FormGroup;
 
-  constructor(private fb:FormBuilder,private dataService:ProfessionalService,private alert:NotificationsService
+  constructor(private fb:FormBuilder,private dataService:ProfessionalService,private alert:NotificationsService,
+              private profileService:ProfessionalService, public dialogRef: MatDialogRef<AddSeminarUiComponent>,
 
-  ) { }
+  ) {
+      this.getData();
+   }
 
   ngOnInit(): void {
     this.seminarForm = this.fb.group({
@@ -22,7 +26,11 @@ export class AddSeminarUiComponent implements OnInit {
       ])
     });
   }
-
+  data: any[] = [];
+  getData() {
+    this.data = this.profileService.getDataEducation();
+  
+  }
   get seminarArray(): FormArray {
     return this.seminarForm.get('seminar') as FormArray;
   }
@@ -47,13 +55,26 @@ removeItemFromArray4(arrayName: 'seminar', index: number) {
 }
 
 
+seminarList: any[] = [];
 submitForm(): void {
   if (this.seminarForm.valid) {
-    this.dataList.push(...this.seminarArray.value); 
+    this.seminarList = this.seminarArray.value;
+    this.dataService.setformSeminar(this.seminarList); // Save to the service or database
+    this.alert.toastrSuccess('Successfully Added.');
+    this.dialogRef.close(this.seminarList);
+  } else {
+    console.error('Form is invalid');
+  }
+}
 
+submitFormx(): void {
+  if (this.seminarForm.valid) {
+    
+    this.dataList.push(...this.seminarArray.value); 
+    
     this.dataService.setformSeminar(this.dataList); 
     console.log('List:', this.dataList); // Optional: View the data in console
-    this.alert.toastPopUp("Successfully Added.");
+    this.alert.toastrSuccess("Successfully Added.");
     this.resetForm(); // Reset the form
   } else {
     console.error('Form is invalid');

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-trainings-ui',
@@ -14,7 +15,7 @@ export class AddTrainingsUiComponent implements OnInit {
   trainingForm:FormGroup;
 
   constructor(private fb:FormBuilder,private dataService:ProfessionalService,
-    private datePipe:DatePipe,private alert:NotificationsService
+    private datePipe:DatePipe,private alert:NotificationsService,public dialogRef: MatDialogRef<AddTrainingsUiComponent>,
 
   ) { }
 
@@ -48,15 +49,15 @@ export class AddTrainingsUiComponent implements OnInit {
         });
       }
 
+
+
+      seminarList: any[] = [];
       submitForm(): void {
         if (this.trainingForm.valid) {
-
-          this.dataList.push(...this.trainingArray.getRawValue());
-          this.alert.toastPopUp("SuccessFully Trainings Added!"),
-          this.dataService.setformTraining(this.dataList);
-
-          console.log('List:', this.trainingForm.value); // Optional: View the data in console
-          this.resetForm(); // Reset the form after submission
+          this.dataList = this.trainingArray.value;
+          this.dataService.setformTraining(this.dataList); // Save to the service or database
+          this.alert.toastrSuccess('Successfully Added.');
+          this.dialogRef.close(this.dataList);
         } else {
           console.error('Form is invalid');
         }

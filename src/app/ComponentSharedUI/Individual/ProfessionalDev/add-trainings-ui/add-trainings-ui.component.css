@@ -1,50 +1,37 @@
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: auto;
-    margin-bottom: 20px;
-  }
-  .form-group-wrapper {
-    max-height: 500px; 
-    overflow-y: auto; 
-    padding-right: 10px; 
-  }
-  
-  .mat-dialog-content {
-    max-height: 70vh; 
-    overflow-y: auto;
-  }
-  
-  .radio-group {
-    display: flex;
-    gap: 5px;
-    align-items: center;
-    margin-top: 8px;
-  }
-  
-  mat-form-field {
-    width: 100%;
-  }
-  
-  button {
-    margin-top: 10px;
-  }
-  
-  .mat-radio-button {
-    margin-right: 12px;
-  }
 
-  
-  @media (max-width: 600px) {
-    .close-button {
-      position: absolute;
-      top: 18px;
-      right: 8px;
-    }
-    
-    
+.form-group-wrapper {
+  max-height: 500px; 
+  overflow-y: auto; 
+  padding-right: 10px; 
+}
+
+.mat-dialog-content {
+  max-height: 70vh; 
+  overflow-y: auto;
+}
+
+.radio-group {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.mat-radio-button {
+  margin-right: 12px;
+}
+
+
+@media (max-width: 600px) {
+  .close-button {
+    position: absolute;
+    top: 18px;
+    right: 8px;
   }
+  
+  
+}

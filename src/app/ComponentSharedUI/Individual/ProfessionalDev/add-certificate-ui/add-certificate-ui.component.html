@@ -1,14 +1,12 @@
-<button mat-icon-button class="close-button" [mat-dialog-close]="true">
-    <mat-icon class="close-icon" color="warn">close</mat-icon>
-  </button>
-  <br>
-
-<button mat-button color="primary"  (click)="addCertificate()">
+<div class="button-end">
+  <button mat-button color="primary"  (click)="addCertificate()" class="button-end">
     <mat-icon>add_circle</mat-icon>
     Add More
 </button>
-<br><br>
 
+</div>
+<h2 mat-dialog-title>Certificate</h2>
+<mat-divider></mat-divider>
 
 <form [formGroup]="certificateForm" (ngSubmit)="submitForm()">
 <div  class="form-group-wrapper" formArrayName="certificate">
@@ -20,7 +18,7 @@
         <mat-label>Certificate Title</mat-label>
         <input
           matInput
-          placeholder="Enter Certificate Title"
+          placeholder="Certificate Title"
           formControlName="certificate_title"
         />
       </mat-form-field>
@@ -29,7 +27,7 @@
         <mat-label>Certificate Provider</mat-label>
         <input
           matInput
-          placeholder="Enter certificate_provider"
+          placeholder="certificate_provider"
           formControlName="certificate_provider"
         />
       </mat-form-field>
@@ -60,6 +58,9 @@
     </div>
   </div>
   
-  <button mat-raised-button color="primary" type="submit" >Add</button>
+  <div class="button-end">
+    <button mat-raised-button color="warn" [mat-dialog-close]="true"> Cancel </button>
+    <button mat-raised-button color="primary" type="submit" >Add</button>
+  </div>
   </form>
   

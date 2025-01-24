@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-certificate-ui',
@@ -14,7 +15,7 @@ export class AddCertificateUiComponent implements OnInit {
   dataList: any[] = []; 
 
   constructor(private fb:FormBuilder,private dataService:ProfessionalService,
-    private datePipe:DatePipe,private alert:NotificationsService
+    private datePipe:DatePipe,private alert:NotificationsService,public dialogRef: MatDialogRef<AddCertificateUiComponent>,
 
   ) { }
 
@@ -39,22 +40,19 @@ export class AddCertificateUiComponent implements OnInit {
       date_completed: ['', Validators.required],
     });
   }
-  submitForm(): void {
 
+  listData: any[] = [];
+  submitForm(): void {
     if (this.certificateForm.valid) {
-      console.log(this.certificateForm.value.date_completed)
-      this.dataList.push(...this.certificateArray.value); 
-      this.dataService.setformCertificate(this.dataList); 
-      console.log('List:', this.dataList); // Optional: View the data in console
-      this.alert.toastPopUp("Successfully Added.");
-      this.resetForm(); // Reset the form
-      
+      this.listData = this.certificateArray.value;
+      this.dataService.setformCertificate(this.listData); // Save to the service or database
+      this.alert.toastrSuccess('Successfully Added.');
+      this.dialogRef.close(this.listData);
     } else {
       console.error('Form is invalid');
     }
   }
-
-
+  
   resetForm(): void {
     while (this.certificateArray.length !== 0) {
       this.certificateArray.removeAt(0);

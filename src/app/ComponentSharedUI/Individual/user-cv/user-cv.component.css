@@ -14,12 +14,7 @@ mat-card-header {
   border-bottom: 1px solid #ddd;
 }
 
-mat-card-header button {
-  font-size: 0.875rem;
-  color: #007bff;
-  text-transform: none;
 
-}
 mat-card-header mat-icon {
   font-size: 1.2rem;
   vertical-align: middle;
@@ -28,7 +23,7 @@ mat-card-header mat-icon {
 
 mat-card-content {
   padding: 16px;
-  font-family: Arial, sans-serif;
+  font-family: Verdana,sans-serif;
   font-size: 1rem;
   color: #555;
   line-height: 1.5;
@@ -481,17 +476,12 @@ textarea {
   display: flex-end;
   gap: 15px;
 }
-.button-gap {
-  display: flex;
-  gap:20px; /* Adds a fixed amount of space between buttons */
-  margin-top: 5px; /* Adds space above the button group */
-  margin-right: 60px;
-}
+
 .footer-right {
   text-align: right;
 }
 .material-symbols-outlined {
-  font-family: 'Material Symbols Outlined', sans-serif;
+  font-family: 'Verdana', sans-serif;
   font-weight: normal;
   font-style: normal;
   font-size: 24px; /* Adjust size as needed */
@@ -539,64 +529,53 @@ textarea {
   }
 }
 
-
-/* Base container styles */
-.education-container {
+.card-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px; /* Spacing between cards */
-  padding: 16px; /* Padding around the container */
-  justify-content: center; /* Center items horizontally */
-  max-height: 95vh; /* Maximum height for the container */
-  overflow: auto; /* Add scrollbars when content overflows */
-  border: 1px solid #ddd; /* Optional border for better visibility */
-  background-color: #f9f9f9; /* Optional background for contrast */
+  flex-direction: column;
+  gap: 6px;
+  justify-content: left; /* Center-align cards */
+  margin: 10px; /* Add spacing around the container */
+  width: 980px;
 }
 
-/* Card styles */
-.education-card {
-  max-width: 990px; /* Maximum width of each card */
-  margin: 2px; /* Center cards within their row */
-  border: 1px solid #e0e0e0; /* Light border for better visibility */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  padding: 16px; /* Add padding inside the card */
-  background-color: #fff; /* White background for clarity */
+
+.container-card:hover {
+  transform: scale(1.02); /* Subtle zoom effect on hover */
 }
 
-/* Responsive styles for tablet (min-width: 600px) */
-@media (min-width: 600px) and (max-width: 959px) {
+mat-card-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+mat-card-content p {
+  font-size: 1rem;
+  margin: 4px 0;
+}
+
+
+
+@media (min-width: 768px) {
+  /* Tablet styles */
   .education-container {
-    justify-content: space-between; /* Adjust spacing between cards */
+    justify-content: space-between; /* Space cards evenly */
   }
-  .education-card {
-    flex: 1 1 calc(48% - 16px); /* Two cards per row with some gap */
+
+  .container-card {
+    width: calc(50% - 16px); /* Two cards per row */
   }
 }
 
-/* Responsive styles for desktop (min-width: 960px) */
-@media (min-width: 960px) {
+@media (min-width: 1024px) {
+  /* Desktop styles */
   .education-container {
-    justify-content: flex-start; /* Align items to the left */
+    gap: 24px;
   }
-  .education-card {
-    flex: 1 1 calc(100%);
-    width: 100%;
+
+  .container-card {
+    width: calc(33.333% - 24px); /* Three cards per row */
   }
 }
-
-/* Mobile-specific styles (max-width: 599px) */
-@media (max-width: 599px) {
-  .education-container {
-   margin: 0px;
-   padding: 0px;
-  }
-  .education-card {
-    width: 100%; /* Full width for mobile */
-    margin-bottom: 16px; /* Add space between stacked cards */
-  }
-}
-
-
 
 
 

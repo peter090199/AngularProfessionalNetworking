@@ -21,6 +21,9 @@ import {Observable} from 'rxjs';
 
 import {startWith, map} from 'rxjs/operators';
 import { AddEditEducationDialogComponent } from '../ProfessionalDev/Edit/add-edit-education-dialog/add-edit-education-dialog.component';
+import { AddEditSeminarComponent } from '../ProfessionalDev/Edit/add-edit-seminar/add-edit-seminar.component';
+import { AddEditTrainingComponent } from '../ProfessionalDev/Edit/add-edit-training/add-edit-training.component';
+import { AddEditCertificateComponent } from '../ProfessionalDev/Edit/add-edit-certificate/add-edit-certificate.component';
 
 
 /**
@@ -52,8 +55,12 @@ export class UserCVComponent implements AfterViewInit  {
   thirdFormGroup: FormGroup;
   
   formEducation: any[] = [];
+  formSeminar: any[]= [];
+  formTraining: any[]= [];
+  formCertificate: any[]= [];
+  formWorkExperience: any[]= [];
 
-  
+
   ngAfterViewInit() {
     this.stepper.selectionChange.subscribe(() => {
       this.updateProgress();
@@ -104,16 +111,59 @@ export class UserCVComponent implements AfterViewInit  {
       this.filteredCountries2 = this.filterCountries(value);
     });
 
-    this.LoadEducationData();
   }
 
-//tab education
 
 loadEducationData() {
   this.formEducation = this.profileService.getDataEducation();
 
 }
 
+loadTrainingData() {
+  this.formTraining = this.profileService.getDataTraining();
+
+}
+
+loadSeminarData() {
+  this.formSeminar = this.profileService.getDataSeminar();
+}
+
+loadCertificateData() {
+  this.formCertificate = this.profileService.getDataCertificate();
+
+}
+
+loadWorkExperienceData() {
+  this.formWorkExperience = this.profileService.getDataEmployment();
+
+}
+
+
+
+formatDate(dateString: string): string {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+
+editSeminar(index: number): void {
+  const Edit = this.formSeminar[index];
+  console.log(Edit)
+  const dialogRef = this.dialog.open(AddEditSeminarComponent, {
+    width: '500px',
+    data: Edit, // Pass the specific education entry as data
+  
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result) {
+      this.loadSeminarData();
+    }
+  });
+}
 
 editEducation(index: number): void {
   const educationToEdit = this.formEducation[index];
@@ -131,9 +181,70 @@ editEducation(index: number): void {
   });
 }
 
+editTraining(index: number): void {
+  const Edit = this.formTraining[index];
+  console.log(Edit)
+  const dialogRef = this.dialog.open(AddEditTrainingComponent, {
+    width: '500px',
+    data: Edit, // Pass the specific education entry as data
+  
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result) {
+      this.loadSeminarData();
+    }
+  });
+}
+editCertificate(index: number): void {
+  const Edit = this.formCertificate[index];
+  const dialogRef = this.dialog.open(AddEditCertificateComponent, {
+    width: '500px',
+    data: Edit, // Pass the specific education entry as data
+  
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result) {
+      this.loadCertificateData();
+    }
+  });
+}
+
+
+editWorkexperience(index: number): void {
+  const Edit = this.formCertificate[index];
+  console.log(Edit)
+  const dialogRef = this.dialog.open(AddEditCertificateComponent, {
+    width: '500px',
+    data: Edit, // Pass the specific education entry as data
+  
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result) {
+      this,this.loadWorkExperienceData();
+    }
+  });
+}
+
 removeEducation(index: number) {
   this.formEducation.splice(index, 1);
 }
+removeSeminar(index: number) {
+  this.formSeminar.splice(index, 1);
+}
+removeTraining(index: number) {
+  this.formTraining.splice(index, 1);
+}
+
+removeCertificate(index: number) {
+  this.formCertificate.splice(index, 1);
+}
+removeWorkExp(index: number) {
+  this.formWorkExperience.splice(index, 1);
+}
+
 
 
  userData:any;
@@ -195,6 +306,8 @@ ngOnInit(): void {
   this.initializeFormGroups();
   this.GetUserData();
  
+  this.LoadEducationData();
+  this.loadSeminarData();
 }
 
 
@@ -675,6 +788,20 @@ AddSkills(): void {
     }
   });
 }
+educationList: any[] = [];
+AddEducationxxx(): void {
+  const dialogRef = this.dialog.open(AddEducationUIComponent, {
+    width: '600px',
+    data: { educationList: this.educationList }, // Pass current education list if needed
+  });
+
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result) {
+      // Update the education list with the data returned from the dialog
+      this.educationList = result;
+    }
+  });
+}
 
 AddEducation(): void {
   const dialogConfig = new MatDialogConfig();
@@ -697,7 +824,7 @@ AddTrainings(): void {
   const dialogRef = this.dialog.open(AddTrainingsUiComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-     
+     this.loadTrainingData();
     }
   });
 }
@@ -712,7 +839,7 @@ AddSeminar(): void {
   const dialogRef = this.dialog.open(AddSeminarUiComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-     
+     this.loadSeminarData();
     }
   });
 }
@@ -728,7 +855,7 @@ AddEmployment(): void {
   const dialogRef = this.dialog.open(AddEmploymentUiComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-      
+      this.loadWorkExperienceData();
     }
   });
 }
@@ -742,7 +869,7 @@ AddCertificate(): void {
   const dialogRef = this.dialog.open(AddCertificateUiComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(result => {
     if (result) {
-    
+      this.loadCertificateData();
     }
   });
 }
@@ -843,6 +970,10 @@ submit() {
     });
  }
   
+}
+
+View(){
+  this.loadSeminarData();
 }
 
   ViewEducationData() {

@@ -408,6 +408,12 @@ h2{
   margin-left: 10px;
   margin-right: 10px;
 }
+.form-group {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  margin:0px
+}
 .form-field {
   flex:1;
   min-width: 120px;
