@@ -1,6 +1,5 @@
-  <button mat-icon-button class="close-button" [mat-dialog-close]="true">
-    <mat-icon class="close-icon" color="warn">close</mat-icon>
-  </button>
+<h2 mat-dialog-title>Language</h2>
+<mat-divider></mat-divider>
   
   <mat-form-field class="example-chip-list" appearance="standard">
     <mat-label>Add Language</mat-label>
@@ -29,8 +28,10 @@
     </mat-autocomplete>
   </mat-form-field>
   
-  <!-- Save Button -->
-  <button mat-raised-button color="primary" (click)="save()">
-    Add
-  </button>
+  
+  <div class="button-end">
+    <button mat-raised-button color="warn" [mat-dialog-close]="true"> Cancel </button>
+    <button mat-raised-button color="primary" (click)="save()"> Add</button>
+  </div>
+
   

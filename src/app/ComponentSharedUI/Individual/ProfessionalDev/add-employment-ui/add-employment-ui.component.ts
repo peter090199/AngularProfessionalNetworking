@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-employment-ui',
@@ -13,7 +14,7 @@ export class AddEmploymentUiComponent implements OnInit {
   employmentForm:FormGroup;
 
   constructor(private fb:FormBuilder,private dataService: ProfessionalService,
-    private alert:NotificationsService
+    private alert:NotificationsService,public dialogRef: MatDialogRef<AddEmploymentUiComponent>,
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +24,7 @@ export class AddEmploymentUiComponent implements OnInit {
       ])
     });
   }
+
   get employmentArray(): FormArray {
     return this.employmentForm.get('employment') as FormArray;
   }
@@ -51,19 +53,18 @@ removeItemFromArray5(arrayName: 'employment', index: number) {
 
 
  
+workList: any[] = [];
 submitForm(): void {
   if (this.employmentForm.valid) {
-    this.dataList.push(...this.employmentArray.value); 
-
-    this.dataService.setformEmployment(this.dataList); 
-    console.log('List:', this.dataList); // Optional: View the data in console
-    this.alert.toastPopUp("Successfully Added.");
-    this.resetForm(); // Reset the form
+    this.workList = this.employmentArray.value;
+    this.dataService.setformEmployment(this.workList); // Save to the service or database
+    this.alert.toastrSuccess('Successfully Added.');
+    this.dialogRef.close(this.workList);
+    this.resetForm(); 
   } else {
     console.error('Form is invalid');
   }
 }
-
 
 resetForm(): void {
   while (this.employmentArray.length !== 0) {

@@ -37,15 +37,18 @@ app-footer {
   line-height: 1;
   margin: 2px !important;
   overflow: hidden;
-  height: 92vh;
-  max-height: 92vh;
+  height: 100vh;
+  max-height: 100vh;
 }
 
 
-html,
-body {
-  height: 100%;
-}
+/* html, body {
+  margin: 0;
+  padding: 0; 
+  overflow-y: scroll; 
+  height: auto; 
+} */
+
 section{
     margin-top: 0px;
 }
@@ -77,8 +80,8 @@ body {
   background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));
   font-family: Verdana, sans-serif;
   line-height: 1;
-  margin: 2px !important;
-  overflow: hidden;
+  margin: 0px !important;
+  height: auto;
 }
 
 .example-container {
@@ -102,9 +105,59 @@ body {
   overflow: hidden;
 }
 
-.main-content > * {
-  overflow-y: auto;
-  flex-shrink: 0;
+
+/* Base Styles */
+mat-card {
+  margin: 16px;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.half-width {
+  flex: 1 1 calc(50% - 8px);
+  min-width: 200px;
+}
+
+.full-width {
+  flex: 1 1 100%;
+}
+
+.button-end {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+}
+
+/* Responsive Styles */
+
+/* Mobile Phones (<= 600px) */
+@media (max-width: 600px) {
+  .form-row {
+    width: 100%; /* Stack items vertically */
+  }
+  .half-width {
+    width: 100%; /* Full width for mobile */
+  }
+  
+}
+
+/* Tablets (601px - 960px) */
+@media (min-width: 601px) and (max-width: 960px) {
+  .form-row {
+      width: 100%; 
+  }
+  .half-width {
+      width: 100%; 
+  }
+ 
 }
 
 app-sidebar {
@@ -194,7 +247,7 @@ snack-bar-container.notification simple-snack-bar {
 .table-cont {
   max-height: calc(100vh - 25%); /* Adjust 40px based on your footer's height */
   max-width: 100%;
-  overflow: auto;
+
 }
 .mat-paginator-sticky {
   bottom: 0px;
@@ -245,10 +298,6 @@ snack-bar-container.notification simple-snack-bar {
   border:none !important;
 }
 
-.content {
-  height: calc(100vh - 40px); 
-  overflow: auto;
-}
 
 @media only screen and (max-width: 958px) {
   .toggleButton {
@@ -331,7 +380,6 @@ p {
   padding:20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-height: 80vh; /* Maximum height to prevent overflow beyond viewport */
-  overflow: auto; /* Enables vertical scrolling */
   background-color: #f1f1f1;
   border-radius: 15px; /* Add border radius */
 

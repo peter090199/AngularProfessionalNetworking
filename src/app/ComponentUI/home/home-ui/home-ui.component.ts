@@ -6,6 +6,7 @@ import { PrintCVComponent } from 'src/app/ComponentSharedUI/Individual/print-cv/
 import { ProfileService } from 'src/app/services/Profile/profile.service';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
 import { THREE } from '@angular/cdk/keycodes';
+import { UploadProfileComponent } from 'src/app/ComponentSharedUI/Individual/upload-profile/upload-profile.component';
 @Component({
   selector: 'app-home-ui',
   templateUrl: './home-ui.component.html',
@@ -101,8 +102,8 @@ throw new Error('Method not implemented.');
     this.fetchProfilePicture();
     this.profile.getProfileByUser().subscribe({
       next: (response) => {
-        if (response.success) {
-          this.profiles = response.message[0]; // Access the first item in the message array
+        if (response.success == true) {
+          this.profiles = response.message; // Access the first item in the message array
         } else {
           this.error = 'Failed to load profile data';
         }
@@ -217,4 +218,17 @@ throw new Error('Method not implemented.');
         });
     }
 
+    uploadPic(): void {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '400px';
+
+    const dialogRef = this.dialog.open(UploadProfileComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        
+      }
+    });
+  }
 }

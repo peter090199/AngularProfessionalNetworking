@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 @Component({
   selector: 'app-add-edit-training',
   templateUrl: './add-edit-training.component.html',
@@ -9,7 +9,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 export class AddEditTrainingComponent implements OnInit {
 
    constructor( public dialogRef: MatDialogRef<AddEditTrainingComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any) { }
+        @Inject(MAT_DIALOG_DATA) public data: any,private alert:NotificationsService) { }
   
   ngOnInit(): void {
   }
@@ -27,6 +27,7 @@ export class AddEditTrainingComponent implements OnInit {
   }
 
   save(): void {
+    this.alert.toastrSuccess('Successfully Updated.');
     this.dialogRef.close(this.data); 
   }
   

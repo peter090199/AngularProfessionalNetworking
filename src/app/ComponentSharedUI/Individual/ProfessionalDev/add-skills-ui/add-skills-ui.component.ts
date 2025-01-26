@@ -6,6 +6,7 @@ import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ProfessionalService } from 'src/app/services/SharedServices/professional.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
+import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-add-skills-ui',
@@ -15,7 +16,7 @@ import { NotificationsService } from 'src/app/services/Global/notifications.serv
 export class AddSkillsUIComponent {
 
   constructor(private dataService: ProfessionalService,
-    private alert:NotificationsService
+    private alert:NotificationsService,public dialogRef: MatDialogRef<AddSkillsUIComponent>
   ) { }
 
   separatorKeysCodes: number[] = [ENTER, COMMA];
@@ -89,12 +90,24 @@ export class AddSkillsUIComponent {
     this.skillsCtrl.setValue(null);
   }
 
+//   seminarList: any[] = [];
+// submitForm(): void {
+//   if (this.seminarForm.valid) {
+//     this.seminarList = this.seminarArray.value;
+//     this.dataService.setformSeminar(this.seminarList); // Save to the service or database
+//     this.alert.toastrSuccess('Successfully Added.');
+//     this.dialogRef.close(this.seminarList);
+//   } else {
+//     console.error('Form is invalid');
+//   }
+// }
+
   passData(): void {
     const formattedSkills = this.skills.map(skill => ({ skills: skill }));
     console.log(formattedSkills);
     this.dataService.setformSkills(formattedSkills);
-    this.alert.toastPopUp("Successfully Added.");
-    this.resetForm();
+    this.alert.toastrSuccess("Successfully Added.");
+    this.dialogRef.close(formattedSkills);
   }
 
 

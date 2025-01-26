@@ -18,6 +18,10 @@
     margin: 10px;
   }
   
+  .progress-bar {
+    margin-bottom: 15px;
+    width: 100%;
+  }
   
   /* Card styling with scrolling enabled */
   /*  */

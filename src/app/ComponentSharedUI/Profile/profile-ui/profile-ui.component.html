@@ -1,116 +1,232 @@
-<div class="profile-container">
-  <!-- Cover Photo -->
   <div class="cover-photo">
-    <img
-      src="https://via.placeholder.com/1200x300"
-      alt="Cover Photo"
-      class="cover-photo-img"
-    />
+    <img src="
+    https://as1.ftcdn.net/v2/jpg/02/14/53/92/1000_F_214539232_YnUrtuwUEt84gHuU0qG8l7OwZvH4rnPG.jpg"
+     alt="Cover Photo" class="cover-photo-img" />
     <button mat-button class="edit-cover-btn">Edit cover photo</button>
   </div>
 
-  <!-- Profile Info -->
   <div class="profile-info">
     <div class="profile-picture">
-      <img
-        src="https://via.placeholder.com/150"
-        alt="Profile Picture"
-        class="profile-img"
-      />
-      <button mat-icon-button class="edit-profile-btn">
+      <img *ngIf="profiles" [src]="profiles.photo_pic" alt="Profile Picture" class="profile-img" />
+      <button mat-icon-button class="edit-profile-btn" (click)="uploadPic()">
         <mat-icon>photo_camera</mat-icon>
       </button>
     </div>
-    <div class="profile-details" *ngIf="profiles">
-      <h1>{{ profiles.fullname }} <small>(My Bio)</small></h1>
+    <div class="profile-details" *ngIf="users">
+      <h1>{{ users.fname }} {{ users.lname }} <small style="color: white;">({{ users.profession }})</small></h1>
       <p>761 followers · 369 following</p>
-      <button mat-button class="edit-btn">Edit</button>
+      <button mat-raise-button class="edit-btn">Curriculum Vitae</button>
     </div>
   </div>
-
-  <!-- Tabs Section -->
-  <mat-tab-group class="tabs-container" dynamicHeight>
+  
+  <mat-tab-group class="tabs-container">
     <mat-tab label="Posts">
       <div class="tab-content">
-        <!-- Scrollable Content -->
-        <div class="scrollable-content">
-          <p>Post 1: Lorem ipsum dolor sit amet...</p>
-          <p>Post 2: Consectetur adipiscing elit...</p>
-          <p>Post 3: Sed do eiusmod tempor incididunt...</p>
-          <p>Post 4: Ut labore et dolore magna aliqua...</p>
-          <p>Post 5: Duis aute irure dolor in reprehenderit...</p>
-          <p>Post 6: Sed do eiusmod tempor incididunt...</p>
-          <p>Post 7: Ut labore et dolore magna aliqua...</p>
-          <p>Post 8: Duis aute irure dolor in reprehenderit...</p>
-        </div>
+        <!-- Posts content goes here -->
       </div>
     </mat-tab>
-    <mat-tab label="About">
+
+    <mat-tab label="Basic Information">
       <div class="tab-content">
-        <div class="scrollable-content">
-          <mat-card *ngIf="profiles">
-            <mat-card-header>
-              <mat-card-title>{{ profiles.fullname }}</mat-card-title>
-              <mat-card-subtitle>{{ profiles.profession }}</mat-card-subtitle>
+        <h2>Basic Information</h2>
+        <mat-divider></mat-divider>
+        <mat-card-content>
+          <!-- Display static information -->
+          <mat-list>
+            <mat-list-item  *ngIf="users">
+              <span>Full Name: {{ users.fname }} {{ users.lname }}</span>
+            </mat-list-item>
+            <!-- <mat-list-item>
+              <span>First Name: {{ users.fname }}</span>
+            </mat-list-item>
+            <mat-list-item>
+              <span>Last Name: {{ users.lname }}</span>
+            </mat-list-item> -->
+            <mat-list-item *ngIf="users">
+              <span>Contact No: {{ users.contact_no }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="users">
+              <span>Email: {{ users.email }}</span>
+            </mat-list-item>
+  
+            <!-- Display conditional fields -->
+            <mat-list-item *ngIf="profiles?.profession">
+              <span>Profession: {{ profiles.profession }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="profiles?.date_birth">
+              <span>Date of Birth: {{ profiles.date_birth }}</span>
+            </mat-list-item>
+            <mat-list-item *ngIf="profiles?.companywebsite">
+              <span>Company Website: {{ profiles.companywebsite }}</span>
+            </mat-list-item>
+          </mat-list>
+          <!-- Language Section -->
+          <section class="cv-section" *ngIf="profiles?.lines?.language?.length">
+            <h2>Language</h2>
+            <div *ngFor="let language of profiles.lines.language" class="cv-item">
+              <p><strong>{{ language.language }}</strong></p>
+            </div>
+          </section>
+        </mat-card-content>
+
+      </div>
+    </mat-tab>
+
+  
+    <mat-tab label="Education">
+      <div class="tab-content">
+              <mat-card-header>
+                <h2>Education</h2>
+                <mat-divider></mat-divider>
             </mat-card-header>
-            
-              <mat-card-content>
+            <mat-card-content>
+              <section *ngIf="profiles?.lines?.education?.length">
                 <mat-list>
-                  <mat-list-item>
-                    <span>Full Name: {{ profiles.fullname }}</span>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <span>First Name: {{ profiles.fname }}</span>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <span>Last Name: {{ profiles.lname }}</span>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <span>Contact No: {{ profiles.contact_no }}</span>
-                  </mat-list-item>
-                  <mat-list-item>
-                    <span>Profession: {{ profiles.profession }}</span>
-                  </mat-list-item>
-                  <mat-list-item *ngIf="profiles.industry">
-                    <span>Industry: {{ profiles.industry }}</span>
-                  </mat-list-item>
-                  <mat-list-item *ngIf="profiles.companywebsite">
-                    <span>Company Website: {{ profiles.companywebsite }}</span>
-                  </mat-list-item>
+                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                  <span>Highest Education: {{ education.highest_education }}</span>
+                </mat-list-item>
+              
+                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                  <span>School Name: {{ education.school_name }}</span>
+                </mat-list-item>
+
+                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                  <span>Start Month: {{ education.start_month }}</span>
+                </mat-list-item>
+
+                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                  <span>Start Year: {{ education.start_year }}</span>
+                </mat-list-item>
+
+                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                  <span>End Month: {{ education.end_month }}</span>
+                </mat-list-item>
+
+                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                  <span>End Year: {{ education.end_year }}</span>
+                </mat-list-item>
                 </mat-list>
-              </mat-card-content>
-            </mat-card>
-          <br><br>
-          
-          <mat-card *ngIf="!profiles && error">
-            <mat-card-content>
-              <p class="error">Failed to load profile: {{ error }}</p>
-            </mat-card-content>
-          </mat-card>
-          
-          <mat-card *ngIf="!profiles && !error">
-            <mat-card-content>
-              <p>Loading...</p>
-            </mat-card-content>
-          </mat-card>
-          
-          
-        </div>
+              </section>
+          </mat-card-content>
+
+   
       </div>
     </mat-tab>
-    <mat-tab label="Photos">
+  
+    <mat-tab label="Skills">
+      <mat-card-header>
+        <h2>Skills</h2>
+        <mat-divider></mat-divider>
+    </mat-card-header>
+    <div class="tab-content">
+      <mat-card-content>
+        <section class="cv-section" *ngIf="profiles?.lines?.skills?.length > 0">
+          <mat-list>
+            <mat-list-item *ngFor="let skill of profiles.lines.skills">
+              {{ skill.skills }}
+            </mat-list-item>
+          </mat-list>
+        </section>
+      </mat-card-content>
+    </div>
+    
+    </mat-tab>
+
+    <mat-tab label="Seminar">
+      <mat-card-header>
+        <h2>Seminar</h2>
+        <mat-divider></mat-divider>
+      </mat-card-header>
+
       <div class="tab-content">
-        <div class="scrollable-content">
-          <p>Photos gallery will be displayed here...</p>
-        </div>
+        <section class="cv-section" *ngIf="profiles?.lines?.seminar?.length > 0">
+          <mat-list *ngFor="let seminar of profiles.lines.seminar">
+            <mat-list-item >
+              <span>Seminar Title: {{ seminar.seminar_title }}</span>
+            </mat-list-item>
+          
+            <mat-list-item>
+              <span>Seminar Provider: {{ seminar.seminar_provider }}</span>
+            </mat-list-item>
+
+            <mat-list-item >
+              <span>Date Completed: {{ seminar.date_completed }}</span>
+            </mat-list-item>
+
+          </mat-list>
+        </section>
+
       </div>
     </mat-tab>
-    <mat-tab label="People">
+  
+    <mat-tab label="Trainings">
+      <mat-card-header>
+        <h2>Trainings</h2>
+        <mat-divider></mat-divider>
+      </mat-card-header>
+
       <div class="tab-content">
-        <div class="scrollable-content">
-          <p>People list  will be displayed here...</p>
-        </div>
+        <mat-card-content>
+          <section class="cv-section" *ngIf="profiles?.lines?.training?.length > 0">
+            <mat-list *ngFor="let training of profiles.lines.training">
+              <mat-list-item>Training Title: {{ training.training_title }} </mat-list-item>
+              <mat-list-item>Training Provider: {{ training.training_provider }}</mat-list-item>
+              <mat-list-item>Date Completed: {{ training.date_completed }}</mat-list-item>
+            </mat-list>
+          </section>
+      </mat-card-content>
       </div>
+    </mat-tab>
+
+    <mat-tab label="Certificates">
+      <mat-card-header>
+        <h2>Certificates</h2>
+        <mat-divider></mat-divider>
+      </mat-card-header>
+
+        <div class="tab-content">
+          <mat-card-content>
+            <section class="cv-section" *ngIf="profiles?.lines?.certificate?.length > 0">
+              <mat-list *ngFor="let certificates of profiles.lines.certificate">
+                <mat-list-item>Training Title: {{ certificates.certificate_title }} </mat-list-item>
+                <mat-list-item>Training Provider: {{ certificates.certificate_provider }}</mat-list-item>
+                <mat-list-item>Date Completed: {{ certificates.date_completed }}</mat-list-item>
+              </mat-list>
+            </section>
+        </mat-card-content>
+        </div>
+    </mat-tab>
+
+    <mat-tab label="Work Experience">
+      <mat-card-header>
+        <h2>Work Experience</h2>
+        <mat-divider></mat-divider>
+      </mat-card-header>
+
+        <div class="tab-content">
+          <mat-card-content>
+            <section class="cv-section" *ngIf="profiles?.lines?.employment?.length > 0">
+              <mat-list *ngFor="let job of profiles.lines.employment">
+                <mat-list-item>Company Name: {{ job.company_name }} </mat-list-item>
+                <mat-list-item>Position: {{ job.position }}</mat-list-item>
+                <mat-list-item>Description: {{ job.job_description }}</mat-list-item>
+                <mat-list-item>Date Completed: {{ job.date_completed }}</mat-list-item>
+              </mat-list>
+            </section>
+        </mat-card-content>
+        </div>
     </mat-tab>
   </mat-tab-group>
-</div>
+  
+
+<!-- 
+  <div class="tab-footer">
+    
+    <div class="footer-links">
+      <a>&copy; 2025 Your Company. All rights reserved.</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Help</a>
+    </div>
+  </div>
+   -->

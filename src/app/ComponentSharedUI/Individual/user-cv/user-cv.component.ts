@@ -24,6 +24,10 @@ import { AddEditEducationDialogComponent } from '../ProfessionalDev/Edit/add-edi
 import { AddEditSeminarComponent } from '../ProfessionalDev/Edit/add-edit-seminar/add-edit-seminar.component';
 import { AddEditTrainingComponent } from '../ProfessionalDev/Edit/add-edit-training/add-edit-training.component';
 import { AddEditCertificateComponent } from '../ProfessionalDev/Edit/add-edit-certificate/add-edit-certificate.component';
+import { AddEditWorkExprienceComponent } from '../ProfessionalDev/Edit/add-edit-work-exprience/add-edit-work-exprience.component';
+import { AddEditSkillsComponent } from '../ProfessionalDev/Edit/add-edit-skills/add-edit-skills.component';
+import { AddEditLanguageComponent } from '../ProfessionalDev/Edit/add-edit-language/add-edit-language.component';
+import { ViewLanguageUIComponent } from '../Languange/view-language-ui/view-language-ui.component';
 
 
 /**
@@ -59,7 +63,41 @@ export class UserCVComponent implements AfterViewInit  {
   formTraining: any[]= [];
   formCertificate: any[]= [];
   formWorkExperience: any[]= [];
+  formSkills: any[]= [];
 
+
+  formSkillss = [
+    { skills: 'Network Configuration' },
+    { skills: 'Cloud Networking' },
+    { skills: 'Network Security' }
+  ];
+
+  allSkills = [
+    "Network Configuration",
+    "Network Protocols (TCP/IP, UDP, HTTP, DNS, etc.)",
+    "Network Security",
+    "Firewall Management",
+    "VPN Setup and Management",
+    "Wi-Fi and LAN/WAN Configuration",
+    "Cloud Networking",
+    "Network Troubleshooting and Diagnostics",
+    "Routing and Switching",
+    "Load Balancing and Failover",
+    "DNS Management",
+    "Network Performance Optimization",
+    "Network Automation",
+    "Network Monitoring and Analysis",
+    "QoS (Quality of Service) Management",
+    "SDN (Software-Defined Networking)",
+    "VLAN Configuration",
+    "Network Virtualization",
+    "IP Address Management (IPAM)",
+    "Packet Analysis",
+    "IT Specialist",
+    "Front End Developer",
+    "Back End Developer",
+    "Full Stack Developer"
+  ];
 
   ngAfterViewInit() {
     this.stepper.selectionChange.subscribe(() => {
@@ -137,7 +175,9 @@ loadWorkExperienceData() {
   this.formWorkExperience = this.profileService.getDataEmployment();
 
 }
-
+loadSkillsData() {
+  this.formSkills = this.profileService.getSkills();
+}
 
 
 formatDate(dateString: string): string {
@@ -213,39 +253,63 @@ editCertificate(index: number): void {
 
 
 editWorkexperience(index: number): void {
-  const Edit = this.formCertificate[index];
+  const Edit = this.formWorkExperience[index];
   console.log(Edit)
-  const dialogRef = this.dialog.open(AddEditCertificateComponent, {
+  const dialogRef = this.dialog.open(AddEditWorkExprienceComponent, {
     width: '500px',
     data: Edit, // Pass the specific education entry as data
   
   });
+  dialogRef.afterClosed().subscribe((result) => {
+    if (result) {
+      this.loadWorkExperienceData();
+    }
+  });
+}
+
+ // Edit a skill
+ editSkills(index: number): void {
+  const Edit = this.formSkills[index];
+  const dialogRef = this.dialog.open(AddEditSkillsComponent, {
+    width: '500px',
+    data: Edit
+  });
 
   dialogRef.afterClosed().subscribe((result) => {
     if (result) {
-      this,this.loadWorkExperienceData();
+      this.loadSkillsData(); // Update the skill with the edited value
     }
   });
 }
 
 removeEducation(index: number) {
+  this.alert.toastrSuccess("Successfuly Deleted!")
   this.formEducation.splice(index, 1);
+
 }
 removeSeminar(index: number) {
+  this.alert.toastrSuccess("Successfuly Deleted!")
   this.formSeminar.splice(index, 1);
+  
 }
 removeTraining(index: number) {
+  this.alert.toastrSuccess("Successfuly Deleted!")
   this.formTraining.splice(index, 1);
 }
 
 removeCertificate(index: number) {
+  this.alert.toastrSuccess("Successfuly Deleted!")
   this.formCertificate.splice(index, 1);
+ 
 }
 removeWorkExp(index: number) {
+  this.alert.toastrSuccess("Successfuly Deleted!")
   this.formWorkExperience.splice(index, 1);
 }
-
-
+removeSkills(index: number) {
+  this.alert.toastrSuccess("Successfuly Deleted!")
+  this.formSkills.splice(index, 1);
+}
 
  userData:any;
  error: any;
@@ -375,7 +439,7 @@ resetSearch(): void {
 
 
  private GetUserData(): void {
-     this.userService.getProfileByUser().subscribe({
+     this.userService.getProfileByUserOnly().subscribe({
     next: (response) => {
       if (response.success && response.message.length) {
         const userData = response.message[0]; // Ensure message[0] exists
@@ -766,7 +830,7 @@ removeItemFromArray6(arrayName: 'certificate', index: number) {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.disableClose = true;
   dialogConfig.autoFocus = true;
-  dialogConfig.width = '400px';
+  dialogConfig.width = '500px';
 
   const dialogRef = this.dialog.open(AddLanguageUIComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(result => {
@@ -775,6 +839,21 @@ removeItemFromArray6(arrayName: 'certificate', index: number) {
     }
   });
 }
+viewlanguage(): void {
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '500px';
+
+  const dialogRef = this.dialog.open(ViewLanguageUIComponent, dialogConfig);
+  dialogRef.afterClosed().subscribe(result => {
+    if (result) {
+    //  this.getRoles(); // Refresh the table after dialog closure
+    }
+  });
+}
+
+
 AddSkills(): void {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.disableClose = true;
@@ -784,7 +863,7 @@ AddSkills(): void {
   const dialogRef = this.dialog.open(AddSkillsUIComponent, dialogConfig);
   dialogRef.afterClosed().subscribe(result => {
      if (result) {
-        
+      this.loadSkillsData();
     }
   });
 }

@@ -108,18 +108,40 @@
     /* overflow-y: auto; */
   
   }
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: left;
-    padding: 20px; /* Padding for header */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 0px;
-    background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));
+ /* Initial header styles */
+.header {
+  display: flex;
+  justify-content: space-between; /* Ensure elements are spaced out evenly */
+  align-items: center; /* Center items vertically */
+  padding: 20px; /* Padding for header */
+  background: linear-gradient(to right, rgba(11, 203, 174, 0.852), rgba(47, 44, 225, 0.748));
+  position: sticky;
+  top: 0;
+  z-index: 1000; /* Ensure the header stays on top of other content */
+  transition: all 0.3s ease; /* Smooth transition for background and other properties */
+}
+
+/* Sticky header animation */
+.header.sticky {
+  background: linear-gradient(to right, rgba(11, 203, 174, 1), rgba(47, 44, 225, 1)); /* Darken gradient when sticky */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Add a subtle shadow when sticky */
+  transform: scale(1.05); /* Slightly enlarge the header */
+}
+
+/* Optional: Add animation for smooth header entrance */
+@keyframes slideIn {
+  0% {
+    transform: translateY(-100%); /* Start from above */
   }
-  
+  100% {
+    transform: translateY(0); /* End in normal position */
+  }
+}
+
+.header {
+  animation: slideIn 0.5s ease-out; /* Apply entrance animation */
+}
+
   
   .header .logo img {
     font-size: 1.5rem;

@@ -67,7 +67,9 @@ import { AddEditSeminarComponent } from './ComponentSharedUI/Individual/Professi
 import { AddEditTrainingComponent } from './ComponentSharedUI/Individual/ProfessionalDev/Edit/add-edit-training/add-edit-training.component';
 import { AddEditCertificateComponent } from './ComponentSharedUI/Individual/ProfessionalDev/Edit/add-edit-certificate/add-edit-certificate.component';
 import { AddEditWorkExprienceComponent } from './ComponentSharedUI/Individual/ProfessionalDev/Edit/add-edit-work-exprience/add-edit-work-exprience.component';
-
+import { AddEditSkillsComponent } from './ComponentSharedUI/Individual/ProfessionalDev/Edit/add-edit-skills/add-edit-skills.component';
+import { AddEditLanguageComponent } from './ComponentSharedUI/Individual/ProfessionalDev/Edit/add-edit-language/add-edit-language.component';
+import { ViewLanguageUIComponent } from './ComponentSharedUI/Individual/Languange/view-language-ui/view-language-ui.component';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -127,6 +129,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddEditTrainingComponent,
     AddEditCertificateComponent,
     AddEditWorkExprienceComponent,
+    AddEditSkillsComponent,
+    AddEditLanguageComponent,
+    ViewLanguageUIComponent,
+
+  
  
   
     

@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
+
 @Component({
   selector: 'app-add-edit-education-dialog',
   templateUrl: './add-edit-education-dialog.component.html',
@@ -10,7 +12,8 @@ export class AddEditEducationDialogComponent implements OnInit {
   
   constructor(
     public dialogRef: MatDialogRef<AddEditEducationDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any // The education object to edit
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private alert:NotificationsService
   ){
     const currentYear = new Date().getFullYear();
     const startYear = 1900; // Starting year for the dropdown
@@ -33,6 +36,7 @@ export class AddEditEducationDialogComponent implements OnInit {
     this.dialogRef.close();
   }
   save(): void {
+    this.alert.toastrSuccess('Successfully Updated.');
     this.dialogRef.close(this.data); // Pass the updated data back to the parent component
   }
 }

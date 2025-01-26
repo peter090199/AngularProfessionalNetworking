@@ -1,0 +1,25 @@
+<h2 mat-dialog-title>Edit Language</h2>
+<form>
+  <div mat-dialog-content>
+    <mat-form-field appearance="standard" class="full-width">
+      <mat-label>Language</mat-label>
+      <input
+        matInput
+        [(ngModel)]="data.language"
+        name="language"
+        required
+        [matAutocomplete]="auto"
+        (input)="filterSkills($any($event.target)?.value)"
+      />
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSkillSelected($event)">
+        <mat-option *ngFor="let lg of filteredLanguage" [value]="lg">
+          {{ lg }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions class="button-end">
+    <button mat-raised-button color="warn" (click)="dialogRef.close()">Cancel</button>
+    <button mat-raised-button color="primary" (click)="save()">Update</button>
+  </div>
+</form>

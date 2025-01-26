@@ -1,21 +1,6 @@
-// import { Component, OnInit } from '@angular/core';
-
-// @Component({
-//   selector: 'app-add-edit-certificate',
-//   templateUrl: './add-edit-certificate.component.html',
-//   styleUrls: ['./add-edit-certificate.component.css']
-// })
-// export class AddEditCertificateComponent implements OnInit {
-
-//   constructor() { }
-
-//   ngOnInit(): void {
-//   }
-
-// }
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { AddEditEducationDialogComponent } from '../add-edit-education-dialog/add-edit-education-dialog.component';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 
 @Component({
   selector: 'app-add-edit-certificate',
@@ -25,7 +10,7 @@ import { AddEditEducationDialogComponent } from '../add-edit-education-dialog/ad
 export class AddEditCertificateComponent implements OnInit {
 
   constructor( public dialogRef: MatDialogRef<AddEditCertificateComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: any) { }
+      @Inject(MAT_DIALOG_DATA) public data: any,private alert:NotificationsService) { }
 
   seminarDate:string=""
   ngOnInit(): void {
@@ -45,6 +30,7 @@ export class AddEditCertificateComponent implements OnInit {
   }
 
   save(): void {
+    this.alert.toastrSuccess('Successfully Updated.');
     this.dialogRef.close(this.data); 
   }
 }

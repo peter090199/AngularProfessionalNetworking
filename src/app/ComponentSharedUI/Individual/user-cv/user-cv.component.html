@@ -15,7 +15,6 @@
         <div class="profile-container">
           <h2>Build Your Profile</h2>
           <mat-divider></mat-divider>
-  
           <!-- Name Fields -->
           <div class="form-row">
             <mat-form-field appearance="standard" class="form-field">
@@ -70,6 +69,12 @@
               <mat-icon>add_circle</mat-icon>
                Language
             </button>
+
+            <button mat-raised-button color="basic" class="button-field" (click)="viewlanguage()">
+              <mat-icon>visibility</mat-icon>
+              View Language
+            </button>
+            
 
             <mat-form-field appearance="standard" class="form-field">
               <mat-label>Contact Number</mat-label>
@@ -252,7 +257,7 @@
                 </button>
               </mat-card-header>
               <div class="card-container">
-                <mat-card *ngFor="let edu of formEducation; let i = index" >
+                <div *ngFor="let edu of formEducation; let i = index" class="mat-card-border">
                   <mat-card-content>
                     <h3> {{ edu.highest_education }}</h3>
                     <p><strong>School Name: </strong> {{ edu.school_name }} </p>
@@ -270,10 +275,10 @@
                          <mat-icon>edit</mat-icon>
                     </button>
                   </div>
-                </mat-card>
+                </div>
               </div>
-
             </mat-tab>
+
             <mat-tab label="Skills">
               <mat-card-header>
                 <button mat-button color="basic" class="button-field" (click)="AddSkills()">
@@ -281,10 +286,23 @@
                   Add Skills
                 </button>
               </mat-card-header>
-              <mat-card-content>
-                <p>List your technical, interpersonal, or professional skills here.</p>
-              </mat-card-content>
-             
+              
+              <div class="card-container">
+                <div *ngFor="let data of formSkills; let i = index" class="mat-card-border">
+                  <mat-card-content>
+                    <p>{{ data.skills}}</p>
+                     
+                    <div class="button-end">
+                        <button mat-icon-button color="warn" (click)="removeSkills(i)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="editSkills(i)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                      </div>
+                    </mat-card-content>
+                </div>
+              </div>
             </mat-tab>
             
             <mat-tab label="Seminar">
@@ -293,15 +311,13 @@
                   <mat-icon>add_circle</mat-icon>
                    Add Seminar
                 </button>
-              
               </mat-card-header>
                <div class="card-container">
-                <mat-card *ngFor="let data of formSeminar; let i = index">
+                <div *ngFor="let data of formSeminar; let i = index" class="mat-card-border">
                   <mat-card-content>
                     <h3>{{ data.seminar_title}}</h3>
                     <p><strong>School Name: </strong> {{ data.seminar_provider}} </p>
                     <p><strong>Status:</strong> {{ formatDate(data.seminardate) }}</p>
-                    
                   </mat-card-content>
                  
                   <div class="button-end">
@@ -312,9 +328,8 @@
                          <mat-icon>edit</mat-icon>
                     </button>
                   </div>
-                </mat-card>
+                </div>
               </div>
-
             </mat-tab>
 
             <mat-tab label="Trainings">
@@ -325,7 +340,7 @@
                 </button>
               </mat-card-header>
               <div class="card-container">
-                <mat-card *ngFor="let data of formTraining; let i = index">
+                <div *ngFor="let data of formTraining; let i = index" class="mat-card-border">
                   <mat-card-content>
                     <h3>{{ data.training_title}}</h3>
                     <p><strong>School Name: </strong> {{ data.training_provider}} </p>
@@ -342,7 +357,7 @@
                     </button>
                   </div>
 
-                </mat-card>
+                </div>
               </div>
             </mat-tab>
 
@@ -353,49 +368,54 @@
                    Add Certificate
                 </button>
               </mat-card-header>
-              <div class="card-container">
-              <mat-card-content>
-                <div *ngFor="let data of formCertificate; let i = index">
-                  <h3>{{ data.certificate_title}}</h3>
-                  <p><strong>Certificate Provider: </strong> {{ data.certificate_provider}} </p>
-                  <p><strong>Date Completed:</strong> {{ formatDate(data.date_completed) }}</p>
-              
-                  <div class="button-end">
-                      <button mat-icon-button color="warn" (click)="removeCertificate(i)">
-                        <mat-icon>delete</mat-icon>
-                      </button>
-                      <button mat-icon-button color="primary" (click)="editCertificate(i)">
-                          <mat-icon>edit</mat-icon>
-                      </button>
-                 </div>
 
-               </div>
-              </mat-card-content>
+              <div class="card-container">
+                <div *ngFor="let data of formCertificate; let i = index" class="mat-card-border">
+                    <mat-card-content>
+                      <h3>{{ data.certificate_title}}</h3>
+                        <p><strong>Certificate Provider: </strong> {{ data.certificate_provider}} </p>
+                        <p><strong>Date Completed:</strong> {{ formatDate(data.date_completed) }}</p>
+                  
+                            <div class="button-end">
+                              <button mat-icon-button color="warn" (click)="removeCertificate(i)">
+                              <mat-icon>delete</mat-icon>
+                              </button>
+                              <button mat-icon-button color="primary" (click)="editCertificate(i)">
+                              <mat-icon>edit</mat-icon>
+                              </button>
+                           </div>
+                    </mat-card-content>
+                 </div>
              </div>
             </mat-tab>
 
             <mat-tab label="Work Experience">
               <mat-card-header>
-                <button mat-button color="primary" class="button-field" (click)="AddEmployment()">
+                <button mat-button color="basic" class="button-field" (click)="AddEmployment()">
                   <mat-icon>add_circle</mat-icon>
                    Add Work Experience
                 </button>
               </mat-card-header>
-              <div class="card-container">
-              <mat-card-content>
-                <div *ngFor="let data of formWorkExperience; let i = index">
-                 
-                  <div class="button-end">
-                  <button mat-icon-button color="warn" (click)="removeWorkExp(i)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                  <button mat-icon-button color="primary" (click)="editWorkexperience(i)">
-                      <mat-icon>edit</mat-icon>
-                  </button>
 
+              <div class="card-container">
+                <mat-card-content>
+                  <div *ngFor="let data of formWorkExperience; let i = index" class="mat-card-border">
+                    <h3>{{ data.company_name }}</h3>
+                    <p><strong>Position: </strong> {{ data.position}} </p>
+                    <p><strong>Job Description: </strong> {{ data.job_description}} </p>
+                    <p><strong>Date Completed:</strong> {{ formatDate(data.date_completed) }}</p>
+                
+                    <div class="button-end">
+                        <button mat-icon-button color="warn" (click)="removeWorkExp(i)">
+                          <mat-icon>delete</mat-icon>
+                        </button>
+                        <button mat-icon-button color="primary" (click)="editWorkexperience(i)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                   </div>
+  
                  </div>
-               </div>
-              </mat-card-content>
+                </mat-card-content>
               </div>
             </mat-tab>
           </mat-tab-group>

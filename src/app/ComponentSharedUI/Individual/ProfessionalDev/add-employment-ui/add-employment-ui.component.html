@@ -1,13 +1,13 @@
-<button mat-icon-button class="close-button" [mat-dialog-close]="true">
-    <mat-icon class="close-icon" color="warn">close</mat-icon>
-  </button>
-  <br> 
-  
-  <button mat-button color="primary"  (click)="addEmployment()">
+<div class="button-end">
+  <button mat-button color="primary"  (click)="addEmployment()" class="button-end">
     <mat-icon>add_circle</mat-icon>
     Add More
 </button>
-<br><br>
+
+
+</div>
+<h2 mat-dialog-title>Work Experience</h2>
+<mat-divider></mat-divider>
 
 <form [formGroup]="employmentForm" (ngSubmit)="submitForm()">
     <div class="form-group-wrapper" formArrayName="employment">
@@ -17,7 +17,7 @@
                 <mat-label>Company Name</mat-label>
                 <input
                   matInput
-                  placeholder="Enter company_name"
+                  placeholder="Company_name"
                   formControlName="company_name"
                 />
               </mat-form-field>
@@ -26,7 +26,7 @@
                 <mat-label>Position</mat-label>
                 <input
                   matInput
-                  placeholder="Enter Position"
+                  placeholder="Position"
                   formControlName="position"
                 />
               </mat-form-field>
@@ -35,7 +35,7 @@
                 <mat-label>Job_description</mat-label>
                 <input
                   matInput
-                  placeholder="Enter job_description"
+                  placeholder="Job_description"
                   formControlName="job_description"
                 />
               </mat-form-field>
@@ -48,13 +48,10 @@
                   formControlName="date_completed"
                   required
                 />
-                <mat-datepicker-toggle
-                  matSuffix
-                  [for]="picker"
-                ></mat-datepicker-toggle>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
-
+              
               <button
                 mat-icon-button
                 color="warn"
@@ -66,5 +63,8 @@
 
         </div>
    </div>
-   <button mat-raised-button color="primary" type="submit" >Add</button>
+   <div class="button-end">
+    <button mat-raised-button color="warn" [mat-dialog-close]="true"> Cancel </button>
+    <button mat-raised-button color="primary" type="submit"  [disabled]="employmentForm.invalid">Add</button>
+  </div>
 </form>

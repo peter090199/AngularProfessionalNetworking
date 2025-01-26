@@ -2,6 +2,11 @@
   width: 100%;
   height: 100px;
 }
+.logos img {
+  width: 2in; /* 2 inches wide */
+  height: 2in; /* 2 inches tall */
+  object-fit: cover; /* Ensures the image fits within the dimensions */
+}
 
 .logo  {
   width: 100%;

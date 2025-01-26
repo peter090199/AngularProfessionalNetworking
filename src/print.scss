@@ -119,7 +119,7 @@
 
   .cv-header h1, .cv-section-title {
     text-align: right;
-    font-size: 24px;
+    font-size: 1.2rem;
     margin-bottom: 10px;
     color: #898a8c;
     font-style: italic;
@@ -132,7 +132,7 @@
   .cv-p {
     font-weight: bold;
     color:  black;
-    font-size: 18px;
+    font-size: 1rem;
     gap: 10px;
   }
 
@@ -141,7 +141,7 @@
   }
 
   .cv-section h2 {
-    font-size: 18px;
+    font-size: 1rem;
     color:  #02060e;
     border-bottom: 1px solid #707276;
     padding-bottom: 1px;
@@ -156,7 +156,7 @@
   }
 
   .cv-item h3 {
-    font-size: 16px;
+    font-size: 1rem;
     margin: 0;
   }
 
@@ -164,7 +164,7 @@
     margin: 0 0 5px;
     margin-left: 10px;
     color:  #02060e;
-    font-size: 14px;
+    font-size: 1rem;
   }
 
   ul {
@@ -207,7 +207,7 @@ ul li {
 /* Footer and Margins */
 footer {
   text-align: center;
-  font-size: 12px;
+  font-size: 1rem;
   margin-top: 20px;
   color: #666;
 }
@@ -218,27 +218,26 @@ footer {
 @media (max-width: 600px) {
   .no-print {
     padding: 6px 12px;
-    font-size: 14px;
+    font-size: 1rem;
   }
 
   .cv-header h1 {
-    font-size: 20px;
+    font-size: 1rem;
   }
 
   .cv-header p {
-    font-size: 12px;
+    font-size: 1rem;
   }
 
   .cv-section h2 {
-    font-size: 16px;
+    font-size: 1rem;
   }
-
   .cv-item h3 {
-    font-size: 14px;
+    font-size: 1rem;
   }
 
   .cv-item p {
-    font-size: 12px;
+    font-size: 1rem;
   }
 
   ul {
@@ -250,30 +249,31 @@ footer {
 @media (max-width: 768px) {
   .no-print {
     padding: 7px 14px;
-    font-size: 15px;
+    font-size: 1rem;
   }
 
   .cv-header h1 {
-    font-size: 22px;
+    font-size: 1rem;
   }
 
   .cv-header p {
-    font-size: 13px;
+    font-size: 1rem;
   }
 
   .cv-section h2 {
-    font-size: 17px;
+    font-size: 1rem;
   }
 
   .cv-item h3 {
-    font-size: 15px;
+    font-size: 1rem;
   }
 
   .cv-item p {
-    font-size: 13px;
+    font-size: 1rem;
   }
 
   ul {
     padding-left: 18px;
   }
+
 }

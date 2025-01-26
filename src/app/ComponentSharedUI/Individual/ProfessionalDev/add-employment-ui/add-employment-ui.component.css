@@ -1,14 +1,5 @@
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: auto;
-    margin-bottom: 20px;
-  }
-  .form-group-wrapper {
+
+.form-group-wrapper {
     max-height: 500px; 
     overflow-y: auto; 
     padding-right: 10px; 

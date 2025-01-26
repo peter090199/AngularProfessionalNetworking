@@ -1,0 +1,29 @@
+  <mat-card-header>
+    <h2 mat-dialog-title>Language</h2>
+    <mat-divider></mat-divider>
+  
+  </mat-card-header>
+
+  <div class="container">
+    <div class="card-container">
+        <div *ngFor="let data of formLanguage; let i = index" class="mat-card-border">
+         <mat-card-content>
+            <p>{{ data.language}}</p>
+            
+            <div class="button-end">
+                <button mat-icon-button color="warn" (click)="removelanguage(i)">
+                <mat-icon>delete</mat-icon>
+                </button>
+                <button mat-icon-button color="primary" (click)="editLanguage(i)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+            </div>
+            </mat-card-content>
+        </div>
+    </div>
+<br>
+    <div class="button-end">
+        <button mat-raised-button color="warn" [mat-dialog-close]="true"> Cancel </button>
+      </div>
+ </div>
+

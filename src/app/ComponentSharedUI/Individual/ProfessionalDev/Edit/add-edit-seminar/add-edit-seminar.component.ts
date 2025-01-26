@@ -1,7 +1,8 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddEditEducationDialogComponent } from '../add-edit-education-dialog/add-edit-education-dialog.component';
-
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { NotificationsService } from 'src/app/services/Global/notifications.service';
 @Component({
   selector: 'app-add-edit-seminar',
   templateUrl: './add-edit-seminar.component.html',
@@ -10,9 +11,11 @@ import { AddEditEducationDialogComponent } from '../add-edit-education-dialog/ad
 export class AddEditSeminarComponent implements OnInit {
 
   constructor( public dialogRef: MatDialogRef<AddEditEducationDialogComponent>,
-      @Inject(MAT_DIALOG_DATA) public data: any) { }
+      @Inject(MAT_DIALOG_DATA) public data: any,private alert:NotificationsService) { }
 
   seminarDate:string=""
+    separatorKeysCodes: number[] = [ENTER, COMMA];
+    
   ngOnInit(): void {
 
   }
@@ -30,6 +33,7 @@ export class AddEditSeminarComponent implements OnInit {
   }
 
   save(): void {
+    this.alert.toastrSuccess('Successfully Updated.');
     this.dialogRef.close(this.data); 
   }
 }

@@ -4,24 +4,16 @@
 
       <mat-card class="profile-card" *ngIf="!isMobile">
         <div class="cover-photo">
-          <!-- <img
-            [src]="profile_pic"
-            alt="Cover Photo"
-            class="cover-photo-img"
-          /> -->
           <img *ngIf="profile_pic" [src]="profile_pic.photo_pic" alt="Profile Picture" />
           <p *ngIf="!profile_pic && !error">Loading picture...</p>
           <p *ngIf="error" class="error-message">{{ error }}</p>
-          
-          <button mat-button class="edit-cover-btn"  routerLink="/upload-cv">
+          <button mat-button class="edit-cover-btn"  (click)="uploadPic()">
            <mat-icon>photo_camera</mat-icon> Upload Profile Picture</button>
          
         </div>
         
-       
-        
         <br>
-        <mat-card-title class="profile-name">{{profiles.fullname}}</mat-card-title>
+        <mat-card-title class="profile-name">{{profiles.fname}} {{profiles.lname}}</mat-card-title>
         <mat-card-subtitle class="profile-email"></mat-card-subtitle>
         <mat-card-subtitle class="profile-location">{{profiles.profession}}</mat-card-subtitle>
       
@@ -35,15 +27,20 @@
            
           </mat-list>
           <div class="button-gap">
-            <button mat-button  class="list-label" routerLink="/profile">
-              <mat-icon>person</mat-icon>View Profile
-            </button>
+            <button
+            mat-button
+            class="list-label"
+            routerLink="/profile"
+          >
+            <mat-icon>person</mat-icon>View Profile
+          </button>
+          
             <button mat-button class="list-label" (click)="printCV()">
               <mat-icon>description</mat-icon>View CV
             </button>
-            <button mat-button  class="list-label" routerLink="/user-cv">
+            <!-- <button mat-button  class="list-label" routerLink="/user-cv">
               <mat-icon>description</mat-icon>Edit CV
-            </button>
+            </button> -->
 
           </div>
         </mat-card-content>

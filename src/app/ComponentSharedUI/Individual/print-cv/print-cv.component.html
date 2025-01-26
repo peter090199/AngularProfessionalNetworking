@@ -52,7 +52,9 @@
     </div>
    
     <div *ngIf="cvData?.photo_pic; else loadingOrError">
-      <img [src]="cvData.photo_pic" alt="CV Logo" />
+      <div class="logos">
+        <img [src]="cvData.photo_pic" alt="CV Logo" />
+      </div>
     </div>
     
     <ng-template #loadingOrError>
@@ -65,8 +67,9 @@
 
 
   <br>
+
+
   <div class="content-body">
-    <!-- <div class="cv-container"> -->
   
         <div *ngIf="cvData?.lines">
             <section class="cv-section" *ngIf="cvData.lines.education?.length">

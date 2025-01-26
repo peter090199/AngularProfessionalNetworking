@@ -28,10 +28,19 @@ export class ProfileService {
 
   getProfileByUser(): Observable<any> {
     const headers = this.createHeaders();
+    return this.http.get(`${_url}profile`, { headers }).pipe(
+      catchError(error => this.handleAuthError(error))
+    );
+  }
+
+  getProfileByUserOnly(): Observable<any> {
+    const headers = this.createHeaders();
     return this.http.get(`${_url}user/profile`, { headers }).pipe(
       catchError(error => this.handleAuthError(error))
     );
   }
+
+
   getProfileByEmail(): Observable<any> {
     const headers = this.createHeaders();
     return this.http.get(`${_url}user/profile`, { headers }).pipe(

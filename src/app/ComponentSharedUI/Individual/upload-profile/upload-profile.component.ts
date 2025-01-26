@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog'; 
 import { Router } from '@angular/router';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
 import { NotificationsService } from 'src/app/services/Global/notifications.service';
@@ -11,11 +12,11 @@ import { NotificationsService } from 'src/app/services/Global/notifications.serv
 export class UploadProfileComponent implements OnInit {
   constructor( private fb: FormBuilder,private uploadServices:CurriculumVitaeService,
                private notificationService:NotificationsService,private router: Router,
+               public dialogRef: MatDialogRef<UploadProfileComponent>
   ) { }
 
-
-  uploadform: FormGroup;
   isLoading = false;
+  uploadform: FormGroup;
   fileControl = new FormControl(null, Validators.required);  // Add this to your form control
 
   fileError: string = ''; // To store validation error messages
@@ -53,30 +54,46 @@ export class UploadProfileComponent implements OnInit {
     });
   }
 
-
-  onSubmit() {
+  onSubmit(): void {
     if (!this.uploadform.valid) {
+      this.notificationService.toastrError('Form is invalid. Please check your input.');
+      return;
     }
-    const formData = new FormData(); 
+  
+    // Set loading state to true
+    this.isLoading = true;
+  
+    const formData = new FormData();
+  
     if (this.selectedFile) {
       formData.append('photo_pic', this.selectedFile, this.selectedFile.name);
+    } else {
+      this.notificationService.toastrError('No file selected. Please upload a file.');
+      this.isLoading = false;
+      return;
     }
-    //console.log('FormData contents:',formData);
-   
+  
     this.uploadServices.uploadCV(formData).subscribe({
       next: (res) => {
         if (res.success) {
-         this.notificationService.toastrSuccess("Successfully Upload.");
-         this.router.navigate(['/home']);
+          this.notificationService.toastrSuccess("Successfully Upload!");
+         
+          setTimeout(() => {
+            window.location.reload(); // Reload the current page
+          }, 1000);
         } else {
-          this.notificationService.toastrError("Error upload!");
+          this.notificationService.toastrError(res.error || 'Upload failed.');
         }
-     //   this.loading = false;
+        this.isLoading = false; // Reset loading state
+        this.dialogRef.close();
+        
       },
       error: (error: any) => {
-        this.notificationService.toastrError(error?.error || 'An unexpected error occurred.');
-        //this.loading = false;
-      },
+        this.notificationService.toastrError(
+          error?.error || 'An unexpected error occurred while uploading.'
+        );
+        this.isLoading = false; // Reset loading state in case of error
+      }
     });
   }
   
