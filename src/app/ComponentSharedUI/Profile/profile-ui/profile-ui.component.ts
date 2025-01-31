@@ -2,6 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ProfileService } from 'src/app/services/Profile/profile.service';
 import { UploadProfileComponent } from '../../Individual/upload-profile/upload-profile.component';
+import { UserCVComponent } from '../../Individual/user-cv/user-cv.component';
+import { UserProfileUiComponent } from '../../Individual/user-profile-ui/user-profile-ui.component';
+import { ActivatedRoute } from '@angular/router';
+
+
+
 @Component({
   selector: 'app-profile-ui',
   templateUrl: './profile-ui.component.html',
@@ -12,24 +18,29 @@ export class ProfileUIComponent implements OnInit {
   error: any;
   profiles: any;
   users: any;
-
-
-  constructor(private profile:ProfileService,public dialog:MatDialog
+  btnCurriculum: boolean = false;
+ 
+  code:any;
+  constructor(private profile:ProfileService,public dialog:MatDialog,private route: ActivatedRoute,
 
   ) { }
-
+ 
   ngOnInit(): void {
-   
-   this.loadUserData();
-   this.loadProfileCV();
-  }
+    const url = window.location.href;
+    const codesplit = url.split('/').pop();
+    this.code = codesplit;
 
+    this.loadUserData();
+    this.loadProfileCV();
+  }
+  
 
   loadProfileCV(){
-    this.profile.getProfileByUser().subscribe({
+    this.profile.getProfileByUser(this.code).subscribe({
       next: (response) => {
         if (response.success == true) {
-          this.profiles = response.message; // Access the first item in the message array
+          this.profiles = response.message; 
+       
         } else {
           this.error = 'Failed to load profile data';
         }
@@ -40,6 +51,20 @@ export class ProfileUIComponent implements OnInit {
     });
   }
 
+  UserCV() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = '900px';
+  //  dialogConfig.data = element || null; // Pass user data
+  
+    const dialogRef = this.dialog.open(UserProfileUiComponent, dialogConfig);
+  
+    dialogRef.afterClosed().subscribe(() => {
+      
+    });
+  }
+  
 
   loadUserData(){
     this.profile.getProfileByUserOnly().subscribe({

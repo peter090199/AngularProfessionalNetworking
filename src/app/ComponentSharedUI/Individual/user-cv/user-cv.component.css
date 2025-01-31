@@ -92,11 +92,12 @@ mat-tab-group p {
   mat-tab-group p {
     font-size: 0.875rem;
   }
-}
-
+  
 ::ng-deep .mat-autocomplete-panel {
   max-height: 300px; /* Adjust the height as needed */
   overflow-y: auto;
+}
+
 }
 
 
@@ -191,16 +192,21 @@ mat-radio-button {
 }
 
 .stepper-container {
-  display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+  /* display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 40vh;
   width: 100%;
   margin: 0px;
   margin-top: 20px;
   overflow-y: auto;
   flex-direction: column;
-  position: fixed;
+  position: fixed; */
 
 }
 .loading-overlay {

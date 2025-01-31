@@ -7,6 +7,8 @@ import { ProfileService } from 'src/app/services/Profile/profile.service';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
 import { THREE } from '@angular/cdk/keycodes';
 import { UploadProfileComponent } from 'src/app/ComponentSharedUI/Individual/upload-profile/upload-profile.component';
+import { ActivatedRoute } from '@angular/router';
+
 @Component({
   selector: 'app-home-ui',
   templateUrl: './home-ui.component.html',
@@ -73,6 +75,46 @@ throw new Error('Method not implemented.');
       reposts: 25,
       sends: 20,
     },
+    {
+      id: 6,
+      author: 'Charlie Brown',
+      content: 'Just a simple post to share some thoughts with everyone. Keep it real!',
+      timestamp: new Date('2024-11-25T16:20:00'),
+      likes: 300,
+      comments: 100,
+      reposts: 25,
+      sends: 20,
+    },
+    {
+      id: 7,
+      author: 'Charlie Brown',
+      content: 'Just a simple post to share some thoughts with everyone. Keep it real!',
+      timestamp: new Date('2024-11-25T16:20:00'),
+      likes: 300,
+      comments: 100,
+      reposts: 25,
+      sends: 20,
+    },
+    {
+      id: 8,
+      author: 'Charlie Brown',
+      content: 'Just a simple post to share some thoughts with everyone. Keep it real!',
+      timestamp: new Date('2024-11-25T16:20:00'),
+      likes: 300,
+      comments: 100,
+      reposts: 25,
+      sends: 20,
+    },
+    {
+      id: 9,
+      author: 'Charlie Brown',
+      content: 'Just a simple post to share some thoughts with everyone. Keep it real!',
+      timestamp: new Date('2024-11-25T16:20:00'),
+      likes: 300,
+      comments: 100,
+      reposts: 25,
+      sends: 20,
+    },
   ];
 
   isLoading = false; // Flag for showing spinner
@@ -80,7 +122,7 @@ throw new Error('Method not implemented.');
   isMobile: boolean = false; 
   
   constructor(private router:Router,private profile:ProfileService,private photo:CurriculumVitaeService,
-    private dialog:MatDialog
+    private dialog:MatDialog,private route:ActivatedRoute
   ) {}
   
   ismobile: boolean = false;
@@ -96,11 +138,16 @@ throw new Error('Method not implemented.');
   profiles: any=[];
 
   profile_pic: any;
-
+  code:any;
+  
   ngOnInit(): void {
+    const url = window.location.href;
+    const codesplit = url.split('/').pop();
+    this.code = codesplit;
+
     this.onResize();
     this.fetchProfilePicture();
-    this.profile.getProfileByUser().subscribe({
+    this.profile.getProfileByUser(this.code).subscribe({
       next: (response) => {
         if (response.success == true) {
           this.profiles = response.message; // Access the first item in the message array

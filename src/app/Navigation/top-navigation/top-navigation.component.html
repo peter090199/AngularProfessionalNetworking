@@ -32,6 +32,7 @@
           </div>
         </div>
       </div>
+      
       <div *ngFor="let link of nav_module" class="nav-item" [ngClass]="{'dropdown': link.submenus && link.submenus.length > 0}">
         <div *ngIf="link.submenus && link.submenus.length > 0; else regularLink">
           <button mat-button [matMenuTriggerFor]="menu" class="nav-link" color="primary">{{ link.description }}</button>

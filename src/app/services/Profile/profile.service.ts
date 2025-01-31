@@ -26,12 +26,21 @@ export class ProfileService {
     return new HttpParams().set('desc_code', 'top_navigation');
   }
 
-  getProfileByUser(): Observable<any> {
+  getProfileByUserxx(): Observable<any> {
     const headers = this.createHeaders();
-    return this.http.get(`${_url}profile`, { headers }).pipe(
+    return this.http.get(`${_url}profile/`, { headers }).pipe(
       catchError(error => this.handleAuthError(error))
     );
   }
+
+
+  getProfileByUser(code:any): Observable<any> {
+    const headers = this.createHeaders();
+    return this.http.get(`${_url}profile/${code}`, { headers }).pipe(
+      catchError(error => this.handleAuthError(error))
+    );
+  }
+
 
   getProfileByUserOnly(): Observable<any> {
     const headers = this.createHeaders();

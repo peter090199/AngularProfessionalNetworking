@@ -1,0 +1,54 @@
+
+mat-progress-bar {
+    margin-bottom: 10px;
+  }
+
+  mat-form-field {
+    width: 100%;
+    margin-top: 0;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: flex-end;
+    gap: 2px;
+  }
+  
+
+  .full-width {
+    width: 100%;
+  }  
+/* Mobile (screens smaller than 768px) */
+@media (max-width: 767px) 
+{
+    mat-horizontal-stepper{
+        overflow: auto;
+        height: 500px;
+        max-height: 500px;
+        padding: 0px;
+   }
+    ::ng-deep mat-horizontal-stepper .mat-step-header {
+        display: none; 
+   
+     }
+     ma
+    mat-tab-group {
+      width: 100%;
+      margin: 16px auto;
+      padding: 0 8px;
+    }
+  
+    mat-tab-group h3 {
+      font-size: 1.25rem;
+    }
+  
+    mat-tab-group p {
+      font-size: 0.875rem;
+    }
+    
+  ::ng-deep .mat-autocomplete-panel {
+    max-height: 300px; /* Adjust the height as needed */
+    overflow-y: auto;
+  }
+  
+  }
+  

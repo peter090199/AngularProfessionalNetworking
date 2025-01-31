@@ -12,10 +12,14 @@
         <mat-icon>photo_camera</mat-icon>
       </button>
     </div>
-    <div class="profile-details" *ngIf="users">
-      <h1>{{ users.fname }} {{ users.lname }} <small style="color: white;">({{ users.profession }})</small></h1>
+    <div class="profile-details" *ngIf="profiles">
+      <h1>{{ profiles.fname }} {{ profiles.lname }} <small style="color: white;">({{ profiles.profession }})</small></h1>
       <p>761 followers · 369 following</p>
-      <button mat-raise-button class="edit-btn">Curriculum Vitae</button>
+      <button *ngIf="profiles.btnCurriculum === 1" mat-raised-button class="edit-btn" (click)="UserCV()">Curriculum Vitae</button>
+
+      <!-- <button *ngIf="btnCurriculum" mat-raised-button class="edit-btn" (click)="UserCV()">Curriculum Vitae</button> -->
+
+     
     </div>
   </div>
   
@@ -33,8 +37,8 @@
         <mat-card-content>
           <!-- Display static information -->
           <mat-list>
-            <mat-list-item  *ngIf="users">
-              <span>Full Name: {{ users.fname }} {{ users.lname }}</span>
+            <mat-list-item  *ngIf="profiles">
+              <span>Full Name: {{ profiles.fname }} {{ profiles.lname }}</span>
             </mat-list-item>
             <!-- <mat-list-item>
               <span>First Name: {{ users.fname }}</span>
@@ -42,11 +46,11 @@
             <mat-list-item>
               <span>Last Name: {{ users.lname }}</span>
             </mat-list-item> -->
-            <mat-list-item *ngIf="users">
-              <span>Contact No: {{ users.contact_no }}</span>
+            <mat-list-item *ngIf="profiles">
+              <span>Contact No: {{ profiles.contact_no }}</span>
             </mat-list-item>
-            <mat-list-item *ngIf="users">
-              <span>Email: {{ users.email }}</span>
+            <mat-list-item *ngIf="profiles">
+              <span>Email: {{ profiles.email }}</span>
             </mat-list-item>
   
             <!-- Display conditional fields -->

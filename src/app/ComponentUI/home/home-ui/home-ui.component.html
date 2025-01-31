@@ -26,14 +26,13 @@
             </mat-list-item>
            
           </mat-list>
-          <div class="button-gap">
-            <button
-            mat-button
-            class="list-label"
-            routerLink="/profile"
-          >
-            <mat-icon>person</mat-icon>View Profile
-          </button>
+
+          <div class="button-gap" *ngIf="profile_pic">
+            <button mat-button class="list-label" [routerLink]="['/profile/', profile_pic.code ]">
+              <mat-icon>person</mat-icon>View Profile
+            </button>
+          </div>
+          
           
             <button mat-button class="list-label" (click)="printCV()">
               <mat-icon>description</mat-icon>View CV
@@ -42,7 +41,6 @@
               <mat-icon>description</mat-icon>Edit CV
             </button> -->
 
-          </div>
         </mat-card-content>
       </mat-card>
       

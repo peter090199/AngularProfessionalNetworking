@@ -87,8 +87,7 @@ body {
 .example-container {
   display: flex;
   flex-direction: column;
-  height: 92vh;
-  max-height: 92vh;
+  height: auto;
   background-color: rgb(246, 244, 244);
   margin:0px;
 

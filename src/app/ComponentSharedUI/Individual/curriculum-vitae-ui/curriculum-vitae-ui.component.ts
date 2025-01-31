@@ -187,26 +187,26 @@ export class CurriculumVitaeUIComponent implements AfterViewInit  {
 }
 
  private GetUserData(): void {
-     this.userService.getProfileByUser().subscribe({
-    next: (response) => {
-      if (response.success && response.message.length) {
-        const userData = response.message[0]; // Ensure message[0] exists
-        if(userData != null){
-          this.fname = userData.fname;
-          this.lname = userData.lname;
-          this.email = "pedroyorpo22@gmail.com";
-          this.contact_no = userData.contact_no;
-          this.profession = userData.profession;
-        }
+  //    this.userService.getProfileByUser().subscribe({
+  //   next: (response) => {
+  //     if (response.success && response.message.length) {
+  //       const userData = response.message[0]; // Ensure message[0] exists
+  //       if(userData != null){
+  //         this.fname = userData.fname;
+  //         this.lname = userData.lname;
+  //         this.email = "pedroyorpo22@gmail.com";
+  //         this.contact_no = userData.contact_no;
+  //         this.profession = userData.profession;
+  //       }
        
-      } else {
-        this.error = 'Failed to load profile data';
-      }
-    },
-    error: (err) => {
-      this.error = err?.message || 'An error occurred while fetching profile data';
-    },
-  });
+  //     } else {
+  //       this.error = 'Failed to load profile data';
+  //     }
+  //   },
+  //   error: (err) => {
+  //     this.error = err?.message || 'An error occurred while fetching profile data';
+  //   },
+  // });
   }
   autoTicks = false;
   disabled = false;

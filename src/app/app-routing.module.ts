@@ -49,9 +49,8 @@ const routes: Routes = [
     component: TopNavigationComponent, 
     canActivate: [AuthGuard],
     children: [
-      { path: 'profile', component:ProfileUIComponent },
+      { path: 'profile/:code', component:ProfileUIComponent },
       { path: 'home', component: HomeUIComponent },
-      { path: 'message', component: MessagesComponent },
     ]
   },
   { 

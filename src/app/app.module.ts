@@ -70,6 +70,7 @@ import { AddEditWorkExprienceComponent } from './ComponentSharedUI/Individual/Pr
 import { AddEditSkillsComponent } from './ComponentSharedUI/Individual/ProfessionalDev/Edit/add-edit-skills/add-edit-skills.component';
 import { AddEditLanguageComponent } from './ComponentSharedUI/Individual/ProfessionalDev/Edit/add-edit-language/add-edit-language.component';
 import { ViewLanguageUIComponent } from './ComponentSharedUI/Individual/Languange/view-language-ui/view-language-ui.component';
+import { UserProfileUiComponent } from './ComponentSharedUI/Individual/user-profile-ui/user-profile-ui.component';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -132,6 +133,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     AddEditSkillsComponent,
     AddEditLanguageComponent,
     ViewLanguageUIComponent,
+    UserProfileUiComponent,
 
   
  
