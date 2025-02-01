@@ -7,7 +7,7 @@
           <img *ngIf="profile_pic" [src]="profile_pic.photo_pic" alt="Profile Picture" />
           <p *ngIf="!profile_pic && !error">Loading picture...</p>
           <p *ngIf="error" class="error-message">{{ error }}</p>
-          <button mat-button class="edit-cover-btn"  (click)="uploadPic()">
+          <button  mat-button class="edit-cover-btn"  (click)="uploadPic()">
            <mat-icon>photo_camera</mat-icon> Upload Profile Picture</button>
          
         </div>

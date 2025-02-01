@@ -2,7 +2,36 @@
 mat-progress-bar {
     margin-bottom: 10px;
   }
-
+  mat-tab {
+    position: fixed;
+    top: 0;
+    margin-bottom: 30px;
+    z-index: 10; /* Ensure it's above the content */
+    background-color: white; /* Optional: set a background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: add shadow */
+  }
+  
+  /* Optional: Adjust the content to ensure it has enough padding or margin below the tab header */
+  mat-tab-body {
+    padding-top: 56px; /* Add margin to avoid content being hidden behind the sticky tab header */
+  }
+  
+  
+  .container-card:hover {
+    transform: scale(1.02); /* Subtle zoom effect on hover */
+  }
+  
+  mat-card-content h3 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+  
+  mat-card-content p {
+    font-size: 1rem;
+    margin: 4px 0;
+  }
+  
+  
   mat-form-field {
     width: 100%;
     margin-top: 0;
@@ -13,7 +42,12 @@ mat-progress-bar {
     gap: 2px;
   }
   
-
+  .card-container {
+    overflow: auto;
+    height: 180px;
+    max-height: 190px;
+    margin-top: 30px;
+  }
   .full-width {
     width: 100%;
   }  

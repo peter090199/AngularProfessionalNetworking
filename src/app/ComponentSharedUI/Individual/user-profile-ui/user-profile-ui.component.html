@@ -3,11 +3,11 @@
         <button mat-icon-button color="warn" [mat-dialog-close]="true"><mat-icon>close</mat-icon></button>
       </div>
 </mat-card-header>
+<h2 style="text-align: center;">Build Your Profile</h2>
+<mat-divider></mat-divider>
 <div class="stepper-container">
  
     <mat-horizontal-stepper [linear]="true" #stepper>
-      <!-- Loading Overlay -->
-     
       <div class="loading-overlay" *ngIf="loading">
         <mat-spinner></mat-spinner>
       </div>
@@ -17,8 +17,7 @@
         <form [formGroup]="firstFormGroup">
           <ng-template matStepLabel>Basic Information</ng-template>
           <div class="profile-container">
-            <h2>Build Your Profile</h2>
-            <mat-divider></mat-divider>
+           
             <!-- Name Fields -->
             <div class="form-row">
               <mat-form-field appearance="standard" class="form-field">
@@ -157,34 +156,25 @@
         <form [formGroup]="secondFormGroup">
           <ng-template matStepLabel>Location Details</ng-template>
           <div class="profile-container">
-            <h2>Build Your Profile</h2>
-            <mat-divider></mat-divider>
-  
             <!-- Home Country -->
             <div class="form-row">
-              <!-- Autocomplete for Current Location -->
-              <mat-form-field class="form-field" appearance="standard" matnput>
-                <mat-label>Your Current Location</mat-label> 
-                <!-- <mat-select formControlName="current_location"  required>
-                  <mat-option *ngFor="let country of filteredCountries2" [value]="country.name">
-                    {{ country.name }}
-                  </mat-option>
-                </mat-select> -->
-
-                <input  matInput formControlName="current_location" [matAutocomplete]="auto2" id="current_location" 
-                placeholder="Your Current Location"  tabindex="2"
+              <mat-form-field class="form-field" appearance="standard">
+                <mat-label>Your Home Country</mat-label> 
+                <input  matInput formControlName="home_country" [matAutocomplete]="auto1" id="home_country" 
+                placeholder="Your Home country"  tabindex="2"
                 />
-                <mat-autocomplete #auto2="matAutocomplete">
+                <mat-autocomplete #auto1="matAutocomplete">
                   <mat-option *ngFor="let country of filteredCountries2" [value]="country.name">
                     {{ country.name }}
                   </mat-option>
                 </mat-autocomplete>
+
               </mat-form-field>
             
               <!-- City, State Input -->
               <mat-form-field class="form-field" appearance="standard">
                 <mat-label>City, State</mat-label>
-                <input matInput formControlName="current_state" required />
+                <input matInput formControlName="home_state" required />
               </mat-form-field>
             </div>
             
@@ -192,12 +182,12 @@
             <!-- Current Location -->
             <div class="form-row">
               <mat-form-field class="form-field" appearance="standard">
+                <input  matInput formControlName="current_location" [matAutocomplete]="auto2" id="current_location"  placeholder="Your Current Location"  tabindex="2" />
                   <mat-autocomplete #auto2="matAutocomplete">
                     <mat-option *ngFor="let country of filteredCountries2" [value]="country.name">
                       {{ country.name }}
                     </mat-option>
                   </mat-autocomplete>
-                  <input matInput [formControl]="countryControl2" [matAutocomplete]="auto2" id="country2" placeholder="Your Current Location" tabindex="2">
               </mat-form-field>
   
               <mat-form-field appearance="standard" class="form-field">
@@ -227,8 +217,6 @@
         <form [formGroup]="summaryFormGroup">
           <ng-template matStepLabel>Summary</ng-template>
           <div class="profile-container">
-            <h2>Build Your Profile</h2>
-            <mat-divider></mat-divider>
            
             <mat-form-field appearance="standard">
               <mat-label>Summary</mat-label>
@@ -262,8 +250,6 @@
         <form [formGroup]="thirdFormGroup">
           <ng-template matStepLabel>Qualifications</ng-template>
           <div class="profile-container">
-            <h2>Build Your Profile</h2>
-            <mat-divider></mat-divider>
             
             <mat-tab-group dynamicHeight>
               <mat-tab label="Education">
@@ -283,7 +269,6 @@
                       <p><strong>Status:</strong> {{ edu.status }}</p>
                     </mat-card-content>
                    
-  
                     <div class="button-end">
                       <button  mat-icon-button color="warn" aria-label="Remove Education"  (click)="removeEducation(i)">
                           <mat-icon>delete</mat-icon>
@@ -317,6 +302,7 @@
                               <mat-icon>edit</mat-icon>
                           </button>
                         </div>
+                        
                       </mat-card-content>
                   </div>
                 </div>

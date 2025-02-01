@@ -2,13 +2,13 @@
     <img src="
     https://as1.ftcdn.net/v2/jpg/02/14/53/92/1000_F_214539232_YnUrtuwUEt84gHuU0qG8l7OwZvH4rnPG.jpg"
      alt="Cover Photo" class="cover-photo-img" />
-    <button mat-button class="edit-cover-btn">Edit cover photo</button>
+    <button *ngIf="profiles.btnCurriculum === 1" mat-button class="edit-cover-btn">Edit cover photo</button>
   </div>
 
   <div class="profile-info">
     <div class="profile-picture">
       <img *ngIf="profiles" [src]="profiles.photo_pic" alt="Profile Picture" class="profile-img" />
-      <button mat-icon-button class="edit-profile-btn" (click)="uploadPic()">
+      <button *ngIf="profiles.btnCurriculum === 1"  mat-icon-button class="edit-profile-btn" (click)="uploadPic()">
         <mat-icon>photo_camera</mat-icon>
       </button>
     </div>
@@ -16,10 +16,6 @@
       <h1>{{ profiles.fname }} {{ profiles.lname }} <small style="color: white;">({{ profiles.profession }})</small></h1>
       <p>761 followers · 369 following</p>
       <button *ngIf="profiles.btnCurriculum === 1" mat-raised-button class="edit-btn" (click)="UserCV()">Curriculum Vitae</button>
-
-      <!-- <button *ngIf="btnCurriculum" mat-raised-button class="edit-btn" (click)="UserCV()">Curriculum Vitae</button> -->
-
-     
     </div>
   </div>
   
@@ -67,9 +63,11 @@
           <!-- Language Section -->
           <section class="cv-section" *ngIf="profiles?.lines?.language?.length">
             <h2>Language</h2>
-            <div *ngFor="let language of profiles.lines.language" class="cv-item">
-              <p><strong>{{ language.language }}</strong></p>
-            </div>
+            <mat-list>
+              <mat-list-item *ngFor="let language of profiles.lines.language">
+                {{ language.language }}
+              </mat-list-item>
+            </mat-list>
           </section>
         </mat-card-content>
 
@@ -84,29 +82,30 @@
                 <mat-divider></mat-divider>
             </mat-card-header>
             <mat-card-content>
-              <section *ngIf="profiles?.lines?.education?.length">
-                <mat-list>
-                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+              <section class="cv-section" *ngIf="profiles?.lines?.education?.length > 0">
+                <mat-list  *ngFor="let education of profiles.lines.education">
+
+                <mat-list-item>
                   <span>Highest Education: {{ education.highest_education }}</span>
                 </mat-list-item>
               
-                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                <mat-list-item>
                   <span>School Name: {{ education.school_name }}</span>
                 </mat-list-item>
 
-                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                <mat-list-item>
                   <span>Start Month: {{ education.start_month }}</span>
                 </mat-list-item>
 
-                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                <mat-list-item>
                   <span>Start Year: {{ education.start_year }}</span>
                 </mat-list-item>
 
-                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                <mat-list-item>
                   <span>End Month: {{ education.end_month }}</span>
                 </mat-list-item>
 
-                <mat-list-item *ngFor="let education of profiles?.lines?.education">
+                <mat-list-item>
                   <span>End Year: {{ education.end_year }}</span>
                 </mat-list-item>
                 </mat-list>

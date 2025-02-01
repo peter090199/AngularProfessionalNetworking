@@ -169,7 +169,7 @@ export class UserProfileUiComponent implements AfterViewInit  {
 
 
 loadEducationData() {
-  this.formEducation = this.profileService.getDataEducation();
+  this.formEducation = this.thirdFormGroup.value;
 
 }
 
@@ -232,7 +232,7 @@ editEducation(index: number): void {
 
   dialogRef.afterClosed().subscribe((result) => {
     if (result) {
-      this.loadEducationData();
+      //this.GetUpdateDataUser();
     }
   });
 }
@@ -408,7 +408,9 @@ GetUpdateDataUser() {
         this.formSkills = response.message.lines.skills;
         this.formSeminar = response.message.lines.seminar;
         this.formTraining = response.message.lines.training;
-     
+        this.formCertificate = response.message.lines.certificate;
+        this.formWorkExperience = response.message.lines.employment;
+        
       } else {
         this.error = 'Failed to load profile data';
       }
@@ -614,14 +616,14 @@ resetSearch(): void {
     this.firstFormGroup = this.formBuilder.group({
       photo_pic: [null],  // Set to null if no file is selected
       contact_no: ['', Validators.required],
-      contact_visibility: [0],
-      email_visibility: [0],
+      contact_visibility: [],
+      email_visibility: [],
       date_birth: ['', Validators.required],
       
     });
     this.secondFormGroup = this.formBuilder.group({
-     // home_country: ['', Validators.required],
-     // current_location: ['', Validators.required],
+      home_country: ['', Validators.required],
+      current_location: ['', Validators.required],
       home_state: ['', Validators.required],
       current_state: ['', Validators.required],
     });
@@ -1045,11 +1047,57 @@ AddCertificate(): void {
   });
 }
 
+
+submit(): void {
+  if (
+    this.firstFormGroup.valid &&
+    this.secondFormGroup.valid &&
+    this.summaryFormGroup.valid &&
+    this.thirdFormGroup.valid
+  ) {
+    this.loading = true;
+    this.btnSave = 'Saving...';
+
+    const language = this.passDataServices.getLanguange();
+    const skills = this.passDataServices.getSkills();
+    const education = this.passDataServices.getDataEducation();
+    const training = this.passDataServices.getDataTraining();
+    const seminar = this.passDataServices.getDataSeminar();
+    const employment = this.passDataServices.getDataEmployment();
+    const certificate = this.passDataServices.getDataCertificate();
+  
+    const lines = {
+      language,
+      skills,
+      education,
+      training,
+      seminar,
+      employment,
+      certificate,
+    };
+  
+    const formData = {
+     ...this.firstFormGroup.value,
+     ...this.secondFormGroup.value,
+     ...this.summaryFormGroup.value,
+     lines
+    };
+
+    console.log('Form Data:', formData);
+
+    setTimeout(() => {
+      this.loading = false;
+      this.btnSave = 'Saved';
+    }, 2000);
+  } else {
+    alert('Please fill in all required fields.');
+  }
+}
 lines:any=[];
 
-submit() {
+submitxxx() {
   this.loading = true;
-  const language = this.passDataServices.getLanguange();
+  const language = this
   const skills = this.passDataServices.getSkills();
   const education = this.passDataServices.getDataEducation();
   const training = this.passDataServices.getDataTraining();
