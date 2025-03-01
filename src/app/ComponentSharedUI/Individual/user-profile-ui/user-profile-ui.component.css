@@ -13,7 +13,7 @@ mat-progress-bar {
   
   /* Optional: Adjust the content to ensure it has enough padding or margin below the tab header */
   mat-tab-body {
-    padding-top: 56px; /* Add margin to avoid content being hidden behind the sticky tab header */
+    padding-top: 60px; /* Add margin to avoid content being hidden behind the sticky tab header */
   }
   
   
@@ -23,7 +23,7 @@ mat-progress-bar {
   
   mat-card-content h3 {
     font-size: 1.25rem;
-    margin-bottom: 8px;
+    margin-bottom: 3px;
   }
   
   mat-card-content p {
@@ -44,9 +44,9 @@ mat-progress-bar {
   
   .card-container {
     overflow: auto;
-    height: 180px;
-    max-height: 190px;
-    margin-top: 30px;
+    height: 200px;
+    max-height: 200px;
+    margin-top: 10px;
   }
   .full-width {
     width: 100%;

@@ -15,12 +15,21 @@ export class ViewLanguageUIComponent implements OnInit {
   ) { }
 
   formLanguage: any=[];
+
+
+  
   ngOnInit(): void {
     this.loadData();
+
   }
+
+
+  
 
 loadData(){
   this.formLanguage = this.language.getLanguange();
+
+
 }
   removelanguage(index: number) {
       this.alert.toastrSuccess("Successfuly Deleted!")

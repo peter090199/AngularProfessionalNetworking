@@ -13,6 +13,8 @@
 //   }
 
 // }
+
+
 import { StepperSelectionEvent } from '@angular/cdk/stepper';
 import { Component, OnInit, ViewChild,AfterViewInit, Inject  } from '@angular/core';
 import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.service';
@@ -22,7 +24,7 @@ import { ProfileService } from 'src/app/services/Profile/profile.service';
 import { MatHorizontalStepper } from '@angular/material/stepper/stepper';
 import { Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
-import { MAT_DIALOG_DATA, MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { AddLanguageUIComponent } from '../Languange/add-language-ui/add-language-ui.component';
 import { AddEducationUIComponent } from '../ProfessionalDev/add-education-ui/add-education-ui.component';
 import { AddSkillsUIComponent } from '../ProfessionalDev/add-skills-ui/add-skills-ui.component';
@@ -43,7 +45,7 @@ import { AddEditWorkExprienceComponent } from '../ProfessionalDev/Edit/add-edit-
 import { AddEditSkillsComponent } from '../ProfessionalDev/Edit/add-edit-skills/add-edit-skills.component';
 import { AddEditLanguageComponent } from '../ProfessionalDev/Edit/add-edit-language/add-edit-language.component';
 import { ViewLanguageUIComponent } from '../Languange/view-language-ui/view-language-ui.component';
-import { ActivatedRoute } from '@angular/router';
+
 
 /**
  * @title Basic expansion panel
@@ -56,7 +58,6 @@ export interface User {
 export interface User2 {
   name: string;
 }
-
 @Component({
   selector: 'app-user-profile-ui',
   templateUrl: './user-profile-ui.component.html',
@@ -74,7 +75,7 @@ export class UserProfileUiComponent implements AfterViewInit  {
   thirdFormGroup: FormGroup;
   
   formEducation: any[] = [];
-  formSeminar: any[];
+  formSeminar: any[]= [];
   formTraining: any[]= [];
   formCertificate: any[]= [];
   formWorkExperience: any[]= [];
@@ -154,8 +155,7 @@ export class UserProfileUiComponent implements AfterViewInit  {
               private cvService:CurriculumVitaeService,
               private notificationService:NotificationsService,private router:Router,private datePipe:DatePipe,
               private dialog:MatDialog, private passDataServices:ProfessionalService,private alert:NotificationsService,
-              private profileService: ProfessionalService,  @Inject(MAT_DIALOG_DATA) public data: any,
-              private route:ActivatedRoute
+              private profileService: ProfessionalService,
   ) {
     this.countryControl1.valueChanges.subscribe(value => {
       this.filteredCountries1 = this.filterCountries(value);
@@ -169,7 +169,7 @@ export class UserProfileUiComponent implements AfterViewInit  {
 
 
 loadEducationData() {
-  this.formEducation = this.thirdFormGroup.value;
+  this.formEducation = this.profileService.getDataEducation();
 
 }
 
@@ -232,7 +232,7 @@ editEducation(index: number): void {
 
   dialogRef.afterClosed().subscribe((result) => {
     if (result) {
-      //this.GetUpdateDataUser();
+      this.loadEducationData();
     }
   });
 }
@@ -298,7 +298,7 @@ editWorkexperience(index: number): void {
   });
 }
 
-removeEducations(index: number) {
+removeEducation(index: number) {
   this.alert.toastrSuccess("Successfuly Deleted!")
   this.formEducation.splice(index, 1);
 
@@ -381,91 +381,14 @@ countries: { name: string }[] = [
   filteredCountries1: { name: string }[] = this.countries;
   filteredCountries2: { name: string }[] = this.countries;
   
-btnSave:string="Finish";
-code:any;
 
 ngOnInit(): void {
-  const url = window.location.href;
-  const codesplit = url.split('/').pop();
-  this.code = codesplit;
-
   this.initializeFormGroups();
   this.GetUserData();
-  this.GetUpdateDataUser();
-
+ 
+  this.LoadEducationData();
+  this.loadSeminarData();
 }
-
-
-currentLocationControl = new FormControl();
-GetUpdateDataUser() {
-  this.userService.getProfileByUser(this.code).subscribe({
-    next: (response) => {
-      if (response.success) {
-        this.firstFormGroup.patchValue(response.message); 
-        this.secondFormGroup.patchValue(response.message); 
-        this.summaryFormGroup.patchValue(response.message); 
-        this.formEducation = response.message.lines.education;
-        this.formSkills = response.message.lines.skills;
-        this.formSeminar = response.message.lines.seminar;
-        this.formTraining = response.message.lines.training;
-        this.formCertificate = response.message.lines.certificate;
-        this.formWorkExperience = response.message.lines.employment;
-        
-      } else {
-        this.error = 'Failed to load profile data';
-      }
-    },
-    error: (err) => {
-      this.error = err.message || 'An error occurred while fetching profile data';
-    },
-  });
-}
-
-getProfileData(): void {
-  this.userService.getProfileByUser(this.code).subscribe({
-    next: (response) => {
-      if (response.success) {
-        // Populate the form controls with the data
-        this.setEducationForm(response.message.education); // Assuming 'education' is part of the response
-      } else {
-        console.error('Failed to load profile data');
-      }
-    },
-    error: (err) => {
-      console.error('Error loading profile data:', err);
-    },
-  });
-}
-
-removeEducation(index: number): void {
-  const educationFormArray = <FormArray>this.thirdFormGroup.get('education');
-  educationFormArray.removeAt(index);
-}
-// Populate education data into the form
-setEducationForm(educationData: any[]): void {
-  const educationFormArray = <FormArray>this.thirdFormGroup.get('education');
-
-  // Clear existing form controls before adding new ones
-  educationFormArray.clear();
-
-  educationData.forEach((edu) => {
-    educationFormArray.push(
-      new FormGroup({
-        highest_education: new FormControl(edu.highest_education),
-        school_name: new FormControl(edu.school_name),
-        start_month: new FormControl(edu.start_month),
-        start_year: new FormControl(edu.start_year),
-        end_month: new FormControl(edu.end_month),
-        end_year: new FormControl(edu.end_year),
-        status: new FormControl(edu.status),
-      })
-    );
-  });
-}
-
-
-
-
 
 
 displayFn(user: User): string {
@@ -616,14 +539,14 @@ resetSearch(): void {
     this.firstFormGroup = this.formBuilder.group({
       photo_pic: [null],  // Set to null if no file is selected
       contact_no: ['', Validators.required],
-      contact_visibility: [],
-      email_visibility: [],
+      contact_visibility: [0],
+      email_visibility: [0],
       date_birth: ['', Validators.required],
       
     });
     this.secondFormGroup = this.formBuilder.group({
-      home_country: ['', Validators.required],
-      current_location: ['', Validators.required],
+     // home_country: ['', Validators.required],
+     // current_location: ['', Validators.required],
       home_state: ['', Validators.required],
       current_state: ['', Validators.required],
     });
@@ -932,7 +855,6 @@ removeItemFromArray6(arrayName: 'certificate', index: number) {
     }
   });
 }
-
 viewlanguage(): void {
   const dialogConfig = new MatDialogConfig();
   dialogConfig.disableClose = true;
@@ -1047,57 +969,11 @@ AddCertificate(): void {
   });
 }
 
-
-submit(): void {
-  if (
-    this.firstFormGroup.valid &&
-    this.secondFormGroup.valid &&
-    this.summaryFormGroup.valid &&
-    this.thirdFormGroup.valid
-  ) {
-    this.loading = true;
-    this.btnSave = 'Saving...';
-
-    const language = this.passDataServices.getLanguange();
-    const skills = this.passDataServices.getSkills();
-    const education = this.passDataServices.getDataEducation();
-    const training = this.passDataServices.getDataTraining();
-    const seminar = this.passDataServices.getDataSeminar();
-    const employment = this.passDataServices.getDataEmployment();
-    const certificate = this.passDataServices.getDataCertificate();
-  
-    const lines = {
-      language,
-      skills,
-      education,
-      training,
-      seminar,
-      employment,
-      certificate,
-    };
-  
-    const formData = {
-     ...this.firstFormGroup.value,
-     ...this.secondFormGroup.value,
-     ...this.summaryFormGroup.value,
-     lines
-    };
-
-    console.log('Form Data:', formData);
-
-    setTimeout(() => {
-      this.loading = false;
-      this.btnSave = 'Saved';
-    }, 2000);
-  } else {
-    alert('Please fill in all required fields.');
-  }
-}
 lines:any=[];
 
-submitxxx() {
+submit() {
   this.loading = true;
-  const language = this
+  const language = this.passDataServices.getLanguange();
   const skills = this.passDataServices.getSkills();
   const education = this.passDataServices.getDataEducation();
   const training = this.passDataServices.getDataTraining();

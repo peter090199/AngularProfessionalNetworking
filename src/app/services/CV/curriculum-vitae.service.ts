@@ -14,6 +14,7 @@ export class CurriculumVitaeService {
     return localStorage.getItem('token') || ''; // Fetch the token from localStorage or other storage
   }
 
+  
   private createHeaders(): HttpHeaders {
     const token = this.getAuthToken();
     return new HttpHeaders({

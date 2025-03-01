@@ -51,19 +51,35 @@ export class ProfileUIComponent implements OnInit {
     });
   }
 
+  
   UserCV() {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = true;
     dialogConfig.autoFocus = true;
-    dialogConfig.width = '900px';
+    dialogConfig.width = '1000px';
+    dialogConfig.height = '690px';
   //  dialogConfig.data = element || null; // Pass user data
-  
+    
     const dialogRef = this.dialog.open(UserProfileUiComponent, dialogConfig);
   
     dialogRef.afterClosed().subscribe(() => {
       
     });
   }
+
+  // UserCV() {
+  //   const dialogConfig = new MatDialogConfig();
+  //   dialogConfig.disableClose = true;
+  //   dialogConfig.autoFocus = true;
+  //   dialogConfig.width = '980px';
+  // //  dialogConfig.data = element || null; // Pass user data
+  
+  //   const dialogRef = this.dialog.open(UserCVComponent, dialogConfig);
+  
+  //   dialogRef.afterClosed().subscribe(() => {
+      
+  //   });
+  // }
   
 
   loadUserData(){

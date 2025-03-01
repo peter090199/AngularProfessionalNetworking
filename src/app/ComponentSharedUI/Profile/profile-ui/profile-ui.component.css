@@ -99,6 +99,8 @@
   border: none;
   border-radius: 4px;
   cursor: pointer;
+
+  
 }
 
 .profile-details .edit-btn:hover {
@@ -117,7 +119,7 @@
 
 .tab-content {
   justify-content: center;
-  height: auto;
+  height: 100vh;
 
 }
 

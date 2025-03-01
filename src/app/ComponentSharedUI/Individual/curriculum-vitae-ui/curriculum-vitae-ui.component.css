@@ -1,7 +1,7 @@
 /* General Styling */
-/* ::ng-deep mat-horizontal-stepper .mat-step-header {
-  /* display: none; 
-}*/
+::ng-deep mat-horizontal-stepper .mat-step-header {
+  display: none; 
+}
 
 mat-form-field {
   width: 92%;
