@@ -7,7 +7,7 @@
 
   <div class="profile-info">
     <div class="profile-picture">
-      <img *ngIf="profiles" [src]="profiles.photo_pic" alt="Profile Picture" class="profile-img" />
+      <img *ngIf="profiles" [src]="profiles.photo_pic || 'assets/images/default.png'"  alt="Profile Picture" class="profile-img" />
       <button *ngIf="profiles?.btnCurriculum === 1"  mat-icon-button class="edit-profile-btn" (click)="uploadPic()">
         <mat-icon>photo_camera</mat-icon>
       </button>

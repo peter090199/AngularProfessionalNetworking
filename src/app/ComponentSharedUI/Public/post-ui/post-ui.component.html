@@ -1,0 +1,30 @@
+<!-- <mat-card-header>
+  <div class="button-end">
+      <button mat-icon-button color="warn" [mat-dialog-close]="true"><mat-icon>close</mat-icon></button>
+    </div>
+</mat-card-header> -->
+<h2 mat-dialog-title>Create a Post</h2>
+<mat-divider></mat-divider>
+
+<mat-dialog-content class="post-content">
+  <mat-form-field appearance="outline" class="full-width">
+    <textarea matInput placeholder="What do you want to talk about?" [(ngModel)]="postContent"></textarea>
+  </mat-form-field>
+
+  <div class="post-actions">
+    <button mat-icon-button (click)="uploadImage()">
+      <mat-icon>image</mat-icon>
+    </button>
+    <button mat-icon-button (click)="uploadVideo()">
+      <mat-icon>videocam</mat-icon>
+    </button>
+    <button mat-icon-button>
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog()">Cancel</button>
+  <button mat-flat-button color="primary" (click)="postData()" [disabled]="!postContent">Post</button>
+</mat-dialog-actions>

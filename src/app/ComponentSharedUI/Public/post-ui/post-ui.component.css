@@ -1,0 +1,113 @@
+/* General Styles */
+.post-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+.post-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: start;
+  margin-top: 10px;
+}
+
+.post-actions button {
+  background: #f1f1f1;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+}
+
+.post-actions button:hover {
+  background: #ddd;
+}
+
+mat-dialog-actions {
+  padding-top: 10px;
+}
+textarea {
+  min-height: 100px; /* Default height */
+  max-height: 300px; /* Prevent excessive expansion */
+  overflow-y: auto; /* Show scrollbar when needed */
+  resize: vertical; /* Allow user to resize vertically */
+}
+
+
+/* Close Button Alignment */
+.button-end {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.button-end button {
+  margin: -10px;
+}
+
+/* Mobile (Phones) */
+@media screen and (max-width: 600px) {
+  .mat-dialog-container {
+    width: 95% !important;
+    max-width: none !important;
+    padding: 16px;
+  }
+
+  h2 {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  mat-form-field {
+    font-size: 14px;
+  }
+
+  .post-actions {
+    justify-content: space-around;
+  }
+
+  mat-dialog-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  mat-dialog-actions button {
+    width: 100%;
+  }
+}
+
+/* Tablet */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+  .mat-dialog-container {
+    width: 80% !important;
+    max-width: 500px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
+  mat-form-field {
+    font-size: 16px;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1025px) {
+  .mat-dialog-container {
+    width: 30% !important;
+    max-width: 300px;
+  }
+
+  h2 {
+    font-size: 22px;
+  }
+
+  mat-form-field {
+    font-size: 18px;
+  }
+}

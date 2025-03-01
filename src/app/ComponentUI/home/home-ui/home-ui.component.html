@@ -68,11 +68,8 @@
           <div class="post-box-container">
             <div class="input-section">
               <img src="https://via.placeholder.com/40" alt="Avatar" class="avatar" />
-              <input
-                type="text"
-                placeholder="Create your post?"
-                class="post-input" disabled
-              />
+              <input  type="text"  placeholder="Create your post?" class="post-input" readonly  (click)="createPost()" />
+              
             </div>
           
             <div class="actions-section">

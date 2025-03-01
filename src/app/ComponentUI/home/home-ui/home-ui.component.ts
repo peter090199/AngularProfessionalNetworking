@@ -8,6 +8,7 @@ import { CurriculumVitaeService } from 'src/app/services/CV/curriculum-vitae.ser
 import { THREE } from '@angular/cdk/keycodes';
 import { UploadProfileComponent } from 'src/app/ComponentSharedUI/Individual/upload-profile/upload-profile.component';
 import { ActivatedRoute } from '@angular/router';
+import { PostUIComponent } from 'src/app/ComponentSharedUI/Public/post-ui/post-ui.component';
 
 @Component({
   selector: 'app-home-ui',
@@ -18,7 +19,16 @@ export class HomeUIComponent implements OnInit {
 
 
 createPost() {
-throw new Error('Method not implemented.');
+  const dialogConfig = new MatDialogConfig();
+  dialogConfig.disableClose = true;
+  dialogConfig.autoFocus = true;
+  dialogConfig.width = '600px';
+//  dialogConfig.data = element || null; // Pass user data
+  const dialogRef = this.dialog.open(PostUIComponent, dialogConfig);
+
+  dialogRef.afterClosed().subscribe(() => {
+    
+  });
 }
 
   private scrollInterval: any;
