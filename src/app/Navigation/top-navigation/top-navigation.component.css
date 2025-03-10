@@ -418,3 +418,51 @@ mat-icon.logout-icon {
     animation: fadeIn 1s ease-in; /* Apply fadeIn animation */
   }
   
+
+
+/* fb search */
+  .search-container {
+    position: relative;
+    width: 300px;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+  }
+  
+  .search-dropdown {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .search-dropdown li {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .search-dropdown li:hover {
+    background: #f1f1f1;
+  }
+  
+  .profile-pic {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  

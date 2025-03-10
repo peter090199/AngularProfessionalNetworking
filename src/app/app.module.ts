@@ -72,6 +72,8 @@ import { AddEditLanguageComponent } from './ComponentSharedUI/Individual/Profess
 import { ViewLanguageUIComponent } from './ComponentSharedUI/Individual/Languange/view-language-ui/view-language-ui.component';
 import { UserProfileUiComponent } from './ComponentSharedUI/Individual/user-profile-ui/user-profile-ui.component';
 import { PostUIComponent } from './ComponentSharedUI/Public/post-ui/post-ui.component';
+import { PrintLayoutComponent } from './print-layout/print-layout.component';
+import { SearchComponent } from './ComponentUI/search/search.component';
 
 // Loader function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient) {
@@ -136,7 +138,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     ViewLanguageUIComponent,
     UserProfileUiComponent,
     PostUIComponent,
-
+    PrintLayoutComponent,
+    SearchComponent,
+    
   
  
   

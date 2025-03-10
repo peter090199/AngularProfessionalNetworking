@@ -1,0 +1,28 @@
+<!-- <mat-form-field class="search-container">
+    <mat-label>Search</mat-label>
+    <input matInput type="text" [(ngModel)]="searchQuery" (input)="onSearch()"/>
+</mat-form-field>
+  
+  <mat-card *ngIf="results.length > 0" class="search-dropdown">
+    <mat-list>
+      <mat-list-item *ngFor="let result of results" (click)="selectResult(result)">
+        <img matListAvatar [src]="result.profilePic" alt="Profile" />
+        <h4 matLine>{{ result.name }}</h4>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+   -->
+   <div class="input-group custom-search-bar">
+    <input type="text" class="form-control" placeholder="Search Nexsuz" [(ngModel)]="searchQuery" (input)="onSearch()"/>
+    <div *ngIf="results.length > 0" class="dropdown-menu show" 
+         style="max-height: 600px; overflow-y: auto; position: absolute; width: 100%; z-index: 999; color: black;">
+        <a style="color: black;" *ngFor="let item of results" 
+           class="dropdown-item" 
+           [routerLink]="'/profile/' + item.code"
+           (click)="reloadPage()">
+            <img matListAvatar [src]="item.profilePic" alt="Profile" />
+            <span matLine>{{ item.name }}</span>
+        </a>
+    </div>
+</div>
+

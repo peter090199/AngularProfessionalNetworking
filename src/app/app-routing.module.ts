@@ -23,6 +23,9 @@ import { ProfileUIComponent } from './ComponentSharedUI/Profile/profile-ui/profi
 import { UserCVComponent } from './ComponentSharedUI/Individual/user-cv/user-cv.component';
 import { UploadProfileComponent } from './ComponentSharedUI/Individual/upload-profile/upload-profile.component';
 import { PrintCVComponent } from './ComponentSharedUI/Individual/print-cv/print-cv.component';
+import { PrintReceiptComponent } from './print-layout/print-receipt/print-receipt.component';
+import { PrintReceiptsComponent } from './print-layout/print-receipts/print-receipts.component';
+import { PrintComponent } from './print-layout/print/print.component';
 
 
 const routes: Routes = [
@@ -62,6 +65,20 @@ const routes: Routes = [
       { path: 'user', component: UsersComponent },
       { path: 'menu', component: MenuComponent },
       { path: 'role', component: RoleComponent },
+    ]
+  },
+  {
+    path: 'print',component: PrintComponent,
+    children: [
+      {
+        path: 'printreceipts',component: PrintReceiptsComponent
+      },
+      {
+        path: 'printreceipt',component: PrintReceiptComponent
+      },
+      {
+        path: 'printcv',component: PrintCVComponent
+      },
     ]
   },
 

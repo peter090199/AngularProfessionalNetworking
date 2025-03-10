@@ -90,6 +90,7 @@ export class AddEducationUIComponent implements OnInit {
       this.dataService.setformEducation(this.educationList); // Save to the service or database
       this.alert.toastrSuccess('Successfully Added.');
       this.dialogRef.close(this.educationList);
+      this.loadEducationData();
     } else {
       console.error('Form is invalid');
     }

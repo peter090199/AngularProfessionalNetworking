@@ -155,7 +155,7 @@ export class UserProfileUiComponent implements AfterViewInit  {
               private cvService:CurriculumVitaeService,
               private notificationService:NotificationsService,private router:Router,private datePipe:DatePipe,
               private dialog:MatDialog, private passDataServices:ProfessionalService,private alert:NotificationsService,
-              private profileService: ProfessionalService,
+              private profileService: ProfessionalService
   ) {
     this.countryControl1.valueChanges.subscribe(value => {
       this.filteredCountries1 = this.filterCountries(value);
@@ -334,6 +334,7 @@ removeSkills(index: number) {
  fname:string="";
  email:string="";
  contact_no:string="";
+
  profession:string="";
  progressPercentage = 0;
 
@@ -380,15 +381,51 @@ countries: { name: string }[] = [
   
   filteredCountries1: { name: string }[] = this.countries;
   filteredCountries2: { name: string }[] = this.countries;
-  
+
+ data:any;
+ dateBirthControl = new FormControl();
+ dataArray:any = [];
 
 ngOnInit(): void {
   this.initializeFormGroups();
   this.GetUserData();
- 
+  this.validateAge();
   this.LoadEducationData();
+  this.getCVData();
   this.loadSeminarData();
 }
+
+  getCVData(): void {
+    this.cvService.getDataCV().subscribe(
+      (res) => {
+        if (res.success) {
+          this.data = res.message;
+
+          this.dataArray = res.message || []; 
+          this.formEducation = [...this.dataArray.lines.education];
+          this.formSkills =  [...this.dataArray.lines.skills];
+          this.formSeminar = [...this.dataArray.lines.seminar];
+          this.formTraining =  [...this.dataArray.lines.training];
+          this.formCertificate =  [...this.dataArray.lines.certificate];
+          this.formWorkExperience =  [...this.dataArray.lines.employment];
+
+          this.countryControl1.setValue(res.message.home_country);
+          this.countryControl2.setValue(res.message.current_location);
+
+          const rawDate = res.message.date_birth; // Assuming API returns string like "2025-03-25"
+          if (rawDate) {
+            const formattedDate = new Date(rawDate); // Convert to Date object
+            this.dateBirthControl.setValue(formattedDate); // Set to FormControl
+          }
+        } else {
+          console.error('Invalid response format:', res.success);
+        }
+      },
+      (error) => {
+        console.error('Error fetching CV data:', error);
+      }
+    );
+  }
 
 
 displayFn(user: User): string {
@@ -906,6 +943,7 @@ AddEducation(): void {
   dialogRef.afterClosed().subscribe((formResult) => {
     if (formResult) {
       this.LoadEducationData();
+      this.getCVData();
     }
   });
 }
@@ -970,9 +1008,97 @@ AddCertificate(): void {
 }
 
 lines:any=[];
+submitxxx() {
+  this.loading = true;
+
+  // Retrieve dynamically added data
+  const language = this.passDataServices.getLanguange();
+  const skills = this.passDataServices.getSkills();
+  const education = this.passDataServices.getDataEducation();
+  const training = this.passDataServices.getDataTraining();
+  const seminar = this.passDataServices.getDataSeminar();
+  const employment = this.passDataServices.getDataEmployment();
+  const certificate = this.passDataServices.getDataCertificate();
+
+  // Organize into an object
+  const lines = {
+    language: language || [],
+    skills: skills || [],
+    education: education || [],
+    training: training || [],
+    seminar: seminar || [],
+    employment: employment || [],
+    certificate: certificate || [],
+  };
+
+  // Function to format date (YYYY-MM-DD)
+  const formatDate = (dateString: string | Date): string => {
+    if (!dateString) return ''; 
+    const date = new Date(dateString);
+    if (isNaN(date.getTime())) return ''; // Handle invalid dates
+    return date.toISOString().split('T')[0]; // Convert to YYYY-MM-DD format
+  };
+
+  // Ensure dynamic data's date fields are properly formatted
+  const formatDynamicData = (array: any[], dateKey: string) => {
+    if (array && Array.isArray(array)) {
+      array.forEach((item) => {
+        if (item[dateKey]) {
+          item[dateKey] = formatDate(item[dateKey]);
+        }
+      });
+    }
+  };
+
+  formatDynamicData(lines.training, 'trainingdate');
+  formatDynamicData(lines.seminar, 'seminardate');
+  formatDynamicData(lines.employment, 'date_completed');
+  formatDynamicData(lines.certificate, 'date_completed');
+
+  // Merge form data
+  const mergeData = {
+    ...this.firstFormGroup.getRawValue(),
+    ...this.secondFormGroup.getRawValue(),
+    ...this.summaryFormGroup.getRawValue(),
+    lines,
+  };
+
+  // Assign additional fields
+  mergeData.home_country = this.countryControl1.value;
+  mergeData.current_location = this.countryControl2.value;
+  mergeData.date_birth = formatDate(mergeData.date_birth); // Ensure birthdate is properly formatted
+
+  console.log("Submitted Data:", mergeData);
+
+  // Validate data before sending
+  if (!mergeData || Object.keys(mergeData).length === 0) {
+    this.notificationService.toastrError("Error: Data is empty!");
+    this.loading = false;
+    return;
+  }
+
+  // Save data via API
+  this.cvService.postCV2(mergeData).subscribe({
+    next: (res) => {
+      if (res.success) {
+        this.notificationService.toastPopUp(res.message);
+        console.log(res.message);
+      } else {
+        this.notificationService.toastrError(res.message);
+      }
+      this.loading = false;
+    },
+    error: (error: any) => {
+      this.notificationService.toastrError(error?.error || 'An unexpected error occurred.');
+      this.loading = false;
+    },
+  });
+}
 
 submit() {
+
   this.loading = true;
+
   const language = this.passDataServices.getLanguange();
   const skills = this.passDataServices.getSkills();
   const education = this.passDataServices.getDataEducation();
@@ -1052,7 +1178,6 @@ submit() {
         if (res.success) {
           this.notificationService.toastPopUp(res.message);
           console.log(res.message)
-          this.router.navigate(['/home']);
         } else {
           this.notificationService.toastrError(res.message);
         }

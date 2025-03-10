@@ -128,10 +128,12 @@
               <input
                 matInput
                 [matDatepicker]="picker1"
+                [formControl]="dateBirthControl"
                 formControlName="date_birth"
                 placeholder="Select your date of birth"
                 required
                 (dateChange)="validateAge()"
+                
               />
               <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
               <mat-datepicker #picker1></mat-datepicker>
@@ -171,12 +173,13 @@
                 {{ country.name }}
               </mat-option>
             </mat-autocomplete>
-            <input matInput [formControl]="countryControl1" [matAutocomplete]="auto1" id="country1" placeholder="Your Home Country" tabindex="1">
+            <input matInput [formControl]="countryControl1"  [matAutocomplete]="auto1" id="country1" placeholder="Your Home Country"
+             tabindex="1">
           </mat-form-field>
           
           <mat-form-field appearance="standard" class="form-field">
-              <mat-label>City, State</mat-label>
-              <input matInput formControlName="home_state" required />
+              <mat-label>Home City State</mat-label>
+              <input matInput formControlName="home_state" [value]="data?.home_state"  />
             </mat-form-field>
           </div>
 
@@ -192,23 +195,15 @@
             </mat-form-field>
 
             <mat-form-field appearance="standard" class="form-field">
-              <mat-label>City, State</mat-label>
-              <input matInput formControlName="current_state" required />
+              <mat-label>Current City State</mat-label>
+              <input matInput  formControlName="current_state"   [value]="data?.current_state"  />
             </mat-form-field>
             
           </div>
 
           <div class="button-end">
-            <button mat-raised-button color="warn" matStepperPrevious>
-              Back
-            </button>
-            <button
-              mat-raised-button
-              color="primary"
-              matStepperNext
-            >
-              Next
-            </button>
+            <button mat-raised-button color="warn" matStepperPrevious>  Back </button>
+            <button  mat-raised-button color="primary" matStepperNext> Next </button>
           </div>
         </div>
       </form>
@@ -226,7 +221,7 @@
             <textarea
               matInput
               formControlName="summary"
-              placeholder="Enter summary"
+              placeholder="Enter summary"  [value]="data?.summary"
             ></textarea>
           </mat-form-field>
 
